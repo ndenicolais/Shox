@@ -1,4 +1,4 @@
-package com.example.shox
+package com.ndn21.shox
 
 import io.flutter.embedding.android.FlutterActivity
 
