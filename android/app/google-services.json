@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "158223825544",
+    "project_id": "shox-bebd7",
+    "storage_bucket": "shox-bebd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158223825544:android:b461e7224efdd7ab117d3d",
+        "android_client_info": {
+          "package_name": "com.ndn21.shox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158223825544-8req8rf97073318agdb0rkvjt7komhr7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ndn21.shox",
+            "certificate_hash": "72b52d9c86856a40eb561965a2a278a7050cd728"
+          }
+        },
+        {
+          "client_id": "158223825544-2bhifk94f6ad7m68tsk386u510k4m1pt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5VsJqlwvnDapCtYU9tMfbr-_YNpalDNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158223825544-2bhifk94f6ad7m68tsk386u510k4m1pt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
