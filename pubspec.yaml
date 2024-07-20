@@ -1,7 +1,7 @@
 name: shox
 description: "A digital shoes wardrobe."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 1.1.0
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
@@ -16,6 +16,8 @@ dependencies:
   url_launcher: ^6.3.0
   logger: ^2.3.0
   http: ^1.2.1
+  provider: ^6.1.2
+  get: ^4.6.6
 
   # FIREBASE
   cloud_firestore: ^5.0.2
@@ -29,16 +31,13 @@ dependencies:
   image_picker: ^1.1.2
   image_cropper: ^7.1.0
 
-  # ANIMATION
-  animations: ^2.0.10
-  like_button: ^2.0.5
-
   # GRAPHICS
   cupertino_icons: ^1.0.6
   ming_cute_icons: ^0.0.5
   convex_bottom_bar: ^3.2.0
   syncfusion_flutter_charts: ^26.1.40
   delightful_toast: ^1.1.0
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:
