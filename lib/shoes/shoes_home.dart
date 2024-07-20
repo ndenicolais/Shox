@@ -1,9 +1,8 @@
-import 'dart:io';
-import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/account/profile_page.dart';
@@ -15,14 +14,14 @@ import 'package:shox/shoes/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/utils.dart';
 
-class ShoesList extends StatefulWidget {
-  const ShoesList({super.key});
+class ShoesHome extends StatefulWidget {
+  const ShoesHome({super.key});
 
   @override
-  ShoesListState createState() => ShoesListState();
+  ShoesHomeState createState() => ShoesHomeState();
 }
 
-class ShoesListState extends State<ShoesList>
+class ShoesHomeState extends State<ShoesHome>
     with SingleTickerProviderStateMixin {
   String _userName = '';
   final ShoesService shoesService = ShoesService();
@@ -154,13 +153,14 @@ class ShoesListState extends State<ShoesList>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
             'Filters',
             style: TextStyle(
               color: Theme.of(context).colorScheme.tertiary,
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFont',
+              fontFamily: 'CustomFontBold',
             ),
           ),
           content: StatefulBuilder(
@@ -173,7 +173,7 @@ class ShoesListState extends State<ShoesList>
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Color',
+                        'Colors',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontFamily: 'CustomFont',
@@ -202,7 +202,7 @@ class ShoesListState extends State<ShoesList>
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
                                   color: selectedColor == color
-                                      ? Colors.black
+                                      ? Theme.of(context).colorScheme.tertiary
                                       : Colors.transparent,
                                 ),
                               ),
@@ -217,7 +217,7 @@ class ShoesListState extends State<ShoesList>
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Season',
+                        'Seasons',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontFamily: 'CustomFont',
@@ -240,8 +240,11 @@ class ShoesListState extends State<ShoesList>
                           child: Icon(
                             icon,
                             color: selectedSeasonIcon == icon
-                                ? Colors.black
-                                : Colors.black.withOpacity(0.3),
+                                ? Theme.of(context).colorScheme.tertiary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .tertiary
+                                    .withOpacity(0.3),
                             size: 32,
                           ),
                         );
@@ -273,6 +276,7 @@ class ShoesListState extends State<ShoesList>
                           ),
                         )
                         .toList(),
+                    dropdownColor: Theme.of(context).colorScheme.primary,
                     decoration: InputDecoration(
                       labelText: 'Category',
                       labelStyle: TextStyle(
@@ -315,6 +319,7 @@ class ShoesListState extends State<ShoesList>
                           ),
                         )
                         .toList(),
+                    dropdownColor: Theme.of(context).colorScheme.primary,
                     decoration: InputDecoration(
                       labelText: 'Type',
                       labelStyle: TextStyle(
@@ -363,7 +368,7 @@ class ShoesListState extends State<ShoesList>
                     filtersActive = false;
                   },
                 );
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
             TextButton(
@@ -386,7 +391,7 @@ class ShoesListState extends State<ShoesList>
                     filtersActive = true;
                   },
                 );
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
           ],
@@ -413,7 +418,7 @@ class ShoesListState extends State<ShoesList>
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -504,7 +509,7 @@ class ShoesListState extends State<ShoesList>
                       icon: Icon(
                         filtersActive
                             ? MingCuteIcons.mgc_filter_fill
-                            : MingCuteIcons.mgc_filter_fill,
+                            : MingCuteIcons.mgc_filter_line,
                         color: filtersActive
                             ? Theme.of(context).colorScheme.secondary
                             : Theme.of(context).colorScheme.tertiary,
@@ -576,15 +581,31 @@ class ShoesListState extends State<ShoesList>
                           ),
                         );
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(
-                          child: Text(
-                            'No shoes found.',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontSize: 20,
-                              fontFamily: 'CustomFont',
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'No shoes',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 24,
+                                fontFamily: 'CustomFont',
+                              ),
                             ),
-                          ),
+                            Icon(
+                              MingCuteIcons.mgc_package_line,
+                              size: 60,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            Text(
+                              'in the box',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 24,
+                                fontFamily: 'CustomFont',
+                              ),
+                            ),
+                          ],
                         );
                       } else {
                         List<Shoes> shoesList = snapshot.data!;
@@ -656,14 +677,12 @@ class ShoesListState extends State<ShoesList>
                             Shoes shoe = filteredShoes[index];
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ShoesDetailsPage(
-                                      shoes: filteredShoes[index],
-                                    ),
+                                Get.to(
+                                  () => ShoesDetailsPage(
+                                    shoes: filteredShoes[index],
                                   ),
-                                ).then(
+                                  transition: Transition.fadeIn,
+                                )?.then(
                                   (_) {
                                     setState(
                                       () {
@@ -687,8 +706,8 @@ class ShoesListState extends State<ShoesList>
                                       ),
                                       elevation: 10,
                                       clipBehavior: Clip.antiAlias,
-                                      child: Image.file(
-                                        File(shoe.imageUrl),
+                                      child: Image.network(
+                                        shoe.imageUrl,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -705,8 +724,10 @@ class ShoesListState extends State<ShoesList>
                                                     .isFavorite;
                                           },
                                         );
-                                        shoesService
-                                            .updateShoes(filteredShoes[index]);
+                                        shoesService.updateShoes(
+                                            filteredShoes[index].id!,
+                                            filteredShoes[index],
+                                            null);
                                         return Future.value(!isLiked);
                                       },
                                       likeBuilder: (bool isLiked) {
@@ -717,9 +738,7 @@ class ShoesListState extends State<ShoesList>
                                               : MingCuteIcons.mgc_heart_line,
                                           color: filteredShoes[index].isFavorite
                                               ? AppColors.errorColor
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .tertiary,
+                                              : AppColors.smoothBlack,
                                           size: 24,
                                         );
                                       },
@@ -761,44 +780,22 @@ class ShoesListState extends State<ShoesList>
             _searchFocusNode.unfocus();
 
             if (index == 0) {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const ProfilePage(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeThroughTransition(
-                      animation: animation,
-                      secondaryAnimation: secondaryAnimation,
-                      child: child,
-                    );
-                  },
-                ),
+              Get.to(
+                () => const ProfilePage(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500),
               );
             } else if (index == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ShoesAdderPage(onShoesAdded: _updateShoesList),
-                ),
+              Get.to(
+                () => ShoesAdderPage(onShoesAdded: _updateShoesList),
+                transition: Transition.zoom,
+                duration: const Duration(milliseconds: 500),
               );
             } else if (index == 2) {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const SettingsPage(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeThroughTransition(
-                      animation: animation,
-                      secondaryAnimation: secondaryAnimation,
-                      child: child,
-                    );
-                  },
-                ),
+              Get.to(
+                () => const SettingsPage(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500),
               );
             }
           },
