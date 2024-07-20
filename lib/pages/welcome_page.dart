@@ -1,5 +1,5 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shox/account/login_page.dart';
 import 'package:shox/account/signup_page.dart';
 
@@ -16,7 +16,7 @@ class WelcomePageState extends State<WelcomePage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Stack(
             children: [
@@ -62,21 +62,10 @@ class WelcomePageState extends State<WelcomePage> {
                       height: 60,
                       child: MaterialButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      const LoginPage(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return FadeThroughTransition(
-                                  animation: animation,
-                                  secondaryAnimation: secondaryAnimation,
-                                  child: child,
-                                );
-                              },
-                            ),
+                          Get.to(
+                            () => const LoginPage(),
+                            transition: Transition.fade,
+                            duration: const Duration(milliseconds: 500),
                           );
                         },
                         shape: RoundedRectangleBorder(
@@ -101,21 +90,10 @@ class WelcomePageState extends State<WelcomePage> {
                       height: 60,
                       child: MaterialButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      const SignupPage(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return FadeThroughTransition(
-                                  animation: animation,
-                                  secondaryAnimation: secondaryAnimation,
-                                  child: child,
-                                );
-                              },
-                            ),
+                          Get.to(
+                            () => const SignupPage(),
+                            transition: Transition.fade,
+                            duration: const Duration(milliseconds: 500),
                           );
                         },
                         shape: RoundedRectangleBorder(
