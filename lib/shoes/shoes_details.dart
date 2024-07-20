@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/shoes/shoes_model.dart';
 import 'package:shox/shoes/shoes_service.dart';
@@ -32,11 +32,13 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
-            'DELETE',
+            'Delete',
             style: TextStyle(
               color: Theme.of(context).colorScheme.tertiary,
               fontSize: 20,
+              fontWeight: FontWeight.bold,
               fontFamily: 'CustomFontBold',
             ),
           ),
@@ -64,7 +66,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
             TextButton(
@@ -82,10 +84,10 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                 ),
               ),
               onPressed: () {
-                shoesService.deleteShoes(shoes.id!);
+                shoesService.deleteShoes(shoes.id!, shoes.imageUrl);
                 // Show confirmation toastbar
                 DelightToastBar(
-                  snackbarDuration: const Duration(seconds: 2),
+                  snackbarDuration: const Duration(milliseconds: 1500),
                   builder: (context) => const ToastCard(
                     color: AppColors.confirmColor,
                     leading: Icon(
@@ -102,12 +104,13 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                   ),
                   autoDismiss: true,
                 ).show(context);
-                Navigator.of(context).pop(); // Close the dialog
-                Navigator.of(context).pop(); // Back to previous screen
+                // Close the dialog
+                Get.back();
+                // Back to previous screen
+                Get.back();
               },
             ),
           ],
-          backgroundColor: AppColors.white,
         );
       },
     );
@@ -131,7 +134,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
         ),
         actions: [
@@ -148,7 +151,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
@@ -168,7 +171,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                             child: Stack(
                               children: [
                                 Center(
-                                  child: Image.file(File(shoes.imageUrl)),
+                                  child: Image.network(shoes.imageUrl),
                                 ),
                                 Positioned(
                                   top: 10,
@@ -180,7 +183,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                                             .colorScheme
                                             .tertiary),
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      Get.back();
                                     },
                                   ),
                                 ),
@@ -191,13 +194,14 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                       );
                     },
                     child: Card(
+                      color: Theme.of(context).colorScheme.primary,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                       elevation: 0,
                       clipBehavior: Clip.antiAlias,
-                      child: Image.file(
-                        File(shoes.imageUrl),
+                      child: Image.network(
+                        shoes.imageUrl,
                         fit: BoxFit.cover,
                         width: 280,
                         height: 280,
@@ -363,11 +367,8 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
         height: 70,
         child: FloatingActionButton(
           onPressed: () async {
-            final updatedShoes = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ShoesUpdaterPage(shoes: shoes),
-              ),
+            final updatedShoes = await Get.to(
+              () => ShoesUpdaterPage(shoes: shoes),
             );
 
             if (updatedShoes != null) {
