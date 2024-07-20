@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 
 class InfoPage extends StatefulWidget {
@@ -19,13 +20,13 @@ class InfoPageState extends State<InfoPage> {
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -93,7 +94,7 @@ class InfoPageState extends State<InfoPage> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      'V 1.0',
+                      'Version 1.1.0',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.tertiary,
                         fontSize: 14,
