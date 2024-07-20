@@ -2,6 +2,8 @@ extension ExtString on String {
   String? get nameValidationError {
     if (isEmpty) {
       return 'Name is required';
+    } else if (trim() == '') {
+      return 'Name cannot be just spaces';
     }
     return null;
   }
