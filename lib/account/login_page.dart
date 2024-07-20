@@ -1,18 +1,19 @@
-import 'package:animations/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/account/signup_page.dart';
-import 'package:shox/shoes/shoes_list.dart';
+import 'package:shox/shoes/shoes_home.dart';
 import 'package:shox/theme/app_colors.dart';
-import 'package:shox/utils/validator.dart';
+import 'package:shox/widgets/account_textfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,6 +25,7 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   var logger = Logger();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
@@ -42,23 +44,11 @@ class LoginPageState extends State<LoginPage> {
     bool rememberMe = prefs.getBool('remember_me') ?? false;
 
     if (rememberMe) {
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const ShoesList(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return FadeThroughTransition(
-                animation: animation,
-                secondaryAnimation: secondaryAnimation,
-                child: child,
-              );
-            },
-          ),
-        );
-      }
+      Get.to(
+        () => const ShoesHome(),
+        transition: Transition.fade,
+        duration: const Duration(milliseconds: 500),
+      );
     }
   }
 
@@ -72,30 +62,24 @@ class LoginPageState extends State<LoginPage> {
       User? user = userCredential.user;
 
       if (user != null) {
+        // Retrieve email username from Firestore
+        DocumentSnapshot userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+        String displayName = userDoc.get('name');
         // Save the state of "Remember Me"
         if (rememberMe) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('remember_me', true);
         }
 
+        _showConfirmToastBar(displayName);
+
         // Navigate to HomePage
-        if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  const ShoesList(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeThroughTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,
-                );
-              },
-            ),
-          );
-        }
+        Get.to(
+          () => const ShoesHome(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500),
+        );
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage;
@@ -125,31 +109,6 @@ class LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _showErrorSnackBar(String? message) {
-    if (message != null) {
-      // Show error toastbar
-      DelightToastBar(
-        position: DelightSnackbarPosition.top,
-        snackbarDuration: const Duration(seconds: 2),
-        builder: (context) => ToastCard(
-          color: AppColors.errorColor,
-          leading: const Icon(
-            MingCuteIcons.mgc_warning_fill,
-            size: 28,
-          ),
-          title: Text(
-            message,
-            style: const TextStyle(
-              color: AppColors.white,
-              fontSize: 16,
-            ),
-          ),
-        ),
-        autoDismiss: true,
-      ).show(context);
-    }
-  }
-
   Future<void> _loginWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -166,30 +125,30 @@ class LoginPageState extends State<LoginPage> {
       final User? user = userCredential.user;
 
       if (user != null) {
+        String? googleUserName = user.displayName;
+        if (googleUserName != null) {
+          List<String> nameParts = googleUserName.split(" ");
+          setState(
+            () {
+              // Take only the first name
+              googleUserName = nameParts[0];
+            },
+          );
+        }
         // Save the state of "Remember Me"
         if (rememberMe) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('remember_me', true);
         }
 
+        _showConfirmToastBar(googleUserName!);
+
         // Navigate to HomePage
-        if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  const ShoesList(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeThroughTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,
-                );
-              },
-            ),
-          );
-        }
+        Get.to(
+          () => const ShoesHome(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500),
+        );
       }
     } catch (e) {
       logger.e("Error signing in with Google: $e");
@@ -197,10 +156,60 @@ class LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _showConfirmToastBar(String userName) {
+    // Show error toastbar
+    DelightToastBar(
+      position: DelightSnackbarPosition.bottom,
+      snackbarDuration: const Duration(milliseconds: 1500),
+      builder: (context) => ToastCard(
+        color: AppColors.confirmColor,
+        leading: const Icon(
+          MingCuteIcons.mgc_hands_clapping_fill,
+          color: AppColors.white,
+          size: 28,
+        ),
+        title: Text(
+          'Welcome, $userName!',
+          style: const TextStyle(
+            color: AppColors.white,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      autoDismiss: true,
+    ).show(context);
+  }
+
+  void _showErrorSnackBar(String? message) {
+    if (message != null) {
+      // Show error toastbar
+      DelightToastBar(
+        position: DelightSnackbarPosition.top,
+        snackbarDuration: const Duration(milliseconds: 1500),
+        builder: (context) => ToastCard(
+          color: AppColors.errorColor,
+          leading: const Icon(
+            MingCuteIcons.mgc_warning_fill,
+            color: AppColors.white,
+            size: 28,
+          ),
+          title: Text(
+            message,
+            style: const TextStyle(
+              color: AppColors.white,
+              fontSize: 16,
+            ),
+          ),
+        ),
+        autoDismiss: true,
+      ).show(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -228,46 +237,16 @@ class LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 80),
                           SizedBox(
                             width: 320,
-                            child: TextFormField(
+                            child: AccountTextField(
                               controller: _emailController,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                labelStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontFamily: 'CustomFont',
-                                ),
-                                hintText: 'example@example.com',
-                                prefixIcon: Icon(
-                                  MingCuteIcons.mgc_mail_fill,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontFamily: 'CustomFont',
-                              ),
+                              labelText: 'Email',
+                              hintText: 'Enter your email',
+                              prefixIcon: MingCuteIcons.mgc_mail_fill,
                               keyboardType: TextInputType.emailAddress,
                               textInputAction: TextInputAction.next,
                               validator: (val) {
                                 if (val == null || val.isEmpty) {
                                   return 'Email is required';
-                                } else if (!val.isValidEmail) {
-                                  return 'Enter a valid email address';
                                 }
                                 return null;
                               },
@@ -276,59 +255,31 @@ class LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 20),
                           SizedBox(
                             width: 320,
-                            child: TextFormField(
+                            child: AccountTextField(
                               controller: _passwordController,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                labelStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontFamily: 'CustomFont',
-                                ),
-                                hintText: '********',
-                                prefixIcon: Icon(
-                                  MingCuteIcons.mgc_lock_fill,
+                              labelText: 'Password',
+                              hintText: 'Enter your password',
+                              prefixIcon: MingCuteIcons.mgc_lock_fill,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Theme.of(context).colorScheme.tertiary,
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary,
-                                  ),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        _passwordVisible = !_passwordVisible;
-                                      },
-                                    );
-                                  },
-                                ),
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      _passwordVisible = !_passwordVisible;
+                                    },
+                                  );
+                                },
                               ),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontFamily: 'CustomFont',
-                              ),
+                              keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.done,
                               obscureText: !_passwordVisible,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
                                   return 'Password is required';
                                 }
                                 return null;
@@ -377,7 +328,11 @@ class LoginPageState extends State<LoginPage> {
                             height: 60,
                             child: MaterialButton(
                               onPressed: () {
-                                _login();
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
+
+                                  _login();
+                                }
                               },
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
@@ -395,10 +350,10 @@ class LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            'Login in with',
+                            'Or continue with',
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.tertiary,
-                              fontSize: 24,
+                              fontSize: 18,
                               fontFamily: 'CustomFont',
                             ),
                           ),
@@ -416,6 +371,7 @@ class LoginPageState extends State<LoginPage> {
                               text: 'Dont have an account? ',
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.tertiary,
+                                fontSize: 14,
                                 fontFamily: 'CustomFont',
                               ),
                               children: [
@@ -424,30 +380,17 @@ class LoginPageState extends State<LoginPage> {
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.secondary,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'CustomFont',
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (context, animation,
-                                                  secondaryAnimation) =>
-                                              const SignupPage(),
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return FadeThroughTransition(
-                                              animation: animation,
-                                              secondaryAnimation:
-                                                  secondaryAnimation,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
+                                      Get.to(
+                                        () => const SignupPage(),
+                                        transition: Transition.fade,
+                                        duration:
+                                            const Duration(milliseconds: 500),
                                       );
                                     },
                                 ),

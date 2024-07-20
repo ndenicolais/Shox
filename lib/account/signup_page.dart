@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
@@ -6,12 +5,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/account/login_page.dart';
-import 'package:shox/shoes/shoes_list.dart';
+import 'package:shox/shoes/shoes_home.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/validator.dart';
+import 'package:shox/widgets/account_textfield.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -49,24 +50,14 @@ class SignupPageState extends State<SignupPage> {
             },
           );
 
+          _showConfirmToastBar(_nameController.text.trim());
+
           // Navigate to MainPage
-          if (mounted) {
-            Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const ShoesList(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return FadeThroughTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    child: child,
-                  );
-                },
-              ),
-            );
-          }
+          Get.to(
+            () => const ShoesHome(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 500),
+          );
         }
       } on FirebaseAuthException catch (e) {
         String errorMessage;
@@ -97,16 +88,41 @@ class SignupPageState extends State<SignupPage> {
     }
   }
 
+  void _showConfirmToastBar(String userName) {
+    // Show error toastbar
+    DelightToastBar(
+      position: DelightSnackbarPosition.bottom,
+      snackbarDuration: const Duration(milliseconds: 1500),
+      builder: (context) => ToastCard(
+        color: AppColors.confirmColor,
+        leading: const Icon(
+          MingCuteIcons.mgc_hands_clapping_fill,
+          color: AppColors.white,
+          size: 28,
+        ),
+        title: Text(
+          'Welcome, $userName!',
+          style: const TextStyle(
+            color: AppColors.white,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      autoDismiss: true,
+    ).show(context);
+  }
+
   void _showErrorSnackBar(String? message) {
     if (message != null) {
       // Show error toastbar
       DelightToastBar(
         position: DelightSnackbarPosition.top,
-        snackbarDuration: const Duration(seconds: 2),
+        snackbarDuration: const Duration(milliseconds: 1500),
         builder: (context) => ToastCard(
           color: AppColors.errorColor,
           leading: const Icon(
             MingCuteIcons.mgc_warning_fill,
+            color: AppColors.white,
             size: 28,
           ),
           title: Text(
@@ -125,7 +141,7 @@ class SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -154,41 +170,11 @@ class SignupPageState extends State<SignupPage> {
                           const SizedBox(height: 80),
                           SizedBox(
                             width: 320,
-                            child: TextFormField(
+                            child: AccountTextField(
                               controller: _nameController,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              decoration: InputDecoration(
-                                labelText: 'Name',
-                                labelStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontFamily: 'CustomFont',
-                                ),
-                                hintText: 'Name',
-                                prefixIcon: Icon(
-                                  MingCuteIcons.mgc_text_fill,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontFamily: 'CustomFont',
-                              ),
-                              textCapitalization: TextCapitalization.sentences,
-                              textInputAction: TextInputAction.next,
+                              labelText: 'Name',
+                              hintText: 'Enter your name',
+                              prefixIcon: MingCuteIcons.mgc_user_2_fill,
                               validator: (val) {
                                 if (val == null || val.isEmpty) {
                                   return 'Name is required';
@@ -202,44 +188,19 @@ class SignupPageState extends State<SignupPage> {
 
                                 return null;
                               },
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              textCapitalization: TextCapitalization.sentences,
                             ),
                           ),
                           const SizedBox(height: 20),
                           SizedBox(
                             width: 320,
-                            child: TextFormField(
+                            child: AccountTextField(
                               controller: _emailController,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                labelStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontFamily: 'CustomFont',
-                                ),
-                                hintText: 'example@example.com',
-                                prefixIcon: Icon(
-                                  MingCuteIcons.mgc_mail_fill,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontFamily: 'CustomFont',
-                              ),
+                              labelText: 'Email',
+                              hintText: 'Enter your email',
+                              prefixIcon: MingCuteIcons.mgc_mail_fill,
                               keyboardType: TextInputType.emailAddress,
                               textInputAction: TextInputAction.next,
                               validator: (val) {
@@ -260,55 +221,27 @@ class SignupPageState extends State<SignupPage> {
                           const SizedBox(height: 20),
                           SizedBox(
                             width: 320,
-                            child: TextFormField(
+                            child: AccountTextField(
                               controller: _passwordController,
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                labelStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontFamily: 'CustomFont',
-                                ),
-                                hintText: '********',
-                                prefixIcon: Icon(
-                                  MingCuteIcons.mgc_lock_fill,
+                              labelText: 'Password',
+                              hintText: 'Enter your password',
+                              prefixIcon: MingCuteIcons.mgc_lock_fill,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Theme.of(context).colorScheme.tertiary,
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary,
-                                  ),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        _passwordVisible = !_passwordVisible;
-                                      },
-                                    );
-                                  },
-                                ),
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      _passwordVisible = !_passwordVisible;
+                                    },
+                                  );
+                                },
                               ),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontFamily: 'CustomFont',
-                              ),
+                              keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.done,
                               obscureText: !_passwordVisible,
                               validator: (val) {
@@ -369,24 +302,11 @@ class SignupPageState extends State<SignupPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (context, animation,
-                                                  secondaryAnimation) =>
-                                              const LoginPage(),
-                                          transitionsBuilder: (context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return FadeThroughTransition(
-                                              animation: animation,
-                                              secondaryAnimation:
-                                                  secondaryAnimation,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
+                                      Get.to(
+                                        () => const LoginPage(),
+                                        transition: Transition.fade,
+                                        duration:
+                                            const Duration(milliseconds: 500),
                                       );
                                     },
                                 ),
