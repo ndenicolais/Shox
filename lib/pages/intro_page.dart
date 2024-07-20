@@ -1,8 +1,8 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/pages/welcome_page.dart';
-import 'package:shox/shoes/shoes_list.dart';
+import 'package:shox/shoes/shoes_home.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -29,48 +29,24 @@ class IntroPageState extends State<IntroPage> {
     bool rememberMe = prefs.getBool('remember_me') ?? false;
 
     if (rememberMe) {
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const ShoesList(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return FadeThroughTransition(
-                animation: animation,
-                secondaryAnimation: secondaryAnimation,
-                child: child,
-              );
-            },
-          ),
-        );
-      }
+      Get.to(
+        () => const ShoesHome(),
+        transition: Transition.fade,
+        duration: const Duration(milliseconds: 500),
+      );
     } else {
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const WelcomePage(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return FadeThroughTransition(
-                animation: animation,
-                secondaryAnimation: secondaryAnimation,
-                child: child,
-              );
-            },
-          ),
-        );
-      }
+      Get.to(
+        () => const WelcomePage(),
+        transition: Transition.fade,
+        duration: const Duration(milliseconds: 500),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
