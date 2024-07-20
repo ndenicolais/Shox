@@ -1,15 +1,18 @@
-import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/account/delete_account_page.dart';
-import 'package:shox/pages/contacts_page.dart';
 import 'package:shox/pages/database_page.dart';
-import 'package:shox/pages/info_page.dart';
+import 'package:shox/pages/stores_page.dart';
 import 'package:shox/pages/welcome_page.dart';
+import 'package:shox/theme/app_colors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -124,22 +127,37 @@ class ProfilePageState extends State<ProfilePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('remember_me');
 
-    if (mounted) {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const WelcomePage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeThroughTransition(
-              animation: animation,
-              secondaryAnimation: secondaryAnimation,
-              child: child,
-            );
-          },
+    _showConfirmToastBar();
+
+    Get.to(
+      () => const WelcomePage(),
+      transition: Transition.fade,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
+
+  void _showConfirmToastBar() {
+    // Show error toastbar
+    DelightToastBar(
+      position: DelightSnackbarPosition.bottom,
+      snackbarDuration: const Duration(milliseconds: 1500),
+      builder: (context) => const ToastCard(
+        color: AppColors.confirmColor,
+        leading: Icon(
+          MingCuteIcons.mgc_hand_fill,
+          color: AppColors.white,
+          size: 28,
         ),
-      );
-    }
+        title: Text(
+          'See later!',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      autoDismiss: true,
+    ).show(context);
   }
 
   @override
@@ -152,13 +170,13 @@ class ProfilePageState extends State<ProfilePage> {
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -201,20 +219,10 @@ class ProfilePageState extends State<ProfilePage> {
                 height: 60,
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const DatabasePage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeThroughTransition(
-                            animation: animation,
-                            secondaryAnimation: secondaryAnimation,
-                            child: child,
-                          );
-                        },
-                      ),
+                    Get.to(
+                      () => const DatabasePage(),
+                      transition: Transition.fade,
+                      duration: const Duration(milliseconds: 500),
                     );
                   },
                   shape: RoundedRectangleBorder(
@@ -248,20 +256,10 @@ class ProfilePageState extends State<ProfilePage> {
                 height: 60,
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const InfoPage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeThroughTransition(
-                            animation: animation,
-                            secondaryAnimation: secondaryAnimation,
-                            child: child,
-                          );
-                        },
-                      ),
+                    Get.to(
+                      () => const StoresPage(),
+                      transition: Transition.fade,
+                      duration: const Duration(milliseconds: 500),
                     );
                   },
                   shape: RoundedRectangleBorder(
@@ -273,64 +271,17 @@ class ProfilePageState extends State<ProfilePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(MingCuteIcons.mgc_information_fill,
+                      Icon(MingCuteIcons.mgc_shop_fill,
                           color: Theme.of(context).colorScheme.secondary),
                       Text(
-                        'Info App',
+                        'Stores',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontSize: 20,
                           fontFamily: 'CustomFont',
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const ContactsPage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeThroughTransition(
-                            animation: animation,
-                            secondaryAnimation: secondaryAnimation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_send_fill,
-                          color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Contacts',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
-                        ),
-                      ),
-                      Icon(Icons.arrow_forward_ios,
+                      Icon(MingCuteIcons.mgc_right_fill,
                           color: Theme.of(context).colorScheme.tertiary),
                     ],
                   ),
@@ -373,20 +324,10 @@ class ProfilePageState extends State<ProfilePage> {
                 height: 60,
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const DeleteAccountPage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeThroughTransition(
-                            animation: animation,
-                            secondaryAnimation: secondaryAnimation,
-                            child: child,
-                          );
-                        },
-                      ),
+                    Get.to(
+                      () => const DeleteAccountPage(),
+                      transition: Transition.fade,
+                      duration: const Duration(milliseconds: 500),
                     );
                   },
                   shape: RoundedRectangleBorder(
