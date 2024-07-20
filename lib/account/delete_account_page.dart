@@ -1,12 +1,15 @@
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:animations/animations.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/pages/welcome_page.dart';
 import 'package:shox/theme/app_colors.dart';
 
@@ -21,130 +24,26 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
   var logger = Logger();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Future<void> _checkAccount() async {
+  Future<void> _checkGoogleAccount() async {
     User? user = _auth.currentUser;
     if (user == null) return;
 
     if (user.providerData
         .any((userInfo) => userInfo.providerId == 'google.com')) {
-      // Logout from Google
-      await _googleSignIn.signOut();
-
-      // // Re-authenticate with Google
-      // try {
-      //   GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      //   if (googleUser == null) {
-      //     // The user canceled the sign-in
-      //     _showErrorSnackBar('Re-authentication with Google failed.');
-      //     return;
-      //   }
-      //   GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      //   AuthCredential credential = GoogleAuthProvider.credential(
-      //     idToken: googleAuth.idToken,
-      //     accessToken: googleAuth.accessToken,
-      //   );
-      //   await user.reauthenticateWithCredential(credential);
-      // } catch (e) {
-      //   _showErrorSnackBar('Re-authentication with Google failed.');
-      //   return;
-      // }
-    } else {
-      // Email/Password
       try {
-        await showDialog(
-          context: context,
-          builder: (context) {
-            final TextEditingController passwordController =
-                TextEditingController();
-            return SingleChildScrollView(
-              child: AlertDialog(
-                title: Text(
-                  'Re-enter your account password to confirm deletion',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontSize: 14,
-                    fontFamily: 'CustomFont',
-                  ),
-                ),
-                content: TextField(
-                  controller: passwordController,
-                  cursorColor: Theme.of(context).colorScheme.secondary,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontFamily: 'CustomFont',
-                    ),
-                    hintText: 'Password',
-                    prefixIcon: Icon(
-                      MingCuteIcons.mgc_lock_fill,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontFamily: 'CustomFont',
-                  ),
-                  textInputAction: TextInputAction.done,
-                ),
-                actions: [
-                  // TextButton(
-                  //   child: Text(
-                  //     'Cancel',
-                  //     style: TextStyle(
-                  //       color: Theme.of(context).colorScheme.tertiary,
-                  //       fontFamily: 'CustomFont',
-                  //     ),
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.of(context).pop(false);
-                  //   },
-                  // ),
-                  TextButton(
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontFamily: 'CustomFont',
-                      ),
-                    ),
-                    onPressed: () async {
-                      String password = passwordController.text.trim();
-                      if (password.isNotEmpty) {
-                        try {
-                          AuthCredential credential =
-                              EmailAuthProvider.credential(
-                            email: user.email!,
-                            password: password,
-                          );
-                          await user.reauthenticateWithCredential(credential);
-                          Navigator.of(context).pop();
-                        } catch (e) {
-                          _showErrorSnackBar('Re-authentication failed.');
-                        }
-                      }
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
-          barrierDismissible: false,
-        );
+        // Log out from Google (if the user has been authenticated with Google)
+        await googleSignIn.signOut();
+
+        // Log out from Firebase
+        await _auth.signOut();
+
+        // Remove "Remember Me" preference
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.remove('remember_me');
       } catch (e) {
-        _showErrorSnackBar('Re-authentication failed.');
-        return;
+        _showErrorSnackBar('Re-authentication with Google failed.');
       }
     }
   }
@@ -169,6 +68,33 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
     }
   }
 
+  Future<void> _deleteUserStorage(String userId) async {
+    try {
+      final storageRef =
+          FirebaseStorage.instance.ref().child('shoes_images/$userId');
+
+      // Elenca tutti i file e le sottocartelle all'interno di 'shoes_images/$userId'
+      ListResult listResult = await storageRef.listAll();
+      logger.i(
+          'Found ${listResult.items.length} files and ${listResult.prefixes.length} folders to delete.');
+
+      // Elimina tutti i file all'interno della cartella dell'utente
+      for (Reference item in listResult.items) {
+        logger.i('Deleting file: ${item.fullPath}');
+        await item.delete();
+      }
+
+      // Elimina tutte le sottocartelle all'interno della cartella dell'utente
+      for (Reference prefix in listResult.prefixes) {
+        logger.i('Deleting folder: ${prefix.fullPath}');
+        await prefix.delete();
+      }
+    } catch (e) {
+      logger.e('Error deleting user storage: $e');
+      throw Exception('Failed to delete user storage: $e');
+    }
+  }
+
   Future<void> _deleteAccount() async {
     try {
       User? user = _auth.currentUser;
@@ -177,11 +103,13 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
         bool confirmDelete = await showDialog(
           context: context,
           builder: (context) => AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.primary,
             title: Text(
-              'DELETE',
+              'Delete',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.tertiary,
                 fontSize: 20,
+                fontWeight: FontWeight.bold,
                 fontFamily: 'CustomFontBold',
               ),
             ),
@@ -209,7 +137,7 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(false);
+                  Get.back(result: false);
                 },
               ),
               TextButton(
@@ -227,7 +155,7 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(true);
+                  Get.back(result: true);
                 },
               ),
             ],
@@ -236,29 +164,42 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
         );
 
         if (confirmDelete == true) {
-          // Check before deleting the account
-          await _checkAccount();
+          try {
+            // Check before deleting the account
+            if (user.providerData
+                .any((userInfo) => userInfo.providerId == 'google.com')) {
+              await _checkGoogleAccount();
+            }
 
-          // Delete user data from Firestore
-          await _deleteUserDatabase(user.uid);
+            // Delete user storage from Firebase Storage
+            await _deleteUserStorage(user.uid);
 
-          // Delete the user
-          await user.delete();
+            // Delete user data from Firestore
+            await _deleteUserDatabase(user.uid);
 
-          // Definitive logout from Google if the user is authenticated with Google
-          if (user.providerData
-              .any((userInfo) => userInfo.providerId == 'google.com')) {
-            await _googleSignIn.signOut();
+            // Delete the user
+            await user.delete();
+
+            // Definitive logout from Google if the user is authenticated with Google
+            // if (user.providerData
+            //     .any((userInfo) => userInfo.providerId == 'google.com')) {
+            //   await logout();
+            // }
+          } catch (e) {
+            // Gestisci gli errori qui
+            logger.e('Error deleting user: $e');
+            // Potresti voler mostrare un messaggio di errore o effettuare altre azioni di gestione degli errori.
           }
 
           // Show confirm toastbar
           if (mounted) {
             DelightToastBar(
-              snackbarDuration: const Duration(seconds: 2),
+              snackbarDuration: const Duration(milliseconds: 1500),
               builder: (context) => const ToastCard(
                 color: AppColors.confirmColor,
                 leading: Icon(
                   MingCuteIcons.mgc_check_fill,
+                  color: AppColors.white,
                   size: 28,
                 ),
                 title: Text(
@@ -274,23 +215,11 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
           }
 
           // Navigate to WelcomePage after deletion
-          if (mounted) {
-            Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const WelcomePage(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return FadeThroughTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    child: child,
-                  );
-                },
-              ),
-            );
-          }
+          Get.to(
+            () => const WelcomePage(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 500),
+          );
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -313,11 +242,13 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
     if (message != null) {
       // Show error toastbar
       DelightToastBar(
-        snackbarDuration: const Duration(seconds: 2),
+        position: DelightSnackbarPosition.top,
+        snackbarDuration: const Duration(milliseconds: 1500),
         builder: (context) => ToastCard(
           color: AppColors.errorColor,
           leading: const Icon(
             MingCuteIcons.mgc_color_picker_fill,
+            color: AppColors.white,
             size: 28,
           ),
           title: Text(
@@ -343,13 +274,13 @@ class DeleteAccountPageState extends State<DeleteAccountPage> {
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
