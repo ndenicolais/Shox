@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/shoes/shoes_model.dart';
 import 'package:shox/shoes/shoes_service.dart';
@@ -78,7 +79,7 @@ class DatabasePageState extends State<DatabasePage>
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
         ),
         actions: [
@@ -93,7 +94,7 @@ class DatabasePageState extends State<DatabasePage>
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: _isLoading
           ? Center(
               child: AnimatedBuilder(
@@ -113,13 +114,31 @@ class DatabasePageState extends State<DatabasePage>
             )
           : _totalShoesCount == 0
               ? Center(
-                  child: Text(
-                    'No Shoes',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontFamily: 'CustomFont',
-                      fontSize: 24,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'No shoes',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 24,
+                          fontFamily: 'CustomFont',
+                        ),
+                      ),
+                      Icon(
+                        MingCuteIcons.mgc_package_line,
+                        size: 60,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      Text(
+                        'in the box',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 24,
+                          fontFamily: 'CustomFont',
+                        ),
+                      ),
+                    ],
                   ),
                 )
               : SingleChildScrollView(
