@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/pages/languages_page.dart';
-import 'package:shox/settings/contacts_page.dart';
-import 'package:shox/settings/info_page.dart';
-import 'package:shox/pages/notifications_page.dart';
-import 'package:shox/settings/theme_page.dart';
+import 'package:shox/pages/settings/languages_page.dart';
+import 'package:shox/pages/settings/support_page.dart';
+import 'package:shox/pages/settings/info_page.dart';
+import 'package:shox/pages/settings/notifications_page.dart';
+import 'package:shox/pages/settings/theme_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -28,6 +28,15 @@ class SettingsPageState extends State<SettingsPage> {
             Get.back();
           },
         ),
+        title: Text(
+          'Settings',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
@@ -62,7 +71,7 @@ class SettingsPageState extends State<SettingsPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(MingCuteIcons.mgc_moonlight_fill,
+                      Icon(MingCuteIcons.mgc_palette_fill,
                           color: Theme.of(context).colorScheme.secondary),
                       Text(
                         'Theme',
@@ -176,14 +185,14 @@ class SettingsPageState extends State<SettingsPage> {
                       Icon(MingCuteIcons.mgc_information_fill,
                           color: Theme.of(context).colorScheme.secondary),
                       Text(
-                        'Info App',
+                        'Info',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontSize: 20,
                           fontFamily: 'CustomFont',
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios,
+                      Icon(MingCuteIcons.mgc_right_fill,
                           color: Theme.of(context).colorScheme.tertiary),
                     ],
                   ),
@@ -220,7 +229,7 @@ class SettingsPageState extends State<SettingsPage> {
                           fontFamily: 'CustomFont',
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios,
+                      Icon(MingCuteIcons.mgc_right_fill,
                           color: Theme.of(context).colorScheme.tertiary),
                     ],
                   ),

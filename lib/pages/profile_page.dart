@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/account/delete_account_page.dart';
-import 'package:shox/pages/database_page.dart';
-import 'package:shox/pages/stores_page.dart';
+import 'package:shox/account/delete_page.dart';
+import 'package:shox/pages/profile/database_page.dart';
+import 'package:shox/pages/profile/stores_page.dart';
 import 'package:shox/pages/welcome_page.dart';
 import 'package:shox/theme/app_colors.dart';
 
@@ -312,7 +312,7 @@ class ProfilePageState extends State<ProfilePage> {
                           fontFamily: 'CustomFont',
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios,
+                      Icon(MingCuteIcons.mgc_right_fill,
                           color: Theme.of(context).colorScheme.tertiary),
                     ],
                   ),
@@ -325,7 +325,7 @@ class ProfilePageState extends State<ProfilePage> {
                 child: MaterialButton(
                   onPressed: () {
                     Get.to(
-                      () => const DeleteAccountPage(),
+                      () => const DeletePage(),
                       transition: Transition.fade,
                       duration: const Duration(milliseconds: 500),
                     );
@@ -349,7 +349,7 @@ class ProfilePageState extends State<ProfilePage> {
                           fontFamily: 'CustomFont',
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios,
+                      Icon(MingCuteIcons.mgc_right_fill,
                           color: Theme.of(context).colorScheme.tertiary),
                     ],
                   ),

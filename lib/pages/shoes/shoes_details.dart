@@ -3,9 +3,9 @@ import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/shoes/shoes_model.dart';
-import 'package:shox/shoes/shoes_service.dart';
-import 'package:shox/shoes/shoes_updater.dart';
+import 'package:shox/models/shoes_model.dart';
+import 'package:shox/services/shoes_service.dart';
+import 'package:shox/pages/shoes/shoes_updater.dart';
 import 'package:shox/theme/app_colors.dart';
 
 class ShoesDetailsPage extends StatefulWidget {
@@ -92,6 +92,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                     color: AppColors.confirmColor,
                     leading: Icon(
                       MingCuteIcons.mgc_check_fill,
+                      color: AppColors.white,
                       size: 28,
                     ),
                     title: Text(

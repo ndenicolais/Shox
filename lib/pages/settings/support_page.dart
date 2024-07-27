@@ -29,6 +29,15 @@ class ContactsPageState extends State<ContactsPage> {
             Get.back();
           },
         ),
+        title: Text(
+          'Support',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),

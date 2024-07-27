@@ -13,14 +13,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/pages/welcome_page.dart';
 import 'package:shox/theme/app_colors.dart';
 
-class DeleteAccountPage extends StatefulWidget {
-  const DeleteAccountPage({super.key});
+class DeletePage extends StatefulWidget {
+  const DeletePage({super.key});
 
   @override
-  DeleteAccountPageState createState() => DeleteAccountPageState();
+  DeletePageState createState() => DeletePageState();
 }
 
-class DeleteAccountPageState extends State<DeleteAccountPage> {
+class DeletePageState extends State<DeletePage> {
   var logger = Logger();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

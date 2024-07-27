@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shox/shoes/shoes_model.dart';
+import 'package:shox/models/shoes_model.dart';
 
 class ShoesService {
   var logger = Logger();

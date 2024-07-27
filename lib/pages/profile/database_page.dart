@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/shoes/shoes_model.dart';
-import 'package:shox/shoes/shoes_service.dart';
+import 'package:shox/models/shoes_model.dart';
+import 'package:shox/services/shoes_service.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -91,6 +91,15 @@ class DatabasePageState extends State<DatabasePage>
             onPressed: () {},
           ),
         ],
+        title: Text(
+          'Database',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
@@ -221,7 +230,7 @@ class ColorPieChartWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 400,
-          width: 400,
+          width: 350,
           child: SfCircularChart(
             legend: Legend(
               isVisible: true,
@@ -254,7 +263,7 @@ class ColorPieChartWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   connectorLineSettings: const ConnectorLineSettings(
-                    length: '10%',
+                    length: '15%',
                     type: ConnectorType.line,
                   ),
                 ),
@@ -295,7 +304,7 @@ class BrandPieChartWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 400,
-          width: 400,
+          width: 350,
           child: SfCircularChart(
             legend: Legend(
               isVisible: true,
@@ -336,7 +345,7 @@ class BrandPieChartWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   connectorLineSettings: const ConnectorLineSettings(
-                    length: '10%',
+                    length: '15%',
                     type: ConnectorType.line,
                   ),
                 ),
@@ -377,7 +386,7 @@ class CategoryPieChartWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 400,
-          width: 400,
+          width: 350,
           child: SfCircularChart(
             legend: Legend(
               isVisible: true,
@@ -418,7 +427,7 @@ class CategoryPieChartWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   connectorLineSettings: const ConnectorLineSettings(
-                    length: '10%',
+                    length: '15%',
                     type: ConnectorType.line,
                   ),
                 ),
@@ -459,7 +468,7 @@ class TypePieChartWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 400,
-          width: 400,
+          width: 350,
           child: SfCircularChart(
             legend: Legend(
               isVisible: true,
@@ -500,7 +509,7 @@ class TypePieChartWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   connectorLineSettings: const ConnectorLineSettings(
-                    length: '10%',
+                    length: '15%',
                     type: ConnectorType.line,
                   ),
                 ),

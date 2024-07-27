@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/account/login_page.dart';
-import 'package:shox/shoes/shoes_home.dart';
+import 'package:shox/pages/shoes/shoes_home.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/validator.dart';
 import 'package:shox/widgets/account_textfield.dart';

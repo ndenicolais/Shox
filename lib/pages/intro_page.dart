@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/pages/welcome_page.dart';
-import 'package:shox/shoes/shoes_home.dart';
+import 'package:shox/pages/shoes/shoes_home.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});

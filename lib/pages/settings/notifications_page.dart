@@ -23,6 +23,15 @@ class NotificationsPageState extends State<NotificationsPage> {
             Get.back();
           },
         ),
+        title: Text(
+          'Notifications',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
@@ -36,7 +45,16 @@ class NotificationsPageState extends State<NotificationsPage> {
                 size: 120,
                 color: Theme.of(context).colorScheme.secondary,
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 80),
+              Text(
+                'On this page\nyou can manage\nthe notifications',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 22,
+                  fontFamily: 'CustomFont',
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

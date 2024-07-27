@@ -8,23 +8,23 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/shoes/shoes_model.dart';
-import 'package:shox/shoes/shoes_service.dart';
+import 'package:shox/models/shoes_model.dart';
+import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
-class ShoesAdderPage extends StatefulWidget {
-  // Callback to call when shoes are added
-  final VoidCallback onShoesAdded;
-  const ShoesAdderPage({super.key, required this.onShoesAdded});
+class ShoesUpdaterPage extends StatefulWidget {
+  final Shoes shoes;
+
+  const ShoesUpdaterPage({super.key, required this.shoes});
 
   @override
-  ShoesAdderPageState createState() => ShoesAdderPageState();
+  ShoesUpdaterPageState createState() => ShoesUpdaterPageState();
 }
 
-class ShoesAdderPageState extends State<ShoesAdderPage>
+class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
     with SingleTickerProviderStateMixin {
   var logger = Logger();
   final ShoesService _shoesService = ShoesService();
@@ -32,15 +32,17 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final ApiClient _apiClient = ApiClient();
+  final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
+  late String _imageUrl;
   Color _color = AppColors.smoothBlack;
   bool _colorSelected = false;
   IconData? _seasonIcon;
-  final TextEditingController _brandController = TextEditingController();
-  final TextEditingController _sizeController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _typeController = TextEditingController();
-  final TextEditingController _notesController = TextEditingController();
+  late TextEditingController _brandController;
+  late TextEditingController _sizeController;
+  late TextEditingController _categoryController;
+  late TextEditingController _typeController;
+  late TextEditingController _notesController;
 
   @override
   void initState() {
@@ -49,18 +51,36 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
       duration: const Duration(seconds: 1),
       vsync: this,
     )..repeat();
+    _imageUrl = widget.shoes.imageUrl;
+    _color = widget.shoes.color;
+    _colorSelected = true;
+    _seasonIcon = widget.shoes.seasonIcon;
+    _brandController = TextEditingController(text: widget.shoes.brand);
+    _sizeController = TextEditingController(text: widget.shoes.size.toString());
+    _categoryController = TextEditingController(text: widget.shoes.category);
+    _typeController = TextEditingController(text: widget.shoes.type);
+    _notesController = TextEditingController(text: widget.shoes.notes);
+
+    // // Initialize _imageFile if there is an existing image URL
+    // if (_imageUrl.isNotEmpty) {
+    //   _imageFile = XFile(_imageUrl);
+    // }
   }
 
   Future<void> _pickImage(ImageSource source) async {
-    final ImagePicker picker = ImagePicker();
     final pickedFile =
-        await picker.pickImage(source: source, maxHeight: 1280, maxWidth: 760);
-    _updateImageFile(pickedFile);
+        await _picker.pickImage(source: source, maxHeight: 1280, maxWidth: 760);
+    if (pickedFile != null) {
+      setState(
+        () {
+          _imageFile = pickedFile;
+        },
+      );
+    }
   }
 
   Future<void> _cropImage() async {
     if (_imageFile == null) return;
-
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: _imageFile!.path,
       uiSettings: [
@@ -107,7 +127,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
       // Convert XFile to File
       final file = File(newFilePath);
 
-      // Write byte in file
+      // Update byte in file
       await file.writeAsBytes(resultBytes);
 
       // Update _imageFile with new path
@@ -196,58 +216,31 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                         onTap: () {
                           _showPickImageModal(context);
                         },
-                        child: CircleAvatar(
-                          radius: 100,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          child: _imageFile == null
-                              ? Stack(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 80,
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .secondary
-                                          .withOpacity(0.2),
-                                      child: Icon(
-                                        MingCuteIcons.mgc_pic_fill,
-                                        size: 100,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: CircleAvatar(
-                                        radius: 25,
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        child: Icon(MingCuteIcons.mgc_add_fill,
-                                            size: 30,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary),
-                                      ),
-                                    ),
-                                  ],
+                        child: Card(
+                          color: Theme.of(context).colorScheme.primary,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                          elevation: 0,
+                          clipBehavior: Clip.antiAlias,
+                          child: _imageFile != null
+                              ? Image.file(
+                                  File(_imageFile!.path),
+                                  width: 200,
+                                  height: 200,
+                                  fit: BoxFit.cover,
                                 )
-                              : Card(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  elevation: 5,
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Image.file(
-                                    File(_imageFile!.path),
-                                    width: 200,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                              : (widget.shoes.imageUrl.isNotEmpty
+                                  ? Image.network(
+                                      widget.shoes.imageUrl,
+                                      width: 200,
+                                      height: 200,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const Placeholder(
+                                      fallbackWidth: 200,
+                                      fallbackHeight: 200,
+                                    )),
                         ),
                       ),
                       if (_imageFile != null)
@@ -404,7 +397,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                       children: [
                                         Stack(
                                           children: [
-                                            if (_colorSelected == false)
+                                            if (!_colorSelected)
                                               Text(
                                                 'Color',
                                                 style: TextStyle(
@@ -415,7 +408,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                                   fontSize: 16,
                                                 ),
                                               ),
-                                            if (_colorSelected == true)
+                                            if (_colorSelected)
                                               Icon(
                                                 Icons.palette,
                                                 color: _color,
@@ -447,9 +440,6 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Dialog(
-                                        insetPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 100),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15),
@@ -534,30 +524,17 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                           ),
                         ],
                       ),
+                      const SizedBox(height: 20),
                       ShoesTextField(
                         controller: _brandController,
                         labelText: 'Brand',
                         keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.sentences,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Insert the brand';
-                          }
-                          return null;
-                        },
                       ),
                       ShoesTextField(
                         controller: _sizeController,
                         labelText: 'Size',
                         keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Insert the size';
-                          }
-                          return null;
-                        },
                       ),
                       DropdownButtonFormField<String>(
                         value: _categoryController.text.isNotEmpty
@@ -660,7 +637,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                         textInputAction: TextInputAction.done,
                         textCapitalization: TextCapitalization.sentences,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 50),
                       SizedBox(
                         width: 70,
                         height: 70,
@@ -669,58 +646,6 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
 
-                              // Checking if the user has selected a color
-                              if (!_colorSelected) {
-                                // Show error toastbar
-                                DelightToastBar(
-                                  snackbarDuration:
-                                      const Duration(milliseconds: 1500),
-                                  builder: (context) => const ToastCard(
-                                    color: AppColors.errorColor,
-                                    leading: Icon(
-                                      MingCuteIcons.mgc_color_picker_fill,
-                                      color: AppColors.white,
-                                      size: 28,
-                                    ),
-                                    title: Text(
-                                      "Please select the color",
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                  autoDismiss: true,
-                                ).show(context);
-                                return;
-                              }
-
-                              // Checking if the user has selected an image
-                              if (_imageFile == null) {
-                                // Show error toastbar
-                                DelightToastBar(
-                                  snackbarDuration:
-                                      const Duration(milliseconds: 1500),
-                                  builder: (context) => const ToastCard(
-                                    color: AppColors.errorColor,
-                                    leading: Icon(
-                                      MingCuteIcons.mgc_pic_fill,
-                                      color: AppColors.white,
-                                      size: 28,
-                                    ),
-                                    title: Text(
-                                      "Please select the image",
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                  autoDismiss: true,
-                                ).show(context);
-                                return;
-                              }
-
                               // Set isLoading to true before starting the operation
                               setState(
                                 () {
@@ -728,21 +653,24 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                 },
                               );
 
-                              // Create Shoes object and add to Firestore
-                              Shoes newShoes = Shoes(
-                                imageUrl:
-                                    _imageFile != null ? _imageFile!.path : '',
+                              // Create updated Shoes object
+                              Shoes updatedShoes = Shoes(
+                                id: widget.shoes.id,
+                                imageUrl: _imageUrl,
                                 color: _color,
                                 seasonIcon: _seasonIcon,
                                 brand: _brandController.text.trim(),
                                 size: _sizeController.text,
                                 category: _categoryController.text,
                                 type: _typeController.text,
-                                notes: _notesController.text.isNotEmpty
-                                    ? _notesController.text
-                                    : null,
+                                notes: _notesController.text,
                               );
-                              _shoesService.addShoes(newShoes, _imageFile).then(
+
+                              // Saving the updated Shoes item in the service
+                              _shoesService
+                                  .updateShoes(updatedShoes.id!, updatedShoes,
+                                      _imageFile)
+                                  .then(
                                 (_) {
                                   // Show confirmation toastbar
                                   DelightToastBar(
@@ -756,7 +684,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                         size: 28,
                                       ),
                                       title: Text(
-                                        "Shoes added successfully",
+                                        "Shoes updated successfully",
                                         style: TextStyle(
                                           color: AppColors.white,
                                           fontSize: 16,
@@ -765,19 +693,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                     ),
                                     autoDismiss: true,
                                   ).show(context);
-
-                                  // Reset isLoading to false after operation completes
-                                  setState(
-                                    () {
-                                      _isLoading = false;
-                                    },
-                                  );
-
-                                  // Call callback to notify that shoes have been added
-                                  widget.onShoesAdded();
-
-                                  // Navigate back to the previous screen
-                                  Get.back();
+                                  Get.back(result: updatedShoes);
                                 },
                               ).catchError(
                                 (error) {
@@ -793,7 +709,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                         size: 28,
                                       ),
                                       title: Text(
-                                        "Error while adding the shoes $error",
+                                        "Error while updating the shoes $error",
                                         style: const TextStyle(
                                           color: AppColors.white,
                                           fontSize: 16,
@@ -802,6 +718,13 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                                     ),
                                     autoDismiss: true,
                                   ).show(context);
+
+                                  // Reset isLoading to false after operation completes
+                                  setState(
+                                    () {
+                                      _isLoading = false;
+                                    },
+                                  );
                                 },
                               );
                             }

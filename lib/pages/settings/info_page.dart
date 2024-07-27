@@ -23,6 +23,15 @@ class InfoPageState extends State<InfoPage> {
             Get.back();
           },
         ),
+        title: Text(
+          'Info',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
@@ -35,17 +44,6 @@ class InfoPageState extends State<InfoPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(
-                  child: Text(
-                    'Shox',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 60,
-                      fontFamily: 'CustomFont',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
                 Image.asset(
                   'assets/images/app_logo.png',
                   width: 250,

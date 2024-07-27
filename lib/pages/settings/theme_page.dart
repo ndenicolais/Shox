@@ -21,6 +21,15 @@ class ThemePage extends StatelessWidget {
             Get.back();
           },
         ),
+        title: Text(
+          'Theme',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
@@ -30,7 +39,7 @@ class ThemePage extends StatelessWidget {
           child: Column(
             children: [
               Icon(
-                MingCuteIcons.mgc_moon_fill,
+                MingCuteIcons.mgc_palette_fill,
                 size: 120,
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -71,7 +80,7 @@ class ThemePage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              Icons.wb_sunny,
+                              MingCuteIcons.mgc_sun_fill,
                               size: 60,
                               color: AppColors.sun,
                             ),
@@ -113,7 +122,7 @@ class ThemePage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              Icons.nights_stay,
+                              MingCuteIcons.mgc_moon_fill,
                               size: 60,
                               color: AppColors.white,
                             ),

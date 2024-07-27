@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/account/profile_page.dart';
+import 'package:shox/pages/profile_page.dart';
 import 'package:shox/pages/settings_page.dart';
-import 'package:shox/shoes/shoes_adder.dart';
-import 'package:shox/shoes/shoes_details.dart';
-import 'package:shox/shoes/shoes_model.dart';
-import 'package:shox/shoes/shoes_service.dart';
+import 'package:shox/pages/shoes/shoes_adder.dart';
+import 'package:shox/pages/shoes/shoes_details.dart';
+import 'package:shox/models/shoes_model.dart';
+import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/utils.dart';
 
