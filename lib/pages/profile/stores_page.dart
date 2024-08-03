@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/widgets/store_card.dart';
 
 class StoresPage extends StatefulWidget {
@@ -76,7 +78,7 @@ class StoresPageState extends State<StoresPage> {
           },
         ),
         title: Text(
-          'Stores',
+          S.current.stores_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
@@ -88,30 +90,33 @@ class StoresPageState extends State<StoresPage> {
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: Icon(
-              MingCuteIcons.mgc_shop_fill,
-              size: 120,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/img_stores.png',
+                width: 120.r,
+                height: 120.r,
+              ),
+              20.verticalSpace,
+              Expanded(
+                child: ListView.builder(
+                  itemCount: titles.length,
+                  itemBuilder: (context, index) {
+                    return StoreCard(
+                      title: titles[index],
+                      mapUrl: mapUrls[index],
+                      linkUrl: linkUrls[index],
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 50),
-          Expanded(
-            child: ListView.builder(
-              itemCount: titles.length,
-              itemBuilder: (context, index) {
-                return StoreCard(
-                  title: titles[index],
-                  mapUrl: mapUrls[index],
-                  linkUrl: linkUrls[index],
-                );
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

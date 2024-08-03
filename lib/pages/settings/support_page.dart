@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactsPage extends StatefulWidget {
@@ -30,7 +32,7 @@ class ContactsPageState extends State<ContactsPage> {
           },
         ),
         title: Text(
-          'Support',
+          S.current.support_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
@@ -43,62 +45,85 @@ class ContactsPageState extends State<ContactsPage> {
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/img_ndn21.png',
-                width: 200,
-                height: 200,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'My contacts',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 44,
-                  fontFamily: 'CustomFont',
-                  fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/img_support.png',
+                  width: 120.r,
+                  height: 120.r,
                 ),
-              ),
-              const SizedBox(height: 30),
-              GestureDetector(
-                onTap: () async {
-                  await launchUrl(uriLinkedin);
-                },
-                child: Image.asset(
-                  'assets/images/img_linkedin.png',
-                  width: 100,
-                  height: 100,
+                40.verticalSpace,
+                Text(
+                  S.current.support_developer,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 36.r,
+                    fontFamily: 'CustomFont',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Image.asset(
+                  'assets/images/img_ndn21.png',
+                  width: 200.r,
+                  height: 200.r,
                   fit: BoxFit.contain,
                 ),
-              ),
-              const SizedBox(height: 10),
-              GestureDetector(
-                onTap: () async {
-                  await launchUrl(uriGithub);
-                },
-                child: Image.asset(
-                  'assets/images/img_github.png',
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
+                20.verticalSpace,
+                Text(
+                  S.current.support_contacts,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 36.r,
+                    fontFamily: 'CustomFont',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              GestureDetector(
-                onTap: () async {
-                  await launchUrl(uriWeb);
-                },
-                child: Image.asset(
-                  'assets/images/img_web.png',
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
+                20.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        await launchUrl(uriLinkedin);
+                      },
+                      child: Image.asset(
+                        'assets/images/img_linkedin.png',
+                        width: 100.r,
+                        height: 100.r,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    10.horizontalSpace,
+                    GestureDetector(
+                      onTap: () async {
+                        await launchUrl(uriGithub);
+                      },
+                      child: Image.asset(
+                        'assets/images/img_github.png',
+                        width: 100.r,
+                        height: 100.r,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    10.horizontalSpace,
+                    GestureDetector(
+                      onTap: () async {
+                        await launchUrl(uriWeb);
+                      },
+                      child: Image.asset(
+                        'assets/images/img_web.png',
+                        width: 100.r,
+                        height: 100.r,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

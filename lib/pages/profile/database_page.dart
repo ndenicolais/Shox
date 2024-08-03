@@ -1,11 +1,12 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
 import 'package:shox/services/shoes_service.dart';
-import 'package:shox/utils/utils.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:shox/utils/db_localized_values.dart';
+import 'package:shox/widgets/custom_pie_chart.dart';
 
 class DatabasePage extends StatefulWidget {
   const DatabasePage({super.key});
@@ -92,7 +93,7 @@ class DatabasePageState extends State<DatabasePage>
           ),
         ],
         title: Text(
-          'Database',
+          S.current.database_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
@@ -116,7 +117,7 @@ class DatabasePageState extends State<DatabasePage>
                 },
                 child: Icon(
                   MingCuteIcons.mgc_shoe_fill,
-                  size: 50,
+                  size: 50.r,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
@@ -126,24 +127,16 @@ class DatabasePageState extends State<DatabasePage>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'No shoes',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 24,
-                          fontFamily: 'CustomFont',
-                        ),
-                      ),
                       Icon(
                         MingCuteIcons.mgc_package_line,
-                        size: 60,
+                        size: 80.r,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                       Text(
-                        'in the box',
+                        S.current.database_empty,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 24,
+                          fontSize: 22.r,
                           fontFamily: 'CustomFont',
                         ),
                       ),
@@ -155,15 +148,15 @@ class DatabasePageState extends State<DatabasePage>
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Shoes: $_totalShoesCount',
+                          '${S.current.database_shoes} $_totalShoesCount',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                             fontFamily: 'CustomFont',
-                            fontSize: 34,
+                            fontSize: 34.r,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        _buildPieChartColor(),
+                        _buildColorPieChart(context),
                         _buildBrandPieChart(),
                         _buildCategoryPieChart(),
                         _buildTypePieChart(),
@@ -174,12 +167,12 @@ class DatabasePageState extends State<DatabasePage>
     );
   }
 
-  Widget _buildPieChartColor() {
+  Widget _buildColorPieChart(BuildContext context) {
     List<ColorChartData> chartData = _colorCounts.entries.map(
       (entry) {
         Color color = Color(int.parse(entry.key, radix: 16) + 0xFF000000);
-        String colorName = colorNames[entry.key.toUpperCase()] ?? 'Unknown';
-        return ColorChartData(colorName, entry.value, color);
+        String colorName = DbLocalizedValues.getColorName(color, context);
+        return ColorChartData(colorName, entry.value.toDouble(), color);
       },
     ).toList();
 
@@ -208,6 +201,7 @@ class DatabasePageState extends State<DatabasePage>
   }
 }
 
+// Colors pie chart widget
 class ColorPieChartWidget extends StatelessWidget {
   final List<ColorChartData> chartData;
 
@@ -215,68 +209,17 @@ class ColorPieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        Text(
-          'Colors',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontFamily: 'CustomFont',
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 400,
-          width: 350,
-          child: SfCircularChart(
-            legend: Legend(
-              isVisible: true,
-              position: LegendPosition.bottom,
-              height: '40%',
-              textStyle: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontFamily: 'CustomFont',
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-              overflowMode: LegendItemOverflowMode.wrap,
-            ),
-            series: <PieSeries<ColorChartData, String>>[
-              PieSeries<ColorChartData, String>(
-                dataSource: chartData,
-                xValueMapper: (ColorChartData data, _) => data.colorHex,
-                yValueMapper: (ColorChartData data, _) => data.count,
-                pointColorMapper: (ColorChartData data, _) => data.color,
-                dataLabelMapper: (ColorChartData data, _) => '${data.count}',
-                sortFieldValueMapper: (ColorChartData data, _) => data.count,
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
-                  labelIntersectAction: LabelIntersectAction.shift,
-                  labelPosition: ChartDataLabelPosition.outside,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontFamily: 'CustomFont',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  connectorLineSettings: const ConnectorLineSettings(
-                    length: '15%',
-                    type: ConnectorType.line,
-                  ),
-                ),
-                sortingOrder: SortingOrder.descending,
-              ),
-            ],
-          ),
-        ),
-      ],
+    return CustomPieChartWidget<ColorChartData>(
+      chartData: chartData,
+      title: S.current.database_colors,
+      xValueMapper: (data) => data.colorHex,
+      yValueMapper: (data) => data.count,
+      pointColorMapper: (data, _) => data.color,
     );
   }
 }
 
+// Brands pie chart widget
 class BrandPieChartWidget extends StatelessWidget {
   final Map<String, double> chartData;
 
@@ -284,81 +227,20 @@ class BrandPieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Set<Color> usedColors = {};
-    List<BrandChartData> data = chartData.entries
-        .map((entry) => BrandChartData(entry.key, entry.value))
+    List<PieChartData> data = chartData.entries
+        .map((entry) => PieChartData(entry.key, entry.value))
         .toList();
 
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        Text(
-          'Brands',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontFamily: 'CustomFont',
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 400,
-          width: 350,
-          child: SfCircularChart(
-            legend: Legend(
-              isVisible: true,
-              position: LegendPosition.bottom,
-              height: '40%',
-              textStyle: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontFamily: 'CustomFont',
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-              overflowMode: LegendItemOverflowMode.wrap,
-            ),
-            series: <CircularSeries>[
-              PieSeries<BrandChartData, String>(
-                dataSource: data,
-                xValueMapper: (BrandChartData data, _) => data.brand,
-                yValueMapper: (BrandChartData data, _) => data.value,
-                pointColorMapper: (BrandChartData data, int index) {
-                  // Genera dinamicamente un colore per ogni categoria
-                  Color color;
-                  do {
-                    color = getRandomColor();
-                  } while (usedColors.contains(color));
-
-                  usedColors.add(color);
-                  return color;
-                },
-                sortFieldValueMapper: (BrandChartData data, _) => data.value,
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
-                  labelIntersectAction: LabelIntersectAction.shift,
-                  labelPosition: ChartDataLabelPosition.outside,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontFamily: 'CustomFont',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  connectorLineSettings: const ConnectorLineSettings(
-                    length: '15%',
-                    type: ConnectorType.line,
-                  ),
-                ),
-                sortingOrder: SortingOrder.descending,
-              ),
-            ],
-          ),
-        ),
-      ],
+    return CustomPieChartWidget<PieChartData>(
+      chartData: data,
+      title: S.current.database_brands,
+      xValueMapper: (data) => data.label,
+      yValueMapper: (data) => data.value,
     );
   }
 }
 
+// Categories pie chart widget
 class CategoryPieChartWidget extends StatelessWidget {
   final Map<String, double> chartData;
 
@@ -366,81 +248,23 @@ class CategoryPieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Set<Color> usedColors = {};
-    List<CategoryChartData> data = chartData.entries
-        .map((entry) => CategoryChartData(entry.key, entry.value))
+    List<PieChartData> data = chartData.entries
+        .map((entry) => PieChartData(
+              DbLocalizedValues.getCategoryName(entry.key, context),
+              entry.value,
+            ))
         .toList();
 
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        Text(
-          'Categories',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontFamily: 'CustomFont',
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 400,
-          width: 350,
-          child: SfCircularChart(
-            legend: Legend(
-              isVisible: true,
-              position: LegendPosition.bottom,
-              height: '40%',
-              textStyle: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontFamily: 'CustomFont',
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-              overflowMode: LegendItemOverflowMode.wrap,
-            ),
-            series: <CircularSeries>[
-              PieSeries<CategoryChartData, String>(
-                dataSource: data,
-                pointColorMapper: (CategoryChartData data, _) {
-                  // Genera dinamicamente un colore per ogni categoria
-                  Color color;
-                  do {
-                    color = getRandomColor();
-                  } while (usedColors.contains(color));
-
-                  usedColors.add(color);
-                  return color;
-                },
-                xValueMapper: (CategoryChartData data, _) => data.category,
-                yValueMapper: (CategoryChartData data, _) => data.value,
-                sortFieldValueMapper: (CategoryChartData data, _) => data.value,
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
-                  labelIntersectAction: LabelIntersectAction.shift,
-                  labelPosition: ChartDataLabelPosition.outside,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontFamily: 'CustomFont',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  connectorLineSettings: const ConnectorLineSettings(
-                    length: '15%',
-                    type: ConnectorType.line,
-                  ),
-                ),
-                sortingOrder: SortingOrder.descending,
-              ),
-            ],
-          ),
-        ),
-      ],
+    return CustomPieChartWidget<PieChartData>(
+      chartData: data,
+      title: S.current.database_categories,
+      xValueMapper: (data) => data.label,
+      yValueMapper: (data) => data.value,
     );
   }
 }
 
+// Types pie chart widget
 class TypePieChartWidget extends StatelessWidget {
   final Map<String, double> chartData;
 
@@ -448,117 +272,18 @@ class TypePieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Set<Color> usedColors = {};
-    List<TypeChartData> data = chartData.entries
-        .map((entry) => TypeChartData(entry.key, entry.value))
+    List<PieChartData> data = chartData.entries
+        .map((entry) => PieChartData(
+              DbLocalizedValues.getTypeName(entry.key, context),
+              entry.value,
+            ))
         .toList();
 
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        Text(
-          'Types',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontFamily: 'CustomFont',
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 400,
-          width: 350,
-          child: SfCircularChart(
-            legend: Legend(
-              isVisible: true,
-              position: LegendPosition.bottom,
-              height: '40%',
-              textStyle: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontFamily: 'CustomFont',
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-              overflowMode: LegendItemOverflowMode.wrap,
-            ),
-            series: <CircularSeries>[
-              PieSeries<TypeChartData, String>(
-                dataSource: data,
-                pointColorMapper: (TypeChartData data, _) {
-                  // Genera dinamicamente un colore per ogni categoria
-                  Color color;
-                  do {
-                    color = getRandomColor();
-                  } while (usedColors.contains(color));
-
-                  usedColors.add(color);
-                  return color;
-                },
-                xValueMapper: (TypeChartData data, _) => data.type,
-                yValueMapper: (TypeChartData data, _) => data.value,
-                sortFieldValueMapper: (TypeChartData data, _) => data.value,
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
-                  labelIntersectAction: LabelIntersectAction.shift,
-                  labelPosition: ChartDataLabelPosition.outside,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontFamily: 'CustomFont',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  connectorLineSettings: const ConnectorLineSettings(
-                    length: '15%',
-                    type: ConnectorType.line,
-                  ),
-                ),
-                sortingOrder: SortingOrder.descending,
-              ),
-            ],
-          ),
-        ),
-      ],
+    return CustomPieChartWidget<PieChartData>(
+      chartData: data,
+      title: S.current.database_types,
+      xValueMapper: (data) => data.label,
+      yValueMapper: (data) => data.value,
     );
   }
-}
-
-class ColorChartData {
-  final String colorHex;
-  final int count;
-  final Color color;
-
-  ColorChartData(this.colorHex, this.count, this.color);
-}
-
-class BrandChartData {
-  final String brand;
-  final double value;
-
-  BrandChartData(this.brand, this.value);
-}
-
-class CategoryChartData {
-  final String category;
-  final double value;
-
-  CategoryChartData(this.category, this.value);
-}
-
-class TypeChartData {
-  final String type;
-  final double value;
-
-  TypeChartData(this.type, this.value);
-}
-
-// Funzione per generare un colore casuale
-Color getRandomColor() {
-  Random random = Random();
-  return Color.fromARGB(
-    255,
-    random.nextInt(256),
-    random.nextInt(256),
-    random.nextInt(256),
-  );
 }

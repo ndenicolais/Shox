@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
@@ -24,7 +26,7 @@ class InfoPageState extends State<InfoPage> {
           },
         ),
         title: Text(
-          'Info',
+          S.current.info_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
@@ -38,72 +40,39 @@ class InfoPageState extends State<InfoPage> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/app_logo.png',
-                  width: 250,
-                  height: 250,
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 40.r),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/app_logo.png',
+                width: 140.r,
+                height: 140.r,
+              ),
+              80.verticalSpace,
+              Text(
+                S.current.info_description,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 22.r,
+                  fontFamily: 'CustomFont',
                 ),
-                const SizedBox(height: 20),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
+                textAlign: TextAlign.center,
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    '${S.current.info_version} 2.0.0',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.tertiary,
-                      fontSize: 18,
+                      fontSize: 14.r,
                       fontFamily: 'CustomFont',
                     ),
-                    children: const <TextSpan>[
-                      TextSpan(
-                        text:
-                            'This application allows you to create a digital wardrobe where you can save and view all your Shoes.',
-                      ),
-                      TextSpan(
-                        text: '\n\nThe name of the app is the fusion between ',
-                      ),
-                      TextSpan(
-                        text: '"Shoes"',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: ' and ',
-                      ),
-                      TextSpan(
-                        text: '"Box"',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text:
-                            ' just to simulate the creation of a large box where to contain the shoes.',
-                      ),
-                      TextSpan(
-                        text:
-                            '\n\nIn this way all your shoes will be cataloged and always at your fingertips.',
-                      ),
-                    ],
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      'Version 1.1.0',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontSize: 14,
-                        fontFamily: 'CustomFont',
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
