@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shox/generated/l10n.dart';
+import 'package:shox/theme/app_colors.dart';
 
 class LanguagesPage extends StatefulWidget {
   const LanguagesPage({super.key});
@@ -10,6 +14,32 @@ class LanguagesPage extends StatefulWidget {
 }
 
 class LanguagesPageState extends State<LanguagesPage> {
+  String? _selectedLanguageCode;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLanguagePreference().then((languageCode) {
+      setState(() {
+        _selectedLanguageCode = languageCode;
+      });
+    });
+  }
+
+  Future<void> _saveLanguagePreference(String languageCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('language_code', languageCode);
+    setState(() {
+      _selectedLanguageCode = languageCode;
+    });
+    Get.updateLocale(Locale(languageCode));
+  }
+
+  Future<String> _loadLanguagePreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('language_code') ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +54,7 @@ class LanguagesPageState extends State<LanguagesPage> {
           },
         ),
         title: Text(
-          'Languages',
+          S.current.languages_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
@@ -37,23 +67,83 @@ class LanguagesPageState extends State<LanguagesPage> {
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
-        child: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/img_languages.png',
+                  width: 120.r,
+                  height: 120.r,
+                ),
+                40.verticalSpace,
+                Text(
+                  S.current.languages_description,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 22.r,
+                    fontFamily: 'CustomFont',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                40.verticalSpace,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildLanguageCard(
+                        'en', 'English', 'assets/images/img_flag_eng.png'),
+                    _buildLanguageCard(
+                        'it', 'Italian', 'assets/images/img_flag_ita.png'),
+                    _buildLanguageCard(
+                        'es', 'Spanish', 'assets/images/img_flag_esp.png'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageCard(
+      String languageCode, String languageName, String flagAsset) {
+    final isSelected = languageCode == _selectedLanguageCode;
+    return GestureDetector(
+      onTap: () {
+        _saveLanguagePreference(languageCode);
+      },
+      child: Card(
+        color: isSelected
+            ? Theme.of(context).colorScheme.secondary
+            : Theme.of(context).colorScheme.primary,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: isSelected ? AppColors.smoothBlack : AppColors.lightYellow,
+              width: 1.0),
+          borderRadius: BorderRadius.circular(10.0.r),
+        ),
+        child: SizedBox(
+          width: 220.r,
+          height: 100.r,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                MingCuteIcons.mgc_translate_2_fill,
-                size: 120,
-                color: Theme.of(context).colorScheme.secondary,
+              Image.asset(
+                flagAsset,
+                width: 60.r,
+                height: 40.r,
               ),
-              const SizedBox(height: 80),
+              10.verticalSpace,
               Text(
-                'On this page\nyou can set\nthe languages',
+                languageName,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.tertiary,
-                  fontSize: 22,
+                  fontSize: 18.r,
                   fontFamily: 'CustomFont',
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
           ),
