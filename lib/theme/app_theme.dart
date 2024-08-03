@@ -16,8 +16,8 @@ class AppTheme {
         onError: AppColors.errorColor,
       ),
       textSelectionTheme: const TextSelectionThemeData(
-        selectionColor: AppColors.lightPeach,
-        selectionHandleColor: AppColors.lightPeach,
+        selectionColor: AppColors.darkGold,
+        selectionHandleColor: AppColors.darkGold,
       ),
     );
   }
@@ -27,11 +27,11 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: AppColors.smoothBlack,
         onPrimary: AppColors.smoothBlack,
-        secondary: AppColors.lightYellow,
+        secondary: AppColors.darkGold,
         onSecondary: AppColors.smoothBlack,
         tertiary: AppColors.lightYellow,
-        onTertiary: AppColors.lightYellow,
-        surface: AppColors.lightYellow,
+        onTertiary: AppColors.darkGold,
+        surface: AppColors.lightGrey,
         onSurface: AppColors.smoothBlack,
         onError: AppColors.errorColor,
       ),
