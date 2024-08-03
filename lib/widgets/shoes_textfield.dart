@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shox/theme/app_colors.dart';
 
 class ShoesTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -22,11 +23,23 @@ class ShoesTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
           color: Theme.of(context).colorScheme.tertiary,
           fontFamily: 'CustomFont',
+        ),
+        errorStyle: const TextStyle(
+          color: AppColors.errorColor,
+          fontFamily: 'CustomFont',
+          fontWeight: FontWeight.bold,
+        ),
+        errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.errorColor,
+          ),
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
