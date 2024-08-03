@@ -1,17 +1,18 @@
-import 'package:delightful_toast/delight_toast.dart';
-import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/welcome_page.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/widgets/custom_toast_bar.dart';
 
 class DeletePage extends StatefulWidget {
   const DeletePage({super.key});
@@ -43,7 +44,7 @@ class DeletePageState extends State<DeletePage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.remove('remember_me');
       } catch (e) {
-        _showErrorSnackBar('Re-authentication with Google failed.');
+        _showErrorSnackBar(S.current.toast_delete_google);
       }
     }
   }
@@ -64,7 +65,7 @@ class DeletePageState extends State<DeletePage> {
       await _firestore.collection('users').doc(userId).delete();
     } catch (e) {
       logger.e('Error deleting user data: $e');
-      throw Exception('Failed to delete user data: $e');
+      throw Exception('${S.current.toast_delete_user_data} $e');
     }
   }
 
@@ -73,29 +74,30 @@ class DeletePageState extends State<DeletePage> {
       final storageRef =
           FirebaseStorage.instance.ref().child('shoes_images/$userId');
 
-      // Elenca tutti i file e le sottocartelle all'interno di 'shoes_images/$userId'
+      // Lists all files and subfolders within 'shoes_images/$userId'
       ListResult listResult = await storageRef.listAll();
       logger.i(
           'Found ${listResult.items.length} files and ${listResult.prefixes.length} folders to delete.');
 
-      // Elimina tutti i file all'interno della cartella dell'utente
+      // Delete all files in the user’s folder
       for (Reference item in listResult.items) {
         logger.i('Deleting file: ${item.fullPath}');
         await item.delete();
       }
 
-      // Elimina tutte le sottocartelle all'interno della cartella dell'utente
+      // Delete all subfolders within the user’s folder
       for (Reference prefix in listResult.prefixes) {
         logger.i('Deleting folder: ${prefix.fullPath}');
         await prefix.delete();
       }
     } catch (e) {
       logger.e('Error deleting user storage: $e');
-      throw Exception('Failed to delete user storage: $e');
+      throw Exception('${S.current.toast_delete_user_storage} $e');
     }
   }
 
   Future<void> _deleteAccount() async {
+    final localizations = S.current;
     try {
       User? user = _auth.currentUser;
       if (user != null) {
@@ -105,19 +107,19 @@ class DeletePageState extends State<DeletePage> {
           builder: (context) => AlertDialog(
             backgroundColor: Theme.of(context).colorScheme.primary,
             title: Text(
-              'Delete',
+              localizations.delete_d_title,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.tertiary,
-                fontSize: 20,
+                fontSize: 20.r,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'CustomFontBold',
               ),
             ),
             content: Text(
-              'Are you sure you want to delete your account?',
+              localizations.delete_d_description,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.tertiary,
-                fontSize: 18,
+                fontSize: 18.r,
                 fontFamily: 'CustomFont',
               ),
             ),
@@ -128,11 +130,11 @@ class DeletePageState extends State<DeletePage> {
                     AppColors.errorColor,
                   ),
                 ),
-                child: const Text(
-                  'Cancel',
+                child: Text(
+                  localizations.delete_d_cancel,
                   style: TextStyle(
                     color: AppColors.white,
-                    fontSize: 16,
+                    fontSize: 16.r,
                     fontFamily: 'CustomFont',
                   ),
                 ),
@@ -146,11 +148,11 @@ class DeletePageState extends State<DeletePage> {
                     AppColors.confirmColor,
                   ),
                 ),
-                child: const Text(
-                  'Confirm',
+                child: Text(
+                  localizations.delete_d_confirm,
                   style: TextStyle(
                     color: AppColors.white,
-                    fontSize: 16,
+                    fontSize: 16.r,
                     fontFamily: 'CustomFont',
                   ),
                 ),
@@ -180,41 +182,13 @@ class DeletePageState extends State<DeletePage> {
             // Delete the user
             await user.delete();
 
-            // Definitive logout from Google if the user is authenticated with Google
-            // if (user.providerData
-            //     .any((userInfo) => userInfo.providerId == 'google.com')) {
-            //   await logout();
-            // }
+            // Show confirm toastbar
+            _showConfirmToastBar();
           } catch (e) {
-            // Gestisci gli errori qui
             logger.e('Error deleting user: $e');
-            // Potresti voler mostrare un messaggio di errore o effettuare altre azioni di gestione degli errori.
           }
 
-          // Show confirm toastbar
-          if (mounted) {
-            DelightToastBar(
-              snackbarDuration: const Duration(milliseconds: 1500),
-              builder: (context) => const ToastCard(
-                color: AppColors.confirmColor,
-                leading: Icon(
-                  MingCuteIcons.mgc_check_fill,
-                  color: AppColors.white,
-                  size: 28,
-                ),
-                title: Text(
-                  "Account deleted successfully",
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              autoDismiss: true,
-            ).show(context);
-          }
-
-          // Navigate to WelcomePage after deletion
+          // Navigate to WelcomePage
           Get.to(
             () => const WelcomePage(),
             transition: Transition.fade,
@@ -223,44 +197,35 @@ class DeletePageState extends State<DeletePage> {
         }
       }
     } on FirebaseAuthException catch (e) {
-      String errorMessage;
-      switch (e.code) {
-        case 'requires-recent-login':
-          errorMessage =
-              'This operation is sensitive and requires recent authentication. Please log in again.';
-          break;
-        default:
-          errorMessage = 'An error occurred. Please try again.';
-      }
-      _showErrorSnackBar(errorMessage);
-    } catch (e) {
-      _showErrorSnackBar("An unexpected error occurred. Please try again.");
+      _showErrorSnackBar('${S.current.toast_delete_generic_error} $e');
     }
+  }
+
+  void _showConfirmToastBar() {
+    // Show confirm toastbar
+    showCustomToastBar(
+      context,
+      position: DelightSnackbarPosition.bottom,
+      color: AppColors.confirmColor,
+      icon: const Icon(
+        MingCuteIcons.mgc_check_fill,
+      ),
+      title: S.current.toast_delete_success,
+    );
   }
 
   void _showErrorSnackBar(String? message) {
     if (message != null) {
       // Show error toastbar
-      DelightToastBar(
+      showCustomToastBar(
+        context,
         position: DelightSnackbarPosition.top,
-        snackbarDuration: const Duration(milliseconds: 1500),
-        builder: (context) => ToastCard(
-          color: AppColors.errorColor,
-          leading: const Icon(
-            MingCuteIcons.mgc_color_picker_fill,
-            color: AppColors.white,
-            size: 28,
-          ),
-          title: Text(
-            message,
-            style: const TextStyle(
-              color: AppColors.white,
-              fontSize: 16,
-            ),
-          ),
+        color: AppColors.errorColor,
+        icon: const Icon(
+          MingCuteIcons.mgc_warning_fill,
         ),
-        autoDismiss: true,
-      ).show(context);
+        title: message,
+      );
     }
   }
 
@@ -277,79 +242,53 @@ class DeletePageState extends State<DeletePage> {
             Get.back();
           },
         ),
+        title: Text(
+          S.current.delete_title,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
           child: Center(
             child: Column(
               children: [
-                Icon(
-                  MingCuteIcons.mgc_user_x_fill,
-                  size: 120,
-                  color: Theme.of(context).colorScheme.secondary,
+                Image.asset(
+                  'assets/images/img_user_delete.png',
+                  width: 120.r,
+                  height: 120.r,
                 ),
-                const SizedBox(height: 80),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontSize: 18,
-                      fontFamily: 'CustomFont',
-                    ),
-                    children: const <TextSpan>[
-                      TextSpan(
-                        text:
-                            'On this page you can permanently delete your Account.',
-                      ),
-                      TextSpan(
-                        text:
-                            '\n\nConfirming the cancellation will also delete all the ',
-                      ),
-                      TextSpan(
-                        text: 'Database',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: ' linked to the ',
-                      ),
-                      TextSpan(
-                        text: 'Account',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: '.',
-                      ),
-                      TextSpan(
-                        text: '\n\nRemember that the process is irreversible.',
-                      ),
-                      TextSpan(
-                        text: '\n\nIf you want to proceed click on the ',
-                      ),
-                      TextSpan(
-                        text: 'Button',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: ' below:',
-                      ),
-                    ],
+                40.verticalSpace,
+                Text(
+                  S.current.delete_description,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 20.r,
+                    fontFamily: 'CustomFont',
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
+                40.verticalSpace,
                 SizedBox(
-                  width: 70,
-                  height: 70,
+                  width: 70.r,
+                  height: 70.r,
                   child: FloatingActionButton(
                     onPressed: _deleteAccount,
                     backgroundColor: AppColors.errorColor,
                     shape: const CircleBorder(),
-                    child: Icon(MingCuteIcons.mgc_delete_2_fill,
-                        size: 32, color: Theme.of(context).colorScheme.primary),
+                    child: Icon(
+                      MingCuteIcons.mgc_delete_2_fill,
+                      size: 32.r,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],

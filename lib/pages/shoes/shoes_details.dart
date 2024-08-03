@@ -1,12 +1,15 @@
-import 'package:delightful_toast/delight_toast.dart';
-import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
+import 'package:shox/pages/shoes/shoes_languages.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/pages/shoes/shoes_updater.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/widgets/custom_toast_bar.dart';
 
 class ShoesDetailsPage extends StatefulWidget {
   final Shoes shoes;
@@ -20,11 +23,18 @@ class ShoesDetailsPage extends StatefulWidget {
 class ShoesDetailsPageState extends State<ShoesDetailsPage> {
   late Shoes shoes;
   final ShoesService shoesService = ShoesService();
+  late String currentLanguageCode;
 
   @override
   void initState() {
     super.initState();
     shoes = widget.shoes;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    currentLanguageCode = Localizations.localeOf(context).languageCode;
   }
 
   void _showDeleteConfirmationDialog(BuildContext context) {
@@ -34,19 +44,19 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
-            'Delete',
+            S.current.delete_shoes_title,
             style: TextStyle(
               color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 20,
+              fontSize: 20.r,
               fontWeight: FontWeight.bold,
               fontFamily: 'CustomFontBold',
             ),
           ),
           content: Text(
-            'Are you sure you want to delete this shoes?',
+            S.current.delete_shoes_description,
             style: TextStyle(
               color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 18,
+              fontSize: 18.r,
               fontFamily: 'CustomFont',
             ),
           ),
@@ -57,11 +67,11 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                   AppColors.errorColor,
                 ),
               ),
-              child: const Text(
-                'Cancel',
+              child: Text(
+                S.current.delete_shoes_cancel,
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 16,
+                  fontSize: 16.r,
                   fontFamily: 'CustomFont',
                 ),
               ),
@@ -75,36 +85,18 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                   AppColors.confirmColor,
                 ),
               ),
-              child: const Text(
-                'Confirm',
+              child: Text(
+                S.current.delete_shoes_confirm,
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 16,
+                  fontSize: 16.r,
                   fontFamily: 'CustomFont',
                 ),
               ),
               onPressed: () {
                 shoesService.deleteShoes(shoes.id!, shoes.imageUrl);
                 // Show confirmation toastbar
-                DelightToastBar(
-                  snackbarDuration: const Duration(milliseconds: 1500),
-                  builder: (context) => const ToastCard(
-                    color: AppColors.confirmColor,
-                    leading: Icon(
-                      MingCuteIcons.mgc_check_fill,
-                      color: AppColors.white,
-                      size: 28,
-                    ),
-                    title: Text(
-                      "Shoes deleted successfully",
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  autoDismiss: true,
-                ).show(context);
+                _showConfirmToastBar();
                 // Close the dialog
                 Get.back();
                 // Back to previous screen
@@ -125,6 +117,19 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
     );
   }
 
+  void _showConfirmToastBar() {
+    // Show confirm toastbar
+    showCustomToastBar(
+      context,
+      position: DelightSnackbarPosition.bottom,
+      color: AppColors.confirmColor,
+      icon: const Icon(
+        MingCuteIcons.mgc_check_fill,
+      ),
+      title: S.current.toast_delete_shoes_success,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,6 +143,15 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
             Get.back();
           },
         ),
+        title: Text(
+          S.current.details_title,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(
@@ -156,7 +170,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 10.r),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -168,21 +182,19 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                         builder: (BuildContext context) {
                           return Dialog(
                             backgroundColor: Colors.white,
-                            insetPadding: const EdgeInsets.all(10),
+                            insetPadding: EdgeInsets.all(10.r),
                             child: Stack(
                               children: [
                                 Center(
                                   child: Image.network(shoes.imageUrl),
                                 ),
                                 Positioned(
-                                  top: 10,
-                                  left: 10,
+                                  top: 10.r,
+                                  left: 10.r,
                                   child: IconButton(
                                     icon: Icon(MingCuteIcons.mgc_close_fill,
-                                        size: 36,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary),
+                                        size: 36.r,
+                                        color: AppColors.smoothBlack),
                                     onPressed: () {
                                       Get.back();
                                     },
@@ -204,30 +216,30 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                       child: Image.network(
                         shoes.imageUrl,
                         fit: BoxFit.cover,
-                        width: 280,
-                        height: 280,
+                        width: 280.r,
+                        height: 280.r,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                20.verticalSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
                       children: [
                         Text(
-                          'COLOR',
+                          S.current.text_color,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24,
+                            fontSize: 24.r,
                             fontFamily: 'CustomFontBold',
                           ),
                         ),
                         Icon(
                           MingCuteIcons.mgc_palette_fill,
                           color: shoes.color,
-                          size: 32,
+                          size: 32.r,
                           shadows: [
                             Shadow(
                               color: Colors.black.withOpacity(0.2),
@@ -236,12 +248,12 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 12),
+                        14.verticalSpace,
                         Text(
-                          'BRAND',
+                          S.current.text_brand,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24,
+                            fontSize: 24.r,
                             fontFamily: 'CustomFontBold',
                           ),
                         ),
@@ -249,17 +261,17 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                           shoes.brand,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20,
+                            fontSize: 20.r,
                             fontFamily: 'CustomFont',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        14.verticalSpace,
                         Text(
-                          'SIZE',
+                          S.current.text_size,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24,
+                            fontSize: 24.r,
                             fontFamily: 'CustomFontBold',
                           ),
                         ),
@@ -267,7 +279,7 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                           shoes.size,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20,
+                            fontSize: 20.r,
                             fontFamily: 'CustomFont',
                             fontWeight: FontWeight.bold,
                           ),
@@ -277,17 +289,17 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                     Column(
                       children: [
                         Text(
-                          'SEASON',
+                          S.current.text_season,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24,
+                            fontSize: 24.r,
                             fontFamily: 'CustomFontBold',
                           ),
                         ),
                         Icon(
                           shoes.seasonIcon,
                           color: Theme.of(context).colorScheme.tertiary,
-                          size: 32,
+                          size: 32.r,
                           shadows: [
                             Shadow(
                               color: Colors.black.withOpacity(0.2),
@@ -296,38 +308,40 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 12),
+                        14.verticalSpace,
                         Text(
-                          'CATEGORY',
+                          S.current.text_category,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24,
+                            fontSize: 24.r,
                             fontFamily: 'CustomFontBold',
                           ),
                         ),
                         Text(
-                          shoes.category,
+                          ShoesLanguages.translateCategory(
+                              shoes.category, currentLanguageCode),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20,
+                            fontSize: 20.r,
                             fontFamily: 'CustomFont',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        14.verticalSpace,
                         Text(
-                          'TYPE',
+                          S.current.text_type,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24,
+                            fontSize: 24.r,
                             fontFamily: 'CustomFontBold',
                           ),
                         ),
                         Text(
-                          shoes.type,
+                          ShoesLanguages.translateType(
+                              shoes.type, currentLanguageCode),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20,
+                            fontSize: 20.r,
                             fontFamily: 'CustomFont',
                             fontWeight: FontWeight.bold,
                           ),
@@ -336,22 +350,22 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                14.verticalSpace,
                 Text(
-                  'NOTES',
+                  S.current.text_notes,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 24,
+                    fontSize: 24.r,
                     fontFamily: 'CustomFontBold',
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  padding: EdgeInsets.symmetric(horizontal: 40.r),
                   child: Text(
                     shoes.notes ?? '',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.tertiary,
-                      fontSize: 16,
+                      fontSize: 16.r,
                       fontFamily: 'CustomFont',
                       fontWeight: FontWeight.bold,
                     ),
@@ -364,8 +378,8 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
         ),
       ),
       floatingActionButton: SizedBox(
-        width: 70,
-        height: 70,
+        width: 70.r,
+        height: 70.r,
         child: FloatingActionButton(
           onPressed: () async {
             final updatedShoes = await Get.to(
@@ -378,8 +392,11 @@ class ShoesDetailsPageState extends State<ShoesDetailsPage> {
           },
           backgroundColor: Theme.of(context).colorScheme.secondary,
           shape: const CircleBorder(),
-          child: Icon(MingCuteIcons.mgc_edit_2_fill,
-              size: 32, color: Theme.of(context).colorScheme.primary),
+          child: Icon(
+            MingCuteIcons.mgc_edit_2_fill,
+            size: 32.r,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

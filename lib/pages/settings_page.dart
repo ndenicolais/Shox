@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/settings/languages_page.dart';
 import 'package:shox/pages/settings/support_page.dart';
 import 'package:shox/pages/settings/info_page.dart';
-import 'package:shox/pages/settings/notifications_page.dart';
+import 'package:shox/pages/settings/policy_page.dart';
 import 'package:shox/pages/settings/theme_page.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -29,7 +31,7 @@ class SettingsPageState extends State<SettingsPage> {
           },
         ),
         title: Text(
-          'Settings',
+          S.current.settings_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
@@ -42,200 +44,203 @@ class SettingsPageState extends State<SettingsPage> {
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Icon(
-                MingCuteIcons.mgc_settings_5_fill,
-                size: 120,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              const SizedBox(height: 50),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const ThemePage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_palette_fill,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/img_settings.png',
+                  width: 120.r,
+                  height: 120.r,
+                ),
+                40.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const ThemePage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Theme',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_palette_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.settings_theme,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const LanguagesPage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_translate_2_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const LanguagesPage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Languages',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_translate_2_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.settings_languages,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const NotificationsPage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_bell_ringing_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const InfoPage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Notifications',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_information_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.settings_info,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const InfoPage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_information_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => PrivacyPolicyPage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Info',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_safe_lock_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.settings_policy,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const ContactsPage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_send_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const ContactsPage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Support',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_send_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.settings_support,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:delightful_toast/delight_toast.dart';
-import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/account/delete_page.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/profile/database_page.dart';
 import 'package:shox/pages/profile/stores_page.dart';
 import 'package:shox/pages/welcome_page.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/widgets/custom_toast_bar.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -137,27 +138,16 @@ class ProfilePageState extends State<ProfilePage> {
   }
 
   void _showConfirmToastBar() {
-    // Show error toastbar
-    DelightToastBar(
+    // Show confirm toastbar
+    showCustomToastBar(
+      context,
       position: DelightSnackbarPosition.bottom,
-      snackbarDuration: const Duration(milliseconds: 1500),
-      builder: (context) => const ToastCard(
-        color: AppColors.confirmColor,
-        leading: Icon(
-          MingCuteIcons.mgc_hand_fill,
-          color: AppColors.white,
-          size: 28,
-        ),
-        title: Text(
-          'See later!',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 16,
-          ),
-        ),
+      color: AppColors.confirmColor,
+      icon: const Icon(
+        MingCuteIcons.mgc_check_fill,
       ),
-      autoDismiss: true,
-    ).show(context);
+      title: S.current.toast_logout,
+    );
   }
 
   @override
@@ -173,189 +163,201 @@ class ProfilePageState extends State<ProfilePage> {
             Get.back();
           },
         ),
+        title: Text(
+          S.current.profile_title,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 80,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                backgroundImage: _userProfileImage != null
-                    ? NetworkImage(_userProfileImage!)
-                    : null,
-                child: _userProfileImage == null
-                    ? Icon(
-                        Icons.face,
-                        size: 120,
-                        color: Theme.of(context).colorScheme.primary,
-                      )
-                    : null,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                _userName,
-                style: TextStyle(
-                  fontSize: 26,
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontFamily: 'CustomFontBold',
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          child: Center(
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 80.r,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  backgroundImage: _userProfileImage != null
+                      ? NetworkImage(_userProfileImage!)
+                      : null,
+                  child: _userProfileImage == null
+                      ? Image.asset(
+                          'assets/images/img_profile.png',
+                          width: 120.r,
+                          height: 120.r,
+                        )
+                      : null,
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                _userEmail,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontFamily: 'CustomFont',
-                ),
-              ),
-              const SizedBox(height: 40),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const DatabasePage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
+                10.verticalSpace,
+                Text(
+                  _userName,
+                  style: TextStyle(
+                    fontSize: 26.r,
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontFamily: 'CustomFontBold',
                   ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_chart_pie_2_fill,
+                ),
+                10.verticalSpace,
+                Text(
+                  _userEmail,
+                  style: TextStyle(
+                    fontSize: 18.r,
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontFamily: 'CustomFont',
+                  ),
+                ),
+                40.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const DatabasePage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Database',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_chart_pie_2_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.profile_database,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const StoresPage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_shop_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const StoresPage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Stores',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_shop_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.profile_stores,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: logout,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_exit_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: logout,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Log Out',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_exit_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.profile_logout,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 280,
-                height: 60,
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.to(
-                      () => const DeletePage(),
-                      transition: Transition.fade,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(MingCuteIcons.mgc_delete_2_fill,
+                20.verticalSpace,
+                SizedBox(
+                  width: 280.r,
+                  height: 60.r,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const DeletePage(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.r),
+                      side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
-                      Text(
-                        'Delete Account',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 20,
-                          fontFamily: 'CustomFont',
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(MingCuteIcons.mgc_delete_2_fill,
+                            color: Theme.of(context).colorScheme.secondary),
+                        Text(
+                          S.current.profile_delete,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20.r,
+                            fontFamily: 'CustomFont',
+                          ),
                         ),
-                      ),
-                      Icon(MingCuteIcons.mgc_right_fill,
-                          color: Theme.of(context).colorScheme.tertiary),
-                    ],
+                        Icon(MingCuteIcons.mgc_right_fill,
+                            color: Theme.of(context).colorScheme.tertiary),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

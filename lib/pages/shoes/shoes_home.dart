@@ -2,14 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/profile_page.dart';
 import 'package:shox/pages/settings_page.dart';
 import 'package:shox/pages/shoes/shoes_adder.dart';
 import 'package:shox/pages/shoes/shoes_details.dart';
 import 'package:shox/models/shoes_model.dart';
+import 'package:shox/pages/shoes/shoes_languages.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/utils.dart';
@@ -38,6 +41,9 @@ class ShoesHomeState extends State<ShoesHome>
   IconData? selectedSeasonIcon;
   String selectedCategory = 'All';
   String selectedType = 'All';
+  late String _languageCode;
+  late Map<String, String> translatedCategoryOptions;
+  late Map<String, String> translatedTypeOptions;
 
   @override
   void initState() {
@@ -48,6 +54,16 @@ class ShoesHomeState extends State<ShoesHome>
       duration: const Duration(seconds: 1),
       vsync: this,
     )..repeat();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _languageCode = Localizations.localeOf(context).languageCode;
+    translatedCategoryOptions =
+        ShoesLanguages.categoryTranslations[_languageCode] ?? {};
+    translatedTypeOptions =
+        ShoesLanguages.typeTranslations[_languageCode] ?? {};
   }
 
   Future<void> _loadUserName() async {
@@ -155,10 +171,10 @@ class ShoesHomeState extends State<ShoesHome>
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
-            'Filters',
+            S.current.home_filter_title,
             style: TextStyle(
               color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 20,
+              fontSize: 20.r,
               fontWeight: FontWeight.bold,
               fontFamily: 'CustomFontBold',
             ),
@@ -169,11 +185,11 @@ class ShoesHomeState extends State<ShoesHome>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: EdgeInsets.symmetric(vertical: 8.0.r),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Colors',
+                        S.current.home_filter_color,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontFamily: 'CustomFont',
@@ -182,8 +198,8 @@ class ShoesHomeState extends State<ShoesHome>
                     ),
                   ),
                   Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
+                    spacing: 8.0.r,
+                    runSpacing: 8.0.r,
                     children: colorList
                         .map(
                           (color) => GestureDetector(
@@ -195,11 +211,11 @@ class ShoesHomeState extends State<ShoesHome>
                               );
                             },
                             child: Container(
-                              width: 24,
-                              height: 24,
+                              width: 24.r,
+                              height: 24.r,
                               decoration: BoxDecoration(
                                 color: color,
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(50.r),
                                 border: Border.all(
                                   color: selectedColor == color
                                       ? Theme.of(context).colorScheme.tertiary
@@ -211,13 +227,13 @@ class ShoesHomeState extends State<ShoesHome>
                         )
                         .toList(),
                   ),
-                  const SizedBox(height: 10),
+                  10.verticalSpace,
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: EdgeInsets.symmetric(vertical: 8.0.r),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Seasons',
+                        S.current.home_filter_season,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontFamily: 'CustomFont',
@@ -251,7 +267,7 @@ class ShoesHomeState extends State<ShoesHome>
                       },
                     ).toList(),
                   ),
-                  const SizedBox(height: 10),
+                  10.verticalSpace,
                   DropdownButtonFormField<String>(
                     value: selectedCategory,
                     onChanged: (String? newValue) {
@@ -261,15 +277,14 @@ class ShoesHomeState extends State<ShoesHome>
                         },
                       );
                     },
-                    items: ['All', ...Shoes.categoryOptions]
+                    items: ['All', ...translatedCategoryOptions.keys]
                         .map(
                           (category) => DropdownMenuItem<String>(
                             value: category,
                             child: Text(
-                              category,
+                              translatedCategoryOptions[category] ?? category,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
-                                fontSize: 14,
                                 fontFamily: 'CustomFont',
                               ),
                             ),
@@ -278,7 +293,7 @@ class ShoesHomeState extends State<ShoesHome>
                         .toList(),
                     dropdownColor: Theme.of(context).colorScheme.primary,
                     decoration: InputDecoration(
-                      labelText: 'Category',
+                      labelText: S.current.home_filter_category,
                       labelStyle: TextStyle(
                         color: Theme.of(context).colorScheme.tertiary,
                         fontFamily: 'CustomFont',
@@ -304,15 +319,14 @@ class ShoesHomeState extends State<ShoesHome>
                         },
                       );
                     },
-                    items: ['All', ...Shoes.typeOptions]
+                    items: ['All', ...translatedTypeOptions.keys]
                         .map(
                           (type) => DropdownMenuItem<String>(
                             value: type,
                             child: Text(
-                              type,
+                              translatedTypeOptions[type] ?? type,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
-                                fontSize: 14,
                                 fontFamily: 'CustomFont',
                               ),
                             ),
@@ -321,7 +335,7 @@ class ShoesHomeState extends State<ShoesHome>
                         .toList(),
                     dropdownColor: Theme.of(context).colorScheme.primary,
                     decoration: InputDecoration(
-                      labelText: 'Type',
+                      labelText: S.current.home_filter_type,
                       labelStyle: TextStyle(
                         color: Theme.of(context).colorScheme.tertiary,
                         fontFamily: 'CustomFont',
@@ -349,11 +363,11 @@ class ShoesHomeState extends State<ShoesHome>
                   AppColors.errorColor,
                 ),
               ),
-              child: const Text(
-                'Cancel',
+              child: Text(
+                S.current.home_filter_cancel,
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 16,
+                  fontSize: 16.r,
                   fontFamily: 'CustomFont',
                 ),
               ),
@@ -377,11 +391,11 @@ class ShoesHomeState extends State<ShoesHome>
                   AppColors.confirmColor,
                 ),
               ),
-              child: const Text(
-                'Apply',
+              child: Text(
+                S.current.home_filter_apply,
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 16,
+                  fontSize: 16.r,
                   fontFamily: 'CustomFont',
                 ),
               ),
@@ -413,7 +427,7 @@ class ShoesHomeState extends State<ShoesHome>
   Widget build(BuildContext context) {
     // Calculate the number of columns based on screen width
     final double screenWidth = MediaQuery.of(context).size.width;
-    final int numberOfColumns = (screenWidth / 200).floor();
+    final int numberOfColumns = (screenWidth / 200.r).floor();
 
     return PopScope(
       canPop: false,
@@ -421,17 +435,16 @@ class ShoesHomeState extends State<ShoesHome>
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 10.r),
             child: Column(
               children: [
-                const SizedBox(height: 16),
                 Row(
                   children: [
                     Text(
                       'Hey, ',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 40,
+                        fontSize: 40.r,
                         fontFamily: 'CustomFont',
                       ),
                     ),
@@ -439,21 +452,22 @@ class ShoesHomeState extends State<ShoesHome>
                       _userName,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 40,
+                        fontSize: 40.r,
                         fontFamily: 'CustomFontBold',
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                10.verticalSpace,
                 Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: _searchController,
-                        focusNode: _searchFocusNode,
+                        onTapOutside: (event) =>
+                            FocusManager.instance.primaryFocus?.unfocus(),
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontFamily: 'CustomFont',
                         ),
                         cursorColor: Theme.of(context).colorScheme.tertiary,
@@ -468,7 +482,7 @@ class ShoesHomeState extends State<ShoesHome>
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             MingCuteIcons.mgc_search_2_fill,
-                            size: 18,
+                            size: 18.r,
                             color: Theme.of(context).colorScheme.tertiary,
                           ),
                           suffixIcon: _searchController.text.isNotEmpty
@@ -487,9 +501,9 @@ class ShoesHomeState extends State<ShoesHome>
                                   },
                                 )
                               : null,
-                          labelText: 'Search by Brand',
+                          labelText: S.current.home_search,
                           labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.tertiary,
                             fontFamily: 'CustomFont',
                           ),
                           enabledBorder: UnderlineInputBorder(
@@ -547,7 +561,7 @@ class ShoesHomeState extends State<ShoesHome>
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                10.verticalSpace,
                 Expanded(
                   child: FutureBuilder<List<Shoes>>(
                     future: _shoesListFuture,
@@ -564,7 +578,7 @@ class ShoesHomeState extends State<ShoesHome>
                             },
                             child: Icon(
                               MingCuteIcons.mgc_shoe_line,
-                              size: 50,
+                              size: 50.r,
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
@@ -575,7 +589,7 @@ class ShoesHomeState extends State<ShoesHome>
                             'Error: ${snapshot.error}',
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary,
-                              fontSize: 20,
+                              fontSize: 20.r,
                               fontFamily: 'CustomFont',
                             ),
                           ),
@@ -584,24 +598,16 @@ class ShoesHomeState extends State<ShoesHome>
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'No shoes',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontSize: 24,
-                                fontFamily: 'CustomFont',
-                              ),
-                            ),
                             Icon(
                               MingCuteIcons.mgc_package_line,
-                              size: 60,
+                              size: 60.r,
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                             Text(
-                              'in the box',
+                              S.current.home_empty,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
-                                fontSize: 24,
+                                fontSize: 22.r,
                                 fontFamily: 'CustomFont',
                               ),
                             ),
@@ -672,8 +678,8 @@ class ShoesHomeState extends State<ShoesHome>
                           itemBuilder: (context, index) {
                             // Calculate dimensions based on screen width and number of columns
                             final double cardWidth =
-                                (screenWidth - 24) / numberOfColumns;
-                            final double imageHeight = cardWidth * 1.2;
+                                (screenWidth - 24.r) / numberOfColumns;
+                            final double imageHeight = cardWidth * 1.2.r;
                             Shoes shoe = filteredShoes[index];
                             return GestureDetector(
                               onTap: () {
@@ -697,12 +703,13 @@ class ShoesHomeState extends State<ShoesHome>
                               child: Stack(
                                 children: [
                                   SizedBox(
-                                    width: cardWidth,
-                                    height: imageHeight,
+                                    width: cardWidth.r,
+                                    height: imageHeight.r,
                                     child: Card(
                                       color: AppColors.lightGrey,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
                                       ),
                                       elevation: 10,
                                       clipBehavior: Clip.antiAlias,
@@ -713,8 +720,8 @@ class ShoesHomeState extends State<ShoesHome>
                                     ),
                                   ),
                                   Positioned(
-                                    top: 4,
-                                    right: 4,
+                                    top: 4.r,
+                                    right: 4.r,
                                     child: LikeButton(
                                       onTap: (isLiked) {
                                         setState(
@@ -758,20 +765,20 @@ class ShoesHomeState extends State<ShoesHome>
           ),
         ),
         bottomNavigationBar: ConvexAppBar(
-          items: const [
+          items: [
             TabItem(
               fontFamily: 'CustomFont',
-              title: 'Profile',
+              title: S.current.home_profile,
               icon: MingCuteIcons.mgc_user_3_fill,
             ),
             TabItem(
               fontFamily: 'CustomFont',
-              title: 'Add',
+              title: S.current.home_add,
               icon: MingCuteIcons.mgc_add_line,
             ),
             TabItem(
               fontFamily: 'CustomFont',
-              title: 'Settings',
+              title: S.current.home_settings,
               icon: MingCuteIcons.mgc_settings_5_fill,
             ),
           ],
@@ -802,8 +809,8 @@ class ShoesHomeState extends State<ShoesHome>
           backgroundColor: Theme.of(context).colorScheme.secondary,
           color: Theme.of(context).colorScheme.primary,
           activeColor: Theme.of(context).colorScheme.primary,
-          height: 60,
-          curveSize: 100,
+          height: 60.r,
+          curveSize: 100.r,
           style: TabStyle.fixedCircle,
         ),
       ),
