@@ -1,11 +1,13 @@
+import 'package:shox/generated/l10n.dart';
+
 extension ExtString on String {
   String? get nameValidationError {
-    if (isEmpty) {
-      return 'Name is required';
-    } else if (trim() == '') {
-      return 'Name cannot be just spaces';
+    final localizations = S.current;
+    String message = '';
+    if (trim() == '') {
+      return message += '\n${localizations.validator_name_empty}';
     }
-    return null;
+    return message.isNotEmpty ? message : null;
   }
 
   bool get isValidName {
@@ -13,16 +15,17 @@ extension ExtString on String {
   }
 
   String? get emailValidationError {
+    final localizations = S.current;
     final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+$");
     String message = '';
 
     if (!emailRegExp.hasMatch(this)) {
       if (!contains('@')) {
-        message += '\nMissing @ symbol';
+        message += '\n${localizations.validator_email_missing_special}';
       }
 
       if (!contains('.')) {
-        message += '\nMissing . symbol';
+        message += '\n${localizations.validator_email_missing_dot}';
       }
     }
 
@@ -34,29 +37,30 @@ extension ExtString on String {
   }
 
   String? get passwordValidationError {
+    final localizations = S.current;
     final passwordRegExp = RegExp(
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[+!@#\><*~]).{8,}$');
     String message = '';
 
     if (!passwordRegExp.hasMatch(this)) {
       if (!RegExp(r'[A-Z]').hasMatch(this)) {
-        message += '\nMissing uppercase letter';
+        message += '\n${localizations.validator_password_missing_upper}';
       }
 
       if (!RegExp(r'[a-z]').hasMatch(this)) {
-        message += '\nMissing lowercase letter';
+        message += '\n${localizations.validator_password_missing_lower}';
       }
 
       if (!RegExp(r'\d').hasMatch(this)) {
-        message += '\nMissing digit';
+        message += '\n${localizations.validator_password_missing_digit}';
       }
 
       if (!RegExp(r'[+!@#\><*~]').hasMatch(this)) {
-        message += '\nMissing special character';
+        message += '\n${localizations.validator_password_missing_special}';
       }
 
       if (length < 8) {
-        message += '\nPassword should be at least 8 characters long.';
+        message += '\n${localizations.validator_password_missing_lenght}';
       }
     }
 
