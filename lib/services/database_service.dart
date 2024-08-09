@@ -133,7 +133,7 @@ class DatabaseService {
   Future<void> generateShoesPdf() async {
     try {
       // Richiedi permesso di scrittura su Android
-      if (await Permission.storage.request().isGranted) {
+      if (await Permission.manageExternalStorage.request().isGranted) {
         List<Shoes> shoesList = await _shoesService.getShoes();
         final userData = await getCurrentUserData();
         int totalShoesCount = shoesList.length;

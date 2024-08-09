@@ -40,6 +40,7 @@ android {
     defaultConfig {
         applicationId = "com.ndn21.shox"
         minSdkVersion 23
+        compileSdkVersion 34
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName

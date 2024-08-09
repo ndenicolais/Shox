@@ -82,13 +82,17 @@ class DatabasePageState extends State<DatabasePage>
   }
 
   Future<void> requestStoragePermission() async {
-    final status = await Permission.storage.request();
+    // Richiedi permesso di gestione della memoria esterna su Android 13+
+    final status = await Permission.manageExternalStorage.request();
+
     if (status.isGranted) {
-      logger.e('Storage permission granted');
+      logger.i('Storage permission granted');
     } else if (status.isDenied) {
       logger.e('Storage permission denied');
     } else if (status.isPermanentlyDenied) {
+      // Puoi guidare l'utente per aprire le impostazioni dell'app
       logger.e('Storage permission permanently denied');
+      openAppSettings(); // Apre le impostazioni dell'app per modificare i permessi
     }
   }
 
