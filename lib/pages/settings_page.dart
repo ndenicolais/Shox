@@ -56,7 +56,7 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
                 40.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
@@ -93,7 +93,7 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
@@ -130,7 +130,7 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
@@ -167,7 +167,7 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
@@ -204,7 +204,7 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {

@@ -216,7 +216,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 40.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
@@ -253,7 +253,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
@@ -290,7 +290,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: logout,
@@ -321,7 +321,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 20.verticalSpace,
                 SizedBox(
-                  width: 280.r,
+                  width: 300.r,
                   height: 60.r,
                   child: MaterialButton(
                     onPressed: () {
