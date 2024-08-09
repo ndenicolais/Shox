@@ -14,7 +14,7 @@ import 'package:shox/models/shoes_model.dart';
 import 'package:shox/pages/shoes/shoes_languages.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
-import 'package:shox/utils/api_client.dart';
+// import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
@@ -34,7 +34,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
   late AnimationController _loadingController;
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  final ApiClient _apiClient = ApiClient();
+  // final ApiClient _apiClient = ApiClient();
   XFile? _imageFile;
   Color _color = AppColors.smoothBlack;
   bool _colorSelected = false;
@@ -895,7 +895,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                   child: Icon(
                     MingCuteIcons.mgc_save_2_fill,
                     size: 120.r,
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),

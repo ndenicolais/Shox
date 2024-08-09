@@ -14,7 +14,7 @@ import 'package:shox/models/shoes_model.dart';
 import 'package:shox/pages/shoes/shoes_languages.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
-import 'package:shox/utils/api_client.dart';
+// import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
@@ -34,7 +34,7 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
   late AnimationController _loadingController;
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  final ApiClient _apiClient = ApiClient();
+  // final ApiClient _apiClient = ApiClient();
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
   late String _imageUrl;
