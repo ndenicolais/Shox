@@ -63,7 +63,7 @@ class InfoPageState extends State<InfoPage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    '${S.current.info_version} 2.0.0',
+                    '${S.current.info_version} 2.1.0',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.tertiary,
                       fontSize: 14.r,
