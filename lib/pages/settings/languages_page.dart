@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/generated/l10n.dart';
-import 'package:shox/theme/app_colors.dart';
 
 class LanguagesPage extends StatefulWidget {
   const LanguagesPage({super.key});
@@ -88,16 +87,24 @@ class LanguagesPageState extends State<LanguagesPage> {
                   textAlign: TextAlign.center,
                 ),
                 40.verticalSpace,
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildLanguageCard(
-                        'en', 'English', 'assets/images/img_flag_eng.png'),
-                    _buildLanguageCard(
-                        'it', 'Italian', 'assets/images/img_flag_ita.png'),
-                    _buildLanguageCard(
-                        'es', 'Spanish', 'assets/images/img_flag_esp.png'),
-                  ],
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 12.r,
+                    mainAxisSpacing: 12.r,
+                    children: [
+                      _buildLanguageCard(
+                          'en', 'English', 'assets/images/img_flag_eng.png'),
+                      _buildLanguageCard(
+                          'it', 'Italian', 'assets/images/img_flag_ita.png'),
+                      _buildLanguageCard(
+                          'es', 'Spanish', 'assets/images/img_flag_esp.png'),
+                      _buildLanguageCard(
+                          'fr', 'French', 'assets/images/img_flag_fra.png'),
+                      _buildLanguageCard(
+                          'de', 'German', 'assets/images/img_flag_deu.png'),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -120,13 +127,12 @@ class LanguagesPageState extends State<LanguagesPage> {
             : Theme.of(context).colorScheme.primary,
         shape: RoundedRectangleBorder(
           side: BorderSide(
-              color: isSelected ? AppColors.smoothBlack : AppColors.lightYellow,
-              width: 1.0),
+              color: Theme.of(context).colorScheme.tertiary, width: 0.2),
           borderRadius: BorderRadius.circular(10.0.r),
         ),
         child: SizedBox(
-          width: 220.r,
-          height: 100.r,
+          width: 120.r,
+          height: 120.r,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

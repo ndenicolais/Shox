@@ -20,6 +20,20 @@ class ShoesLanguages {
       'Work': 'Trabajo',
       'Sport': 'Deporte',
       'Other': 'Otro'
+    },
+    'fr': {
+      'Trainers': 'Chaussures de sport',
+      'Classic': 'Classique',
+      'Work': 'Travail',
+      'Sport': 'Sport',
+      'Other': 'Autre'
+    },
+    'de': {
+      'Trainers': 'Turnschuhe',
+      'Classic': 'Klassisch',
+      'Work': 'Arbeit',
+      'Sport': 'Sport',
+      'Other': 'Sonstiges'
     }
   };
 
@@ -50,6 +64,24 @@ class ShoesLanguages {
       'Boots': 'Botas',
       'Hogan': 'Hogan',
       'Other': 'Otro'
+    },
+    'fr': {
+      'Sneakers': 'Baskets',
+      'Heels': 'Talons',
+      'Flat Sandals': 'Sandales plates',
+      'Heeled Sandals': 'Sandales à talons',
+      'Boots': 'Bottes',
+      'Hogan': 'Hogan',
+      'Other': 'Autre'
+    },
+    'de': {
+      'Sneakers': 'Sneaker',
+      'Heels': 'Absätze',
+      'Flat Sandals': 'Flache Sandalen',
+      'Heeled Sandals': 'Sandalen mit Absatz',
+      'Boots': 'Stiefel',
+      'Hogan': 'Hogan',
+      'Other': 'Sonstiges'
     }
   };
 
