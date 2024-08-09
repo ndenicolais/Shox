@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shox/generated/l10n.dart';
 
 class DbLocalizedValues {
-  static String getColorName(Color color, BuildContext context) {
+  static String getColorName(Color color) {
     final colorHex = color.value
         .toRadixString(16)
         .padLeft(8, '0')
@@ -47,16 +47,16 @@ class DbLocalizedValues {
     }
   }
 
-  static String getCategoryName(String category, BuildContext context) {
+  static String getCategoryName(String category) {
     switch (category) {
       case 'Trainers':
         return S.current.category_trainers;
+      case 'Casual':
+        return S.current.category_casual;
       case 'Classic':
         return S.current.category_classic;
       case 'Work':
         return S.current.category_work;
-      case 'Sport':
-        return S.current.category_sport;
       case 'Other':
         return S.current.category_other;
       default:
@@ -64,12 +64,12 @@ class DbLocalizedValues {
     }
   }
 
-  static String getTypeName(String type, BuildContext context) {
+  static String getTypeName(String type) {
     switch (type) {
       case 'Sneakers':
         return S.current.type_sneakers;
-      case 'Heels':
-        return S.current.type_heels;
+      case 'Sandals':
+        return S.current.type_sandals;
       case 'Flat Sandals':
         return S.current.type_flat_sandals;
       case 'Heeled Sandals':
