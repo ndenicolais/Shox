@@ -23,11 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "adder_title": MessageLookupByLibrary.simpleMessage("Aggiungi Scarpe"),
-        "category_classic": MessageLookupByLibrary.simpleMessage("Classico"),
+        "category_casual": MessageLookupByLibrary.simpleMessage("Casual"),
+        "category_classic": MessageLookupByLibrary.simpleMessage("Eleganti"),
         "category_other": MessageLookupByLibrary.simpleMessage("Altro"),
-        "category_sport": MessageLookupByLibrary.simpleMessage("Sport"),
-        "category_trainers":
-            MessageLookupByLibrary.simpleMessage("Scarpe da Ginnastica"),
+        "category_trainers": MessageLookupByLibrary.simpleMessage("Sportive"),
         "category_work": MessageLookupByLibrary.simpleMessage("Lavoro"),
         "color_beige": MessageLookupByLibrary.simpleMessage("Beige"),
         "color_black": MessageLookupByLibrary.simpleMessage("Nero"),
@@ -54,7 +53,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "database_colors": MessageLookupByLibrary.simpleMessage("Colori"),
         "database_empty": MessageLookupByLibrary.simpleMessage(
             "Nessuna scarpa presente nel box"),
-        "database_shoes": MessageLookupByLibrary.simpleMessage("Scarpe:"),
+        "database_pdf_confirm": MessageLookupByLibrary.simpleMessage(
+            "PDF salvato nella cartella Download"),
+        "database_pdf_download":
+            MessageLookupByLibrary.simpleMessage("Scarica DB"),
+        "database_pdf_email": MessageLookupByLibrary.simpleMessage("Email"),
+        "database_pdf_error":
+            MessageLookupByLibrary.simpleMessage("Impossibile generare il PDF"),
+        "database_pdf_name": MessageLookupByLibrary.simpleMessage("Nome"),
+        "database_pdf_shoes": MessageLookupByLibrary.simpleMessage("Scarpe"),
+        "database_shoes": MessageLookupByLibrary.simpleMessage("Scarpe nel DB"),
         "database_title": MessageLookupByLibrary.simpleMessage("Database"),
         "database_types": MessageLookupByLibrary.simpleMessage("Tipi"),
         "delete_d_cancel": MessageLookupByLibrary.simpleMessage("Cancella"),
@@ -76,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "field_category": MessageLookupByLibrary.simpleMessage("Categoria"),
         "field_color": MessageLookupByLibrary.simpleMessage("Colore"),
+        "field_date": MessageLookupByLibrary.simpleMessage("Data"),
         "field_insert_brand":
             MessageLookupByLibrary.simpleMessage("Inserisci il brand"),
         "field_insert_category":
@@ -107,11 +116,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "home_search": MessageLookupByLibrary.simpleMessage("Cerca per Brand"),
         "home_settings": MessageLookupByLibrary.simpleMessage("Impostazioni"),
         "info_description": MessageLookupByLibrary.simpleMessage(
-            "Questa applicazione ti consente di creare un armadio digitale dove puoi salvare e visualizzare tutte le tue scarpe.\nIl nome dell\'app è una fusione tra Scarpe e Scatola, proprio per simulare la creazione di una grande scatola dove contenere le scarpe.\nIn questo modo, tutte le tue scarpe saranno catalogate e sempre a portata di mano."),
+            "Questa applicazione ti consente di creare un armadio digitale dove puoi salvare e visualizzare tutte le tue scarpe.\nIl nome dell\'app è una fusione tra \'Shoes\' e \'Box\', proprio per simulare la creazione di una grande scatola dove contenere le scarpe.\nIn questo modo, tutte le tue scarpe saranno catalogate e sempre a portata di mano."),
         "info_title": MessageLookupByLibrary.simpleMessage("Info"),
         "info_version": MessageLookupByLibrary.simpleMessage("Versione"),
         "languages_description": MessageLookupByLibrary.simpleMessage(
-            "In questa pagina puoi selezionare la lingua dei testi dell\'app."),
+            "Seleziona la lingua dell\'applicazione scegliendo tra le opzioni presenti qui sotto"),
         "languages_title": MessageLookupByLibrary.simpleMessage("Lingue"),
         "login_account":
             MessageLookupByLibrary.simpleMessage("Non hai un account? "),
@@ -173,7 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "text_type": MessageLookupByLibrary.simpleMessage("TIPO"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Scuro"),
         "theme_description": MessageLookupByLibrary.simpleMessage(
-            "Seleziona il tema dell\'applicazione scegliendo tra le cards qui sotto"),
+            "Seleziona il tema dell\'applicazione scegliendo tra le opzioni presenti qui sotto"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Chiaro"),
         "theme_title": MessageLookupByLibrary.simpleMessage("Tema"),
         "toast_add_shoes_error": MessageLookupByLibrary.simpleMessage(
@@ -221,12 +230,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Scarpe aggiornate con successo"),
         "type_boots": MessageLookupByLibrary.simpleMessage("Stivali"),
         "type_flat_sandals":
-            MessageLookupByLibrary.simpleMessage("Sandali Piatti"),
+            MessageLookupByLibrary.simpleMessage("Sandali bassi"),
         "type_heeled_sandals":
-            MessageLookupByLibrary.simpleMessage("Sandali con Tacco"),
-        "type_heels": MessageLookupByLibrary.simpleMessage("Tacchi"),
+            MessageLookupByLibrary.simpleMessage("Sandali con tacco"),
         "type_hogan": MessageLookupByLibrary.simpleMessage("Hogan"),
         "type_other": MessageLookupByLibrary.simpleMessage("Altro"),
+        "type_sandals": MessageLookupByLibrary.simpleMessage("Sandali"),
         "type_sneakers": MessageLookupByLibrary.simpleMessage("Sneakers"),
         "updater_title":
             MessageLookupByLibrary.simpleMessage("Aggiorna Scarpe"),

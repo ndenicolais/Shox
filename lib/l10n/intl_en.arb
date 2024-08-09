@@ -97,6 +97,7 @@
 
   "updater_title": "Update Shoes",
 
+  "field_date": "Date",
   "field_insert_image": "Select the image",
   "field_color": "Color",
   "field_insert_color": "Select the color",
@@ -148,13 +149,15 @@
   "color_green": "Green",
   "color_light_blue": "Light Blue",
   "color_dark_blue": "Dark Blue",
+
   "category_trainers": "Trainers",
+  "category_casual": "Casual",
   "category_classic": "Classic",
   "category_work": "Work",
-  "category_sport": "Sport",
   "category_other": "Other",
+
   "type_sneakers": "Sneakers",
-  "type_heels": "Heels",
+  "type_sandals": "Sandals",
   "type_flat_sandals": "Flat Sandals",
   "type_heeled_sandals": "Heeled Sandals",
   "type_boots": "Boots",
@@ -163,11 +166,17 @@
 
   "database_title": "Database",
   "database_empty": "No shoes in the box",
-  "database_shoes": "Shoes:",
+  "database_shoes": "Shoes in DB",
   "database_colors": "Colors",
   "database_brands": "Brands",
   "database_categories": "Categories",
   "database_types": "Types",
+  "database_pdf_name": "Name",
+  "database_pdf_email": "Email",
+  "database_pdf_shoes": "Shoes",
+  "database_pdf_download": "Download DB",
+  "database_pdf_confirm" : "PDF saved to Download folder",
+  "database_pdf_error" : "Failed to generate PDF",
 
   "stores_title": "Stores",
 
@@ -186,12 +195,12 @@
   "settings_support": "Support",
 
   "theme_title": "Theme",
-  "theme_description": "Select the theme of the app by swiping between the cards below",
+  "theme_description": "Select the theme of the app by choosing from the options below",
   "theme_light": "Light",
   "theme_dark": "Dark",
 
   "languages_title": "Languages",
-  "languages_description": "On this page, you can select the language for the app's texts.",
+  "languages_description": "Select the language of the app by choosing from the options below",
 
   "info_title": "Info",
   "info_description": "This application allows you to create a digital wardrobe where you can save and view all your Shoes.\nThe name of the app is the fusion between Shoes and Box just to simulate the creation of a large box where to contain the shoes.\nIn this way all your shoes will be cataloged and always at your fingertips.",

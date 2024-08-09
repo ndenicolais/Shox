@@ -97,6 +97,7 @@
 
   "updater_title": "Actualiza Zapatos",
 
+  "field_date": "Fecha",
   "field_insert_image": "Selecciona una imagen",
   "field_color": "Color",
   "field_insert_color": "Selecciona un color",
@@ -148,13 +149,15 @@
   "color_green": "Verde",
   "color_light_blue": "Azul Claro",
   "color_dark_blue": "Azul Oscuro",
-  "category_trainers": "Zapatillas",
+
+  "category_trainers": "Deportivas",
+  "category_casual": "Casual",
   "category_classic": "Clásico",
   "category_work": "Trabajo",
-  "category_sport": "Deportivo",
   "category_other": "Otro",
+
   "type_sneakers": "Zapatillas",
-  "type_heels": "Tacones",
+  "type_sandals": "Sandalias",
   "type_flat_sandals": "Sandalias Planas",
   "type_heeled_sandals": "Sandalias con Tacón",
   "type_boots": "Botas",
@@ -163,11 +166,17 @@
 
   "database_title": "Database",
   "database_empty": "No hay zapatos en el box",
-  "database_shoes": "Zapatos:",
+  "database_shoes": "Zapatos en la DB",
   "database_colors": "Colores",
   "database_brands": "Brands",
   "database_categories": "Categorías",
   "database_types": "Tipi",
+  "database_pdf_name": "Nombre",
+  "database_pdf_email": "Email",
+  "database_pdf_shoes": "Zapatos",
+  "database_pdf_download": "Descargar DB",
+  "database_pdf_confirm" : "PDF guardado en la carpeta de Descargas",
+  "database_pdf_error" : "No se pudo generar el PDF",
 
   "stores_title": "Tiendas",
 
@@ -186,15 +195,15 @@
   "settings_support": "Soporte",
 
   "theme_title": "Tema",
-  "theme_description": "Seleccione el tema de la aplicación eligiendo entre las tarjetas a continuación",
+  "theme_description": "Seleccione el tema de la aplicación eligiendo entre las opciones que se muestran a continuación",
   "theme_light": "Claro",
   "theme_dark": "Oscuro",
 
   "languages_title": "Idiomas",
-  "languages_description": "En esta página, puedes seleccionar el idioma para los textos de la aplicación.",
+  "languages_description": "Seleccione el idioma de la aplicación eligiendo entre las opciones que se muestran a continuación",
 
   "info_title": "Información",
-  "info_description": "Esta aplicación te permite crear un armario digital donde puedes guardar y ver todos tus zapatos.\nEl nombre de la aplicación es una fusión entre Zapatos y Caja, para simular la creación de una gran caja donde guardar los zapatos.\nDe esta manera, todos tus zapatos estarán catalogados y siempre al alcance de tu mano.",
+  "info_description": "Esta aplicación te permite crear un armario digital donde puedes guardar y ver todos tus zapatos.\nEl nombre de la aplicación es una fusión entre 'Shoes' y 'Box', para simular la creación de una gran caja donde guardar los zapatos.\nDe esta manera, todos tus zapatos estarán catalogados y siempre al alcance de tu mano.",
   "info_version": "Versión",
 
   "policy_title": "Privacy Policy",

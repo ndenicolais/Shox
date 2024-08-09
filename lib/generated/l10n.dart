@@ -860,6 +860,16 @@ class S {
     );
   }
 
+  /// `Date`
+  String get field_date {
+    return Intl.message(
+      'Date',
+      name: 'field_date',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select the image`
   String get field_insert_image {
     return Intl.message(
@@ -1330,6 +1340,16 @@ class S {
     );
   }
 
+  /// `Casual`
+  String get category_casual {
+    return Intl.message(
+      'Casual',
+      name: 'category_casual',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Classic`
   String get category_classic {
     return Intl.message(
@@ -1345,16 +1365,6 @@ class S {
     return Intl.message(
       'Work',
       name: 'category_work',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sport`
-  String get category_sport {
-    return Intl.message(
-      'Sport',
-      name: 'category_sport',
       desc: '',
       args: [],
     );
@@ -1380,11 +1390,11 @@ class S {
     );
   }
 
-  /// `Heels`
-  String get type_heels {
+  /// `Sandals`
+  String get type_sandals {
     return Intl.message(
-      'Heels',
-      name: 'type_heels',
+      'Sandals',
+      name: 'type_sandals',
       desc: '',
       args: [],
     );
@@ -1460,10 +1470,10 @@ class S {
     );
   }
 
-  /// `Shoes:`
+  /// `Shoes in DB`
   String get database_shoes {
     return Intl.message(
-      'Shoes:',
+      'Shoes in DB',
       name: 'database_shoes',
       desc: '',
       args: [],
@@ -1505,6 +1515,66 @@ class S {
     return Intl.message(
       'Types',
       name: 'database_types',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get database_pdf_name {
+    return Intl.message(
+      'Name',
+      name: 'database_pdf_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get database_pdf_email {
+    return Intl.message(
+      'Email',
+      name: 'database_pdf_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes`
+  String get database_pdf_shoes {
+    return Intl.message(
+      'Shoes',
+      name: 'database_pdf_shoes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download DB`
+  String get database_pdf_download {
+    return Intl.message(
+      'Download DB',
+      name: 'database_pdf_download',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PDF saved to Download folder`
+  String get database_pdf_confirm {
+    return Intl.message(
+      'PDF saved to Download folder',
+      name: 'database_pdf_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to generate PDF`
+  String get database_pdf_error {
+    return Intl.message(
+      'Failed to generate PDF',
+      name: 'database_pdf_error',
       desc: '',
       args: [],
     );
@@ -1650,10 +1720,10 @@ class S {
     );
   }
 
-  /// `Select the theme of the app by swiping between the cards below`
+  /// `Select the theme of the app by choosing from the options below`
   String get theme_description {
     return Intl.message(
-      'Select the theme of the app by swiping between the cards below',
+      'Select the theme of the app by choosing from the options below',
       name: 'theme_description',
       desc: '',
       args: [],
@@ -1690,10 +1760,10 @@ class S {
     );
   }
 
-  /// `On this page, you can select the language for the app's texts.`
+  /// `Select the language of the app by choosing from the options below`
   String get languages_description {
     return Intl.message(
-      'On this page, you can select the language for the app\'s texts.',
+      'Select the language of the app by choosing from the options below',
       name: 'languages_description',
       desc: '',
       args: [],
@@ -1777,7 +1847,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'fr'),
       Locale.fromSubtags(languageCode: 'it'),
     ];
   }

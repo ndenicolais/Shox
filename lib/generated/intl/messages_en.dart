@@ -23,9 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "adder_title": MessageLookupByLibrary.simpleMessage("Add Shoes"),
+        "category_casual": MessageLookupByLibrary.simpleMessage("Casual"),
         "category_classic": MessageLookupByLibrary.simpleMessage("Classic"),
         "category_other": MessageLookupByLibrary.simpleMessage("Other"),
-        "category_sport": MessageLookupByLibrary.simpleMessage("Sport"),
         "category_trainers": MessageLookupByLibrary.simpleMessage("Trainers"),
         "category_work": MessageLookupByLibrary.simpleMessage("Work"),
         "color_beige": MessageLookupByLibrary.simpleMessage("Beige"),
@@ -51,7 +51,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "database_colors": MessageLookupByLibrary.simpleMessage("Colors"),
         "database_empty":
             MessageLookupByLibrary.simpleMessage("No shoes in the box"),
-        "database_shoes": MessageLookupByLibrary.simpleMessage("Shoes:"),
+        "database_pdf_confirm": MessageLookupByLibrary.simpleMessage(
+            "PDF saved to Download folder"),
+        "database_pdf_download":
+            MessageLookupByLibrary.simpleMessage("Download DB"),
+        "database_pdf_email": MessageLookupByLibrary.simpleMessage("Email"),
+        "database_pdf_error":
+            MessageLookupByLibrary.simpleMessage("Failed to generate PDF"),
+        "database_pdf_name": MessageLookupByLibrary.simpleMessage("Name"),
+        "database_pdf_shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
+        "database_shoes": MessageLookupByLibrary.simpleMessage("Shoes in DB"),
         "database_title": MessageLookupByLibrary.simpleMessage("Database"),
         "database_types": MessageLookupByLibrary.simpleMessage("Types"),
         "delete_d_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -71,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "field_category": MessageLookupByLibrary.simpleMessage("Category"),
         "field_color": MessageLookupByLibrary.simpleMessage("Color"),
+        "field_date": MessageLookupByLibrary.simpleMessage("Date"),
         "field_insert_brand":
             MessageLookupByLibrary.simpleMessage("Insert the brand"),
         "field_insert_category":
@@ -106,7 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "info_title": MessageLookupByLibrary.simpleMessage("Info"),
         "info_version": MessageLookupByLibrary.simpleMessage("Version"),
         "languages_description": MessageLookupByLibrary.simpleMessage(
-            "On this page, you can select the language for the app\'s texts."),
+            "Select the language of the app by choosing from the options below"),
         "languages_title": MessageLookupByLibrary.simpleMessage("Languages"),
         "login_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),
@@ -166,7 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "text_type": MessageLookupByLibrary.simpleMessage("TYPE"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "theme_description": MessageLookupByLibrary.simpleMessage(
-            "Select the theme of the app by swiping between the cards below"),
+            "Select the theme of the app by choosing from the options below"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Light"),
         "theme_title": MessageLookupByLibrary.simpleMessage("Theme"),
         "toast_add_shoes_error": MessageLookupByLibrary.simpleMessage(
@@ -217,9 +227,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Flat Sandals"),
         "type_heeled_sandals":
             MessageLookupByLibrary.simpleMessage("Heeled Sandals"),
-        "type_heels": MessageLookupByLibrary.simpleMessage("Heels"),
         "type_hogan": MessageLookupByLibrary.simpleMessage("Hogan"),
         "type_other": MessageLookupByLibrary.simpleMessage("Other"),
+        "type_sandals": MessageLookupByLibrary.simpleMessage("Sandals"),
         "type_sneakers": MessageLookupByLibrary.simpleMessage("Sneakers"),
         "updater_title": MessageLookupByLibrary.simpleMessage("Update Shoes"),
         "validator_email": MessageLookupByLibrary.simpleMessage("Email"),
