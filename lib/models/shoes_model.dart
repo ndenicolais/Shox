@@ -17,15 +17,15 @@ class Shoes {
   String category;
   static List<String> categoryOptions = [
     'Trainers',
+    'Casual',
     'Classic',
     'Work',
-    'Sport',
     'Other'
   ];
   String type;
   static List<String> typeOptions = [
     'Sneakers',
-    'Heels',
+    'Sandals',
     'Flat Sandals',
     'Heeled Sandals',
     'Boots',
