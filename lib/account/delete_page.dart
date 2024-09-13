@@ -96,6 +96,23 @@ class DeletePageState extends State<DeletePage> {
     }
   }
 
+  Future<void> _deleteUserHistory(String userId) async {
+    try {
+      QuerySnapshot historySnapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('history')
+          .get();
+
+      for (DocumentSnapshot doc in historySnapshot.docs) {
+        await doc.reference.delete();
+      }
+    } catch (e) {
+      logger.e('Error deleting user history: $e');
+      throw Exception('${S.current.toast_delete_user_history} $e');
+    }
+  }
+
   Future<void> _deleteAccount() async {
     final localizations = S.current;
     try {
@@ -178,6 +195,9 @@ class DeletePageState extends State<DeletePage> {
 
             // Delete user data from Firestore
             await _deleteUserDatabase(user.uid);
+
+            // Delete user history from Firestore
+            await _deleteUserHistory(user.uid);
 
             // Delete the user
             await user.delete();
