@@ -194,6 +194,95 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
     );
   }
 
+  Future<void> showSeasonDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            S.current.field_season_title,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontSize: 20.r,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'CustomFontBold',
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.sunny,
+                      color: Theme.of(context).colorScheme.secondary),
+                  const SizedBox(width: 8),
+                  Text(
+                    S.current.field_season_summer,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontFamily: 'CustomFont',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Icon(Icons.ac_unit,
+                      color: Theme.of(context).colorScheme.secondary),
+                  const SizedBox(width: 8),
+                  Text(
+                    S.current.field_season_winter,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontFamily: 'CustomFont',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Icon(Icons.star,
+                      color: Theme.of(context).colorScheme.secondary),
+                  const SizedBox(width: 8),
+                  Text(
+                    S.current.field_season_all,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontFamily: 'CustomFont',
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                  AppColors.confirmColor,
+                ),
+              ),
+              child: Text(
+                'Chiudi',
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 16.r,
+                  fontFamily: 'CustomFont',
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _loadingController.dispose();
@@ -273,6 +362,8 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                             context: context,
                             builder: (BuildContext context) {
                               return Dialog(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
                                 insetPadding:
                                     EdgeInsets.symmetric(horizontal: 100.r),
                                 shape: RoundedRectangleBorder(
@@ -357,6 +448,8 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                                   context: context,
                                   builder: (BuildContext context) {
                                     return Dialog(
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.primary,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(15.r),
@@ -460,6 +553,8 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                                   context: context,
                                   builder: (BuildContext context) {
                                     return Dialog(
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.primary,
                                       insetPadding: EdgeInsets.symmetric(
                                         horizontal: 100.r,
                                       ),
@@ -472,31 +567,46 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: Shoes.seasonOptions.map(
-                                            (icon) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  setState(
-                                                    () {
-                                                      _seasonIcon = icon;
-                                                    },
-                                                  );
-                                                  Get.back();
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(4.r),
-                                                  child: Icon(
-                                                    icon,
-                                                    color: _seasonIcon == icon
-                                                        ? Colors.black
-                                                        : Colors.black
-                                                            .withOpacity(0.3),
-                                                    size: 32,
+                                          children: [
+                                            ...Shoes.seasonOptions.map(
+                                              (icon) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    setState(
+                                                      () {
+                                                        _seasonIcon = icon;
+                                                      },
+                                                    );
+                                                    Get.back();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(4.r),
+                                                    child: Icon(
+                                                      icon,
+                                                      color: _seasonIcon == icon
+                                                          ? Colors.black
+                                                          : Colors.black
+                                                              .withOpacity(0.3),
+                                                      size: 32,
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          ).toList(),
+                                                );
+                                              },
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showSeasonDialog(context);
+                                              },
+                                              child: Icon(
+                                                MingCuteIcons
+                                                    .mgc_information_fill,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     );
@@ -583,6 +693,7 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                           );
                         },
                       ).toList(),
+                      dropdownColor: Theme.of(context).colorScheme.primary,
                       decoration: InputDecoration(
                         labelText: S.current.field_category,
                         labelStyle: TextStyle(
@@ -630,6 +741,7 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                           );
                         },
                       ).toList(),
+                      dropdownColor: Theme.of(context).colorScheme.primary,
                       decoration: InputDecoration(
                         labelText: S.current.field_type,
                         labelStyle: TextStyle(
