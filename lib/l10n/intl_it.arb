@@ -35,6 +35,7 @@
   "toast_delete_google": "Ri-autenticazione con Google fallita.",
   "toast_delete_user_data": "Errore nell'eliminazione dei dati dell'utente: ",
   "toast_delete_user_storage": "Errore nell'eliminazione dello storage dell'utente: ",
+  "toast_delete_user_history": "Errore nell'eliminazione dello storico dell'utente: ",
   "toast_delete_generic_error": "Si è verificato un errore imprevisto. Per favore riprova.",
 
   "toast_add_shoes_success": "Scarpe aggiunte con successo",
@@ -98,7 +99,11 @@
   "updater_title": "Aggiorna Scarpe",
 
   "field_date": "Data",
-
+  "field_season_title": "Significato icone",
+  "field_season_summer": "Estate",
+  "field_season_winter": "Inverno",
+  "field_season_all": "Tutte le stagioni",
+  "field_season_close": "Chiudi",
   "field_insert_image": "Seleziona un immagine",
   "field_color": "Colore",
   "field_insert_color": "Seleziona un colore",
@@ -130,7 +135,7 @@
 
   "profile_title": "Profilo",
   "profile_database": "Database",
-  "profile_stores": "Negozi",
+  "profile_history": "Storico",
   "profile_logout": "Log Out",
   "profile_delete": "Elimina Account",
 
@@ -179,7 +184,11 @@
   "database_pdf_confirm" : "PDF salvato nella cartella Download",
   "database_pdf_error" : "Impossibile generare il PDF",
 
-  "stores_title": "Negozi",
+  "history_title": "Storico",
+  "history_empty": "Storico vuoto",
+  "history_added": "Aggiunto",
+  "history_updated": "Aggiornato",
+  "history_deleted": "Eliminato",
 
   "delete_title": "Elimina Account",
   "delete_description": "In questa pagina puoi cancellare definitivamente il tuo account.\n\nLa conferma della cancellazione comporterà anche l'eliminazione di tutti i database collegati all'account.\n\nRicorda che il processo è irreversibile.\n\nSe desideri procedere clicca sul pulsante qui sotto:",

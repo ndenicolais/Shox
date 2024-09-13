@@ -35,6 +35,7 @@
   "toast_delete_google": "Wiederauthentifizierung mit Google fehlgeschlagen.",
   "toast_delete_user_data": "Fehler beim Löschen der Benutzerdaten: ",
   "toast_delete_user_storage": "Fehler beim Löschen des Benutzerspeichers: ",
+  "toast_delete_user_history": "Fehler beim Löschen des Benutzerverlaufs: ",
   "toast_delete_generic_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.",
 
   "toast_add_shoes_success": "Schuhe erfolgreich hinzugefügt",
@@ -98,6 +99,11 @@
   "updater_title": "Schuhe aktualisieren",
 
   "field_date": "Datum",
+  "field_season_title": "Bedeutung der Symbole",
+  "field_season_summer": "Sommer",
+  "field_season_winter": "Winter",
+  "field_season_all": "Alle Jahreszeiten",
+  "field_season_close": "Schließen",
   "field_insert_image": "Bild auswählen",
   "field_color": "Farbe",
   "field_insert_color": "Farbe auswählen",
@@ -129,7 +135,7 @@
 
   "profile_title": "Profil",
   "profile_database": "Datenbank",
-  "profile_stores": "Geschäfte",
+  "profile_history": "Verlauf",
   "profile_logout": "Abmelden",
   "profile_delete": "Konto löschen",
 
@@ -178,7 +184,11 @@
   "database_pdf_confirm" : "PDF im Download-Ordner gespeichert",
   "database_pdf_error" : "PDF konnte nicht erstellt werden",
 
-  "stores_title": "Geschäfte",
+  "history_title": "Verlauf",
+  "history_empty": "Leere Historie",
+  "history_added": "Hinzugefügt",
+  "history_updated": "Aktualisiert",
+  "history_deleted": "Gelöscht",
 
   "delete_title": "Konto löschen",
   "delete_description": "Auf dieser Seite kannst du dein Konto dauerhaft löschen.\n\nDie Bestätigung der Löschung wird auch die Entfernung aller Datenbanken, die mit dem Konto verbunden sind, nach sich ziehen.\n\nBitte beachte, dass der Vorgang irreversibel ist.\n\nWenn du fortfahren möchtest, klicke auf die Schaltfläche unten:",

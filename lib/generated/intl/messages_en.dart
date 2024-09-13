@@ -95,8 +95,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Insert the type"),
         "field_notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "field_season": MessageLookupByLibrary.simpleMessage("Season"),
+        "field_season_all": MessageLookupByLibrary.simpleMessage("All seasons"),
+        "field_season_close": MessageLookupByLibrary.simpleMessage("Close"),
+        "field_season_summer": MessageLookupByLibrary.simpleMessage("Summer"),
+        "field_season_title":
+            MessageLookupByLibrary.simpleMessage("Meaning icons"),
+        "field_season_winter": MessageLookupByLibrary.simpleMessage("Winter"),
         "field_size": MessageLookupByLibrary.simpleMessage("Size"),
         "field_type": MessageLookupByLibrary.simpleMessage("Type"),
+        "history_added": MessageLookupByLibrary.simpleMessage("Added"),
+        "history_deleted": MessageLookupByLibrary.simpleMessage("Deleted"),
+        "history_empty": MessageLookupByLibrary.simpleMessage("Empty history"),
+        "history_title": MessageLookupByLibrary.simpleMessage("History"),
+        "history_updated": MessageLookupByLibrary.simpleMessage("Updated"),
         "home_add": MessageLookupByLibrary.simpleMessage("Add"),
         "home_empty":
             MessageLookupByLibrary.simpleMessage("No shoes in the box"),
@@ -148,8 +159,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_database": MessageLookupByLibrary.simpleMessage("Database"),
         "profile_delete":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "profile_history": MessageLookupByLibrary.simpleMessage("History"),
         "profile_logout": MessageLookupByLibrary.simpleMessage("Log Out"),
-        "profile_stores": MessageLookupByLibrary.simpleMessage("Stores"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
         "settings_info": MessageLookupByLibrary.simpleMessage("Info"),
         "settings_languages": MessageLookupByLibrary.simpleMessage("Languages"),
@@ -163,7 +174,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "signup_login": MessageLookupByLibrary.simpleMessage("Login"),
         "signup_text": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signup_title": MessageLookupByLibrary.simpleMessage("Sign Up"),
-        "stores_title": MessageLookupByLibrary.simpleMessage("Stores"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contacts"),
         "support_developer": MessageLookupByLibrary.simpleMessage("Developer"),
         "support_title": MessageLookupByLibrary.simpleMessage("Support"),
@@ -193,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Account deleted successfully"),
         "toast_delete_user_data":
             MessageLookupByLibrary.simpleMessage("Error deleting user data: "),
+        "toast_delete_user_history": MessageLookupByLibrary.simpleMessage(
+            "Error deleting user history: "),
         "toast_delete_user_storage": MessageLookupByLibrary.simpleMessage(
             "Error deleting user storage: "),
         "toast_login_generic_error": MessageLookupByLibrary.simpleMessage(

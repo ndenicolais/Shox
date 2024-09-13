@@ -35,6 +35,7 @@
   "toast_delete_google": "Re-authentication with Google failed.",
   "toast_delete_user_data": "Error deleting user data: ",
   "toast_delete_user_storage": "Error deleting user storage: ",
+  "toast_delete_user_history": "Error deleting user history: ",
   "toast_delete_generic_error": "An unexpected error occurred. Please try again.",
 
   "toast_add_shoes_success": "Shoes added successfully",
@@ -98,6 +99,11 @@
   "updater_title": "Update Shoes",
 
   "field_date": "Date",
+  "field_season_title": "Meaning icons",
+  "field_season_summer": "Summer",
+  "field_season_winter": "Winter",
+  "field_season_all": "All seasons",
+  "field_season_close": "Close",
   "field_insert_image": "Select the image",
   "field_color": "Color",
   "field_insert_color": "Select the color",
@@ -129,7 +135,7 @@
 
   "profile_title": "Profile",
   "profile_database": "Database",
-  "profile_stores": "Stores",
+  "profile_history": "History",
   "profile_logout": "Log Out",
   "profile_delete": "Delete Account",
 
@@ -178,7 +184,11 @@
   "database_pdf_confirm" : "PDF saved to Download folder",
   "database_pdf_error" : "Failed to generate PDF",
 
-  "stores_title": "Stores",
+  "history_title": "History",
+  "history_empty": "Empty history",
+  "history_added": "Added",
+  "history_updated": "Updated",
+  "history_deleted": "Deleted",
 
   "delete_title": "Delete Account",
   "delete_description": "On this page you can permanently delete your Account.\n\nConfirming the cancellation will also delete all the Database linked to the Account.\n\nRemember that the process is irreversible.\n\nIf you want to proceed click on the Button below:",

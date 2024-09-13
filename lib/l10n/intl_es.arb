@@ -35,6 +35,7 @@
   "toast_delete_google": "Reautenticación con Google fallida.",
   "toast_delete_user_data": "Error al eliminar los datos del usuario: ",
   "toast_delete_user_storage": "Error al eliminar el almacenamiento del usuario: ",
+  "toast_delete_user_history": "Error al eliminar el historial del usuario: ",
   "toast_delete_generic_error": "Se produjo un error inesperado. Por favor, inténtalo de nuevo.",
 
   "toast_add_shoes_success": "Zapatos añadidos con éxito",
@@ -98,6 +99,11 @@
   "updater_title": "Actualiza Zapatos",
 
   "field_date": "Fecha",
+  "field_season_title": "Significado de los iconos",
+  "field_season_summer": "Verano",
+  "field_season_winter": "Invierno",
+  "field_season_all": "Todas las estaciones",
+  "field_season_close": "Cerrar",
   "field_insert_image": "Selecciona una imagen",
   "field_color": "Color",
   "field_insert_color": "Selecciona un color",
@@ -129,7 +135,7 @@
 
   "profile_title": "Perfil",
   "profile_database": "Database",
-  "profile_stores": "Tiendas",
+  "profile_history": "Historial",
   "profile_logout": "Log Out",
   "profile_delete": "Elimina Account",
 
@@ -178,7 +184,11 @@
   "database_pdf_confirm" : "PDF guardado en la carpeta de Descargas",
   "database_pdf_error" : "No se pudo generar el PDF",
 
-  "stores_title": "Tiendas",
+  "history_title": "Historial",
+  "history_empty": "Historial vacío",
+  "history_added": "Añadido",
+  "history_updated": "Actualizado",
+  "history_deleted": "Eliminado",
 
   "delete_title": "Elimina Account",
   "delete_description": "En esta página puedes eliminar tu cuenta de forma permanente.\n\nLa confirmación de la cancelación también implicará la eliminación de todas las bases de datos vinculadas a la cuenta.\n\nRecuerda que el proceso es irreversible.\n\nSi deseas continuar, haz clic en el botón de abajo:",

@@ -104,8 +104,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Entrez le type"),
         "field_notes": MessageLookupByLibrary.simpleMessage("Remarques"),
         "field_season": MessageLookupByLibrary.simpleMessage("Saison"),
+        "field_season_all":
+            MessageLookupByLibrary.simpleMessage("Toutes les saisons"),
+        "field_season_close": MessageLookupByLibrary.simpleMessage("Fermer"),
+        "field_season_summer": MessageLookupByLibrary.simpleMessage("Été"),
+        "field_season_title":
+            MessageLookupByLibrary.simpleMessage("Signification des icônes"),
+        "field_season_winter": MessageLookupByLibrary.simpleMessage("Hiver"),
         "field_size": MessageLookupByLibrary.simpleMessage("Taille"),
         "field_type": MessageLookupByLibrary.simpleMessage("Type"),
+        "history_added": MessageLookupByLibrary.simpleMessage("Ajouté"),
+        "history_deleted": MessageLookupByLibrary.simpleMessage("Supprimé"),
+        "history_empty":
+            MessageLookupByLibrary.simpleMessage("Historique vide"),
+        "history_title": MessageLookupByLibrary.simpleMessage("Historique"),
+        "history_updated": MessageLookupByLibrary.simpleMessage("Mis à jour"),
         "home_add": MessageLookupByLibrary.simpleMessage("Ajouter"),
         "home_empty": MessageLookupByLibrary.simpleMessage(
             "Aucune chaussure présente dans la boîte"),
@@ -161,8 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Base de données"),
         "profile_delete":
             MessageLookupByLibrary.simpleMessage("Supprimer le Compte"),
+        "profile_history": MessageLookupByLibrary.simpleMessage("Historique"),
         "profile_logout": MessageLookupByLibrary.simpleMessage("Déconnexion"),
-        "profile_stores": MessageLookupByLibrary.simpleMessage("Magasins"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profil"),
         "settings_info": MessageLookupByLibrary.simpleMessage("Info"),
         "settings_languages": MessageLookupByLibrary.simpleMessage("Langues"),
@@ -176,7 +189,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "signup_login": MessageLookupByLibrary.simpleMessage("Connexion"),
         "signup_text": MessageLookupByLibrary.simpleMessage("Inscription"),
         "signup_title": MessageLookupByLibrary.simpleMessage("Inscription"),
-        "stores_title": MessageLookupByLibrary.simpleMessage("Magasins"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contacts"),
         "support_developer":
             MessageLookupByLibrary.simpleMessage("Développeur"),
@@ -207,6 +219,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Compte supprimé avec succès"),
         "toast_delete_user_data": MessageLookupByLibrary.simpleMessage(
             "Erreur lors de la suppression des données de l\'utilisateur : "),
+        "toast_delete_user_history": MessageLookupByLibrary.simpleMessage(
+            "Erreur lors de la suppression de l\'historique de l\'utilisateur : "),
         "toast_delete_user_storage": MessageLookupByLibrary.simpleMessage(
             "Erreur lors de la suppression du stockage de l\'utilisateur : "),
         "toast_login_generic_error": MessageLookupByLibrary.simpleMessage(

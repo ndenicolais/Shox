@@ -35,6 +35,7 @@
   "toast_delete_google": "Ré-authentification avec Google échouée.",
   "toast_delete_user_data": "Erreur lors de la suppression des données de l'utilisateur : ",
   "toast_delete_user_storage": "Erreur lors de la suppression du stockage de l'utilisateur : ",
+  "toast_delete_user_history": "Erreur lors de la suppression de l'historique de l'utilisateur : ",
   "toast_delete_generic_error": "Une erreur imprévue s'est produite. Veuillez réessayer.",
 
   "toast_add_shoes_success": "Chaussures ajoutées avec succès",
@@ -98,6 +99,11 @@
   "updater_title": "Mettre à Jour des Chaussures",
 
   "field_date": "Date",
+  "field_season_title": "Signification des icônes",
+  "field_season_summer": "Été",
+  "field_season_winter": "Hiver",
+  "field_season_all": "Toutes les saisons",
+  "field_season_close": "Fermer",
   "field_insert_image": "Sélectionnez une image",
   "field_color": "Couleur",
   "field_insert_color": "Sélectionnez une couleur",
@@ -129,7 +135,7 @@
 
   "profile_title": "Profil",
   "profile_database": "Base de données",
-  "profile_stores": "Magasins",
+  "profile_history": "Historique",
   "profile_logout": "Déconnexion",
   "profile_delete": "Supprimer le Compte",
 
@@ -178,7 +184,11 @@
   "database_pdf_confirm" : "PDF enregistré dans le dossier Téléchargements",
   "database_pdf_error" : "Échec de la génération du PDF",
 
-  "stores_title": "Magasins",
+  "history_title": "Historique",
+  "history_empty": "Historique vide",
+  "history_added": "Ajouté",
+  "history_updated": "Mis à jour",
+  "history_deleted": "Supprimé",
 
   "delete_title": "Supprimer le Compte",
   "delete_description": "Sur cette page, vous pouvez supprimer définitivement votre compte.\n\nLa confirmation de la suppression entraînera également la suppression de toutes les bases de données associées au compte.\n\nRappelez-vous que le processus est irréversible.\n\nSi vous souhaitez continuer, cliquez sur le bouton ci-dessous :",

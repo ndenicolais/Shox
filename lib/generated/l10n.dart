@@ -350,6 +350,16 @@ class S {
     );
   }
 
+  /// `Error deleting user history: `
+  String get toast_delete_user_history {
+    return Intl.message(
+      'Error deleting user history: ',
+      name: 'toast_delete_user_history',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `An unexpected error occurred. Please try again.`
   String get toast_delete_generic_error {
     return Intl.message(
@@ -870,6 +880,56 @@ class S {
     );
   }
 
+  /// `Meaning icons`
+  String get field_season_title {
+    return Intl.message(
+      'Meaning icons',
+      name: 'field_season_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Summer`
+  String get field_season_summer {
+    return Intl.message(
+      'Summer',
+      name: 'field_season_summer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Winter`
+  String get field_season_winter {
+    return Intl.message(
+      'Winter',
+      name: 'field_season_winter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All seasons`
+  String get field_season_all {
+    return Intl.message(
+      'All seasons',
+      name: 'field_season_all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close`
+  String get field_season_close {
+    return Intl.message(
+      'Close',
+      name: 'field_season_close',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select the image`
   String get field_insert_image {
     return Intl.message(
@@ -1140,11 +1200,11 @@ class S {
     );
   }
 
-  /// `Stores`
-  String get profile_stores {
+  /// `History`
+  String get profile_history {
     return Intl.message(
-      'Stores',
-      name: 'profile_stores',
+      'History',
+      name: 'profile_history',
       desc: '',
       args: [],
     );
@@ -1580,11 +1640,51 @@ class S {
     );
   }
 
-  /// `Stores`
-  String get stores_title {
+  /// `History`
+  String get history_title {
     return Intl.message(
-      'Stores',
-      name: 'stores_title',
+      'History',
+      name: 'history_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty history`
+  String get history_empty {
+    return Intl.message(
+      'Empty history',
+      name: 'history_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Added`
+  String get history_added {
+    return Intl.message(
+      'Added',
+      name: 'history_added',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updated`
+  String get history_updated {
+    return Intl.message(
+      'Updated',
+      name: 'history_updated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleted`
+  String get history_deleted {
+    return Intl.message(
+      'Deleted',
+      name: 'history_deleted',
       desc: '',
       args: [],
     );
