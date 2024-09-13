@@ -222,7 +222,7 @@ class LoginPageState extends State<LoginPage> {
                   width: 120.r,
                   height: 120.r,
                 ),
-                40.verticalSpace,
+                80.verticalSpace,
                 Form(
                   key: _formKey,
                   child: Column(
@@ -339,13 +339,11 @@ class LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       20.verticalSpace,
-                      Text(
-                        S.current.login_continue,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 18.r,
-                          fontFamily: 'CustomFont',
-                        ),
+                      Divider(
+                        thickness: 1,
+                        indent: 80,
+                        endIndent: 80,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       20.verticalSpace,
                       GestureDetector(

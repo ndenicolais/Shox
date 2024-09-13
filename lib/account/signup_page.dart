@@ -154,7 +154,7 @@ class SignupPageState extends State<SignupPage> {
                   width: 120.r,
                   height: 120.r,
                 ),
-                40.verticalSpace,
+                80.verticalSpace,
                 Form(
                   key: _formKey,
                   child: Column(

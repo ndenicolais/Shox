@@ -54,7 +54,7 @@ class SettingsPageState extends State<SettingsPage> {
                   width: 120.r,
                   height: 120.r,
                 ),
-                40.verticalSpace,
+                80.verticalSpace,
                 SizedBox(
                   width: 300.r,
                   height: 60.r,
