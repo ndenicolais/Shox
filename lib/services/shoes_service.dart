@@ -72,6 +72,13 @@ class ShoesService {
 
       // Also update the ID in the Firestore document
       await docRef.update({'id': shoes.id});
+      // Ensure shoes.id is not null before calling addHistoryEntry
+      if (shoes.id != null) {
+        // Record the operation in history
+        await historyEvents('Added', shoes.id!, shoes.imageUrl);
+      } else {
+        throw Exception('Shoes ID is null');
+      }
     } catch (e) {
       logger.e('Error adding shoes: $e');
       throw Exception('Failed to add shoes: $e');
@@ -119,6 +126,9 @@ class ShoesService {
       } else {
         // If no new image is provided, just update other fields in Firestore
         await docRef.update(updatedShoes.toMap());
+
+        // Record the operation in history
+        await historyEvents('Updated', shoesId, updatedShoes.imageUrl);
       }
     } catch (e) {
       logger.e('Error updating shoes: $e');
@@ -134,13 +144,41 @@ class ShoesService {
       await shoesCollection.doc(id).delete();
       logger.i('Shoes deleted successfully.');
 
-      // Delete image from Storage
-      Reference ref = _storage.refFromURL(imageUrl);
-      await ref.delete();
-      logger.i('Image deleted successfully.');
+      // // Delete image from Storage
+      // Reference ref = _storage.refFromURL(imageUrl);
+      // await ref.delete();
+      // logger.i('Image deleted successfully.');
+
+      // Record the operation in history
+      await historyEvents('Deleted', id, imageUrl);
     } catch (e) {
       logger.e('Error deleting shoes and image: $e');
       throw Exception('Failed to delete shoes and image: $e');
+    }
+  }
+
+  Future<void> historyEvents(
+      String operationType, String shoesId, String? imageUrl) async {
+    try {
+      String? userId = getCurrentUserId();
+      if (userId == null) {
+        throw Exception('User ID is null');
+      }
+
+      // Add a document to the current user’s history collection
+      await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('history')
+          .add({
+        'operationType': operationType,
+        'shoesId': shoesId,
+        'imageUrl': imageUrl,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      logger.e('Error adding history entry: $e');
+      throw Exception('Failed to add history entry: $e');
     }
   }
 }
