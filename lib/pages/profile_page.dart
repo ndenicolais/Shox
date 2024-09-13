@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/account/delete_page.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/profile/database_page.dart';
-import 'package:shox/pages/profile/stores_page.dart';
+import 'package:shox/pages/profile/history_page.dart';
 import 'package:shox/pages/welcome_page.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
@@ -258,7 +258,7 @@ class ProfilePageState extends State<ProfilePage> {
                   child: MaterialButton(
                     onPressed: () {
                       Get.to(
-                        () => const StoresPage(),
+                        () => const HistoryPage(),
                         transition: Transition.fade,
                         duration: const Duration(milliseconds: 500),
                       );
@@ -272,10 +272,10 @@ class ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(MingCuteIcons.mgc_shop_fill,
+                        Icon(MingCuteIcons.mgc_history_fill,
                             color: Theme.of(context).colorScheme.secondary),
                         Text(
-                          S.current.profile_stores,
+                          S.current.profile_history,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
                             fontSize: 20.r,
