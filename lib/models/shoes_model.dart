@@ -10,7 +10,7 @@ class Shoes {
   static List<IconData> seasonOptions = [
     Icons.sunny,
     Icons.ac_unit,
-    Icons.clear
+    Icons.star
   ];
   String brand;
   String size;
@@ -57,7 +57,7 @@ class Shoes {
       'imageUrl': imageUrl,
       'color': color.value,
       'seasonIcon':
-          seasonIcon != null ? seasonIcon!.codePoint : Icons.clear.codePoint,
+          seasonIcon != null ? seasonIcon!.codePoint : Icons.star.codePoint,
       'brand': brand,
       'size': size,
       'category': category,
@@ -76,7 +76,7 @@ class Shoes {
       color: Color(map['color']),
       seasonIcon: map['seasonIcon'] != null
           ? IconData(map['seasonIcon'], fontFamily: 'MaterialIcons')
-          : Icons.clear,
+          : Icons.star,
       brand: map['brand'],
       size: map['size'],
       category: map['category'],
