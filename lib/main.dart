@@ -4,10 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:shox/firebase_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shox/utils/firebase_options.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/intro_page.dart';
-import 'package:shox/theme/app_theme.dart';
 import 'package:shox/theme/theme_notifier.dart';
 
 void main() async {
@@ -15,16 +15,23 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? savedLocale = prefs.getString('language_code');
+  ThemeNotifier themeNotifier = await ThemeNotifier.loadThemeFromPreferences();
+
   runApp(
     ChangeNotifierProvider(
-      create: (_) => ThemeNotifier(AppTheme.lightTheme(), false),
-      child: const MyApp(),
+      create: (_) => themeNotifier,
+      child: MyApp(savedLocale: savedLocale),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? savedLocale;
+
+  const MyApp({super.key, this.savedLocale});
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +41,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       child: Consumer<ThemeNotifier>(
         builder: (context, themeNotifier, child) {
-          final brightness = MediaQuery.of(context).platformBrightness;
+          Locale? initialLocale;
 
-          if (!themeNotifier.isManualTheme) {
-            if (brightness == Brightness.dark && !themeNotifier.isDarkMode) {
-              themeNotifier.setDarkTheme();
-            } else if (brightness == Brightness.light &&
-                themeNotifier.isDarkMode) {
-              themeNotifier.setLightTheme();
-            }
-            themeNotifier.resetManualTheme();
+          if (savedLocale != null && savedLocale!.isNotEmpty) {
+            initialLocale = Locale(savedLocale!);
+          } else {
+            initialLocale = Get.deviceLocale;
           }
 
           return GetMaterialApp(
@@ -57,7 +60,7 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
-            locale: Get.deviceLocale,
+            locale: initialLocale,
           );
         },
       ),
