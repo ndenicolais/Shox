@@ -8,6 +8,7 @@ class ShoesTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final TextCapitalization? textCapitalization;
+  final int? maxLength;
 
   const ShoesTextField({
     super.key,
@@ -17,6 +18,7 @@ class ShoesTextField extends StatelessWidget {
     this.keyboardType,
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
+    this.maxLength,
   });
 
   @override
@@ -28,6 +30,10 @@ class ShoesTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontFamily: 'CustomFont',
+        ),
+        counterStyle: TextStyle(
           color: Theme.of(context).colorScheme.tertiary,
           fontFamily: 'CustomFont',
         ),
@@ -60,6 +66,7 @@ class ShoesTextField extends StatelessWidget {
         fontFamily: 'CustomFont',
       ),
       validator: validator,
+      maxLength: maxLength,
       cursorColor: Theme.of(context).colorScheme.secondary,
     );
   }
