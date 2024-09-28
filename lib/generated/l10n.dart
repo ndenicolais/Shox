@@ -1230,6 +1230,26 @@ class S {
     );
   }
 
+  /// `Edit Account`
+  String get profile_edit_title {
+    return Intl.message(
+      'Edit Account',
+      name: 'profile_edit_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get profile_edit_save {
+    return Intl.message(
+      'Save',
+      name: 'profile_edit_save',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `White`
   String get color_white {
     return Intl.message(
@@ -1390,41 +1410,51 @@ class S {
     );
   }
 
-  /// `Trainers`
-  String get category_trainers {
+  /// `Sneakers`
+  String get category_sneakers {
     return Intl.message(
-      'Trainers',
-      name: 'category_trainers',
+      'Sneakers',
+      name: 'category_sneakers',
       desc: '',
       args: [],
     );
   }
 
-  /// `Casual`
-  String get category_casual {
+  /// `Sandals`
+  String get category_sandals {
     return Intl.message(
-      'Casual',
-      name: 'category_casual',
+      'Sandals',
+      name: 'category_sandals',
       desc: '',
       args: [],
     );
   }
 
-  /// `Classic`
-  String get category_classic {
+  /// `Boots`
+  String get category_boots {
     return Intl.message(
-      'Classic',
-      name: 'category_classic',
+      'Boots',
+      name: 'category_boots',
       desc: '',
       args: [],
     );
   }
 
-  /// `Work`
-  String get category_work {
+  /// `Loafers`
+  String get category_loafers {
     return Intl.message(
-      'Work',
-      name: 'category_work',
+      'Loafers',
+      name: 'category_loafers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ballets`
+  String get category_ballets {
+    return Intl.message(
+      'Ballets',
+      name: 'category_ballets',
       desc: '',
       args: [],
     );
@@ -1440,61 +1470,131 @@ class S {
     );
   }
 
-  /// `Sneakers`
-  String get type_sneakers {
+  /// `Sport`
+  String get type_sport {
     return Intl.message(
-      'Sneakers',
-      name: 'type_sneakers',
+      'Sport',
+      name: 'type_sport',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sandals`
-  String get type_sandals {
+  /// `Casual`
+  String get type_casual {
     return Intl.message(
-      'Sandals',
-      name: 'type_sandals',
+      'Casual',
+      name: 'type_casual',
       desc: '',
       args: [],
     );
   }
 
-  /// `Flat Sandals`
-  String get type_flat_sandals {
+  /// `Lifestyle`
+  String get type_lifestyle {
     return Intl.message(
-      'Flat Sandals',
-      name: 'type_flat_sandals',
+      'Lifestyle',
+      name: 'type_lifestyle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Heeled Sandals`
-  String get type_heeled_sandals {
+  /// `Running`
+  String get type_running {
     return Intl.message(
-      'Heeled Sandals',
-      name: 'type_heeled_sandals',
+      'Running',
+      name: 'type_running',
       desc: '',
       args: [],
     );
   }
 
-  /// `Boots`
-  String get type_boots {
+  /// `Flat`
+  String get type_flat {
     return Intl.message(
-      'Boots',
-      name: 'type_boots',
+      'Flat',
+      name: 'type_flat',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hogan`
-  String get type_hogan {
+  /// `Heeled`
+  String get type_heeled {
     return Intl.message(
-      'Hogan',
-      name: 'type_hogan',
+      'Heeled',
+      name: 'type_heeled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flip-flops`
+  String get type_flip_flops {
+    return Intl.message(
+      'Flip-flops',
+      name: 'type_flip_flops',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dressy`
+  String get type_dressy {
+    return Intl.message(
+      'Dressy',
+      name: 'type_dressy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ankle boots`
+  String get type_ankle_boots {
+    return Intl.message(
+      'Ankle boots',
+      name: 'type_ankle_boots',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High boots`
+  String get type_high_boots {
+    return Intl.message(
+      'High boots',
+      name: 'type_high_boots',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Work boots`
+  String get type_work_boots {
+    return Intl.message(
+      'Work boots',
+      name: 'type_work_boots',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Knee-high`
+  String get type_knee_high {
+    return Intl.message(
+      'Knee-high',
+      name: 'type_knee_high',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Classic`
+  String get type_classic {
+    return Intl.message(
+      'Classic',
+      name: 'type_classic',
       desc: '',
       args: [],
     );
@@ -1580,6 +1680,16 @@ class S {
     );
   }
 
+  /// `Account Info`
+  String get database_pdf_user {
+    return Intl.message(
+      'Account Info',
+      name: 'database_pdf_user',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get database_pdf_name {
     return Intl.message(
@@ -1595,6 +1705,26 @@ class S {
     return Intl.message(
       'Email',
       name: 'database_pdf_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration Date`
+  String get database_pdf_date {
+    return Intl.message(
+      'Registration Date',
+      name: 'database_pdf_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Page`
+  String get database_pdf_page {
+    return Intl.message(
+      'Page',
+      name: 'database_pdf_page',
       desc: '',
       args: [],
     );

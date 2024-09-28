@@ -23,11 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "adder_title": MessageLookupByLibrary.simpleMessage("Add Shoes"),
-        "category_casual": MessageLookupByLibrary.simpleMessage("Casual"),
-        "category_classic": MessageLookupByLibrary.simpleMessage("Classic"),
+        "category_ballets": MessageLookupByLibrary.simpleMessage("Ballets"),
+        "category_boots": MessageLookupByLibrary.simpleMessage("Boots"),
+        "category_loafers": MessageLookupByLibrary.simpleMessage("Loafers"),
         "category_other": MessageLookupByLibrary.simpleMessage("Other"),
-        "category_trainers": MessageLookupByLibrary.simpleMessage("Trainers"),
-        "category_work": MessageLookupByLibrary.simpleMessage("Work"),
+        "category_sandals": MessageLookupByLibrary.simpleMessage("Sandals"),
+        "category_sneakers": MessageLookupByLibrary.simpleMessage("Sneakers"),
         "color_beige": MessageLookupByLibrary.simpleMessage("Beige"),
         "color_black": MessageLookupByLibrary.simpleMessage("Black"),
         "color_bordeaux": MessageLookupByLibrary.simpleMessage("Bordeaux"),
@@ -53,13 +54,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No shoes in the box"),
         "database_pdf_confirm": MessageLookupByLibrary.simpleMessage(
             "PDF saved to Download folder"),
+        "database_pdf_date":
+            MessageLookupByLibrary.simpleMessage("Registration Date"),
         "database_pdf_download":
             MessageLookupByLibrary.simpleMessage("Download DB"),
         "database_pdf_email": MessageLookupByLibrary.simpleMessage("Email"),
         "database_pdf_error":
             MessageLookupByLibrary.simpleMessage("Failed to generate PDF"),
         "database_pdf_name": MessageLookupByLibrary.simpleMessage("Name"),
+        "database_pdf_page": MessageLookupByLibrary.simpleMessage("Page"),
         "database_pdf_shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
+        "database_pdf_user":
+            MessageLookupByLibrary.simpleMessage("Account Info"),
         "database_shoes": MessageLookupByLibrary.simpleMessage("Shoes in DB"),
         "database_title": MessageLookupByLibrary.simpleMessage("Database"),
         "database_types": MessageLookupByLibrary.simpleMessage("Types"),
@@ -159,6 +165,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_database": MessageLookupByLibrary.simpleMessage("Database"),
         "profile_delete":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "profile_edit_save": MessageLookupByLibrary.simpleMessage("Save"),
+        "profile_edit_title":
+            MessageLookupByLibrary.simpleMessage("Edit Account"),
         "profile_history": MessageLookupByLibrary.simpleMessage("History"),
         "profile_logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -234,15 +243,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error while updating the shoes: "),
         "toast_update_shoes_success":
             MessageLookupByLibrary.simpleMessage("Shoes updated successfully"),
-        "type_boots": MessageLookupByLibrary.simpleMessage("Boots"),
-        "type_flat_sandals":
-            MessageLookupByLibrary.simpleMessage("Flat Sandals"),
-        "type_heeled_sandals":
-            MessageLookupByLibrary.simpleMessage("Heeled Sandals"),
-        "type_hogan": MessageLookupByLibrary.simpleMessage("Hogan"),
+        "type_ankle_boots": MessageLookupByLibrary.simpleMessage("Ankle boots"),
+        "type_casual": MessageLookupByLibrary.simpleMessage("Casual"),
+        "type_classic": MessageLookupByLibrary.simpleMessage("Classic"),
+        "type_dressy": MessageLookupByLibrary.simpleMessage("Dressy"),
+        "type_flat": MessageLookupByLibrary.simpleMessage("Flat"),
+        "type_flip_flops": MessageLookupByLibrary.simpleMessage("Flip-flops"),
+        "type_heeled": MessageLookupByLibrary.simpleMessage("Heeled"),
+        "type_high_boots": MessageLookupByLibrary.simpleMessage("High boots"),
+        "type_knee_high": MessageLookupByLibrary.simpleMessage("Knee-high"),
+        "type_lifestyle": MessageLookupByLibrary.simpleMessage("Lifestyle"),
         "type_other": MessageLookupByLibrary.simpleMessage("Other"),
-        "type_sandals": MessageLookupByLibrary.simpleMessage("Sandals"),
-        "type_sneakers": MessageLookupByLibrary.simpleMessage("Sneakers"),
+        "type_running": MessageLookupByLibrary.simpleMessage("Running"),
+        "type_sport": MessageLookupByLibrary.simpleMessage("Sport"),
+        "type_work_boots": MessageLookupByLibrary.simpleMessage("Work boots"),
         "updater_title": MessageLookupByLibrary.simpleMessage("Update Shoes"),
         "validator_email": MessageLookupByLibrary.simpleMessage("Email"),
         "validator_email_error":
