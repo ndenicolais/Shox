@@ -1,7 +1,7 @@
 name: shox
 description: "A digital shoes wardrobe."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 2.2.0
+version: 2.3.0
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
@@ -13,14 +13,26 @@ dependencies:
   # SYSTEM
   change_app_package_name: ^1.1.0
   flutter_launcher_icons: ^0.13.1
+  cupertino_icons: ^1.0.6
+  ming_cute_icons: ^0.0.5
+  convex_bottom_bar: ^3.2.0
   url_launcher: ^6.3.0
   logger: ^2.3.0
   http: ^1.2.1
+  cloud_firestore: ^5.0.2
+  firebase_auth: ^5.1.1
+  firebase_core: ^3.1.1
+  firebase_storage: ^12.1.0
+  google_sign_in: ^6.1.5
   shared_preferences: ^2.2.1
   image_picker: ^1.1.2
   image_cropper: ^7.1.0
+  syncfusion_flutter_charts: ^26.2.14
+  delightful_toast: ^1.1.0
   provider: ^6.1.2
   get: ^4.6.6
+  like_button: ^2.0.5
+  smooth_page_indicator: ^1.2.0+3
   flutter_screenutil: ^5.9.3
   webview_flutter: ^4.8.0
   intl: ^0.19.0
@@ -32,22 +44,6 @@ dependencies:
   pdf: ^3.11.0
   path_provider: ^2.1.4
   permission_handler: ^11.3.1
-
-  # FIREBASE
-  cloud_firestore: ^5.0.2
-  firebase_auth: ^5.1.1
-  firebase_core: ^3.1.1
-  firebase_storage: ^12.1.0
-  google_sign_in: ^6.1.5
-
-  # GRAPHICS
-  cupertino_icons: ^1.0.6
-  ming_cute_icons: ^0.0.5
-  convex_bottom_bar: ^3.2.0
-  syncfusion_flutter_charts: ^26.2.14
-  delightful_toast: ^1.1.0
-  like_button: ^2.0.5
-  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:
