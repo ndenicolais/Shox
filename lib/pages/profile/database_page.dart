@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
 import 'package:shox/services/database_service.dart';
+import 'package:shox/services/pdf_service.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/db_localized_values.dart';
@@ -27,6 +28,7 @@ class DatabasePageState extends State<DatabasePage>
   final ShoesService _firebaseShoesService = ShoesService();
   late final ShoesService _shoesService;
   late final DatabaseService _databaseService;
+  late final PdfService _pdfService;
   late AnimationController _loadingPdfController;
   bool _isPdfLoading = false;
   late AnimationController _loadingController;
@@ -42,6 +44,7 @@ class DatabasePageState extends State<DatabasePage>
     super.initState();
     _shoesService = ShoesService();
     _databaseService = DatabaseService(_shoesService);
+    _pdfService = PdfService(_shoesService, _databaseService);
     _fetchData();
     _loadingController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -76,13 +79,8 @@ class DatabasePageState extends State<DatabasePage>
     );
   }
 
-  Color getColorFromHex(String hexColor, List<Color> colorList) {
-    int colorIndex = int.parse(hexColor, radix: 16) % colorList.length;
-    return colorList[colorIndex];
-  }
-
   Future<void> requestStoragePermission() async {
-    // Richiedi permesso di gestione della memoria esterna su Android 13+
+    // Request permission to manage external memory on Android 13+
     final status = await Permission.manageExternalStorage.request();
 
     if (status.isGranted) {
@@ -90,31 +88,34 @@ class DatabasePageState extends State<DatabasePage>
     } else if (status.isDenied) {
       logger.e('Storage permission denied');
     } else if (status.isPermanentlyDenied) {
-      // Puoi guidare l'utente per aprire le impostazioni dell'app
       logger.e('Storage permission permanently denied');
-      openAppSettings(); // Apre le impostazioni dell'app per modificare i permessi
+      // Opens app settings to change permissions
+      openAppSettings();
     }
   }
 
   Future<void> _generatePdf() async {
-    setState(() {
-      _isPdfLoading = true;
-    });
+    setState(
+      () {
+        _isPdfLoading = true;
+      },
+    );
 
     try {
-      await _databaseService.generateShoesPdf();
+      await _pdfService.generateShoesPdf();
       _showConfirmToastBar();
     } catch (e) {
       _showErrorSnackBar();
     } finally {
-      setState(() {
-        _isPdfLoading = false;
-      });
+      setState(
+        () {
+          _isPdfLoading = false;
+        },
+      );
     }
   }
 
   void _showConfirmToastBar() {
-    // Show confirm toastbar
     showCustomToastBar(
       context,
       position: DelightSnackbarPosition.bottom,
@@ -127,7 +128,6 @@ class DatabasePageState extends State<DatabasePage>
   }
 
   void _showErrorSnackBar() {
-    // Show error toastbar
     showCustomToastBar(
       context,
       position: DelightSnackbarPosition.top,
@@ -149,137 +149,23 @@ class DatabasePageState extends State<DatabasePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            MingCuteIcons.mgc_large_arrow_left_fill,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          S.current.database_title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Stack(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 30.r),
             child: _isLoading
-                ? Center(
-                    child: AnimatedBuilder(
-                      animation: _loadingController,
-                      builder: (_, child) {
-                        return Transform.rotate(
-                          angle: _loadingController.value * 2.0 * 3.14159,
-                          child: child,
-                        );
-                      },
-                      child: Icon(
-                        MingCuteIcons.mgc_shoe_fill,
-                        size: 50.r,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  )
+                ? _buildDatabaseLoading(context)
                 : _totalShoesCount == 0
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              MingCuteIcons.mgc_package_line,
-                              size: 80.r,
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                            Text(
-                              S.current.database_empty,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontSize: 22.r,
-                                fontFamily: 'CustomFont',
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
+                    ? _buildDatabaseEmpty(context)
                     : SingleChildScrollView(
                         child: Center(
                           child: Column(
                             children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${S.current.database_shoes} : ',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      fontFamily: 'CustomFont',
-                                      fontSize: 28.r,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    '$_totalShoesCount',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary,
-                                      fontFamily: 'CustomFontBold',
-                                      fontSize: 28.r,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              _buildDatabaseInfo(context),
                               20.verticalSpace,
-                              SizedBox(
-                                width: 240.r,
-                                height: 60.r,
-                                child: MaterialButton(
-                                  onPressed: _generatePdf,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.r),
-                                  ),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        MingCuteIcons.mgc_file_download_fill,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        size: 24.r,
-                                      ),
-                                      SizedBox(width: 8.r),
-                                      Text(
-                                        S.current.database_pdf_download,
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          fontSize: 24.r,
-                                          fontFamily: 'CustomFont',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              _buildDownloadButton(context),
                               20.verticalSpace,
                               _buildColorPieChart(context),
                               _buildBrandPieChart(),
@@ -290,26 +176,154 @@ class DatabasePageState extends State<DatabasePage>
                         ),
                       ),
           ),
-          if (_isPdfLoading)
-            Container(
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
-              child: Center(
-                child: ScaleTransition(
-                  scale: Tween<double>(begin: 0.5, end: 1.5).animate(
-                    CurvedAnimation(
-                      parent: _loadingController,
-                      curve: Curves.easeInOut,
-                    ),
-                  ),
-                  child: Icon(
-                    MingCuteIcons.mgc_file_download_fill,
-                    size: 120.r,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
+          if (_isPdfLoading) _buildPdfLoading(context)
+        ],
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.database_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
+  Widget _buildDatabaseLoading(BuildContext context) {
+    return Center(
+      child: AnimatedBuilder(
+        animation: _loadingController,
+        builder: (_, child) {
+          return Transform.rotate(
+            angle: _loadingController.value * 2.0 * 3.14159,
+            child: child,
+          );
+        },
+        child: Icon(
+          MingCuteIcons.mgc_shoe_fill,
+          size: 50.r,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPdfLoading(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
+      child: Center(
+        child: ScaleTransition(
+          scale: Tween<double>(begin: 0.5, end: 1.5).animate(
+            CurvedAnimation(
+              parent: _loadingController,
+              curve: Curves.easeInOut,
+            ),
+          ),
+          child: Icon(
+            MingCuteIcons.mgc_file_download_fill,
+            size: 120.r,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDatabaseEmpty(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            MingCuteIcons.mgc_package_line,
+            size: 80.r,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          Text(
+            S.current.database_empty,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 22.r,
+              fontFamily: 'CustomFont',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDatabaseInfo(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          '${S.current.database_shoes} : ',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontFamily: 'CustomFont',
+            fontSize: 28.r,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          '$_totalShoesCount',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontFamily: 'CustomFontBold',
+            fontSize: 28.r,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDownloadButton(BuildContext context) {
+    return SizedBox(
+      width: 240.r,
+      height: 60.r,
+      child: MaterialButton(
+        onPressed: _generatePdf,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+        ),
+        color: Theme.of(context).colorScheme.secondary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              MingCuteIcons.mgc_file_download_fill,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24.r,
+            ),
+            SizedBox(width: 8.r),
+            Text(
+              S.current.database_pdf_download,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 24.r,
+                fontFamily: 'CustomFont',
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -348,7 +362,6 @@ class DatabasePageState extends State<DatabasePage>
   }
 }
 
-// Colors pie chart widget
 class ColorPieChartWidget extends StatelessWidget {
   final List<ColorChartData> chartData;
 
@@ -366,7 +379,6 @@ class ColorPieChartWidget extends StatelessWidget {
   }
 }
 
-// Brands pie chart widget
 class BrandPieChartWidget extends StatelessWidget {
   final Map<String, double> chartData;
 
@@ -374,20 +386,29 @@ class BrandPieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PieChartData> data = chartData.entries
-        .map((entry) => PieChartData(entry.key, entry.value))
-        .toList();
+    List<Color> shuffledColors = List.from(softColors)..shuffle();
+    List<PieChartData> data = chartData.entries.toList().asMap().entries.map(
+      (entry) {
+        int index = entry.key;
+        var entryData = entry.value;
+        return PieChartData(
+          entryData.key,
+          entryData.value,
+          color: shuffledColors[index % shuffledColors.length],
+        );
+      },
+    ).toList();
 
     return CustomPieChartWidget<PieChartData>(
       chartData: data,
       title: S.current.database_brands,
       xValueMapper: (data) => data.label,
       yValueMapper: (data) => data.value,
+      pointColorMapper: (data, _) => data.color,
     );
   }
 }
 
-// Categories pie chart widget
 class CategoryPieChartWidget extends StatelessWidget {
   final Map<String, double> chartData;
 
@@ -395,23 +416,29 @@ class CategoryPieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PieChartData> data = chartData.entries
-        .map((entry) => PieChartData(
-              DbLocalizedValues.getCategoryName(entry.key),
-              entry.value,
-            ))
-        .toList();
+    List<Color> shuffledColors = List.from(softColors)..shuffle();
+    List<PieChartData> data = chartData.entries.toList().asMap().entries.map(
+      (entry) {
+        int index = entry.key;
+        var entryData = entry.value;
+        return PieChartData(
+          DbLocalizedValues.getCategoryName(entryData.key),
+          entryData.value,
+          color: shuffledColors[index % shuffledColors.length],
+        );
+      },
+    ).toList();
 
     return CustomPieChartWidget<PieChartData>(
       chartData: data,
       title: S.current.database_categories,
       xValueMapper: (data) => data.label,
       yValueMapper: (data) => data.value,
+      pointColorMapper: (data, _) => data.color,
     );
   }
 }
 
-// Types pie chart widget
 class TypePieChartWidget extends StatelessWidget {
   final Map<String, double> chartData;
 
@@ -419,18 +446,25 @@ class TypePieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PieChartData> data = chartData.entries
-        .map((entry) => PieChartData(
-              DbLocalizedValues.getTypeName(entry.key),
-              entry.value,
-            ))
-        .toList();
+    List<Color> shuffledColors = List.from(softColors)..shuffle();
+    List<PieChartData> data = chartData.entries.toList().asMap().entries.map(
+      (entry) {
+        int index = entry.key;
+        var entryData = entry.value;
+        return PieChartData(
+          DbLocalizedValues.getTypeName(entryData.key),
+          entryData.value,
+          color: shuffledColors[index % shuffledColors.length],
+        );
+      },
+    ).toList();
 
     return CustomPieChartWidget<PieChartData>(
       chartData: data,
       title: S.current.database_types,
       xValueMapper: (data) => data.label,
       yValueMapper: (data) => data.value,
+      pointColorMapper: (data, _) => data.color,
     );
   }
 }
