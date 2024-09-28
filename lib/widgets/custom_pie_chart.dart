@@ -7,8 +7,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class PieChartData {
   final String label;
   final double value;
+  final Color color;
 
-  PieChartData(this.label, this.value);
+  PieChartData(this.label, this.value, {required this.color});
 }
 
 // Specific data for the color pie chart
