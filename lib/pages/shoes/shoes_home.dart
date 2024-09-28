@@ -40,7 +40,7 @@ class ShoesHomeState extends State<ShoesHome>
   Color? selectedColor;
   IconData? selectedSeasonIcon;
   String selectedCategory = 'All';
-  String selectedType = 'All';
+  String? selectedType = 'All';
   late String _languageCode;
   late Map<String, String> translatedCategoryOptions;
   late Map<String, String> translatedTypeOptions;
@@ -64,6 +64,7 @@ class ShoesHomeState extends State<ShoesHome>
         ShoesLanguages.categoryTranslations[_languageCode] ?? {};
     translatedTypeOptions =
         ShoesLanguages.typeTranslations[_languageCode] ?? {};
+    _loadUserName();
   }
 
   Future<void> _loadUserName() async {
@@ -319,20 +320,26 @@ class ShoesHomeState extends State<ShoesHome>
                         },
                       );
                     },
-                    items: ['All', ...translatedTypeOptions.keys]
-                        .map(
-                          (type) => DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(
-                              translatedTypeOptions[type] ?? type,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontFamily: 'CustomFont',
+                    items: selectedType == null
+                        ? []
+                        : [
+                            'All',
+                            ...Shoes.categoryToTypes[selectedCategory] ?? []
+                          ]
+                            .map(
+                              (type) => DropdownMenuItem<String>(
+                                value: type,
+                                child: Text(
+                                  translatedTypeOptions[type] ?? type,
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    fontFamily: 'CustomFont',
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                            )
+                            .toList(),
                     dropdownColor: Theme.of(context).colorScheme.primary,
                     decoration: InputDecoration(
                       labelText: S.current.home_filter_type,
@@ -416,9 +423,7 @@ class ShoesHomeState extends State<ShoesHome>
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
     _searchController.dispose();
-    // Make sure to delete focusNode when it is no longer needed
     _searchFocusNode.dispose();
     super.dispose();
   }
@@ -438,129 +443,9 @@ class ShoesHomeState extends State<ShoesHome>
             padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 10.r),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Text(
-                      'Hey, ',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 40.r,
-                        fontFamily: 'CustomFont',
-                      ),
-                    ),
-                    Text(
-                      _userName,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 40.r,
-                        fontFamily: 'CustomFontBold',
-                      ),
-                    ),
-                  ],
-                ),
+                _buildGreeting(),
                 10.verticalSpace,
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _searchController,
-                        onTapOutside: (event) =>
-                            FocusManager.instance.primaryFocus?.unfocus(),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontFamily: 'CustomFont',
-                        ),
-                        cursorColor: Theme.of(context).colorScheme.tertiary,
-                        onChanged: (value) {
-                          setState(
-                            () {
-                              // Update searchKeyword with the value entered by the user
-                              searchKeyword = value.trim();
-                            },
-                          );
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            MingCuteIcons.mgc_search_2_fill,
-                            size: 18.r,
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                          suffixIcon: _searchController.text.isNotEmpty
-                              ? IconButton(
-                                  icon: Icon(
-                                    Icons.clear,
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary,
-                                  ),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        _resetFocus();
-                                      },
-                                    );
-                                  },
-                                )
-                              : null,
-                          labelText: S.current.home_search,
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontFamily: 'CustomFont',
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        filtersActive
-                            ? MingCuteIcons.mgc_filter_fill
-                            : MingCuteIcons.mgc_filter_line,
-                        color: filtersActive
-                            ? Theme.of(context).colorScheme.secondary
-                            : Theme.of(context).colorScheme.tertiary,
-                      ),
-                      onPressed: () {
-                        _showFilterDialog();
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        currentIcon,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      onPressed: () {
-                        toggleGrid();
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        showOnlyFavorites
-                            ? MingCuteIcons.mgc_heart_fill
-                            : MingCuteIcons.mgc_heart_line,
-                        color: showOnlyFavorites
-                            ? AppColors.errorColor
-                            : Theme.of(context).colorScheme.tertiary,
-                      ),
-                      onPressed: () {
-                        setState(
-                          () {
-                            showOnlyFavorites = !showOnlyFavorites;
-                            _refreshShoesList();
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                _buildSearchBar(context),
                 10.verticalSpace,
                 Expanded(
                   child: FutureBuilder<List<Shoes>>(
@@ -764,56 +649,181 @@ class ShoesHomeState extends State<ShoesHome>
             ),
           ),
         ),
-        bottomNavigationBar: ConvexAppBar(
-          items: [
-            TabItem(
-              fontFamily: 'CustomFont',
-              title: S.current.home_profile,
-              icon: MingCuteIcons.mgc_user_3_fill,
-            ),
-            TabItem(
-              fontFamily: 'CustomFont',
-              title: S.current.home_add,
-              icon: MingCuteIcons.mgc_add_line,
-            ),
-            TabItem(
-              fontFamily: 'CustomFont',
-              title: S.current.home_settings,
-              icon: MingCuteIcons.mgc_settings_5_fill,
-            ),
-          ],
-          onTap: (int index) {
-            setState(() {});
-            _searchFocusNode.unfocus();
-
-            if (index == 0) {
-              Get.to(
-                () => const ProfilePage(),
-                transition: Transition.fade,
-                duration: const Duration(milliseconds: 500),
-              );
-            } else if (index == 1) {
-              Get.to(
-                () => ShoesAdderPage(onShoesAdded: _updateShoesList),
-                transition: Transition.zoom,
-                duration: const Duration(milliseconds: 500),
-              );
-            } else if (index == 2) {
-              Get.to(
-                () => const SettingsPage(),
-                transition: Transition.fade,
-                duration: const Duration(milliseconds: 500),
-              );
-            }
-          },
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          color: Theme.of(context).colorScheme.primary,
-          activeColor: Theme.of(context).colorScheme.primary,
-          height: 60.r,
-          curveSize: 100.r,
-          style: TabStyle.fixedCircle,
-        ),
+        bottomNavigationBar: _buildBottomNavigationBar(),
       ),
+    );
+  }
+
+  Widget _buildGreeting() {
+    return Row(
+      children: [
+        Text(
+          'Hey, ',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 40.r,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+        Text(
+          _userName,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 40.r,
+            fontFamily: 'CustomFontBold',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSearchBar(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _searchController,
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontFamily: 'CustomFont',
+            ),
+            cursorColor: Theme.of(context).colorScheme.tertiary,
+            onChanged: (value) {
+              setState(() {
+                searchKeyword = value.trim();
+              });
+            },
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                MingCuteIcons.mgc_search_2_fill,
+                size: 18.r,
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
+              suffixIcon: _searchController.text.isNotEmpty
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.clear,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      onPressed: () {
+                        setState(
+                          () {
+                            _resetFocus();
+                          },
+                        );
+                      },
+                    )
+                  : null,
+              labelText: S.current.home_search,
+              labelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontFamily: 'CustomFont',
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(
+            filtersActive
+                ? MingCuteIcons.mgc_filter_fill
+                : MingCuteIcons.mgc_filter_line,
+            color: filtersActive
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).colorScheme.tertiary,
+          ),
+          onPressed: () {
+            _showFilterDialog();
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            currentIcon,
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
+          onPressed: () {
+            toggleGrid();
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            showOnlyFavorites
+                ? MingCuteIcons.mgc_heart_fill
+                : MingCuteIcons.mgc_heart_line,
+            color: showOnlyFavorites
+                ? AppColors.errorColor
+                : Theme.of(context).colorScheme.tertiary,
+          ),
+          onPressed: () {
+            setState(
+              () {
+                showOnlyFavorites = !showOnlyFavorites;
+                _refreshShoesList();
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return ConvexAppBar(
+      items: [
+        TabItem(
+          fontFamily: 'CustomFont',
+          title: S.current.home_profile,
+          icon: MingCuteIcons.mgc_user_3_fill,
+        ),
+        TabItem(
+          fontFamily: 'CustomFont',
+          title: S.current.home_add,
+          icon: MingCuteIcons.mgc_add_line,
+        ),
+        TabItem(
+          fontFamily: 'CustomFont',
+          title: S.current.home_settings,
+          icon: MingCuteIcons.mgc_settings_5_fill,
+        ),
+      ],
+      onTap: (int index) {
+        setState(() {});
+        _searchFocusNode.unfocus();
+        switch (index) {
+          case 0:
+            Get.to(() => const ProfilePage(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500));
+            break;
+          case 1:
+            Get.to(() => ShoesAdderPage(onShoesAdded: _updateShoesList),
+                transition: Transition.zoom,
+                duration: const Duration(milliseconds: 500));
+            break;
+          case 2:
+            Get.to(() => const SettingsPage(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500));
+            break;
+        }
+      },
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.primary,
+      activeColor: Theme.of(context).colorScheme.primary,
+      height: 60.r,
+      curveSize: 100.r,
+      style: TabStyle.fixedCircle,
     );
   }
 }
