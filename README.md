@@ -1,16 +1,16 @@
 # Shox
 > <b>Author: Nicola De Nicolais</b>
-## Preview
-<img height="500em" src="images/preview.jpeg" title="Shox's preview">
+## 💎 Preview
+<img src="images/preview.jpeg" title="Shox's preview">
 
 ## 📄 Description
 This application allows you to create a digital wardrobe where you can save and view all your Shoes. In this way all your shoes will be cataloged and always at your fingertips.
 
-## Screenshots
-<img height="500em" src="images/screens.png" title="Shox's screen">
+## 🎨 Screenshots
+<img src="images/screens.png" title="Shox's screen">
 
 
-## 🚀 Features :
+## 🚀 Features
 ```
 • Authentication via Google or email/password
 • Cloud Firestore and Firebase Storage databases
@@ -26,7 +26,7 @@ This application allows you to create a digital wardrobe where you can save and 
 • Automatically detection of theme/language with the option to change them
 • Possibility to permanently delete the account with the entire db
 ```
-## Dependencies
+## 📌 Dependencies
 - [cloud_firestore](https://pub.dev/packages/cloud_firestore)
 - [firebase_storage](https://pub.dev/packages/firebase_storage)
 - [GetX](https://pub.dev/packages/get)
