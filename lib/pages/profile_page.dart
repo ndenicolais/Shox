@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/account/delete_page.dart';
+import 'package:shox/pages/account/account_page.dart';
+import 'package:shox/pages/account/delete_page.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/pages/profile/database_page.dart';
 import 'package:shox/pages/profile/history_page.dart';
@@ -59,7 +60,6 @@ class ProfilePageState extends State<ProfilePage> {
             .get();
 
         if (userSnapshot.exists) {
-          // Handle nullable Map<String, dynamic>
           Map<String, dynamic>? userData =
               userSnapshot.data() as Map<String, dynamic>?;
 
@@ -103,15 +103,38 @@ class ProfilePageState extends State<ProfilePage> {
     if (user != null &&
         user.providerData.isNotEmpty &&
         user.providerData[0].providerId == 'google.com') {
+      // If you are logged in via Google
       String? photoUrl = user.photoURL;
       if (photoUrl != null) {
-        // Edit the URL to request a higher quality version of the image
+        // Change the URL to request a higher quality version of the image
         photoUrl = photoUrl.replaceAll('s96', 's1024');
-        setState(
-          () {
-            _userProfileImage = photoUrl;
-          },
-        );
+        setState(() {
+          _userProfileImage = photoUrl;
+        });
+        return;
+      }
+    }
+
+    // If you are not logged in with Google or the Google image is unavailable
+    if (user != null) {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      if (userSnapshot.exists) {
+        Map<String, dynamic>? userData =
+            userSnapshot.data() as Map<String, dynamic>?;
+
+        if (userData != null) {
+          // Check if there is a URL of the profile picture in Firestore
+          String? profileImageUrl = userData['profile_image'];
+          if (profileImageUrl != null && profileImageUrl.isNotEmpty) {
+            setState(() {
+              _userProfileImage = profileImageUrl;
+            });
+          }
+        }
       }
     }
   }
@@ -138,7 +161,6 @@ class ProfilePageState extends State<ProfilePage> {
   }
 
   void _showConfirmToastBar() {
-    // Show confirm toastbar
     showCustomToastBar(
       context,
       position: DelightSnackbarPosition.bottom,
@@ -152,29 +174,12 @@ class ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+    bool isEmailPasswordUser = user != null &&
+        user.providerData.isNotEmpty &&
+        user.providerData[0].providerId == 'password';
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            MingCuteIcons.mgc_large_arrow_left_fill,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          S.current.profile_title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      appBar: _buildAppBar(context, isEmailPasswordUser),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
@@ -182,183 +187,244 @@ class ProfilePageState extends State<ProfilePage> {
           child: Center(
             child: Column(
               children: [
-                CircleAvatar(
-                  radius: 80.r,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  backgroundImage: _userProfileImage != null
-                      ? NetworkImage(_userProfileImage!)
-                      : null,
-                  child: _userProfileImage == null
-                      ? Image.asset(
-                          'assets/images/img_profile.png',
-                          width: 120.r,
-                          height: 120.r,
-                        )
-                      : null,
-                ),
-                10.verticalSpace,
-                Text(
-                  _userName,
-                  style: TextStyle(
-                    fontSize: 26.r,
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontFamily: 'CustomFontBold',
-                  ),
-                ),
-                10.verticalSpace,
-                Text(
-                  _userEmail,
-                  style: TextStyle(
-                    fontSize: 18.r,
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontFamily: 'CustomFont',
-                  ),
-                ),
+                _buildProfileImage(),
+                20.verticalSpace,
+                _buildProfileInfo(context),
                 40.verticalSpace,
-                SizedBox(
-                  width: 300.r,
-                  height: 60.r,
-                  child: MaterialButton(
-                    onPressed: () {
-                      Get.to(
-                        () => const DatabasePage(),
-                        transition: Transition.fade,
-                        duration: const Duration(milliseconds: 500),
-                      );
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.r),
-                      side: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(MingCuteIcons.mgc_chart_pie_2_fill,
-                            color: Theme.of(context).colorScheme.secondary),
-                        Text(
-                          S.current.profile_database,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20.r,
-                            fontFamily: 'CustomFont',
-                          ),
-                        ),
-                        Icon(MingCuteIcons.mgc_right_fill,
-                            color: Theme.of(context).colorScheme.tertiary),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildDatabaseButton(context),
                 20.verticalSpace,
-                SizedBox(
-                  width: 300.r,
-                  height: 60.r,
-                  child: MaterialButton(
-                    onPressed: () {
-                      Get.to(
-                        () => const HistoryPage(),
-                        transition: Transition.fade,
-                        duration: const Duration(milliseconds: 500),
-                      );
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.r),
-                      side: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(MingCuteIcons.mgc_history_fill,
-                            color: Theme.of(context).colorScheme.secondary),
-                        Text(
-                          S.current.profile_history,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20.r,
-                            fontFamily: 'CustomFont',
-                          ),
-                        ),
-                        Icon(MingCuteIcons.mgc_right_fill,
-                            color: Theme.of(context).colorScheme.tertiary),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildHistoryButton(context),
                 20.verticalSpace,
-                SizedBox(
-                  width: 300.r,
-                  height: 60.r,
-                  child: MaterialButton(
-                    onPressed: logout,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.r),
-                      side: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(MingCuteIcons.mgc_exit_fill,
-                            color: Theme.of(context).colorScheme.secondary),
-                        Text(
-                          S.current.profile_logout,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20.r,
-                            fontFamily: 'CustomFont',
-                          ),
-                        ),
-                        Icon(MingCuteIcons.mgc_right_fill,
-                            color: Theme.of(context).colorScheme.tertiary),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildLogoutButton(context),
                 20.verticalSpace,
-                SizedBox(
-                  width: 300.r,
-                  height: 60.r,
-                  child: MaterialButton(
-                    onPressed: () {
-                      Get.to(
-                        () => const DeletePage(),
-                        transition: Transition.fade,
-                        duration: const Duration(milliseconds: 500),
-                      );
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.r),
-                      side: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(MingCuteIcons.mgc_delete_2_fill,
-                            color: Theme.of(context).colorScheme.secondary),
-                        Text(
-                          S.current.profile_delete,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 20.r,
-                            fontFamily: 'CustomFont',
-                          ),
-                        ),
-                        Icon(MingCuteIcons.mgc_right_fill,
-                            color: Theme.of(context).colorScheme.tertiary),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildDeleteAccount(context),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context, bool isEmailPasswordUser) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.profile_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+      actions: isEmailPasswordUser
+          ? [
+              IconButton(
+                icon: Icon(
+                  MingCuteIcons.mgc_edit_2_fill,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                onPressed: () {
+                  Get.to(() => const AccountPage());
+                },
+              ),
+            ]
+          : null,
+    );
+  }
+
+  Widget _buildProfileImage() {
+    return CircleAvatar(
+      radius: 80.r,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundImage:
+          _userProfileImage != null ? NetworkImage(_userProfileImage!) : null,
+      child: _userProfileImage == null
+          ? Image.asset(
+              'assets/images/img_profile.png',
+              width: 120.r,
+              height: 120.r,
+            )
+          : null,
+    );
+  }
+
+  Widget _buildProfileInfo(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          _userName,
+          style: TextStyle(
+            fontSize: 26.r,
+            color: Theme.of(context).colorScheme.secondary,
+            fontFamily: 'CustomFontBold',
+          ),
+        ),
+        10.verticalSpace,
+        Text(
+          _userEmail,
+          style: TextStyle(
+            fontSize: 18.r,
+            color: Theme.of(context).colorScheme.secondary,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDatabaseButton(BuildContext context) {
+    return SizedBox(
+      width: 300.r,
+      height: 60.r,
+      child: MaterialButton(
+        onPressed: () {
+          Get.to(
+            () => const DatabasePage(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 500),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        color: Theme.of(context).colorScheme.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(MingCuteIcons.mgc_chart_pie_2_fill,
+                color: Theme.of(context).colorScheme.secondary),
+            Text(
+              S.current.profile_database,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontSize: 20.r,
+                fontFamily: 'CustomFont',
+              ),
+            ),
+            Icon(MingCuteIcons.mgc_right_fill,
+                color: Theme.of(context).colorScheme.tertiary),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHistoryButton(BuildContext context) {
+    return SizedBox(
+      width: 300.r,
+      height: 60.r,
+      child: MaterialButton(
+        onPressed: () {
+          Get.to(
+            () => const HistoryPage(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 500),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        color: Theme.of(context).colorScheme.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(MingCuteIcons.mgc_history_fill,
+                color: Theme.of(context).colorScheme.secondary),
+            Text(
+              S.current.profile_history,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontSize: 20.r,
+                fontFamily: 'CustomFont',
+              ),
+            ),
+            Icon(MingCuteIcons.mgc_right_fill,
+                color: Theme.of(context).colorScheme.tertiary),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoutButton(BuildContext context) {
+    return SizedBox(
+      width: 300.r,
+      height: 60.r,
+      child: MaterialButton(
+        onPressed: logout,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        color: Theme.of(context).colorScheme.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(MingCuteIcons.mgc_exit_fill,
+                color: Theme.of(context).colorScheme.secondary),
+            Text(
+              S.current.profile_logout,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontSize: 20.r,
+                fontFamily: 'CustomFont',
+              ),
+            ),
+            Icon(MingCuteIcons.mgc_right_fill,
+                color: Theme.of(context).colorScheme.tertiary),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeleteAccount(BuildContext context) {
+    return SizedBox(
+      width: 300.r,
+      height: 60.r,
+      child: MaterialButton(
+        onPressed: () {
+          Get.to(
+            () => const DeletePage(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 500),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        color: Theme.of(context).colorScheme.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(MingCuteIcons.mgc_delete_2_fill,
+                color: Theme.of(context).colorScheme.secondary),
+            Text(
+              S.current.profile_delete,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontSize: 20.r,
+                fontFamily: 'CustomFont',
+              ),
+            ),
+            Icon(MingCuteIcons.mgc_right_fill,
+                color: Theme.of(context).colorScheme.tertiary),
+          ],
         ),
       ),
     );

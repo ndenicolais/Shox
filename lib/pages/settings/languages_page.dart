@@ -42,28 +42,7 @@ class LanguagesPageState extends State<LanguagesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            MingCuteIcons.mgc_large_arrow_left_fill,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          S.current.languages_title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
@@ -71,21 +50,9 @@ class LanguagesPageState extends State<LanguagesPage> {
           child: Center(
             child: Column(
               children: [
-                Image.asset(
-                  'assets/images/img_languages.png',
-                  width: 120.r,
-                  height: 120.r,
-                ),
+                _buildTopImage(),
                 40.verticalSpace,
-                Text(
-                  S.current.languages_description,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontSize: 22.r,
-                    fontFamily: 'CustomFont',
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                _buildDescription(context),
                 40.verticalSpace,
                 Expanded(
                   child: GridView.count(
@@ -111,6 +78,51 @@ class LanguagesPageState extends State<LanguagesPage> {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.languages_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
+  Widget _buildTopImage() {
+    return Image.asset(
+      'assets/images/img_languages.png',
+      width: 120.r,
+      height: 120.r,
+    );
+  }
+
+  Widget _buildDescription(BuildContext context) {
+    return Text(
+      S.current.languages_description,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.tertiary,
+        fontSize: 22.r,
+        fontFamily: 'CustomFont',
+      ),
+      textAlign: TextAlign.center,
     );
   }
 

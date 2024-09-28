@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shox/account/login_page.dart';
-import 'package:shox/account/signup_page.dart';
 import 'package:shox/generated/l10n.dart';
+import 'package:shox/pages/account/login_page.dart';
+import 'package:shox/pages/account/signup_page.dart';
+import 'package:shox/widgets/custom_button.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -26,81 +27,13 @@ class WelcomePageState extends State<WelcomePage> {
               child: Column(
                 children: [
                   const Spacer(flex: 1),
-                  Center(
-                    child: Text(
-                      S.current.welcome_text,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 68.r,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'CustomFont',
-                      ),
-                    ),
-                  ),
+                  _buildTitle(context),
                   const Spacer(flex: 2),
-                  Image.asset(
-                    'assets/images/app_logo.png',
-                    width: 180.r,
-                    height: 180.r,
-                  ),
+                  _buildLogo(),
                   const Spacer(flex: 2),
-                  SizedBox(
-                    width: 280.r,
-                    height: 60.r,
-                    child: MaterialButton(
-                      onPressed: () {
-                        Get.to(
-                          () => const LoginPage(),
-                          transition: Transition.fade,
-                          duration: const Duration(milliseconds: 500),
-                        );
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.r),
-                      ),
-                      color: Theme.of(context).colorScheme.secondary,
-                      child: Center(
-                        child: Text(
-                          S.current.welcome_login,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: 24.r,
-                            fontFamily: 'CustomFont',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  _buildLoginButton(context),
                   20.verticalSpace,
-                  SizedBox(
-                    width: 280.r,
-                    height: 60.r,
-                    child: MaterialButton(
-                      onPressed: () {
-                        Get.to(
-                          () => const SignupPage(),
-                          transition: Transition.fade,
-                          duration: const Duration(milliseconds: 500),
-                        );
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.r),
-                        side: BorderSide(
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      color: Theme.of(context).colorScheme.primary,
-                      child: Center(
-                        child: Text(
-                          S.current.welcome_signup,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 24.r,
-                            fontFamily: 'CustomFont',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  _buildSignupButton(context),
                   const Spacer(flex: 1),
                 ],
               ),
@@ -108,6 +41,59 @@ class WelcomePageState extends State<WelcomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLogo() {
+    return Image.asset(
+      'assets/images/app_logo.png',
+      width: 180.r,
+      height: 180.r,
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    return Center(
+      child: Text(
+        S.current.welcome_text,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 68.r,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoginButton(BuildContext context) {
+    return CustomButton(
+      title: S.current.welcome_login,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      textColor: Theme.of(context).colorScheme.primary,
+      onPressed: () {
+        Get.to(
+          () => const LoginPage(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500),
+        );
+      },
+    );
+  }
+
+  Widget _buildSignupButton(BuildContext context) {
+    return CustomButton(
+      title: S.current.welcome_signup,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      textColor: Theme.of(context).colorScheme.secondary,
+      isOutline: true,
+      onPressed: () {
+        Get.to(
+          () => const SignupPage(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500),
+        );
+      },
     );
   }
 }

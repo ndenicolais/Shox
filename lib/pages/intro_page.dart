@@ -62,23 +62,32 @@ class IntroPageState extends State<IntroPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/app_logo.png',
-              width: 180.r,
-              height: 180.r,
-            ),
-            Text(
-              'Shox',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontSize: 80.r,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'CustomFont',
-              ),
-            ),
+            _buildLogo(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildLogo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/app_logo.png',
+          width: 180.r,
+          height: 180.r,
+        ),
+        Text(
+          'Shox',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontSize: 80.r,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+      ],
     );
   }
 }

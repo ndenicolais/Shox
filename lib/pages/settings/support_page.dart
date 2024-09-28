@@ -21,28 +21,7 @@ class ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            MingCuteIcons.mgc_large_arrow_left_fill,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          S.current.support_title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
@@ -50,83 +29,128 @@ class ContactsPageState extends State<ContactsPage> {
           child: Center(
             child: Column(
               children: [
-                Image.asset(
-                  'assets/images/img_support.png',
-                  width: 120.r,
-                  height: 120.r,
-                ),
+                _buildTopImage(),
                 40.verticalSpace,
-                Text(
-                  S.current.support_developer,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 36.r,
-                    fontFamily: 'CustomFont',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Image.asset(
-                  'assets/images/img_ndn21.png',
-                  width: 200.r,
-                  height: 200.r,
-                  fit: BoxFit.contain,
-                ),
+                _buildDeveloper(context),
                 20.verticalSpace,
-                Text(
-                  S.current.support_contacts,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 36.r,
-                    fontFamily: 'CustomFont',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                20.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await launchUrl(uriLinkedin);
-                      },
-                      child: Image.asset(
-                        'assets/images/img_linkedin.png',
-                        width: 100.r,
-                        height: 100.r,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    10.horizontalSpace,
-                    GestureDetector(
-                      onTap: () async {
-                        await launchUrl(uriGithub);
-                      },
-                      child: Image.asset(
-                        'assets/images/img_github.png',
-                        width: 100.r,
-                        height: 100.r,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    10.horizontalSpace,
-                    GestureDetector(
-                      onTap: () async {
-                        await launchUrl(uriWeb);
-                      },
-                      child: Image.asset(
-                        'assets/images/img_web.png',
-                        width: 100.r,
-                        height: 100.r,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
-                ),
+                _buildContacts(context),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.support_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
+  Widget _buildTopImage() {
+    return Image.asset(
+      'assets/images/img_support.png',
+      width: 120.r,
+      height: 120.r,
+    );
+  }
+
+  Widget _buildDeveloper(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          S.current.support_developer,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 36.r,
+            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Image.asset(
+          'assets/images/img_ndn21.png',
+          width: 200.r,
+          height: 200.r,
+          fit: BoxFit.contain,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildContacts(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          S.current.support_contacts,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 36.r,
+            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        20.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                await launchUrl(uriLinkedin);
+              },
+              child: Image.asset(
+                'assets/images/img_linkedin.png',
+                width: 80.r,
+                height: 80.r,
+                fit: BoxFit.contain,
+              ),
+            ),
+            10.horizontalSpace,
+            GestureDetector(
+              onTap: () async {
+                await launchUrl(uriGithub);
+              },
+              child: Image.asset(
+                'assets/images/img_github.png',
+                width: 80.r,
+                height: 80.r,
+                fit: BoxFit.contain,
+              ),
+            ),
+            10.horizontalSpace,
+            GestureDetector(
+              onTap: () async {
+                await launchUrl(uriWeb);
+              },
+              child: Image.asset(
+                'assets/images/img_web.png',
+                width: 80.r,
+                height: 80.r,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

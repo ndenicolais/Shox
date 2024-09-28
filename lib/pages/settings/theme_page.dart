@@ -13,28 +13,7 @@ class ThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            MingCuteIcons.mgc_large_arrow_left_fill,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          S.current.theme_title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
@@ -42,48 +21,11 @@ class ThemePage extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Image.asset(
-                  'assets/images/img_theme.png',
-                  width: 120.r,
-                  height: 120.r,
-                ),
+                _buildTopImage(),
                 40.verticalSpace,
-                Text(
-                  S.current.theme_description,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontSize: 22.r,
-                    fontFamily: 'CustomFont',
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                _buildDescription(context),
                 40.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildThemeCard(
-                      context,
-                      AppColors.lightYellow,
-                      MingCuteIcons.mgc_sun_fill,
-                      S.current.theme_light,
-                      () {
-                        Provider.of<ThemeNotifier>(context, listen: false)
-                            .setLightTheme();
-                      },
-                    ),
-                    10.horizontalSpace,
-                    _buildThemeCard(
-                      context,
-                      AppColors.smoothBlack,
-                      MingCuteIcons.mgc_moon_fill,
-                      S.current.theme_dark,
-                      () {
-                        Provider.of<ThemeNotifier>(context, listen: false)
-                            .setDarkTheme();
-                      },
-                    ),
-                  ],
-                ),
+                _buildThemeLayout(context),
               ],
             ),
           ),
@@ -143,6 +85,78 @@ class ThemePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.theme_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
+  Widget _buildTopImage() {
+    return Image.asset(
+      'assets/images/img_theme.png',
+      width: 120.r,
+      height: 120.r,
+    );
+  }
+
+  Widget _buildDescription(BuildContext context) {
+    return Text(
+      S.current.theme_description,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.tertiary,
+        fontSize: 22.r,
+        fontFamily: 'CustomFont',
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _buildThemeLayout(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildThemeCard(
+          context,
+          AppColors.lightYellow,
+          MingCuteIcons.mgc_sun_fill,
+          S.current.theme_light,
+          () {
+            Provider.of<ThemeNotifier>(context, listen: false).setLightTheme();
+          },
+        ),
+        10.horizontalSpace,
+        _buildThemeCard(
+          context,
+          AppColors.smoothBlack,
+          MingCuteIcons.mgc_moon_fill,
+          S.current.theme_dark,
+          () {
+            Provider.of<ThemeNotifier>(context, listen: false).setDarkTheme();
+          },
+        ),
+      ],
     );
   }
 }
