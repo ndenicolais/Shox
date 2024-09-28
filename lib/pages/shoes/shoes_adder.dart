@@ -16,6 +16,7 @@ import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 // import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
+import 'package:shox/widgets/custom_dropdown.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
 class ShoesAdderPage extends StatefulWidget {
@@ -47,6 +48,8 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
   late String _languageCode;
   late Map<String, String> translatedCategoryOptions;
   late Map<String, String> translatedTypeOptions;
+  String selectedCategory = '';
+  String selectedType = '';
 
   @override
   void initState() {
@@ -694,64 +697,33 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                         return null;
                       },
                     ),
-                    DropdownButtonFormField<String>(
-                      value: _categoryController.text.isNotEmpty
-                          ? _categoryController.text
-                          : null,
+                    CustomDropdown<String>(
+                      label: S.current.field_category,
+                      value:
+                          selectedCategory.isNotEmpty ? selectedCategory : null,
                       onChanged: (newValue) {
                         setState(
                           () {
-                            _categoryController.text = newValue!;
+                            selectedCategory = newValue!;
+                            _categoryController.text = selectedCategory;
+                            _typeController.text = '';
+                            selectedType = '';
                           },
                         );
                       },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      items: translatedCategoryOptions.keys.map(
-                        (category) {
-                          return DropdownMenuItem<String>(
-                            value: category,
-                            child: Text(
-                              translatedCategoryOptions[category] ?? category,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontFamily: 'CustomFont',
-                              ),
+                      items: translatedCategoryOptions.keys.map((category) {
+                        return DropdownMenuItem<String>(
+                          value: category,
+                          child: Text(
+                            translatedCategoryOptions[category] ?? category,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontFamily: 'CustomFont',
                             ),
-                          );
-                        },
-                      ).toList(),
-                      dropdownColor: Theme.of(context).colorScheme.primary,
-                      decoration: InputDecoration(
-                        labelText: S.current.field_category,
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: 'CustomFont',
-                        ),
-                        errorStyle: const TextStyle(
-                          color: AppColors.errorColor,
-                          fontFamily: 'CustomFont',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.errorColor,
                           ),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontFamily: 'CustomFont',
-                      ),
+                        );
+                      }).toList(),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return S.current.field_insert_category;
@@ -759,64 +731,34 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                         return null;
                       },
                     ),
-                    DropdownButtonFormField<String>(
-                      value: _typeController.text.isNotEmpty
-                          ? _typeController.text
-                          : null,
+                    CustomDropdown<String>(
+                      label: S.current.field_type,
+                      value: selectedType.isNotEmpty ? selectedType : null,
                       onChanged: (newValue) {
                         setState(
                           () {
-                            _typeController.text = newValue!;
+                            selectedType = newValue!;
+                            _typeController.text = selectedType;
                           },
                         );
                       },
+                      items:
+                          Shoes.categoryToTypes[selectedCategory]?.map((type) {
+                                return DropdownMenuItem<String>(
+                                  value: type,
+                                  child: Text(
+                                    translatedTypeOptions[type] ?? type,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      fontFamily: 'CustomFont',
+                                    ),
+                                  ),
+                                );
+                              }).toList() ??
+                              [],
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      items: translatedTypeOptions.keys.map(
-                        (type) {
-                          return DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(
-                              translatedTypeOptions[type] ?? type,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontFamily: 'CustomFont',
-                              ),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                      dropdownColor: Theme.of(context).colorScheme.primary,
-                      decoration: InputDecoration(
-                        labelText: S.current.field_type,
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: 'CustomFont',
-                        ),
-                        errorStyle: const TextStyle(
-                          color: AppColors.errorColor,
-                          fontFamily: 'CustomFont',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.errorColor,
-                          ),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontFamily: 'CustomFont',
-                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return S.current.field_insert_type;
@@ -830,6 +772,7 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
                       textCapitalization: TextCapitalization.sentences,
+                      maxLength: 80,
                     ),
                     20.verticalSpace,
                     SizedBox(
@@ -909,8 +852,8 @@ class ShoesAdderPageState extends State<ShoesAdderPage>
                               seasonIcon: _seasonIcon,
                               brand: _brandController.text.trim(),
                               size: _sizeController.text,
-                              category: _categoryController.text,
-                              type: _typeController.text,
+                              category: selectedCategory,
+                              type: selectedType,
                               notes: _notesController.text.isNotEmpty
                                   ? _notesController.text
                                   : null,

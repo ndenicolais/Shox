@@ -16,6 +16,7 @@ import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 // import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
+import 'package:shox/widgets/custom_dropdown.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
 class ShoesUpdaterPage extends StatefulWidget {
@@ -668,7 +669,8 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                       labelText: S.current.field_size,
                       keyboardType: TextInputType.number,
                     ),
-                    DropdownButtonFormField<String>(
+                    CustomDropdown<String>(
+                      label: S.current.field_category,
                       value: _categoryController.text.isNotEmpty
                           ? _categoryController.text
                           : null,
@@ -676,47 +678,25 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                         setState(
                           () {
                             _categoryController.text = newValue!;
+                            _typeController.text = '';
                           },
                         );
                       },
-                      items: translatedCategoryOptions.keys.map(
-                        (category) {
-                          return DropdownMenuItem<String>(
-                            value: category,
-                            child: Text(
-                              translatedCategoryOptions[category] ?? category,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontFamily: 'CustomFont',
-                              ),
+                      items: translatedCategoryOptions.keys.map((category) {
+                        return DropdownMenuItem<String>(
+                          value: category,
+                          child: Text(
+                            translatedCategoryOptions[category] ?? category,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontFamily: 'CustomFont',
                             ),
-                          );
-                        },
-                      ).toList(),
-                      dropdownColor: Theme.of(context).colorScheme.primary,
-                      decoration: InputDecoration(
-                        labelText: S.current.field_category,
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: 'CustomFont',
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
                           ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontFamily: 'CustomFont',
-                      ),
+                        );
+                      }).toList(),
                     ),
-                    DropdownButtonFormField<String>(
+                    CustomDropdown<String>(
+                      label: S.current.field_type,
                       value: _typeController.text.isNotEmpty
                           ? _typeController.text
                           : null,
@@ -727,42 +707,21 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                           },
                         );
                       },
-                      items: translatedTypeOptions.keys.map(
-                        (type) {
-                          return DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(
-                              translatedTypeOptions[type] ?? type,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontFamily: 'CustomFont',
+                      items: Shoes.categoryToTypes[_categoryController.text]
+                              ?.map((type) {
+                            return DropdownMenuItem<String>(
+                              value: type,
+                              child: Text(
+                                translatedTypeOptions[type] ?? type,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  fontFamily: 'CustomFont',
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                      dropdownColor: Theme.of(context).colorScheme.primary,
-                      decoration: InputDecoration(
-                        labelText: S.current.field_type,
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: 'CustomFont',
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          ),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontFamily: 'CustomFont',
-                      ),
+                            );
+                          }).toList() ??
+                          [],
                     ),
                     ShoesTextField(
                       controller: _notesController,
@@ -770,6 +729,7 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
                       textCapitalization: TextCapitalization.sentences,
+                      maxLength: 80,
                     ),
                     20.verticalSpace,
                     SizedBox(
