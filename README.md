@@ -1,7 +1,6 @@
 # Shox
 > <b>Author: Nicola De Nicolais</b>
 ## 💎 Preview
-<img src="images/preview.jpeg" title="Shox's preview">
 
 ## 📄 Description
 This application allows you to create a digital wardrobe where you can save and view all your Shoes. In this way all your shoes will be cataloged and always at your fingertips.
@@ -40,4 +39,5 @@ This application allows you to create a digital wardrobe where you can save and 
 - [flutter_screen_util](https://pub.dev/packages/flutter_screenutil)
 - [flutter_localization](https://pub.dev/packages/flutter_localization)
 - [webview_flutter](https://pub.dev/packages/webview_flutter)
+- [intl](https://pub.dev/packages/intl)
 
