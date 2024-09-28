@@ -15,23 +15,26 @@ class Shoes {
   String brand;
   String size;
   String category;
-  static List<String> categoryOptions = [
-    'Trainers',
-    'Casual',
-    'Classic',
-    'Work',
-    'Other'
-  ];
   String type;
-  static List<String> typeOptions = [
+
+  static Map<String, List<String>> categoryToTypes = {
+    'Sneakers': ['Sport', 'Casual', 'Lifestyle', 'Running'],
+    'Sandals': ['Flat', 'Heeled', 'Flip-Flops', 'Dressy'],
+    'Boots': ['Ankle Boots', 'High Boots', 'Work Boots', 'Knee-High'],
+    'Loafers': ['Classic', 'Dressy', 'Casual', 'Moccasins'],
+    'Ballets': ['Classic', 'Flat', 'Dressy', 'Casual'],
+    'Other': ['Other'],
+  };
+
+  static List<String> categoryOptions = [
     'Sneakers',
     'Sandals',
-    'Flat Sandals',
-    'Heeled Sandals',
     'Boots',
-    'Hogan',
+    'Loafers',
+    'Ballets',
     'Other'
   ];
+
   String? notes;
   DateTime dateAdded;
 
@@ -44,10 +47,15 @@ class Shoes {
     required this.brand,
     required this.size,
     required this.category,
-    required this.type,
+    String? type,
     this.notes,
     DateTime? dateAdded,
-  }) : dateAdded = dateAdded ?? DateTime.now();
+  })  : type = type ?? _determineType(category),
+        dateAdded = dateAdded ?? DateTime.now();
+
+  static String _determineType(String category) {
+    return categoryToTypes[category]?.first ?? 'Other';
+  }
 
   // Convert Shoes object to Map
   Map<String, dynamic> toMap() {

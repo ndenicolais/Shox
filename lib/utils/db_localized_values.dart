@@ -49,14 +49,16 @@ class DbLocalizedValues {
 
   static String getCategoryName(String category) {
     switch (category) {
-      case 'Trainers':
-        return S.current.category_trainers;
-      case 'Casual':
-        return S.current.category_casual;
-      case 'Classic':
-        return S.current.category_classic;
-      case 'Work':
-        return S.current.category_work;
+      case 'Sneakers':
+        return S.current.category_sneakers;
+      case 'Sandals':
+        return S.current.category_sandals;
+      case 'Boots':
+        return S.current.category_boots;
+      case 'Loafers':
+        return S.current.category_loafers;
+      case 'Ballets':
+        return S.current.category_ballets;
       case 'Other':
         return S.current.category_other;
       default:
@@ -66,18 +68,32 @@ class DbLocalizedValues {
 
   static String getTypeName(String type) {
     switch (type) {
-      case 'Sneakers':
-        return S.current.type_sneakers;
-      case 'Sandals':
-        return S.current.type_sandals;
-      case 'Flat Sandals':
-        return S.current.type_flat_sandals;
-      case 'Heeled Sandals':
-        return S.current.type_heeled_sandals;
-      case 'Boots':
-        return S.current.type_boots;
-      case 'Hogan':
-        return S.current.type_hogan;
+      case 'Sport':
+        return S.current.type_sport;
+      case 'Casual':
+        return S.current.type_casual;
+      case 'Lifestyle':
+        return S.current.type_lifestyle;
+      case 'Running':
+        return S.current.type_running;
+      case 'Flat':
+        return S.current.type_flat;
+      case 'Heeled':
+        return S.current.type_heeled;
+      case 'Flip-Flops':
+        return S.current.type_flip_flops;
+      case 'Dressy':
+        return S.current.type_dressy;
+      case 'Ankle Boots':
+        return S.current.type_ankle_boots;
+      case 'High Boots':
+        return S.current.type_high_boots;
+      case 'Work Boots':
+        return S.current.type_work_boots;
+      case 'Knee-High':
+        return S.current.type_knee_high;
+      case 'Classic':
+        return S.current.type_classic;
       case 'Other':
         return S.current.type_other;
       default:
