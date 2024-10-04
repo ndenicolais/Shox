@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "adder_title": MessageLookupByLibrary.simpleMessage("Aggiungi Scarpe"),
-        "category_ballets": MessageLookupByLibrary.simpleMessage("Ballet"),
+        "category_ballets": MessageLookupByLibrary.simpleMessage("Ballerine"),
         "category_boots": MessageLookupByLibrary.simpleMessage("Stivali"),
         "category_loafers": MessageLookupByLibrary.simpleMessage("Mocassini"),
         "category_other": MessageLookupByLibrary.simpleMessage("Altro"),
@@ -251,18 +251,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "toast_update_shoes_success": MessageLookupByLibrary.simpleMessage(
             "Scarpe aggiornate con successo"),
         "type_ankle_boots": MessageLookupByLibrary.simpleMessage("Stivaletti"),
-        "type_casual": MessageLookupByLibrary.simpleMessage("Informale"),
+        "type_casual": MessageLookupByLibrary.simpleMessage("Informali"),
         "type_classic": MessageLookupByLibrary.simpleMessage("Classico"),
-        "type_dressy": MessageLookupByLibrary.simpleMessage("Elegante"),
-        "type_flat": MessageLookupByLibrary.simpleMessage("Piatto"),
+        "type_dressy": MessageLookupByLibrary.simpleMessage("Eleganti"),
+        "type_flat": MessageLookupByLibrary.simpleMessage("Basse"),
         "type_flip_flops": MessageLookupByLibrary.simpleMessage("Infradito"),
         "type_heeled": MessageLookupByLibrary.simpleMessage("Con tacco"),
         "type_high_boots": MessageLookupByLibrary.simpleMessage("Stivali alti"),
         "type_knee_high": MessageLookupByLibrary.simpleMessage("Al ginocchio"),
-        "type_lifestyle": MessageLookupByLibrary.simpleMessage("Stile di vita"),
+        "type_lifestyle": MessageLookupByLibrary.simpleMessage("Lifestyle"),
         "type_other": MessageLookupByLibrary.simpleMessage("Altro"),
-        "type_running": MessageLookupByLibrary.simpleMessage("Corsa"),
-        "type_sport": MessageLookupByLibrary.simpleMessage("Sport"),
+        "type_running": MessageLookupByLibrary.simpleMessage("Da corsa"),
+        "type_sport": MessageLookupByLibrary.simpleMessage("Sportive"),
         "type_work_boots":
             MessageLookupByLibrary.simpleMessage("Stivali da lavoro"),
         "updater_title":
