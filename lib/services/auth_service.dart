@@ -235,6 +235,8 @@ class AuthService {
 
         await user.delete();
 
+        await googleSignOut();
+
         // Show confirmation message
         if (context.mounted) {
           _showConfirmToastBar(
@@ -331,6 +333,20 @@ class AuthService {
     } catch (e) {
       throw Exception('${S.current.toast_delete_user_history} $e');
     }
+  }
+
+  // This function logout user from Google
+  Future<void> googleSignOut() async {
+    // Log out from Google (if the user has been authenticated with Google)
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    // Log out from Firebase
+    await FirebaseAuth.instance.signOut();
+
+    // Remove "Remember Me" preference
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('remember_me');
   }
 
   // Tosat for confirm messages
