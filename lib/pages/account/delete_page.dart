@@ -15,8 +15,25 @@ class DeletePage extends StatefulWidget {
   DeletePageState createState() => DeletePageState();
 }
 
-class DeletePageState extends State<DeletePage> {
+class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
   final AuthService _authService = AuthService();
+  late AnimationController _loadingController;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadingController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _loadingController.dispose();
+    super.dispose();
+  }
 
   Future<void> _deleteAccount() async {
     User? user = _authService.currentUser;
@@ -25,9 +42,17 @@ class DeletePageState extends State<DeletePage> {
       bool confirmDelete = await _showDeleteDialog(context);
 
       if (confirmDelete) {
+        setState(() {
+          _isLoading = true;
+        });
+
         if (!mounted) return;
 
         await _authService.deleteUserAccount(context);
+
+        setState(() {
+          _isLoading = false;
+        });
 
         if (mounted) {
           Get.to(() => const WelcomePage(),
@@ -105,21 +130,24 @@ class DeletePageState extends State<DeletePage> {
     return Scaffold(
       appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
-          child: Center(
-            child: Column(
-              children: [
-                _buildTopImage(),
-                40.verticalSpace,
-                _buildBodyText(context),
-                40.verticalSpace,
-                _buildDeleteButton(context),
-              ],
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+            child: Center(
+              child: Column(
+                children: [
+                  _buildTopImage(),
+                  40.verticalSpace,
+                  _buildBodyText(context),
+                  40.verticalSpace,
+                  _buildDeleteButton(context),
+                ],
+              ),
             ),
           ),
-        ),
+          if (_isLoading) _buildDeleteLoading(context)
+        ],
       ),
     );
   }
@@ -181,6 +209,27 @@ class DeletePageState extends State<DeletePage> {
           MingCuteIcons.mgc_delete_2_fill,
           size: 32.r,
           color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeleteLoading(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
+      child: Center(
+        child: ScaleTransition(
+          scale: Tween<double>(begin: 0.5, end: 1.5).animate(
+            CurvedAnimation(
+              parent: _loadingController,
+              curve: Curves.easeInOut,
+            ),
+          ),
+          child: Icon(
+            MingCuteIcons.mgc_eraser_fill,
+            size: 50.r,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
     );
