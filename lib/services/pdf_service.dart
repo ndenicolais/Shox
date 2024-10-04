@@ -139,6 +139,7 @@ class PdfService {
               pw.Text(shoes.id ?? 'N/A', style: _bodyTextStyle(ttf)),
               pw.Image(pdfImage, width: 350, height: 350),
               shoesDetails,
+              _buildShoesNotes(shoes, ttfBold, ttf),
               pw.Spacer(),
               _buildFooter(pageNumber, pagesCount, ttf),
             ],
@@ -180,11 +181,27 @@ class PdfService {
     );
   }
 
+  pw.Column _buildShoesNotes(Shoes shoes, pw.Font ttfBold, pw.Font ttf) {
+    return pw.Column(
+      children: [
+        pw.Padding(
+          padding: const pw.EdgeInsets.symmetric(horizontal: 28.0),
+          child:
+              pw.Text(S.current.field_notes, style: _headerTextStyle(ttfBold)),
+        ),
+        pw.Padding(
+          padding: const pw.EdgeInsets.symmetric(horizontal: 28.0),
+          child: pw.Text(shoes.notes ?? 'N/A', style: _bodyTextStyle(ttf)),
+        ),
+      ],
+    );
+  }
+
   pw.TextStyle _headerTextStyle(pw.Font font) {
     return pw.TextStyle(
       color: PdfColor.fromInt(AppColors.smoothBlack.value),
       font: font,
-      fontSize: 22,
+      fontSize: 18,
     );
   }
 
@@ -192,7 +209,7 @@ class PdfService {
     return pw.TextStyle(
       color: PdfColor.fromInt(AppColors.smoothBlack.value),
       font: font,
-      fontSize: 20,
+      fontSize: 18,
     );
   }
 
