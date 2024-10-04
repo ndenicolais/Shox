@@ -13,7 +13,7 @@ class ShoesLanguages {
       'Sandals': 'Sandali',
       'Boots': 'Stivali',
       'Loafers': 'Mocassini',
-      'Ballets': 'Ballet',
+      'Ballets': 'Ballerine',
       'Other': 'Altro',
     },
     'es': {
@@ -60,11 +60,11 @@ class ShoesLanguages {
       'Other': 'Other',
     },
     'it': {
-      'Sport': 'Sport',
-      'Casual': 'Casual',
+      'Sport': 'Sportive',
+      'Casual': 'Informali',
       'Lifestyle': 'Lifestyle',
-      'Running': 'Running',
-      'Flat': 'Piatte',
+      'Running': 'Da corsa',
+      'Flat': 'Basse',
       'Heeled': 'Con tacco',
       'Flip-Flops': 'Infradito',
       'Dressy': 'Eleganti',
@@ -72,7 +72,7 @@ class ShoesLanguages {
       'High Boots': 'Stivali alti',
       'Work Boots': 'Stivali da lavoro',
       'Knee-High': 'Fino al ginocchio',
-      'Classic': 'Classico',
+      'Classic': 'Classiche',
       'Other': 'Altro',
     },
     'es': {
