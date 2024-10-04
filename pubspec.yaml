@@ -1,7 +1,7 @@
 name: shox
 description: "A digital shoes wardrobe."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 2.3.0
+version: 2.3.1
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
