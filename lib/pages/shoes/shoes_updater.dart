@@ -758,6 +758,8 @@ class ShoesUpdaterPageState extends State<ShoesUpdaterPage>
                               category: _categoryController.text,
                               type: _typeController.text,
                               notes: _notesController.text,
+                              dateAdded: widget.shoes.dateAdded,
+                              dateUpdated: DateTime.now(),
                             );
 
                             // Saving the updated Shoes item in the service

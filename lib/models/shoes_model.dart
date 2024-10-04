@@ -10,7 +10,7 @@ class Shoes {
   static List<IconData> seasonOptions = [
     Icons.sunny,
     Icons.ac_unit,
-    Icons.star
+    Icons.star,
   ];
   String brand;
   String size;
@@ -32,11 +32,12 @@ class Shoes {
     'Boots',
     'Loafers',
     'Ballets',
-    'Other'
+    'Other',
   ];
 
   String? notes;
   DateTime dateAdded;
+  DateTime dateUpdated;
 
   Shoes({
     this.id,
@@ -50,8 +51,10 @@ class Shoes {
     String? type,
     this.notes,
     DateTime? dateAdded,
+    DateTime? dateUpdated,
   })  : type = type ?? _determineType(category),
-        dateAdded = dateAdded ?? DateTime.now();
+        dateAdded = dateAdded ?? DateTime.now(),
+        dateUpdated = dateUpdated ?? DateTime.now();
 
   static String _determineType(String category) {
     return categoryToTypes[category]?.first ?? 'Other';
@@ -72,6 +75,7 @@ class Shoes {
       'type': type,
       'notes': notes,
       'dateAdded': dateAdded,
+      'dateUpdated': dateUpdated,
     };
   }
 
@@ -91,6 +95,7 @@ class Shoes {
       type: map['type'],
       notes: map['notes'],
       dateAdded: (map['dateAdded'] as Timestamp).toDate(),
+      dateUpdated: (map['dateUpdated'] as Timestamp).toDate(),
     );
   }
 }
