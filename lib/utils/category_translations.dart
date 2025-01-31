@@ -1,4 +1,4 @@
-class ShoesLanguages {
+class CategoryTranslations {
   static const Map<String, Map<String, String>> categoryTranslations = {
     'en': {
       'Sneakers': 'Sneakers',

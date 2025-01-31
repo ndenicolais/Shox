@@ -4,18 +4,18 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/onboarding/onboarding_items.dart';
-import 'package:shox/pages/shoes/shoes_home.dart';
-import 'package:shox/pages/welcome_page.dart';
+import 'package:shox/screens/home_screen.dart';
+import 'package:shox/screens/welcome_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  OnboardingPageState createState() => OnboardingPageState();
+  OnboardingScreenState createState() => OnboardingScreenState();
 }
 
-class OnboardingPageState extends State<OnboardingPage> {
+class OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   final OnboardingItems onboardingItems = OnboardingItems();
   final int _totalPages = 4;
@@ -56,22 +56,22 @@ class OnboardingPageState extends State<OnboardingPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 180.r,
-                        height: 180.r,
+                        width: 180.w,
+                        height: 180.h,
                         child: item.image,
                       ),
-                      20.verticalSpace,
+                      SizedBox(height: 20.h),
                       Text(
                         item.title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 70.r,
+                          fontSize: 70.sp,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'CustomFont',
                         ),
                       ),
-                      40.verticalSpace,
+                      SizedBox(height: 40.h),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 22.r),
                         child: Text(
@@ -79,7 +79,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 18.r,
+                            fontSize: 18.sp,
                             fontFamily: 'CustomFont',
                           ),
                         ),
@@ -96,8 +96,8 @@ class OnboardingPageState extends State<OnboardingPage> {
               child: isLastPage
                   ? Center(
                       child: SizedBox(
-                        width: 250.r,
-                        height: 50.r,
+                        width: 250.w,
+                        height: 50.h,
                         child: MaterialButton(
                           onPressed: () async {
                             final pres = await SharedPreferences.getInstance();
@@ -115,7 +115,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                               S.current.onboarding_finish,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
-                                fontSize: 20.r,
+                                fontSize: 20.sp,
                                 fontFamily: 'CustomFont',
                               ),
                             ),
@@ -133,7 +133,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                               S.current.onboarding_skip,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.tertiary,
-                                fontSize: 14.r,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'CustomFont',
                               ),
@@ -161,7 +161,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                               S.current.onboarding_next,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.tertiary,
-                                fontSize: 14.r,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'CustomFont',
                               ),
@@ -183,13 +183,13 @@ class OnboardingPageState extends State<OnboardingPage> {
 
     if (rememberMe) {
       Get.offAll(
-        () => const ShoesHome(),
+        () => const HomeScreen(),
         transition: Transition.fade,
         duration: const Duration(milliseconds: 500),
       );
     } else {
       Get.offAll(
-        () => const WelcomePage(),
+        () => const WelcomeScreen(),
         transition: Transition.fade,
         duration: const Duration(milliseconds: 500),
       );

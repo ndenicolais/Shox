@@ -1,4 +1,3 @@
-import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,14 +14,14 @@ import 'package:shox/utils/db_localized_values.dart';
 import 'package:shox/widgets/custom_pie_chart.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 
-class DatabasePage extends StatefulWidget {
-  const DatabasePage({super.key});
+class DatabaseScreen extends StatefulWidget {
+  const DatabaseScreen({super.key});
 
   @override
-  DatabasePageState createState() => DatabasePageState();
+  DatabaseScreenState createState() => DatabaseScreenState();
 }
 
-class DatabasePageState extends State<DatabasePage>
+class DatabaseScreenState extends State<DatabaseScreen>
     with TickerProviderStateMixin {
   var logger = Logger();
   final ShoesService _firebaseShoesService = ShoesService();
@@ -57,7 +56,7 @@ class DatabasePageState extends State<DatabasePage>
   }
 
   Future<void> _fetchData() async {
-    List<Shoes> shoesList = await _firebaseShoesService.getShoes();
+    List<ShoesModel> shoesList = await _firebaseShoesService.getShoes();
     int totalShoesCount = shoesList.length;
     Map<String, int> colorCounts =
         await _databaseService.getShoesCountByColor();
@@ -103,9 +102,19 @@ class DatabasePageState extends State<DatabasePage>
 
     try {
       await _pdfService.generateShoesPdf();
-      _showConfirmToastBar();
+      if (mounted) {
+        showSuccessToast(
+          context,
+          S.current.database_pdf_confirm,
+        );
+      }
     } catch (e) {
-      _showErrorSnackBar();
+      if (mounted) {
+        showErrorToast(
+          context,
+          S.current.database_pdf_error,
+        );
+      }
     } finally {
       setState(
         () {
@@ -113,30 +122,6 @@ class DatabasePageState extends State<DatabasePage>
         },
       );
     }
-  }
-
-  void _showConfirmToastBar() {
-    showCustomToastBar(
-      context,
-      position: DelightSnackbarPosition.bottom,
-      color: AppColors.confirmColor,
-      icon: const Icon(
-        MingCuteIcons.mgc_check_2_fill,
-      ),
-      title: S.current.database_pdf_confirm,
-    );
-  }
-
-  void _showErrorSnackBar() {
-    showCustomToastBar(
-      context,
-      position: DelightSnackbarPosition.top,
-      color: AppColors.errorColor,
-      icon: const Icon(
-        MingCuteIcons.mgc_warning_fill,
-      ),
-      title: S.current.database_pdf_error,
-    );
   }
 
   @override
@@ -164,9 +149,9 @@ class DatabasePageState extends State<DatabasePage>
                           child: Column(
                             children: <Widget>[
                               _buildDatabaseInfo(context),
-                              20.verticalSpace,
+                              SizedBox(height: 20.h),
                               _buildDownloadButton(context),
-                              20.verticalSpace,
+                              SizedBox(height: 20.h),
                               _buildColorPieChart(context),
                               _buildBrandPieChart(),
                               _buildCategoryPieChart(),
@@ -219,7 +204,7 @@ class DatabasePageState extends State<DatabasePage>
         },
         child: Icon(
           MingCuteIcons.mgc_shoe_fill,
-          size: 50.r,
+          size: 50.sp,
           color: Theme.of(context).colorScheme.secondary,
         ),
       ),
@@ -228,7 +213,7 @@ class DatabasePageState extends State<DatabasePage>
 
   Widget _buildPdfLoading(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
+      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.7),
       child: Center(
         child: ScaleTransition(
           scale: Tween<double>(begin: 0.5, end: 1.5).animate(
@@ -239,7 +224,7 @@ class DatabasePageState extends State<DatabasePage>
           ),
           child: Icon(
             MingCuteIcons.mgc_file_download_fill,
-            size: 120.r,
+            size: 120.sp,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
@@ -254,14 +239,14 @@ class DatabasePageState extends State<DatabasePage>
         children: [
           Icon(
             MingCuteIcons.mgc_package_line,
-            size: 80.r,
+            size: 80.sp,
             color: Theme.of(context).colorScheme.secondary,
           ),
           Text(
             S.current.database_empty,
             style: TextStyle(
               color: Theme.of(context).colorScheme.secondary,
-              fontSize: 22.r,
+              fontSize: 22.sp,
               fontFamily: 'CustomFont',
             ),
           ),
@@ -279,7 +264,7 @@ class DatabasePageState extends State<DatabasePage>
           style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontFamily: 'CustomFont',
-            fontSize: 28.r,
+            fontSize: 28.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -288,7 +273,7 @@ class DatabasePageState extends State<DatabasePage>
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontFamily: 'CustomFontBold',
-            fontSize: 28.r,
+            fontSize: 28.sp,
           ),
         ),
       ],
@@ -297,8 +282,8 @@ class DatabasePageState extends State<DatabasePage>
 
   Widget _buildDownloadButton(BuildContext context) {
     return SizedBox(
-      width: 240.r,
-      height: 60.r,
+      width: 240.w,
+      height: 60.h,
       child: MaterialButton(
         onPressed: _generatePdf,
         shape: RoundedRectangleBorder(
@@ -311,14 +296,14 @@ class DatabasePageState extends State<DatabasePage>
             Icon(
               MingCuteIcons.mgc_file_download_fill,
               color: Theme.of(context).colorScheme.primary,
-              size: 24.r,
+              size: 24.sp,
             ),
-            SizedBox(width: 8.r),
+            SizedBox(width: 8.w),
             Text(
               S.current.database_pdf_download,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
-                fontSize: 24.r,
+                fontSize: 24.sp,
                 fontFamily: 'CustomFont',
               ),
             ),

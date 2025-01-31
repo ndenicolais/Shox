@@ -5,8 +5,8 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class PrivacyPolicyPage extends StatelessWidget {
-  PrivacyPolicyPage({super.key});
+class PolicyScreen extends StatelessWidget {
+  PolicyScreen({super.key});
 
   final WebViewController _controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -27,7 +27,7 @@ class PrivacyPolicyPage extends StatelessWidget {
             child: Column(
               children: [
                 _buildTopImage(),
-                40.verticalSpace,
+                SizedBox(height: 40.h),
                 _buildBody(),
               ],
             ),
@@ -65,8 +65,8 @@ class PrivacyPolicyPage extends StatelessWidget {
   Widget _buildTopImage() {
     return Image.asset(
       'assets/images/img_policy.png',
-      width: 120.r,
-      height: 120.r,
+      width: 120.w,
+      height: 120.h,
     );
   }
 

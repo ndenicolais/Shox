@@ -5,14 +5,14 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/generated/l10n.dart';
 
-class LanguagesPage extends StatefulWidget {
-  const LanguagesPage({super.key});
+class LanguagesScreen extends StatefulWidget {
+  const LanguagesScreen({super.key});
 
   @override
-  LanguagesPageState createState() => LanguagesPageState();
+  LanguagesScreenState createState() => LanguagesScreenState();
 }
 
-class LanguagesPageState extends State<LanguagesPage> {
+class LanguagesScreenState extends State<LanguagesScreen> {
   String? _selectedLanguageCode;
 
   @override
@@ -46,14 +46,14 @@ class LanguagesPageState extends State<LanguagesPage> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          padding: EdgeInsets.all(30.r),
           child: Center(
             child: Column(
               children: [
                 _buildTopImage(),
-                40.verticalSpace,
+                SizedBox(height: 40.h),
                 _buildDescription(context),
-                40.verticalSpace,
+                SizedBox(height: 40.h),
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 3,
@@ -109,8 +109,8 @@ class LanguagesPageState extends State<LanguagesPage> {
   Widget _buildTopImage() {
     return Image.asset(
       'assets/images/img_languages.png',
-      width: 120.r,
-      height: 120.r,
+      width: 120.w,
+      height: 120.h,
     );
   }
 
@@ -119,7 +119,7 @@ class LanguagesPageState extends State<LanguagesPage> {
       S.current.languages_description,
       style: TextStyle(
         color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 22.r,
+        fontSize: 22.sp,
         fontFamily: 'CustomFont',
       ),
       textAlign: TextAlign.center,
@@ -143,23 +143,23 @@ class LanguagesPageState extends State<LanguagesPage> {
           borderRadius: BorderRadius.circular(10.0.r),
         ),
         child: SizedBox(
-          width: 120.r,
-          height: 120.r,
+          width: 120.w,
+          height: 120.h,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 flagAsset,
-                width: 60.r,
-                height: 40.r,
+                width: 60.w,
+                height: 40.h,
               ),
-              10.verticalSpace,
+              SizedBox(height: 10.h),
               Text(
                 languageName,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.tertiary,
-                  fontSize: 18.r,
+                  fontSize: 18.sp,
                   fontFamily: 'CustomFont',
                 ),
               ),

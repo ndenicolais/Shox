@@ -7,8 +7,8 @@ import 'package:shox/generated/l10n.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/theme_notifier.dart';
 
-class ThemePage extends StatelessWidget {
-  const ThemePage({super.key});
+class ThemesScreen extends StatelessWidget {
+  const ThemesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class ThemePage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
+          padding: EdgeInsets.all(30.r),
           child: Center(
             child: Column(
               children: [
                 _buildTopImage(),
-                40.verticalSpace,
+                SizedBox(height: 40.h),
                 _buildDescription(context),
-                40.verticalSpace,
+                SizedBox(height: 40.h),
                 _buildThemeLayout(context),
               ],
             ),
@@ -49,15 +49,15 @@ class ThemePage extends StatelessWidget {
                 ? AppColors.smoothBlack
                 : AppColors.lightYellow,
             width: 1.0),
-        borderRadius: BorderRadius.circular(10.0.r),
+        borderRadius: BorderRadius.circular(10.r),
       ),
       child: InkWell(
         onTap: onTap,
         splashColor: Colors.transparent,
         child: Container(
-          width: 150.r,
-          height: 200.r,
-          padding: EdgeInsets.all(20.0.r),
+          width: 150.w,
+          height: 200.h,
+          padding: EdgeInsets.all(20.r),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,19 +65,19 @@ class ThemePage extends StatelessWidget {
             children: [
               Icon(
                 iconData,
-                size: 60.r,
+                size: 60.sp,
                 color: backgroundColor == AppColors.lightYellow
                     ? AppColors.darkGold
                     : AppColors.white,
               ),
-              10.verticalSpace,
+              SizedBox(height: 10.h),
               Text(
                 text,
                 style: TextStyle(
                   color: backgroundColor == AppColors.lightYellow
                       ? AppColors.smoothBlack
                       : AppColors.white,
-                  fontSize: 16.r,
+                  fontSize: 16.sp,
                   fontFamily: 'CustomFont',
                 ),
               ),
@@ -116,8 +116,8 @@ class ThemePage extends StatelessWidget {
   Widget _buildTopImage() {
     return Image.asset(
       'assets/images/img_theme.png',
-      width: 120.r,
-      height: 120.r,
+      width: 120.w,
+      height: 120.h,
     );
   }
 
@@ -126,7 +126,7 @@ class ThemePage extends StatelessWidget {
       S.current.theme_description,
       style: TextStyle(
         color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 22.r,
+        fontSize: 22.sp,
         fontFamily: 'CustomFont',
       ),
       textAlign: TextAlign.center,

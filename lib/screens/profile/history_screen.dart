@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,22 +8,37 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/widgets/custom_loader.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
 
   @override
-  HistoryPageState createState() => HistoryPageState();
+  HistoryScreenState createState() => HistoryScreenState();
 }
 
-class HistoryPageState extends State<HistoryPage>
+class HistoryScreenState extends State<HistoryScreen>
     with TickerProviderStateMixin {
+  final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesService shoesService = ShoesService();
   late AnimationController _loadingController;
 
-  String formatTimestamp(Timestamp timestamp) {
-    DateTime dateTime = timestamp.toDate();
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(30.r),
+          child: Column(
+            children: [
+              _buildBodyPage(context),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -34,28 +50,15 @@ class HistoryPageState extends State<HistoryPage>
     )..repeat();
   }
 
+  String formatTimestamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+  }
+
   @override
   void dispose() {
     _loadingController.dispose();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
-          child: Column(
-            children: [
-              _buildBodyPage(context),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   AppBar _buildAppBar(BuildContext context) {
@@ -83,33 +86,27 @@ class HistoryPageState extends State<HistoryPage>
     );
   }
 
+  Widget _buildLoadingIndicator() {
+    return Center(
+      child: CustomLoader(
+        width: 50.w,
+        height: 50.h,
+      ),
+    );
+  }
+
   Widget _buildBodyPage(BuildContext context) {
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
-            .doc(shoesService.getCurrentUserId())
+            .doc(currentUser!.uid)
             .collection('history')
             .orderBy('timestamp', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: AnimatedBuilder(
-                animation: _loadingController,
-                builder: (_, child) {
-                  return Transform.rotate(
-                    angle: _loadingController.value * 2.0 * 3.14159,
-                    child: child,
-                  );
-                },
-                child: Icon(
-                  MingCuteIcons.mgc_shoe_fill,
-                  size: 50.r,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-            );
+            return _buildLoadingIndicator();
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -119,14 +116,14 @@ class HistoryPageState extends State<HistoryPage>
                 children: [
                   Icon(
                     MingCuteIcons.mgc_package_line,
-                    size: 80.r,
+                    size: 80.sp,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   Text(
                     S.current.history_empty,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20.r,
+                      fontSize: 20.sp,
                       fontFamily: 'CustomFont',
                     ),
                   ),
@@ -162,25 +159,25 @@ class HistoryPageState extends State<HistoryPage>
 
                 return ListTile(
                   leading: SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 50.w,
+                    height: 50.h,
                     child: imageUrl.isNotEmpty
                         ? Image.network(
                             imageUrl,
-                            width: 50,
-                            height: 50,
+                            width: 50.w,
+                            height: 50.h,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
-                              return const Icon(
+                              return Icon(
                                 MingCuteIcons.mgc_close_fill,
-                                size: 50,
+                                size: 50.sp,
                                 color: AppColors.errorColor,
                               );
                             },
                           )
-                        : const Icon(
+                        : Icon(
                             MingCuteIcons.mgc_close_fill,
-                            size: 50,
+                            size: 50.sp,
                             color: AppColors.errorColor,
                           ),
                   ),
@@ -188,7 +185,7 @@ class HistoryPageState extends State<HistoryPage>
                     localizedOperationType,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 18.r,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'CustomFont',
                     ),
@@ -200,7 +197,7 @@ class HistoryPageState extends State<HistoryPage>
                         formattedTimestamp,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 16.r,
+                          fontSize: 16.sp,
                           fontFamily: 'CustomFont',
                         ),
                       ),
@@ -208,7 +205,7 @@ class HistoryPageState extends State<HistoryPage>
                         '${entry['shoesId']}',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 16.r,
+                          fontSize: 16.sp,
                           fontFamily: 'CustomFont',
                         ),
                       ),
