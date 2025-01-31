@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,11 +9,24 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/utils/firebase_options.dart';
 import 'package:shox/generated/l10n.dart';
-import 'package:shox/pages/intro_page.dart';
+import 'package:shox/screens/intro_screen.dart';
 import 'package:shox/theme/theme_notifier.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+Future<Map<String, dynamic>> loadConfig() async {
+  final configString = await rootBundle.loadString('config.json');
+  return json.decode(configString);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final config = await loadConfig();
+
+  await Supabase.initialize(
+    url: config['supabaseUrl'],
+    anonKey: config['supabaseAnonKey'],
+  );
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -33,37 +48,49 @@ class MyApp extends StatelessWidget {
 
   const MyApp({super.key, this.savedLocale});
 
+  Locale? _determineLocale() {
+    if (savedLocale != null && savedLocale!.isNotEmpty) {
+      try {
+        return Locale(savedLocale!);
+      } catch (e) {
+        debugPrint('Invalid locale format: $savedLocale');
+      }
+    }
+    return Get.deviceLocale;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      splitScreenMode: true,
-      minTextAdapt: true,
-      child: Consumer<ThemeNotifier>(
-        builder: (context, themeNotifier, child) {
-          Locale? initialLocale;
-
-          if (savedLocale != null && savedLocale!.isNotEmpty) {
-            initialLocale = Locale(savedLocale!);
-          } else {
-            initialLocale = Get.deviceLocale;
-          }
-
-          return GetMaterialApp(
-            theme: themeNotifier.currentTheme,
-            home: const IntroPage(),
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
-            locale: initialLocale,
-          );
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            return ScreenUtilInit(
+              designSize: Size(constraints.maxWidth, constraints.maxHeight),
+              splitScreenMode: true,
+              minTextAdapt: true,
+              child: Consumer<ThemeNotifier>(
+                builder: (context, themeNotifier, child) {
+                  Locale? initialLocale = _determineLocale();
+                  return GetMaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: themeNotifier.currentTheme,
+                    localizationsDelegates: const [
+                      S.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: S.delegate.supportedLocales,
+                    locale: initialLocale,
+                    home: const IntroScreen(),
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
