@@ -1,0 +1,226 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shox/screens/authentication/login/login_controller.dart';
+import 'package:shox/screens/authentication/login/login_form.dart';
+import 'package:shox/screens/authentication/reset_password/reset_password_screen.dart';
+import 'package:shox/screens/authentication/signup/signup_screen.dart';
+import 'package:shox/generated/l10n.dart';
+import 'package:shox/screens/home_screen.dart';
+import 'package:shox/widgets/custom_button.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  LoginScreenState createState() => LoginScreenState();
+}
+
+class LoginScreenState extends State<LoginScreen> {
+  final LoginController controller = Get.put(LoginController());
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool rememberMe = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkRememberMe();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(30.r),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildTopImage(),
+                SizedBox(height: 60.h),
+                LoginForm(
+                  context: context,
+                  formKey: _formKey,
+                  emailController: controller.emailController,
+                  passwordController: controller.passwordController,
+                  passwordVisible: controller.passwordVisible,
+                  rememberMe: controller.rememberMe.value,
+                  togglePasswordVisibility: controller.togglePasswordVisibility,
+                  onLogin: () => controller.login(context, _formKey),
+                  onLoginWithGoogle: () => controller.loginWithGoogle(context),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildRememberMeCheckbox(controller),
+                    _buildForgotPasswordText(),
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                _buildButtons(controller),
+                SizedBox(height: 20.h),
+                _buildSignupText(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _checkRememberMe() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('remember_me') ?? false) {
+      Get.to(() => const HomeScreen(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500));
+    }
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.login_screen_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
+  Widget _buildTopImage() {
+    return Image.asset(
+      'assets/images/app_logo.png',
+      width: 160.w,
+      height: 160.h,
+    );
+  }
+
+  Widget _buildButtons(LoginController controller) {
+    return Column(
+      children: [
+        CustomButton(
+          title: S.current.login_screen_text,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          textColor: Theme.of(context).colorScheme.primary,
+          onPressed: () => controller.login(context, _formKey),
+        ),
+        SizedBox(height: 20.h),
+        Divider(
+          thickness: 1,
+          indent: 80.w,
+          endIndent: 80.w,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        SizedBox(height: 20.h),
+        GestureDetector(
+          onTap: () => controller.loginWithGoogle(context),
+          child: Image.asset(
+            'assets/images/img_google.png',
+            width: 40.w,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRememberMeCheckbox(LoginController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Transform.scale(
+          scale: 1.4.r,
+          child: Obx(
+            () => Checkbox(
+              value: controller.rememberMe.value,
+              onChanged: (value) => controller.rememberMe.value = value!,
+              checkColor: Theme.of(context).colorScheme.primary,
+              activeColor: Theme.of(context).colorScheme.secondary,
+              shape: const CircleBorder(),
+              side: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+            ),
+          ),
+        ),
+        Text(
+          S.current.login_screen_remember,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontSize: 18.sp,
+            fontFamily: 'CustomFont',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildForgotPasswordText() {
+    return RichText(
+      text: TextSpan(
+        text: S.current.login_screen_password,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () => Get.off(
+                () => const ResetPasswordScreen(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500),
+              ),
+      ),
+    );
+  }
+
+  Widget _buildSignupText() {
+    return RichText(
+      text: TextSpan(
+        text: S.current.login_screen_account,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontSize: 16.sp,
+          fontFamily: 'CustomFont',
+        ),
+        children: [
+          TextSpan(
+            text: S.current.login_screen_signup,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'CustomFont',
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => Get.off(
+                    () => const SignupScreen(),
+                    transition: Transition.fade,
+                    duration: const Duration(milliseconds: 500),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
