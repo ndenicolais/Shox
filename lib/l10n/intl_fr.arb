@@ -1,6 +1,8 @@
 {
   "@@locale": "fr",
 
+  "intro_title": "Shox",
+
   "onboarding_first_title": "Ajouter",
   "onboarding_first_description": "Ajoutez toutes vos chaussures à cette boîte numérique pour les avoir toujours avec vous.\nOrganisez facilement votre collection et suivez chaque paire que vous possédez à portée de main.",
   "onboarding_second_title": "Filtrer",
@@ -16,6 +18,37 @@
   "welcome_text": "Bonjour",
   "welcome_login": "Connexion",
   "welcome_signup": "Inscription",
+
+  "signup_screen_title": "Inscription",
+  "signup_screen_text": "S'inscrire",
+  "signup_screen_account": "Vous avez un compte? ",
+  "signup_screen_login": "Se connecter",
+  "signup_toast_success": "Inscription réussie!",
+  "signup_toast_error_email_already_register": "L'e-mail saisi est déjà enregistré comme e-mail personnel",
+  "signup_toast_error_generic": "Erreur lors de l'inscription:",
+
+  "login_screen_title": "Connexion",
+  "login_screen_text": "Se connecter",
+  "login_screen_remember": "Se souvenir de moi",
+  "login_screen_password": "Mot de passe oublié?",
+  "login_screen_account": "Vous n'avez pas de compte? ",
+  "login_screen_signup": "S'inscrire",
+  "login_toast_success": "Connexion réussie!",
+  "login_toast_error_email_not_found": "L'email saisi ne correspond à aucun compte",
+  "login_toast_error_invalid_password": "Le mot de passe saisi ne correspond à aucun compte",
+  "login_toast_error_generic": "Erreur lors de la connexion:",
+
+  "logout_toast_success": "À bientôt!",
+  "logout_toast_error_generic": "Erreur lors de la déconnexion",
+
+  "reset_password_screen_title": "Réinitialiser le mot de passe",
+  "reset_password_screen_description": "Entrez votre email pour recevoir le lien avec la procédure de réinitialisation du mot de passe",
+  "reset_password_screen_text": "Réinitialiser le mot de passe",
+  "reset_password_form_email": "Email",
+  "reset_password_form_email_field": "Entrez l'email",
+  "reset_password_toast_success": "Email de réinitialisation du mot de passe envoyé à: ",
+  "reset_password_toast_error_email_not_found": "L'email saisi n'est pas enregistré",
+  "reset_password_toast_error_password": "Erreur lors de la réinitialisation du mot de passe",
 
   "toast_signup_welcome": "Bonjour, ",
   "toast_signup_exist_email": "L'adresse email est déjà utilisée par un autre compte.",
@@ -46,20 +79,6 @@
 
   "toast_delete_shoes_success": "Chaussures supprimées avec succès",
 
-  "toast_logout": "À bientôt !",
-
-  "login_title": "Connexion",
-  "login_text": "Connexion",
-  "login_remember": "Se souvenir de moi",
-  "login_continue": "Ou continuez avec",
-  "login_account": "Vous n'avez pas de compte ? ",
-  "login_signup": "Inscription",
-
-  "signup_title": "Inscription",
-  "signup_text": "Inscription",
-  "signup_account": "Vous avez un compte ? ",
-  "signup_login": "Connexion",
-
   "validator_name": "Nom",
   "validator_name_empty": "Le nom ne peut pas être vide",
   "validator_name_hint": "Entrez votre nom",
@@ -81,6 +100,9 @@
   "validator_password_required": "Le mot de passe est requis",
   "validator_password_error": "Mot de passe invalide : ",
 
+  "users_updater_screen_crop_image_title": "Recadrer l'image",
+  "users_updater_screen_user_name_field_error": "Vous n'avez pas entré le nom",
+
   "home_profile": "Profil",
   "home_add": "Ajouter",
   "home_settings": "Paramètres",
@@ -94,9 +116,24 @@
   "home_filter_apply": "Appliquer",
   "home_empty": "Aucune chaussure présente dans la boîte",
 
-  "adder_title": "Ajouter des Chaussures",
+  "shoes_adder_screen_title": "Ajouter des Chaussures",
+  "shoes_adder_screen_crop_image_title": "Recadrer l'image",
+  "shoes_adder_screen_toast_error_brand": "Vous n'avez pas saisi la marque",
+  "shoes_adder_screen_toast_error_size": "Vous n'avez pas saisi la taille",
+  "shoes_adder_screen_toast_error_categort": "Vous n'avez pas sélectionné de catégorie",
+  "shoes_adder_screen_toast_error_type": "Vous n'avez pas sélectionné de type",
+  "shoes_adder_screen_toast_success": "Chaussures ajoutées avec succès!",
+  "shoes_adder_screen_toast_error": "Erreur lors de l'enregistrement",
 
-  "updater_title": "Mettre à Jour des Chaussures",
+  "shoes_updater_screen_title": "Mettre à jour les Chaussures",
+  "shoes_updater_screen_crop_image_title": "Recadrer l'image",
+  "shoes_updater_screen_toast_success": "Chaussures modifiées avec succès!",
+
+  "shoes_details_screen_title": "Détails des Chaussures",
+  "shoes_details_screen_error_state": "Erreur:",
+  "shoes_details_screen_empty_state": "Chaussures non trouvées.",
+  "shoes_details_screen_menu_edit": "Modifier",
+  "shoes_details_screen_menu_delete": "Supprimer",
 
   "field_date": "Date",
   "field_season_title": "Signification des icônes",
@@ -106,6 +143,7 @@
   "field_season_close": "Fermer",
   "field_insert_image": "Sélectionnez une image",
   "field_color": "Couleur",
+  "field_details_color": "Détails",
   "field_insert_color": "Sélectionnez une couleur",
   "field_season": "Saison",
   "field_brand": "Marque",
@@ -118,14 +156,13 @@
   "field_insert_type": "Entrez le type",
   "field_notes": "Remarques",
 
-  "details_title": "Détails des Chaussures",
-
   "delete_shoes_title": "Supprimer",
   "delete_shoes_description": "Êtes-vous sûr de vouloir supprimer ces chaussures ?",
   "delete_shoes_cancel": "Annuler",
   "delete_shoes_confirm": "Confirmer",
 
   "text_color": "COULEUR",
+  "text_details_color": "DETAILS",
   "text_season": "SAISON",
   "text_brand": "MARQUE",
   "text_size": "TAILLE",
@@ -226,13 +263,51 @@
   "languages_title": "Langues",
   "languages_description": "Sélectionnez la langue de l’application en choisissant parmi les options ci-dessous",
 
-  "info_title": "Info",
-  "info_description": "Cette application vous permet de créer une armoire numérique où vous pouvez enregistrer et visualiser toutes vos chaussures.\nLe nom de l'application est une fusion entre 'Shoes' et 'Box', pour simuler la création d'une grande boîte pour contenir les chaussures.\nAinsi, toutes vos chaussures seront cataloguées et toujours à portée de main.",
-  "info_version": "Version",
+  "info_screen_title": "Info",
+  "info_screen_origin_text": "ORIGINE",
+  "info_screen_origin_description": "Le nom de l'application est une fusion entre 'Shoes' et 'Box', pour simuler la création d'une grande boîte où ranger les chaussures.",
+  "info_screen_description_text": "DESCRIPTION",
+  "info_screen_description_description": "Cette application permet de créer une garde-robe numérique où toutes les chaussures peuvent être enregistrées et visualisées. De cette façon, toutes vos chaussures seront cataloguées et toujours à portée de main.",
+  "info_screen_credits_text": "CRÉDITS",
+  "info_screen_credits_a_text": "Idée",
+  "info_screen_credits_a_value": "Nicola De Nicolais",
+  "info_screen_credits_b_text": "Développement",
+  "info_screen_credits_b_value": "Nicola De Nicolais",
+  "info_screen_credits_c_text": "Design",
+  "info_screen_credits_c_value": "Nicola De Nicolais",
+  "info_screen_version_text": "VERSION",
+  "info_screen_version_value": "3.0.0",
+
+  "support_screen_title": "Support",
+  "support_screen_contacts_text": "Contactez-nous",
+  "support_screen_contacts_decription": "Pour tout problème ou question, écrivez à :",
+  "support_screen_contacts_info": "ndn21dev@gmail.com",
+  "support_screen_faq_text": "FAQ",
+  "support_screen_faq_decription": "Trouvez des réponses aux questions les plus fréquentes.",
+  "support_screen_faq_q1": "Comment ajouter une paire de chaussures ?",
+  "support_screen_faq_a1": "Pour ajouter une paire de chaussures, allez à l'accueil et cliquez sur le bouton '+'. Remplissez tous les détails nécessaires et enregistrez.",
+  "support_screen_faq_q2": "Comment modifier une paire de chaussures ?",
+  "support_screen_faq_a2": "Pour modifier une paire de chaussures, choisissez la case des chaussures que vous souhaitez modifier et cliquez dessus. Une fois ouvert, cliquez sur l'icône en haut à droite et choisissez l'option 'Modifier'. Apportez les modifications et enregistrez.",
+  "support_screen_faq_q3": "Comment supprimer une paire de chaussures ?",
+  "support_screen_faq_a3": "Pour supprimer une paire de chaussures, choisissez la case des chaussures que vous souhaitez modifier et cliquez dessus. Une fois ouvert, cliquez sur l'icône en haut à droite et choisissez l'option 'Supprimer'.",
+  "support_screen_faq_q4": "Que se passe-t-il si je supprime une paire de chaussures?",
+  "support_screen_faq_a4": "Si vous supprimez une paire de chaussures, il sera définitivement supprimé. Vous serez invité à confirmer avant de procéder à l'opération.",
+  "support_screen_faq_q5": "Puis-je voir l'historique des paires de chaussures ajoutées ou supprimées ?",
+  "support_screen_faq_a5": "Oui, vous pouvez voir tout l'historique des opérations effectuées dans la section 'Historique'.",
+  "support_screen_faq_q6": "Y a-t-il des notifications dans l'application ?",
+  "support_screen_faq_a6": "Pour le moment, non, mais à l'avenir, il sera possible d'activer des notifications pour l'anniversaire ou l'anniversaire de jour.",
+  "support_screen_faq_q7": "Que puis-je faire si l'application ne fonctionne pas correctement ?",
+  "support_screen_faq_a7": "Si vous rencontrez des problèmes, essayez de redémarrer l'application. Si le problème persiste, contactez le support technique via la section 'Contactez-nous'.",
+  "support_screen_documentation_text": "Documentation",
+  "support_screen_documentation_decription": "Consultez la documentation complète pour plus de détails.",
+  "support_screen_documentation_info": "Consultez la documentation sur GitHub",
 
   "policy_title": "Privacy Policy",
 
   "support_title": "Support",
   "support_developer": "Développeur",
-  "support_contacts": "Contacts"
+  "support_contacts": "Contacts",
+
+  "custom_delete_dialog_confirm": "Supprimer",
+  "custom_delete_dialog_cancel": "Annuler"
 }

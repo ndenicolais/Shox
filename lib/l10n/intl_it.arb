@@ -1,6 +1,8 @@
 {
   "@@locale": "it",
 
+  "intro_title": "Shox",
+
   "onboarding_first_title": "Aggiungi",
   "onboarding_first_description": "Aggiungi tutte le tue scarpe a questa scatola digitale per averle sempre con te.\nOrganizza facilmente la tua collezione e tieni traccia di ogni paio che possiedi a portata di mano.",
   "onboarding_second_title": "Filtra",
@@ -14,8 +16,39 @@
   "onboarding_finish": "Inizia",
 
   "welcome_text": "Ciao",
-  "welcome_login": "Login",
-  "welcome_signup": "Sign Up",
+  "welcome_login": "Accedi",
+  "welcome_signup": "Registrati",
+
+  "signup_screen_title": "Registrazione",
+  "signup_screen_text": "Registrati",
+  "signup_screen_account": "Hai un account? ",
+  "signup_screen_login": "Accedi",
+  "signup_toast_success": "Registrazione effettuata con successo!",
+  "signup_toast_error_email_already_register": "L'email inserita è già stata registrata come email personale",
+  "signup_toast_error_generic": "Errore durante la registrazione:",
+
+  "login_screen_title": "Accesso",
+  "login_screen_text": "Accedi",
+  "login_screen_remember": "Ricordami",
+  "login_screen_password": "Password dimenticata?",
+  "login_screen_account": "Non hai un account? ",
+  "login_screen_signup": "Registrati",
+  "login_toast_success": "Accesso effettuato con successo!",
+  "login_toast_error_email_not_found": "L'email inserita non corrisponde ad alcun account",
+  "login_toast_error_invalid_password": "La password inserita non corrisponde ad alcun account",
+  "login_toast_error_generic": "Errore durante il login:",
+
+  "logout_toast_success": "A presto!",
+  "logout_toast_error_generic": "Errore durante il logout",
+
+  "reset_password_screen_title": "Reset Password",
+  "reset_password_screen_description": "Inserisci la tua email per ricevere il link con la procedura per il reset della password",
+  "reset_password_screen_text": "Reset Password",
+  "reset_password_form_email": "Email",
+  "reset_password_form_email_field": "Inserisci l'email",
+  "reset_password_toast_success": "Email per il reset della password inviata a: ",
+  "reset_password_toast_error_email_not_found": "L'email inserita non è registrata",
+  "reset_password_toast_error_password": "Errore durante il reset della password",
 
   "toast_signup_welcome": "Ciao, ",
   "toast_signup_exist_email": "L'indirizzo email è già in uso da un altro account.",
@@ -46,20 +79,6 @@
 
   "toast_delete_shoes_success": "Scarpe eliminate con successo",
 
-  "toast_logout": "A presto!",
-
-  "login_title": "Login",
-  "login_text": "Login",
-  "login_remember": "Ricordami",
-  "login_continue": "O continua con",
-  "login_account": "Non hai un account? ",
-  "login_signup": "Sign Up",
-
-  "signup_title": "Sign Up",
-  "signup_text": "Sign Up",
-  "signup_account": "Hai un account? ",
-  "signup_login": "Login",
-
   "validator_name": "Nome",
   "validator_name_empty": "Il nome non può essere vuoto",
   "validator_name_hint": "Inserisci il tuo nome",
@@ -81,6 +100,9 @@
   "validator_password_required": "Password è richiesta",
   "validator_password_error": "Password non valida: ",
 
+  "users_updater_screen_crop_image_title": "Ritaglia Immagine",
+  "users_updater_screen_user_name_field_error": "Non hai inserito il nome",
+
   "home_profile": "Profilo",
   "home_add": "Aggiungi",
   "home_settings": "Impostazioni",
@@ -94,9 +116,24 @@
   "home_filter_apply": "Applica",
   "home_empty": "Nessuna scarpa presente nel box",
 
-  "adder_title": "Aggiungi Scarpe",
+  "shoes_adder_screen_title": "Aggiungi Scarpe",
+  "shoes_adder_screen_crop_image_title": "Ritaglia Immagine",
+  "shoes_adder_screen_toast_error_brand": "Non hai inserito il brand",
+  "shoes_adder_screen_toast_error_size": "Non hai inserito la taglia",
+  "shoes_adder_screen_toast_error_categort": "Non hai selezionato una categoria",
+  "shoes_adder_screen_toast_error_type": "Non hai selezionato un tipo",
+  "shoes_adder_screen_toast_success": "Scarpe aggiunte con successo!",
+  "shoes_adder_screen_toast_error": "Errore dureante il salvataggio",
 
-  "updater_title": "Aggiorna Scarpe",
+  "shoes_updater_screen_title": "Aggiorna Scarpe",
+  "shoes_updater_screen_crop_image_title": "Ritaglia Immagine",
+  "shoes_updater_screen_toast_success": "Scarpe modificate con successo!",
+
+  "shoes_details_screen_title": "Dettagli Scarpe",
+  "shoes_details_screen_error_state": "Errore:",
+  "shoes_details_screen_empty_state": "Scarpe non trovate.",
+  "shoes_details_screen_menu_edit": "Modifica",
+  "shoes_details_screen_menu_delete": "Elimina",
 
   "field_date": "Data",
   "field_season_title": "Significato icone",
@@ -106,6 +143,7 @@
   "field_season_close": "Chiudi",
   "field_insert_image": "Seleziona un immagine",
   "field_color": "Colore",
+  "field_details_color": "Dettagli",
   "field_insert_color": "Seleziona un colore",
   "field_season": "Stagione",
   "field_brand": "Brand",
@@ -118,14 +156,13 @@
   "field_insert_type": "Inserisci il tipo",
   "field_notes": "Note",
 
-  "details_title": "Dettagli Scarpe",
-
   "delete_shoes_title": "Elimina",
   "delete_shoes_description": "Sei sicuro di voler eliminare queste scarpe?",
   "delete_shoes_cancel": "Cancella",
   "delete_shoes_confirm": "Conferma",
 
   "text_color": "COLORE",
+  "text_details_color": "DETTAGLI",
   "text_season": "STAGIONE",
   "text_brand": "BRAND",
   "text_size": "TAGLIA",
@@ -226,13 +263,51 @@
   "languages_title": "Lingue",
   "languages_description": "Seleziona la lingua dell'applicazione scegliendo tra le opzioni presenti qui sotto",
 
-  "info_title": "Info",
-  "info_description": "Questa applicazione ti consente di creare un armadio digitale dove puoi salvare e visualizzare tutte le tue scarpe.\nIl nome dell'app è una fusione tra 'Shoes' e 'Box', proprio per simulare la creazione di una grande scatola dove contenere le scarpe.\nIn questo modo, tutte le tue scarpe saranno catalogate e sempre a portata di mano.",
-  "info_version": "Versione",
+  "info_screen_title": "Info",
+  "info_screen_origin_text": "ORIGINE",
+  "info_screen_origin_description": "Il nome dell'app è una fusione tra 'Shoes' e 'Box', proprio per simulare la creazione di una grande scatola dove contenere le scarpe.",
+  "info_screen_description_text": "DESCRIZIONE",
+  "info_screen_description_description": "Questa applicazione permette di creare un guardaroba digitale dove è possibile salvare e visualizzare tutte le scarpe. In questo modo tutte le vostre scarpe saranno catalogate e sempre a portata di mano.",
+  "info_screen_credits_text": "CREDITI",
+  "info_screen_credits_a_text": "Ideazione",
+  "info_screen_credits_a_value": "Nicola De Nicolais",
+  "info_screen_credits_b_text": "Sviluppo",
+  "info_screen_credits_b_value": "Nicola De Nicolais",
+  "info_screen_credits_c_text": "Design",
+  "info_screen_credits_c_value": "Nicola De Nicolais",
+  "info_screen_version_text": "VERSIONE",
+  "info_screen_version_value": "3.0.0",
+
+  "support_screen_title": "Supporto",
+  "support_screen_contacts_text": "Contattaci",
+  "support_screen_contacts_decription": "Per qualsiasi problema o domanda, scrivi a:",
+  "support_screen_contacts_info": "ndn21dev@gmail.com",
+  "support_screen_faq_text": "FAQ",
+  "support_screen_faq_decription": "Trova risposte alle domande più frequenti.",
+  "support_screen_faq_q1": "Come aggiungere un paio di scarpe?",
+  "support_screen_faq_a1": "Per aggiungere un paio di scarpe, vai nella Home e clicca sul pulsante '+'. Compila tutti i dettagli necessari e salva.",
+  "support_screen_faq_q2": "Come modificare un paio di scarpe?",
+  "support_screen_faq_a2": "Per modificare un paio di scarpe, scegli il riquadro delle scarpe che desideri modificare e cliccalo. Una volta aperto clicca sull icona in alto a destra e scegli l'opzione 'Modifica'. Apporta le modifiche e salva.",
+  "support_screen_faq_q3": "Come eliminare un paio di scarpe?",
+  "support_screen_faq_a3": "Per eliminare un paio di scarpe, scegli il riquadro delle scarpe che desideri modificare e cliccalo. Una volta aperto clicca sull icona in alto a destra e scegli l'opzione 'Elimina'.",
+  "support_screen_faq_q4": "Cosa succede se elimino un paio di scarpe?",
+  "support_screen_faq_a4": "Se elimini un paio di scarpe, questo verrà rimosso permanentemente. Ti verrà chiesto di confermare prima di procedere all'operazione.",
+  "support_screen_faq_q5": "Posso vedere la cronologia delle paia di scarpe inserite o eliminate?",
+  "support_screen_faq_a5": "Sì, puoi vedere tutta la cronologia delle operazioni eseguite nella sezione 'Storico'.",
+  "support_screen_faq_q6": "Ci sono notifiche all'interno dell'applicazione?",
+  "support_screen_faq_a6": "Per il momento no, ma in futuro sarà possibile attivare le notifiche per Anniversario o Giorniversario",
+  "support_screen_faq_q7": "Cosa posso fare se l'app non funziona correttamente?",
+  "support_screen_faq_a7": "Se riscontri problemi, prova a riavviare l'app. Se il problema persiste, contatta il supporto tecnico tramite la sezione 'Contattaci'.",
+  "support_screen_documentation_text": "Documentazione",
+  "support_screen_documentation_decription": "Consulta la documentazione completa per maggiori dettagli.",
+  "support_screen_documentation_info": "Vai alla documentazione su GitHub",
 
   "policy_title": "Privacy Policy",
 
   "support_title": "Supporto",
   "support_developer": "Sviluppatore",
-  "support_contacts": "Contatti"
+  "support_contacts": "Contatti",
+
+  "custom_delete_dialog_confirm": "Elimina",
+  "custom_delete_dialog_cancel": "Annulla"
 }

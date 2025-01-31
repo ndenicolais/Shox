@@ -22,7 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "adder_title": MessageLookupByLibrary.simpleMessage("Add Shoes"),
         "category_ballets": MessageLookupByLibrary.simpleMessage("Ballets"),
         "category_boots": MessageLookupByLibrary.simpleMessage("Boots"),
         "category_loafers": MessageLookupByLibrary.simpleMessage("Loafers"),
@@ -46,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "color_red": MessageLookupByLibrary.simpleMessage("Red"),
         "color_white": MessageLookupByLibrary.simpleMessage("White"),
         "color_yellow": MessageLookupByLibrary.simpleMessage("Yellow"),
+        "custom_delete_dialog_cancel":
+            MessageLookupByLibrary.simpleMessage("Cancel"),
+        "custom_delete_dialog_confirm":
+            MessageLookupByLibrary.simpleMessage("Delete"),
         "database_brands": MessageLookupByLibrary.simpleMessage("Brands"),
         "database_categories":
             MessageLookupByLibrary.simpleMessage("Categories"),
@@ -82,11 +85,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to delete this shoes?"),
         "delete_shoes_title": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_title": MessageLookupByLibrary.simpleMessage("Delete Account"),
-        "details_title": MessageLookupByLibrary.simpleMessage("Shoes Details"),
         "field_brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "field_category": MessageLookupByLibrary.simpleMessage("Category"),
         "field_color": MessageLookupByLibrary.simpleMessage("Color"),
         "field_date": MessageLookupByLibrary.simpleMessage("Date"),
+        "field_details_color": MessageLookupByLibrary.simpleMessage("Details"),
         "field_insert_brand":
             MessageLookupByLibrary.simpleMessage("Insert the brand"),
         "field_insert_category":
@@ -128,21 +131,60 @@ class MessageLookup extends MessageLookupByLibrary {
         "home_profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "home_search": MessageLookupByLibrary.simpleMessage("Search by Brand"),
         "home_settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "info_description": MessageLookupByLibrary.simpleMessage(
-            "This application allows you to create a digital wardrobe where you can save and view all your Shoes.\nThe name of the app is the fusion between Shoes and Box just to simulate the creation of a large box where to contain the shoes.\nIn this way all your shoes will be cataloged and always at your fingertips."),
-        "info_title": MessageLookupByLibrary.simpleMessage("Info"),
-        "info_version": MessageLookupByLibrary.simpleMessage("Version"),
+        "info_screen_credits_a_text":
+            MessageLookupByLibrary.simpleMessage("Idea"),
+        "info_screen_credits_a_value":
+            MessageLookupByLibrary.simpleMessage("Nicola De Nicolais"),
+        "info_screen_credits_b_text":
+            MessageLookupByLibrary.simpleMessage("Development"),
+        "info_screen_credits_b_value":
+            MessageLookupByLibrary.simpleMessage("Nicola De Nicolais"),
+        "info_screen_credits_c_text":
+            MessageLookupByLibrary.simpleMessage("Design"),
+        "info_screen_credits_c_value":
+            MessageLookupByLibrary.simpleMessage("Nicola De Nicolais"),
+        "info_screen_credits_text":
+            MessageLookupByLibrary.simpleMessage("CREDITS"),
+        "info_screen_description_description": MessageLookupByLibrary.simpleMessage(
+            "This application allows you to create a digital wardrobe where you can save and view all your shoes. In this way, all your shoes will be catalogued and always at hand."),
+        "info_screen_description_text":
+            MessageLookupByLibrary.simpleMessage("DESCRIPTION"),
+        "info_screen_origin_description": MessageLookupByLibrary.simpleMessage(
+            "The name of the app is a fusion between \'Shoes\' and \'Box\', to simulate the creation of a large box to store shoes."),
+        "info_screen_origin_text":
+            MessageLookupByLibrary.simpleMessage("ORIGIN"),
+        "info_screen_title": MessageLookupByLibrary.simpleMessage("Info"),
+        "info_screen_version_text":
+            MessageLookupByLibrary.simpleMessage("VERSION"),
+        "info_screen_version_value":
+            MessageLookupByLibrary.simpleMessage("3.0.0"),
+        "intro_title": MessageLookupByLibrary.simpleMessage("Shox"),
         "languages_description": MessageLookupByLibrary.simpleMessage(
             "Select the language of the app by choosing from the options below"),
         "languages_title": MessageLookupByLibrary.simpleMessage("Languages"),
-        "login_account":
+        "login_screen_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),
-        "login_continue":
-            MessageLookupByLibrary.simpleMessage("Or continue with"),
-        "login_remember": MessageLookupByLibrary.simpleMessage("Remember me"),
-        "login_signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
-        "login_text": MessageLookupByLibrary.simpleMessage("Login"),
-        "login_title": MessageLookupByLibrary.simpleMessage("Login"),
+        "login_screen_password":
+            MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "login_screen_remember":
+            MessageLookupByLibrary.simpleMessage("Remember me"),
+        "login_screen_signup": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "login_screen_text": MessageLookupByLibrary.simpleMessage("Log in"),
+        "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
+        "login_toast_error_email_not_found":
+            MessageLookupByLibrary.simpleMessage(
+                "The email entered does not match any account"),
+        "login_toast_error_generic":
+            MessageLookupByLibrary.simpleMessage("Error during login:"),
+        "login_toast_error_invalid_password":
+            MessageLookupByLibrary.simpleMessage(
+                "The password entered does not match any account"),
+        "login_toast_success":
+            MessageLookupByLibrary.simpleMessage("Login successful!"),
+        "logout_toast_error_generic":
+            MessageLookupByLibrary.simpleMessage("Error during logout"),
+        "logout_toast_success":
+            MessageLookupByLibrary.simpleMessage("See you soon!"),
         "onboarding_finish":
             MessageLookupByLibrary.simpleMessage("Get started"),
         "onboarding_first_description": MessageLookupByLibrary.simpleMessage(
@@ -171,6 +213,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_history": MessageLookupByLibrary.simpleMessage("History"),
         "profile_logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
+        "reset_password_form_email":
+            MessageLookupByLibrary.simpleMessage("Email"),
+        "reset_password_form_email_field":
+            MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "reset_password_screen_description": MessageLookupByLibrary.simpleMessage(
+            "Enter your email to receive the link with the procedure to reset your password"),
+        "reset_password_screen_text":
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "reset_password_screen_title":
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "reset_password_toast_error_email_not_found":
+            MessageLookupByLibrary.simpleMessage(
+                "The email entered is not registered"),
+        "reset_password_toast_error_password":
+            MessageLookupByLibrary.simpleMessage("Error during password reset"),
+        "reset_password_toast_success": MessageLookupByLibrary.simpleMessage(
+            "Password reset email sent to: "),
         "settings_info": MessageLookupByLibrary.simpleMessage("Info"),
         "settings_languages": MessageLookupByLibrary.simpleMessage("Languages"),
         "settings_policy":
@@ -178,17 +237,106 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings_support": MessageLookupByLibrary.simpleMessage("Support"),
         "settings_theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "settings_title": MessageLookupByLibrary.simpleMessage("Settings"),
-        "signup_account":
-            MessageLookupByLibrary.simpleMessage("Have an account? "),
-        "signup_login": MessageLookupByLibrary.simpleMessage("Login"),
-        "signup_text": MessageLookupByLibrary.simpleMessage("Sign Up"),
-        "signup_title": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "shoes_adder_screen_crop_image_title":
+            MessageLookupByLibrary.simpleMessage("Crop Image"),
+        "shoes_adder_screen_title":
+            MessageLookupByLibrary.simpleMessage("Add Shoes"),
+        "shoes_adder_screen_toast_error":
+            MessageLookupByLibrary.simpleMessage("Error during saving"),
+        "shoes_adder_screen_toast_error_brand":
+            MessageLookupByLibrary.simpleMessage("You did not enter the brand"),
+        "shoes_adder_screen_toast_error_categort":
+            MessageLookupByLibrary.simpleMessage(
+                "You did not select a category"),
+        "shoes_adder_screen_toast_error_size":
+            MessageLookupByLibrary.simpleMessage("You did not enter the size"),
+        "shoes_adder_screen_toast_error_type":
+            MessageLookupByLibrary.simpleMessage("You did not select a type"),
+        "shoes_adder_screen_toast_success":
+            MessageLookupByLibrary.simpleMessage("Shoes added successfully!"),
+        "shoes_details_screen_empty_state":
+            MessageLookupByLibrary.simpleMessage("Shoes not found."),
+        "shoes_details_screen_error_state":
+            MessageLookupByLibrary.simpleMessage("Error:"),
+        "shoes_details_screen_menu_delete":
+            MessageLookupByLibrary.simpleMessage("Delete"),
+        "shoes_details_screen_menu_edit":
+            MessageLookupByLibrary.simpleMessage("Edit"),
+        "shoes_details_screen_title":
+            MessageLookupByLibrary.simpleMessage("Shoes Details"),
+        "shoes_updater_screen_crop_image_title":
+            MessageLookupByLibrary.simpleMessage("Crop Image"),
+        "shoes_updater_screen_title":
+            MessageLookupByLibrary.simpleMessage("Update Shoes"),
+        "shoes_updater_screen_toast_success":
+            MessageLookupByLibrary.simpleMessage("Shoes updated successfully!"),
+        "signup_screen_account":
+            MessageLookupByLibrary.simpleMessage("Already have an account? "),
+        "signup_screen_login": MessageLookupByLibrary.simpleMessage("Log In"),
+        "signup_screen_text": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "signup_screen_title":
+            MessageLookupByLibrary.simpleMessage("Registration"),
+        "signup_toast_error_email_already_register":
+            MessageLookupByLibrary.simpleMessage(
+                "The email entered has already been registered"),
+        "signup_toast_error_generic":
+            MessageLookupByLibrary.simpleMessage("Error during registration:"),
+        "signup_toast_success":
+            MessageLookupByLibrary.simpleMessage("Successfully registered!"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contacts"),
         "support_developer": MessageLookupByLibrary.simpleMessage("Developer"),
+        "support_screen_contacts_decription":
+            MessageLookupByLibrary.simpleMessage(
+                "For any problems or questions, write to:"),
+        "support_screen_contacts_info":
+            MessageLookupByLibrary.simpleMessage("ndn21dev@gmail.com"),
+        "support_screen_contacts_text":
+            MessageLookupByLibrary.simpleMessage("Contact Us"),
+        "support_screen_documentation_decription":
+            MessageLookupByLibrary.simpleMessage(
+                "See the full documentation for more details."),
+        "support_screen_documentation_info":
+            MessageLookupByLibrary.simpleMessage(
+                "Go to the documentation on GitHub"),
+        "support_screen_documentation_text":
+            MessageLookupByLibrary.simpleMessage("Documentation"),
+        "support_screen_faq_a1": MessageLookupByLibrary.simpleMessage(
+            "To add a pair of shoes, go to the Home and click on the \'+\' button. Fill in all the necessary details and save."),
+        "support_screen_faq_a2": MessageLookupByLibrary.simpleMessage(
+            "To edit a pair of shoes, select the shoe box you want to edit and click on it. Once open, click on the icon in the top right corner and select the \'Edit\' option. Make the changes and save."),
+        "support_screen_faq_a3": MessageLookupByLibrary.simpleMessage(
+            "To delete a pair of shoes, select the shoe box you want to edit and click on it. Once open, click on the icon in the top right corner and select the \'Delete\' option."),
+        "support_screen_faq_a4": MessageLookupByLibrary.simpleMessage(
+            "If you delete a pair of shoes, it will be permanently removed. You will be asked to confirm before proceeding with the operation."),
+        "support_screen_faq_a5": MessageLookupByLibrary.simpleMessage(
+            "Yes, you can see the entire history of actions performed in the \'History\' section."),
+        "support_screen_faq_a6": MessageLookupByLibrary.simpleMessage(
+            "Not at the moment, but in the future it will be possible to activate notifications for Anniversary or Day Anniversary."),
+        "support_screen_faq_a7": MessageLookupByLibrary.simpleMessage(
+            "If you encounter problems, try restarting the app. If the problem persists, contact technical support through the \'Contact Us\' section."),
+        "support_screen_faq_decription": MessageLookupByLibrary.simpleMessage(
+            "Find answers to the most frequently asked questions."),
+        "support_screen_faq_q1":
+            MessageLookupByLibrary.simpleMessage("How to add a pair of shoes?"),
+        "support_screen_faq_q2": MessageLookupByLibrary.simpleMessage(
+            "How to edit a pair of shoes?"),
+        "support_screen_faq_q3": MessageLookupByLibrary.simpleMessage(
+            "How to delete a pair of shoes?"),
+        "support_screen_faq_q4": MessageLookupByLibrary.simpleMessage(
+            "What happens if I delete a pair of shoes?"),
+        "support_screen_faq_q5": MessageLookupByLibrary.simpleMessage(
+            "Can I see the history of added or deleted pairs of shoes?"),
+        "support_screen_faq_q6": MessageLookupByLibrary.simpleMessage(
+            "Are there notifications within the application?"),
+        "support_screen_faq_q7": MessageLookupByLibrary.simpleMessage(
+            "What can I do if the app doesn\'t work properly?"),
+        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "support_screen_title": MessageLookupByLibrary.simpleMessage("Support"),
         "support_title": MessageLookupByLibrary.simpleMessage("Support"),
         "text_brand": MessageLookupByLibrary.simpleMessage("BRAND"),
         "text_category": MessageLookupByLibrary.simpleMessage("CATEGORY"),
         "text_color": MessageLookupByLibrary.simpleMessage("COLOR"),
+        "text_details_color": MessageLookupByLibrary.simpleMessage("DETAILS"),
         "text_notes": MessageLookupByLibrary.simpleMessage("NOTES"),
         "text_season": MessageLookupByLibrary.simpleMessage("SEASON"),
         "text_size": MessageLookupByLibrary.simpleMessage("SIZE"),
@@ -227,7 +375,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "toast_login_welcome": MessageLookupByLibrary.simpleMessage("Hello, "),
         "toast_login_wrong_password":
             MessageLookupByLibrary.simpleMessage("Wrong password provided."),
-        "toast_logout": MessageLookupByLibrary.simpleMessage("See later!"),
         "toast_signup_exist_email": MessageLookupByLibrary.simpleMessage(
             "The email address is already in use by another account."),
         "toast_signup_generic_error": MessageLookupByLibrary.simpleMessage(
@@ -257,7 +404,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "type_running": MessageLookupByLibrary.simpleMessage("Running"),
         "type_sport": MessageLookupByLibrary.simpleMessage("Sport"),
         "type_work_boots": MessageLookupByLibrary.simpleMessage("Work boots"),
-        "updater_title": MessageLookupByLibrary.simpleMessage("Update Shoes"),
+        "users_updater_screen_crop_image_title":
+            MessageLookupByLibrary.simpleMessage("Crop Image"),
+        "users_updater_screen_user_name_field_error":
+            MessageLookupByLibrary.simpleMessage("You did not enter the name"),
         "validator_email": MessageLookupByLibrary.simpleMessage("Email"),
         "validator_email_error":
             MessageLookupByLibrary.simpleMessage("Invalid email: "),

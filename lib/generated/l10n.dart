@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Shox`
+  String get intro_title {
+    return Intl.message(
+      'Shox',
+      name: 'intro_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add`
   String get onboarding_first_title {
     return Intl.message(
@@ -185,6 +195,276 @@ class S {
     return Intl.message(
       'Sign Up',
       name: 'welcome_signup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration`
+  String get signup_screen_title {
+    return Intl.message(
+      'Registration',
+      name: 'signup_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get signup_screen_text {
+    return Intl.message(
+      'Sign Up',
+      name: 'signup_screen_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account? `
+  String get signup_screen_account {
+    return Intl.message(
+      'Already have an account? ',
+      name: 'signup_screen_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log In`
+  String get signup_screen_login {
+    return Intl.message(
+      'Log In',
+      name: 'signup_screen_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully registered!`
+  String get signup_toast_success {
+    return Intl.message(
+      'Successfully registered!',
+      name: 'signup_toast_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email entered has already been registered`
+  String get signup_toast_error_email_already_register {
+    return Intl.message(
+      'The email entered has already been registered',
+      name: 'signup_toast_error_email_already_register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error during registration:`
+  String get signup_toast_error_generic {
+    return Intl.message(
+      'Error during registration:',
+      name: 'signup_toast_error_generic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login_screen_title {
+    return Intl.message(
+      'Login',
+      name: 'login_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in`
+  String get login_screen_text {
+    return Intl.message(
+      'Log in',
+      name: 'login_screen_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remember me`
+  String get login_screen_remember {
+    return Intl.message(
+      'Remember me',
+      name: 'login_screen_remember',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot password?`
+  String get login_screen_password {
+    return Intl.message(
+      'Forgot password?',
+      name: 'login_screen_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account? `
+  String get login_screen_account {
+    return Intl.message(
+      'Don\'t have an account? ',
+      name: 'login_screen_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up`
+  String get login_screen_signup {
+    return Intl.message(
+      'Sign up',
+      name: 'login_screen_signup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login successful!`
+  String get login_toast_success {
+    return Intl.message(
+      'Login successful!',
+      name: 'login_toast_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email entered does not match any account`
+  String get login_toast_error_email_not_found {
+    return Intl.message(
+      'The email entered does not match any account',
+      name: 'login_toast_error_email_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password entered does not match any account`
+  String get login_toast_error_invalid_password {
+    return Intl.message(
+      'The password entered does not match any account',
+      name: 'login_toast_error_invalid_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error during login:`
+  String get login_toast_error_generic {
+    return Intl.message(
+      'Error during login:',
+      name: 'login_toast_error_generic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See you soon!`
+  String get logout_toast_success {
+    return Intl.message(
+      'See you soon!',
+      name: 'logout_toast_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error during logout`
+  String get logout_toast_error_generic {
+    return Intl.message(
+      'Error during logout',
+      name: 'logout_toast_error_generic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get reset_password_screen_title {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email to receive the link with the procedure to reset your password`
+  String get reset_password_screen_description {
+    return Intl.message(
+      'Enter your email to receive the link with the procedure to reset your password',
+      name: 'reset_password_screen_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get reset_password_screen_text {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password_screen_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get reset_password_form_email {
+    return Intl.message(
+      'Email',
+      name: 'reset_password_form_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get reset_password_form_email_field {
+    return Intl.message(
+      'Enter your email',
+      name: 'reset_password_form_email_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset email sent to: `
+  String get reset_password_toast_success {
+    return Intl.message(
+      'Password reset email sent to: ',
+      name: 'reset_password_toast_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email entered is not registered`
+  String get reset_password_toast_error_email_not_found {
+    return Intl.message(
+      'The email entered is not registered',
+      name: 'reset_password_toast_error_email_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error during password reset`
+  String get reset_password_toast_error_password {
+    return Intl.message(
+      'Error during password reset',
+      name: 'reset_password_toast_error_password',
       desc: '',
       args: [],
     );
@@ -420,116 +700,6 @@ class S {
     );
   }
 
-  /// `See later!`
-  String get toast_logout {
-    return Intl.message(
-      'See later!',
-      name: 'toast_logout',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Login`
-  String get login_title {
-    return Intl.message(
-      'Login',
-      name: 'login_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Login`
-  String get login_text {
-    return Intl.message(
-      'Login',
-      name: 'login_text',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Remember me`
-  String get login_remember {
-    return Intl.message(
-      'Remember me',
-      name: 'login_remember',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Or continue with`
-  String get login_continue {
-    return Intl.message(
-      'Or continue with',
-      name: 'login_continue',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Don't have an account? `
-  String get login_account {
-    return Intl.message(
-      'Don\'t have an account? ',
-      name: 'login_account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sign Up`
-  String get login_signup {
-    return Intl.message(
-      'Sign Up',
-      name: 'login_signup',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sign Up`
-  String get signup_title {
-    return Intl.message(
-      'Sign Up',
-      name: 'signup_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sign Up`
-  String get signup_text {
-    return Intl.message(
-      'Sign Up',
-      name: 'signup_text',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Have an account? `
-  String get signup_account {
-    return Intl.message(
-      'Have an account? ',
-      name: 'signup_account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Login`
-  String get signup_login {
-    return Intl.message(
-      'Login',
-      name: 'signup_login',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Name`
   String get validator_name {
     return Intl.message(
@@ -730,6 +900,26 @@ class S {
     );
   }
 
+  /// `Crop Image`
+  String get users_updater_screen_crop_image_title {
+    return Intl.message(
+      'Crop Image',
+      name: 'users_updater_screen_crop_image_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not enter the name`
+  String get users_updater_screen_user_name_field_error {
+    return Intl.message(
+      'You did not enter the name',
+      name: 'users_updater_screen_user_name_field_error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Profile`
   String get home_profile {
     return Intl.message(
@@ -851,20 +1041,160 @@ class S {
   }
 
   /// `Add Shoes`
-  String get adder_title {
+  String get shoes_adder_screen_title {
     return Intl.message(
       'Add Shoes',
-      name: 'adder_title',
+      name: 'shoes_adder_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crop Image`
+  String get shoes_adder_screen_crop_image_title {
+    return Intl.message(
+      'Crop Image',
+      name: 'shoes_adder_screen_crop_image_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not enter the brand`
+  String get shoes_adder_screen_toast_error_brand {
+    return Intl.message(
+      'You did not enter the brand',
+      name: 'shoes_adder_screen_toast_error_brand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not enter the size`
+  String get shoes_adder_screen_toast_error_size {
+    return Intl.message(
+      'You did not enter the size',
+      name: 'shoes_adder_screen_toast_error_size',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not select a category`
+  String get shoes_adder_screen_toast_error_categort {
+    return Intl.message(
+      'You did not select a category',
+      name: 'shoes_adder_screen_toast_error_categort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not select a type`
+  String get shoes_adder_screen_toast_error_type {
+    return Intl.message(
+      'You did not select a type',
+      name: 'shoes_adder_screen_toast_error_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes added successfully!`
+  String get shoes_adder_screen_toast_success {
+    return Intl.message(
+      'Shoes added successfully!',
+      name: 'shoes_adder_screen_toast_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error during saving`
+  String get shoes_adder_screen_toast_error {
+    return Intl.message(
+      'Error during saving',
+      name: 'shoes_adder_screen_toast_error',
       desc: '',
       args: [],
     );
   }
 
   /// `Update Shoes`
-  String get updater_title {
+  String get shoes_updater_screen_title {
     return Intl.message(
       'Update Shoes',
-      name: 'updater_title',
+      name: 'shoes_updater_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crop Image`
+  String get shoes_updater_screen_crop_image_title {
+    return Intl.message(
+      'Crop Image',
+      name: 'shoes_updater_screen_crop_image_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes updated successfully!`
+  String get shoes_updater_screen_toast_success {
+    return Intl.message(
+      'Shoes updated successfully!',
+      name: 'shoes_updater_screen_toast_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes Details`
+  String get shoes_details_screen_title {
+    return Intl.message(
+      'Shoes Details',
+      name: 'shoes_details_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error:`
+  String get shoes_details_screen_error_state {
+    return Intl.message(
+      'Error:',
+      name: 'shoes_details_screen_error_state',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes not found.`
+  String get shoes_details_screen_empty_state {
+    return Intl.message(
+      'Shoes not found.',
+      name: 'shoes_details_screen_empty_state',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get shoes_details_screen_menu_edit {
+    return Intl.message(
+      'Edit',
+      name: 'shoes_details_screen_menu_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get shoes_details_screen_menu_delete {
+    return Intl.message(
+      'Delete',
+      name: 'shoes_details_screen_menu_delete',
       desc: '',
       args: [],
     );
@@ -945,6 +1275,16 @@ class S {
     return Intl.message(
       'Color',
       name: 'field_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get field_details_color {
+    return Intl.message(
+      'Details',
+      name: 'field_details_color',
       desc: '',
       args: [],
     );
@@ -1060,16 +1400,6 @@ class S {
     );
   }
 
-  /// `Shoes Details`
-  String get details_title {
-    return Intl.message(
-      'Shoes Details',
-      name: 'details_title',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Delete`
   String get delete_shoes_title {
     return Intl.message(
@@ -1115,6 +1445,16 @@ class S {
     return Intl.message(
       'COLOR',
       name: 'text_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DETAILS`
+  String get text_details_color {
+    return Intl.message(
+      'DETAILS',
+      name: 'text_details_color',
       desc: '',
       args: [],
     );
@@ -2001,30 +2341,370 @@ class S {
   }
 
   /// `Info`
-  String get info_title {
+  String get info_screen_title {
     return Intl.message(
       'Info',
-      name: 'info_title',
+      name: 'info_screen_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `This application allows you to create a digital wardrobe where you can save and view all your Shoes.\nThe name of the app is the fusion between Shoes and Box just to simulate the creation of a large box where to contain the shoes.\nIn this way all your shoes will be cataloged and always at your fingertips.`
-  String get info_description {
+  /// `ORIGIN`
+  String get info_screen_origin_text {
     return Intl.message(
-      'This application allows you to create a digital wardrobe where you can save and view all your Shoes.\nThe name of the app is the fusion between Shoes and Box just to simulate the creation of a large box where to contain the shoes.\nIn this way all your shoes will be cataloged and always at your fingertips.',
-      name: 'info_description',
+      'ORIGIN',
+      name: 'info_screen_origin_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Version`
-  String get info_version {
+  /// `The name of the app is a fusion between 'Shoes' and 'Box', to simulate the creation of a large box to store shoes.`
+  String get info_screen_origin_description {
     return Intl.message(
-      'Version',
-      name: 'info_version',
+      'The name of the app is a fusion between \'Shoes\' and \'Box\', to simulate the creation of a large box to store shoes.',
+      name: 'info_screen_origin_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DESCRIPTION`
+  String get info_screen_description_text {
+    return Intl.message(
+      'DESCRIPTION',
+      name: 'info_screen_description_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This application allows you to create a digital wardrobe where you can save and view all your shoes. In this way, all your shoes will be catalogued and always at hand.`
+  String get info_screen_description_description {
+    return Intl.message(
+      'This application allows you to create a digital wardrobe where you can save and view all your shoes. In this way, all your shoes will be catalogued and always at hand.',
+      name: 'info_screen_description_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CREDITS`
+  String get info_screen_credits_text {
+    return Intl.message(
+      'CREDITS',
+      name: 'info_screen_credits_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Idea`
+  String get info_screen_credits_a_text {
+    return Intl.message(
+      'Idea',
+      name: 'info_screen_credits_a_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nicola De Nicolais`
+  String get info_screen_credits_a_value {
+    return Intl.message(
+      'Nicola De Nicolais',
+      name: 'info_screen_credits_a_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Development`
+  String get info_screen_credits_b_text {
+    return Intl.message(
+      'Development',
+      name: 'info_screen_credits_b_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nicola De Nicolais`
+  String get info_screen_credits_b_value {
+    return Intl.message(
+      'Nicola De Nicolais',
+      name: 'info_screen_credits_b_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Design`
+  String get info_screen_credits_c_text {
+    return Intl.message(
+      'Design',
+      name: 'info_screen_credits_c_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nicola De Nicolais`
+  String get info_screen_credits_c_value {
+    return Intl.message(
+      'Nicola De Nicolais',
+      name: 'info_screen_credits_c_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VERSION`
+  String get info_screen_version_text {
+    return Intl.message(
+      'VERSION',
+      name: 'info_screen_version_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3.0.0`
+  String get info_screen_version_value {
+    return Intl.message(
+      '3.0.0',
+      name: 'info_screen_version_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support`
+  String get support_screen_title {
+    return Intl.message(
+      'Support',
+      name: 'support_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get support_screen_contacts_text {
+    return Intl.message(
+      'Contact Us',
+      name: 'support_screen_contacts_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For any problems or questions, write to:`
+  String get support_screen_contacts_decription {
+    return Intl.message(
+      'For any problems or questions, write to:',
+      name: 'support_screen_contacts_decription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ndn21dev@gmail.com`
+  String get support_screen_contacts_info {
+    return Intl.message(
+      'ndn21dev@gmail.com',
+      name: 'support_screen_contacts_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FAQ`
+  String get support_screen_faq_text {
+    return Intl.message(
+      'FAQ',
+      name: 'support_screen_faq_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Find answers to the most frequently asked questions.`
+  String get support_screen_faq_decription {
+    return Intl.message(
+      'Find answers to the most frequently asked questions.',
+      name: 'support_screen_faq_decription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How to add a pair of shoes?`
+  String get support_screen_faq_q1 {
+    return Intl.message(
+      'How to add a pair of shoes?',
+      name: 'support_screen_faq_q1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To add a pair of shoes, go to the Home and click on the '+' button. Fill in all the necessary details and save.`
+  String get support_screen_faq_a1 {
+    return Intl.message(
+      'To add a pair of shoes, go to the Home and click on the \'+\' button. Fill in all the necessary details and save.',
+      name: 'support_screen_faq_a1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How to edit a pair of shoes?`
+  String get support_screen_faq_q2 {
+    return Intl.message(
+      'How to edit a pair of shoes?',
+      name: 'support_screen_faq_q2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To edit a pair of shoes, select the shoe box you want to edit and click on it. Once open, click on the icon in the top right corner and select the 'Edit' option. Make the changes and save.`
+  String get support_screen_faq_a2 {
+    return Intl.message(
+      'To edit a pair of shoes, select the shoe box you want to edit and click on it. Once open, click on the icon in the top right corner and select the \'Edit\' option. Make the changes and save.',
+      name: 'support_screen_faq_a2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How to delete a pair of shoes?`
+  String get support_screen_faq_q3 {
+    return Intl.message(
+      'How to delete a pair of shoes?',
+      name: 'support_screen_faq_q3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To delete a pair of shoes, select the shoe box you want to edit and click on it. Once open, click on the icon in the top right corner and select the 'Delete' option.`
+  String get support_screen_faq_a3 {
+    return Intl.message(
+      'To delete a pair of shoes, select the shoe box you want to edit and click on it. Once open, click on the icon in the top right corner and select the \'Delete\' option.',
+      name: 'support_screen_faq_a3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What happens if I delete a pair of shoes?`
+  String get support_screen_faq_q4 {
+    return Intl.message(
+      'What happens if I delete a pair of shoes?',
+      name: 'support_screen_faq_q4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you delete a pair of shoes, it will be permanently removed. You will be asked to confirm before proceeding with the operation.`
+  String get support_screen_faq_a4 {
+    return Intl.message(
+      'If you delete a pair of shoes, it will be permanently removed. You will be asked to confirm before proceeding with the operation.',
+      name: 'support_screen_faq_a4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can I see the history of added or deleted pairs of shoes?`
+  String get support_screen_faq_q5 {
+    return Intl.message(
+      'Can I see the history of added or deleted pairs of shoes?',
+      name: 'support_screen_faq_q5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes, you can see the entire history of actions performed in the 'History' section.`
+  String get support_screen_faq_a5 {
+    return Intl.message(
+      'Yes, you can see the entire history of actions performed in the \'History\' section.',
+      name: 'support_screen_faq_a5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are there notifications within the application?`
+  String get support_screen_faq_q6 {
+    return Intl.message(
+      'Are there notifications within the application?',
+      name: 'support_screen_faq_q6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not at the moment, but in the future it will be possible to activate notifications for Anniversary or Day Anniversary.`
+  String get support_screen_faq_a6 {
+    return Intl.message(
+      'Not at the moment, but in the future it will be possible to activate notifications for Anniversary or Day Anniversary.',
+      name: 'support_screen_faq_a6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What can I do if the app doesn't work properly?`
+  String get support_screen_faq_q7 {
+    return Intl.message(
+      'What can I do if the app doesn\'t work properly?',
+      name: 'support_screen_faq_q7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you encounter problems, try restarting the app. If the problem persists, contact technical support through the 'Contact Us' section.`
+  String get support_screen_faq_a7 {
+    return Intl.message(
+      'If you encounter problems, try restarting the app. If the problem persists, contact technical support through the \'Contact Us\' section.',
+      name: 'support_screen_faq_a7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Documentation`
+  String get support_screen_documentation_text {
+    return Intl.message(
+      'Documentation',
+      name: 'support_screen_documentation_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See the full documentation for more details.`
+  String get support_screen_documentation_decription {
+    return Intl.message(
+      'See the full documentation for more details.',
+      name: 'support_screen_documentation_decription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to the documentation on GitHub`
+  String get support_screen_documentation_info {
+    return Intl.message(
+      'Go to the documentation on GitHub',
+      name: 'support_screen_documentation_info',
       desc: '',
       args: [],
     );
@@ -2065,6 +2745,26 @@ class S {
     return Intl.message(
       'Contacts',
       name: 'support_contacts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get custom_delete_dialog_confirm {
+    return Intl.message(
+      'Delete',
+      name: 'custom_delete_dialog_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get custom_delete_dialog_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'custom_delete_dialog_cancel',
       desc: '',
       args: [],
     );

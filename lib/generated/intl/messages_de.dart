@@ -22,8 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "adder_title":
-            MessageLookupByLibrary.simpleMessage("Schuhe hinzufügen"),
         "category_ballets":
             MessageLookupByLibrary.simpleMessage("Ballettschuhe"),
         "category_boots": MessageLookupByLibrary.simpleMessage("Stiefel"),
@@ -47,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "color_red": MessageLookupByLibrary.simpleMessage("Rot"),
         "color_white": MessageLookupByLibrary.simpleMessage("Weiß"),
         "color_yellow": MessageLookupByLibrary.simpleMessage("Gelb"),
+        "custom_delete_dialog_cancel":
+            MessageLookupByLibrary.simpleMessage("Abbrechen"),
+        "custom_delete_dialog_confirm":
+            MessageLookupByLibrary.simpleMessage("Löschen"),
         "database_brands": MessageLookupByLibrary.simpleMessage("Marken"),
         "database_categories":
             MessageLookupByLibrary.simpleMessage("Kategorien"),
@@ -86,11 +88,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bist du sicher, dass du diese Schuhe löschen möchtest?"),
         "delete_shoes_title": MessageLookupByLibrary.simpleMessage("Löschen"),
         "delete_title": MessageLookupByLibrary.simpleMessage("Konto löschen"),
-        "details_title": MessageLookupByLibrary.simpleMessage("Schuhdetails"),
         "field_brand": MessageLookupByLibrary.simpleMessage("Marke"),
         "field_category": MessageLookupByLibrary.simpleMessage("Kategorie"),
         "field_color": MessageLookupByLibrary.simpleMessage("Farbe"),
         "field_date": MessageLookupByLibrary.simpleMessage("Datum"),
+        "field_details_color": MessageLookupByLibrary.simpleMessage("Details"),
         "field_insert_brand":
             MessageLookupByLibrary.simpleMessage("Marke eingeben"),
         "field_insert_category":
@@ -134,21 +136,61 @@ class MessageLookup extends MessageLookupByLibrary {
         "home_search":
             MessageLookupByLibrary.simpleMessage("Nach Marke suchen"),
         "home_settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
-        "info_description": MessageLookupByLibrary.simpleMessage(
-            "Diese Anwendung ermöglicht es dir, einen digitalen Schrank zu erstellen, in dem du alle deine Schuhe speichern und anzeigen kannst.\nDer Name der App ist eine Fusion der Wörter \'Shoes\' und \'Box\', um die Erstellung einer großen Box zu simulieren, in der die Schuhe aufbewahrt werden.\nSo werden alle deine Schuhe katalogisiert und sind immer griffbereit."),
-        "info_title": MessageLookupByLibrary.simpleMessage("Info"),
-        "info_version": MessageLookupByLibrary.simpleMessage("Version"),
+        "info_screen_credits_a_text":
+            MessageLookupByLibrary.simpleMessage("Idee"),
+        "info_screen_credits_a_value":
+            MessageLookupByLibrary.simpleMessage("Nicola De Nicolais"),
+        "info_screen_credits_b_text":
+            MessageLookupByLibrary.simpleMessage("Entwicklung"),
+        "info_screen_credits_b_value":
+            MessageLookupByLibrary.simpleMessage("Nicola De Nicolais"),
+        "info_screen_credits_c_text":
+            MessageLookupByLibrary.simpleMessage("Design"),
+        "info_screen_credits_c_value":
+            MessageLookupByLibrary.simpleMessage("Nicola De Nicolais"),
+        "info_screen_credits_text":
+            MessageLookupByLibrary.simpleMessage("CREDITS"),
+        "info_screen_description_description": MessageLookupByLibrary.simpleMessage(
+            "Diese App ermöglicht es, einen digitalen Kleiderschrank zu erstellen, in dem alle Schuhe gespeichert und angezeigt werden können. Auf diese Weise sind alle Ihre Schuhe katalogisiert und immer griffbereit."),
+        "info_screen_description_text":
+            MessageLookupByLibrary.simpleMessage("BESCHREIBUNG"),
+        "info_screen_origin_description": MessageLookupByLibrary.simpleMessage(
+            "Der Name der App ist eine Verschmelzung von \'Shoes\' und \'Box\', um die Erstellung einer großen Schachtel zu simulieren, in der die Schuhe aufbewahrt werden können."),
+        "info_screen_origin_text":
+            MessageLookupByLibrary.simpleMessage("HERKUNFT"),
+        "info_screen_title": MessageLookupByLibrary.simpleMessage("Info"),
+        "info_screen_version_text":
+            MessageLookupByLibrary.simpleMessage("VERSION"),
+        "info_screen_version_value":
+            MessageLookupByLibrary.simpleMessage("3.0.0"),
+        "intro_title": MessageLookupByLibrary.simpleMessage("Shox"),
         "languages_description": MessageLookupByLibrary.simpleMessage(
             "Wählen Sie die Sprache der Anwendung aus den unten stehenden Optionen"),
         "languages_title": MessageLookupByLibrary.simpleMessage("Sprachen"),
-        "login_account": MessageLookupByLibrary.simpleMessage("Kein Konto? "),
-        "login_continue":
-            MessageLookupByLibrary.simpleMessage("Oder fortfahren mit"),
-        "login_remember":
+        "login_screen_account":
+            MessageLookupByLibrary.simpleMessage("Haben Sie kein Konto? "),
+        "login_screen_password":
+            MessageLookupByLibrary.simpleMessage("Passwort vergessen?"),
+        "login_screen_remember":
             MessageLookupByLibrary.simpleMessage("Erinnere dich an mich"),
-        "login_signup": MessageLookupByLibrary.simpleMessage("Registrieren"),
-        "login_text": MessageLookupByLibrary.simpleMessage("Anmelden"),
-        "login_title": MessageLookupByLibrary.simpleMessage("Anmelden"),
+        "login_screen_signup":
+            MessageLookupByLibrary.simpleMessage("Registrieren"),
+        "login_screen_text": MessageLookupByLibrary.simpleMessage("Anmelden"),
+        "login_screen_title": MessageLookupByLibrary.simpleMessage("Anmeldung"),
+        "login_toast_error_email_not_found":
+            MessageLookupByLibrary.simpleMessage(
+                "Die eingegebene E-Mail entspricht keinem Konto"),
+        "login_toast_error_generic":
+            MessageLookupByLibrary.simpleMessage("Fehler bei der Anmeldung:"),
+        "login_toast_error_invalid_password":
+            MessageLookupByLibrary.simpleMessage(
+                "Das eingegebene Passwort entspricht keinem Konto"),
+        "login_toast_success":
+            MessageLookupByLibrary.simpleMessage("Erfolgreich angemeldet!"),
+        "logout_toast_error_generic":
+            MessageLookupByLibrary.simpleMessage("Fehler beim Abmelden"),
+        "logout_toast_success":
+            MessageLookupByLibrary.simpleMessage("Bis bald!"),
         "onboarding_finish": MessageLookupByLibrary.simpleMessage("Starten"),
         "onboarding_first_description": MessageLookupByLibrary.simpleMessage(
             "Füge alle deine Schuhe zu dieser digitalen Box hinzu, um sie immer bei dir zu haben.\nOrganisiere deine Sammlung einfach und behalte den Überblick über jedes Paar, das du besitzt."),
@@ -175,6 +217,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_history": MessageLookupByLibrary.simpleMessage("Verlauf"),
         "profile_logout": MessageLookupByLibrary.simpleMessage("Abmelden"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profil"),
+        "reset_password_form_email":
+            MessageLookupByLibrary.simpleMessage("E-Mail"),
+        "reset_password_form_email_field":
+            MessageLookupByLibrary.simpleMessage("Geben Sie die E-Mail ein"),
+        "reset_password_screen_description": MessageLookupByLibrary.simpleMessage(
+            "Geben Sie Ihre E-Mail ein, um den Link zum Zurücksetzen des Passworts zu erhalten"),
+        "reset_password_screen_text":
+            MessageLookupByLibrary.simpleMessage("Passwort zurücksetzen"),
+        "reset_password_screen_title":
+            MessageLookupByLibrary.simpleMessage("Passwort zurücksetzen"),
+        "reset_password_toast_error_email_not_found":
+            MessageLookupByLibrary.simpleMessage(
+                "Die eingegebene E-Mail ist nicht registriert"),
+        "reset_password_toast_error_password":
+            MessageLookupByLibrary.simpleMessage(
+                "Fehler beim Zurücksetzen des Passworts"),
+        "reset_password_toast_success": MessageLookupByLibrary.simpleMessage(
+            "E-Mail zum Zurücksetzen des Passworts gesendet an: "),
         "settings_info": MessageLookupByLibrary.simpleMessage("Info"),
         "settings_languages": MessageLookupByLibrary.simpleMessage("Sprachen"),
         "settings_policy":
@@ -182,17 +242,111 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings_support": MessageLookupByLibrary.simpleMessage("Support"),
         "settings_theme": MessageLookupByLibrary.simpleMessage("Thema"),
         "settings_title": MessageLookupByLibrary.simpleMessage("Einstellungen"),
-        "signup_account":
-            MessageLookupByLibrary.simpleMessage("Hast du ein Konto? "),
-        "signup_login": MessageLookupByLibrary.simpleMessage("Anmelden"),
-        "signup_text": MessageLookupByLibrary.simpleMessage("Registrieren"),
-        "signup_title": MessageLookupByLibrary.simpleMessage("Registrieren"),
+        "shoes_adder_screen_crop_image_title":
+            MessageLookupByLibrary.simpleMessage("Bild zuschneiden"),
+        "shoes_adder_screen_title":
+            MessageLookupByLibrary.simpleMessage("Schuhe hinzufügen"),
+        "shoes_adder_screen_toast_error":
+            MessageLookupByLibrary.simpleMessage("Fehler beim Speichern"),
+        "shoes_adder_screen_toast_error_brand":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben die Marke nicht eingegeben"),
+        "shoes_adder_screen_toast_error_categort":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben keine Kategorie ausgewählt"),
+        "shoes_adder_screen_toast_error_size":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben die Größe nicht eingegeben"),
+        "shoes_adder_screen_toast_error_type":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben keinen Typ ausgewählt"),
+        "shoes_adder_screen_toast_success":
+            MessageLookupByLibrary.simpleMessage(
+                "Schuhe erfolgreich hinzugefügt!"),
+        "shoes_details_screen_empty_state":
+            MessageLookupByLibrary.simpleMessage("Schuhe nicht gefunden."),
+        "shoes_details_screen_error_state":
+            MessageLookupByLibrary.simpleMessage("Fehler:"),
+        "shoes_details_screen_menu_delete":
+            MessageLookupByLibrary.simpleMessage("Löschen"),
+        "shoes_details_screen_menu_edit":
+            MessageLookupByLibrary.simpleMessage("Bearbeiten"),
+        "shoes_details_screen_title":
+            MessageLookupByLibrary.simpleMessage("Schuhdetails"),
+        "shoes_updater_screen_crop_image_title":
+            MessageLookupByLibrary.simpleMessage("Bild zuschneiden"),
+        "shoes_updater_screen_title":
+            MessageLookupByLibrary.simpleMessage("Schuhe aktualisieren"),
+        "shoes_updater_screen_toast_success":
+            MessageLookupByLibrary.simpleMessage(
+                "Schuhe erfolgreich geändert!"),
+        "signup_screen_account":
+            MessageLookupByLibrary.simpleMessage("Haben Sie ein Konto? "),
+        "signup_screen_text":
+            MessageLookupByLibrary.simpleMessage("Registrieren"),
+        "signup_screen_title":
+            MessageLookupByLibrary.simpleMessage("Registrierung"),
+        "signup_toast_error_email_already_register":
+            MessageLookupByLibrary.simpleMessage(
+                "Die eingegebene E-Mail ist bereits als persönliche E-Mail registriert"),
+        "signup_toast_error_generic": MessageLookupByLibrary.simpleMessage(
+            "Fehler bei der Registrierung:"),
+        "signup_toast_success":
+            MessageLookupByLibrary.simpleMessage("Registrierung erfolgreich!"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Kontakte"),
         "support_developer": MessageLookupByLibrary.simpleMessage("Entwickler"),
+        "support_screen_contacts_decription":
+            MessageLookupByLibrary.simpleMessage(
+                "Bei Problemen oder Fragen schreiben Sie an:"),
+        "support_screen_contacts_info":
+            MessageLookupByLibrary.simpleMessage("ndn21dev@gmail.com"),
+        "support_screen_contacts_text":
+            MessageLookupByLibrary.simpleMessage("Kontaktiere uns"),
+        "support_screen_documentation_decription":
+            MessageLookupByLibrary.simpleMessage(
+                "Siehe die vollständige Dokumentation für weitere Details."),
+        "support_screen_documentation_info":
+            MessageLookupByLibrary.simpleMessage(
+                "Gehe zur Dokumentation auf GitHub"),
+        "support_screen_documentation_text":
+            MessageLookupByLibrary.simpleMessage("Dokumentation"),
+        "support_screen_faq_a1": MessageLookupByLibrary.simpleMessage(
+            "Um ein Paar Schuhe hinzuzufügen, gehe zur Startseite und klicke auf die Schaltfläche \'+\'. Fülle alle erforderlichen Details aus und speichere."),
+        "support_screen_faq_a2": MessageLookupByLibrary.simpleMessage(
+            "Um ein Paar Schuhe zu bearbeiten, wähle das Feld der Schuhe aus, die du bearbeiten möchtest, und klicke darauf. Nach dem Öffnen klicke auf das Symbol oben rechts und wähle die Option \'Bearbeiten\'. Nimm die Änderungen vor und speichere."),
+        "support_screen_faq_a3": MessageLookupByLibrary.simpleMessage(
+            "Um ein Paar Schuhe zu löschen, wähle das Feld der Schuhe aus, die du bearbeiten möchtest, und klicke darauf. Nach dem Öffnen klicke auf das Symbol oben rechts und wähle die Option \'Löschen\'."),
+        "support_screen_faq_a4": MessageLookupByLibrary.simpleMessage(
+            "Wenn du ein Ereignis oder ein Paar Schuhe lösche, wird es dauerhaft entfernt. Du wirst aufgefordert, die Aktion zu bestätigen, bevor du fortfährst."),
+        "support_screen_faq_a5": MessageLookupByLibrary.simpleMessage(
+            "Ja, du kannst den gesamten Verlauf der durchgeführten Aktionen im Abschnitt \'Verlauf\' sehen."),
+        "support_screen_faq_a6": MessageLookupByLibrary.simpleMessage(
+            "Derzeit noch nicht, aber in Zukunft wird es möglich sein, Benachrichtigungen für Jahrestage oder Tagesjubiläen zu aktivieren."),
+        "support_screen_faq_a7": MessageLookupByLibrary.simpleMessage(
+            "Wenn du Probleme hast, versuche die App neu zu starten. Wenn das Problem weiterhin besteht, kontaktiere den technischen Support über den Abschnitt \'Kontaktiere uns\'."),
+        "support_screen_faq_decription": MessageLookupByLibrary.simpleMessage(
+            "Finden Sie Antworten auf häufig gestellte Fragen."),
+        "support_screen_faq_q1": MessageLookupByLibrary.simpleMessage(
+            "Wie füge ich ein Paar Schuhe hinzu?"),
+        "support_screen_faq_q2": MessageLookupByLibrary.simpleMessage(
+            "Wie bearbeite ich ein Paar Schuhe?"),
+        "support_screen_faq_q3": MessageLookupByLibrary.simpleMessage(
+            "Wie lösche ich ein Paar Schuhe?"),
+        "support_screen_faq_q4": MessageLookupByLibrary.simpleMessage(
+            "Was passiert, wenn ich ein Paar Schuhe lösche?"),
+        "support_screen_faq_q5": MessageLookupByLibrary.simpleMessage(
+            "Kann ich die Historie der hinzugefügten oder gelöschten Paare Schuhe sehen?"),
+        "support_screen_faq_q6": MessageLookupByLibrary.simpleMessage(
+            "Gibt es Benachrichtigungen in der App?"),
+        "support_screen_faq_q7": MessageLookupByLibrary.simpleMessage(
+            "Was kann ich tun, wenn die App nicht richtig funktioniert?"),
+        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "support_screen_title": MessageLookupByLibrary.simpleMessage("Support"),
         "support_title": MessageLookupByLibrary.simpleMessage("Support"),
         "text_brand": MessageLookupByLibrary.simpleMessage("MARKE"),
         "text_category": MessageLookupByLibrary.simpleMessage("KATEGORIE"),
         "text_color": MessageLookupByLibrary.simpleMessage("FARBE"),
+        "text_details_color": MessageLookupByLibrary.simpleMessage("DETAILS"),
         "text_notes": MessageLookupByLibrary.simpleMessage("NOTIZEN"),
         "text_season": MessageLookupByLibrary.simpleMessage("SAISON"),
         "text_size": MessageLookupByLibrary.simpleMessage("GRÖSSE"),
@@ -231,7 +385,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "toast_login_welcome": MessageLookupByLibrary.simpleMessage("Hallo, "),
         "toast_login_wrong_password": MessageLookupByLibrary.simpleMessage(
             "Falsches Passwort eingegeben."),
-        "toast_logout": MessageLookupByLibrary.simpleMessage("Bis bald!"),
         "toast_signup_exist_email": MessageLookupByLibrary.simpleMessage(
             "Die Email-Adresse wird bereits von einem anderen Konto verwendet."),
         "toast_signup_generic_error": MessageLookupByLibrary.simpleMessage(
@@ -263,8 +416,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "type_sport": MessageLookupByLibrary.simpleMessage("Sport"),
         "type_work_boots":
             MessageLookupByLibrary.simpleMessage("Arbeitsschuhe"),
-        "updater_title":
-            MessageLookupByLibrary.simpleMessage("Schuhe aktualisieren"),
+        "users_updater_screen_crop_image_title":
+            MessageLookupByLibrary.simpleMessage("Bild zuschneiden"),
+        "users_updater_screen_user_name_field_error":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben den Namen nicht eingegeben"),
         "validator_email": MessageLookupByLibrary.simpleMessage("Email"),
         "validator_email_error":
             MessageLookupByLibrary.simpleMessage("Ungültige Email-Adresse: "),
