@@ -148,16 +148,11 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
   //     final resultBytes = await _apiClient.removeBgApi(_imageFile!.path);
   //     final filePath = _imageFile!.path;
   //     final newFilePath = '${filePath}_no_bg.png';
-
-  //     // Convert XFile to File
   //     final file = File(newFilePath);
-
-  //     // Write byte in file
   //     await file.writeAsBytes(resultBytes);
-
-  //     // Update _imageFile with new path
-  //     _updateImageFile(XFile(newFilePath));
-  //     Get.back();
+  //     setState(() {
+  //       _imageFile = file;
+  //     });
   //   }
   // }
 
@@ -374,25 +369,45 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                   ),
                 ],
               )
-            : Card(
-                color: Theme.of(context).colorScheme.primary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-                elevation: 5,
-                clipBehavior: Clip.antiAlias,
-                child: GestureDetector(
-                  onTap: () => _showImageSelector(context),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                    child: Image.file(
-                      File(_imageFile!.path),
-                      width: 200.w,
-                      height: 200.h,
-                      fit: BoxFit.cover,
+            : Stack(
+                children: [
+                  Card(
+                    color: Theme.of(context).colorScheme.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                    elevation: 0,
+                    clipBehavior: Clip.antiAlias,
+                    child: GestureDetector(
+                      onTap: () => _showImageSelector(context),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                        child: Image.file(
+                          File(_imageFile!.path),
+                          width: 200.w,
+                          height: 200.h,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  // Positioned(
+                  //   right: 0.r,
+                  //   bottom: 0.r,
+                  //   child: CircleAvatar(
+                  //     radius: 25.r,
+                  //     backgroundColor: Theme.of(context).colorScheme.secondary,
+                  //     child: IconButton(
+                  //       color: Theme.of(context).colorScheme.secondary,
+                  //       onPressed: _removeBackground,
+                  //       icon: Icon(
+                  //         MingCuteIcons.mgc_mirror_fill,
+                  //         color: Theme.of(context).colorScheme.tertiary,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
               ),
       ),
     );

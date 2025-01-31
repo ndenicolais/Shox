@@ -162,18 +162,26 @@ class HistoryScreenState extends State<HistoryScreen>
                     width: 50.w,
                     height: 50.h,
                     child: imageUrl.isNotEmpty
-                        ? Image.network(
-                            imageUrl,
-                            width: 50.w,
-                            height: 50.h,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Icon(
-                                MingCuteIcons.mgc_close_fill,
-                                size: 50.sp,
-                                color: AppColors.errorColor,
-                              );
-                            },
+                        ? Card(
+                            color: Theme.of(context).colorScheme.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r),
+                            ),
+                            elevation: 0,
+                            clipBehavior: Clip.antiAlias,
+                            child: Image.network(
+                              imageUrl,
+                              width: 50.w,
+                              height: 50.h,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(
+                                  MingCuteIcons.mgc_close_fill,
+                                  size: 50.sp,
+                                  color: AppColors.errorColor,
+                                );
+                              },
+                            ),
                           )
                         : Icon(
                             MingCuteIcons.mgc_close_fill,

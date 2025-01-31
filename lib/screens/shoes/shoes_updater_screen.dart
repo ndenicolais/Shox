@@ -13,7 +13,6 @@ import 'package:shox/screens/home_screen.dart';
 import 'package:shox/utils/category_translations.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
-// import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/custom_dropdown.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
@@ -33,7 +32,6 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   final Logger _logger = Logger();
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesService _shoesService = ShoesService();
-  // final ApiClient _apiClient = ApiClient();
   final ImagePicker _picker = ImagePicker();
   String? _existingImageUrl;
   String? _removedExistingImages;
@@ -164,24 +162,6 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       _logger.e("Error: user not logged in or no image selected");
     }
   }
-
-  // Future<void> _removeBackground() async {
-  //   if (_imageFile != null) {
-  //     final resultBytes = await _apiClient.removeBgApi(_imageFile!.path);
-  //     final filePath = _imageFile!.path;
-  //     final newFilePath = '${filePath}_no_bg.png';
-
-  //     // Convert XFile to File
-  //     final file = File(newFilePath);
-
-  //     // Update byte in file
-  //     await file.writeAsBytes(resultBytes);
-
-  //     // Update _imageFile with new path
-  //     _updateImageFile(XFile(newFilePath));
-  //     Get.back();
-  //   }
-  // }
 
   void _removeExistingImage() {
     setState(() {
@@ -343,15 +323,29 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           if (_newImage != null)
             Stack(
               children: [
-                Image.file(
-                  File(_newImage!.path),
-                  width: 200.w,
-                  height: 200.h,
-                  fit: BoxFit.cover,
+                Card(
+                  color: Theme.of(context).colorScheme.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  elevation: 0,
+                  clipBehavior: Clip.antiAlias,
+                  child: GestureDetector(
+                    onTap: () => _showImageSelector(context),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                      child: Image.file(
+                        File(_newImage!.path),
+                        width: 200.w,
+                        height: 200.h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
-                  top: -8,
-                  right: -8,
+                  top: -4,
+                  right: -4,
                   child: IconButton(
                     icon: Icon(
                       MingCuteIcons.mgc_fault_fill,
@@ -368,15 +362,29 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           if (_existingImageUrl != null && _existingImageUrl!.isNotEmpty)
             Stack(
               children: [
-                Image.network(
-                  _existingImageUrl!,
-                  width: 200.w,
-                  height: 200.h,
-                  fit: BoxFit.cover,
+                Card(
+                  color: Theme.of(context).colorScheme.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  elevation: 0,
+                  clipBehavior: Clip.antiAlias,
+                  child: GestureDetector(
+                    onTap: () => _showImageSelector(context),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                      child: Image.network(
+                        _existingImageUrl!,
+                        width: 200.w,
+                        height: 200.h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
-                  top: -8,
-                  right: -8,
+                  top: -4,
+                  right: -4,
                   child: IconButton(
                     icon: Icon(
                       MingCuteIcons.mgc_fault_fill,

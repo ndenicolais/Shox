@@ -240,7 +240,9 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       },
       child: Card(
         color: Theme.of(context).colorScheme.primary,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
         elevation: 0,
         clipBehavior: Clip.antiAlias,
         child: Image.network(
