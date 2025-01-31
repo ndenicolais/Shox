@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Shoes {
+class ShoesModel {
   String? id;
-  bool isFavorite;
   String imageUrl;
   Color color;
+  Color? detailsColor;
   IconData? seasonIcon;
   static List<IconData> seasonOptions = [
     Icons.sunny,
@@ -16,6 +16,70 @@ class Shoes {
   String size;
   String category;
   String type;
+  String? notes;
+  bool isFavorite;
+  DateTime dateAdded;
+  DateTime dateUpdated;
+
+  ShoesModel({
+    this.id,
+    required this.imageUrl,
+    required this.color,
+    this.detailsColor,
+    this.seasonIcon,
+    required this.brand,
+    required this.size,
+    required this.category,
+    String? type,
+    this.notes,
+    this.isFavorite = false,
+    DateTime? dateAdded,
+    DateTime? dateUpdated,
+  })  : type = type ?? _determineType(category),
+        dateAdded = dateAdded ?? DateTime.now(),
+        dateUpdated = dateUpdated ?? DateTime.now();
+
+  static String _determineType(String category) {
+    return categoryToTypes[category]?.first ?? 'Other';
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'imageUrl': imageUrl,
+      'color': color.value,
+      'detailsColor': detailsColor!.value,
+      'seasonIcon':
+          seasonIcon != null ? seasonIcon!.codePoint : Icons.star.codePoint,
+      'brand': brand,
+      'size': size,
+      'category': category,
+      'type': type,
+      'notes': notes,
+      'isFavorite': isFavorite,
+      'dateAdded': Timestamp.fromDate(dateAdded),
+      'dateUpdated': Timestamp.fromDate(dateUpdated),
+    };
+  }
+
+  factory ShoesModel.fromFirestore(String id, Map<String, dynamic> data) {
+    return ShoesModel(
+      id: id,
+      imageUrl: data['imageUrl'],
+      color: Color(data['color']),
+      detailsColor: Color(data['detailsColor']),
+      seasonIcon: data['seasonIcon'] != null
+          ? IconData(data['seasonIcon'], fontFamily: 'MaterialIcons')
+          : Icons.star,
+      brand: data['brand'],
+      size: data['size'],
+      category: data['category'],
+      type: data['type'],
+      notes: data['notes'],
+      isFavorite: data['isFavorite'],
+      dateAdded: (data['dateAdded'] as Timestamp).toDate(),
+      dateUpdated: (data['dateUpdated'] as Timestamp).toDate(),
+    );
+  }
 
   static Map<String, List<String>> categoryToTypes = {
     'Sneakers': ['Sport', 'Casual', 'Lifestyle', 'Running'],
@@ -34,68 +98,4 @@ class Shoes {
     'Ballets',
     'Other',
   ];
-
-  String? notes;
-  DateTime dateAdded;
-  DateTime dateUpdated;
-
-  Shoes({
-    this.id,
-    this.isFavorite = false,
-    required this.imageUrl,
-    required this.color,
-    this.seasonIcon,
-    required this.brand,
-    required this.size,
-    required this.category,
-    String? type,
-    this.notes,
-    DateTime? dateAdded,
-    DateTime? dateUpdated,
-  })  : type = type ?? _determineType(category),
-        dateAdded = dateAdded ?? DateTime.now(),
-        dateUpdated = dateUpdated ?? DateTime.now();
-
-  static String _determineType(String category) {
-    return categoryToTypes[category]?.first ?? 'Other';
-  }
-
-  // Convert Shoes object to Map
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'isFavorite': isFavorite,
-      'imageUrl': imageUrl,
-      'color': color.value,
-      'seasonIcon':
-          seasonIcon != null ? seasonIcon!.codePoint : Icons.star.codePoint,
-      'brand': brand,
-      'size': size,
-      'category': category,
-      'type': type,
-      'notes': notes,
-      'dateAdded': dateAdded,
-      'dateUpdated': dateUpdated,
-    };
-  }
-
-  // Create Shoes object from Map
-  factory Shoes.fromMap(Map<String, dynamic> map, String documentId) {
-    return Shoes(
-      id: documentId,
-      isFavorite: map['isFavorite'],
-      imageUrl: map['imageUrl'],
-      color: Color(map['color']),
-      seasonIcon: map['seasonIcon'] != null
-          ? IconData(map['seasonIcon'], fontFamily: 'MaterialIcons')
-          : Icons.star,
-      brand: map['brand'],
-      size: map['size'],
-      category: map['category'],
-      type: map['type'],
-      notes: map['notes'],
-      dateAdded: (map['dateAdded'] as Timestamp).toDate(),
-      dateUpdated: (map['dateUpdated'] as Timestamp).toDate(),
-    );
-  }
 }
