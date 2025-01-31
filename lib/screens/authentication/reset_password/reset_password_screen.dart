@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/generated/l10n.dart';
+import 'package:shox/screens/authentication/reset_password/reset_password_controller.dart';
+import 'package:shox/screens/authentication/reset_password/reset_password_form.dart';
+import 'package:shox/widgets/custom_button.dart';
+
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
+
+  @override
+  ResetPasswordScreenState createState() => ResetPasswordScreenState();
+}
+
+class ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final ResetPasswordController controller = Get.put(ResetPasswordController());
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(30.r),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildTopImage(),
+                SizedBox(height: 50.h),
+                _buildTextDescription(),
+                SizedBox(height: 50.h),
+                ResetPasswordForm(
+                    context: context,
+                    formKey: _formKey,
+                    emailController: controller.emailController),
+                SizedBox(height: 20.h),
+                _buildResetButton(controller),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          MingCuteIcons.mgc_large_arrow_left_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      title: Text(
+        S.current.reset_password_screen_title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CustomFont',
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
+  Widget _buildTopImage() {
+    return Image.asset(
+      'assets/images/app_logo.png',
+      width: 160.w,
+      height: 160.h,
+    );
+  }
+
+  Widget _buildTextDescription() {
+    return Text(
+      S.current.reset_password_screen_description,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.tertiary,
+        fontSize: 24.sp,
+        fontFamily: 'CustomFont',
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _buildResetButton(ResetPasswordController controller) {
+    return CustomButton(
+      title: S.current.reset_password_screen_text,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      textColor: Theme.of(context).colorScheme.primary,
+      onPressed: () => controller.resetPassword(context, _formKey),
+    );
+  }
+}
