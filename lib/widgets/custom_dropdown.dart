@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
 
 class CustomDropdown<T> extends StatelessWidget {
@@ -26,6 +27,10 @@ class CustomDropdown<T> extends StatelessWidget {
       onChanged: onChanged,
       autovalidateMode: autovalidateMode,
       items: items,
+      icon: Icon(
+        MingCuteIcons.mgc_down_line,
+        color: Theme.of(context).colorScheme.tertiary,
+      ),
       dropdownColor: Theme.of(context).colorScheme.primary,
       decoration: InputDecoration(
         labelText: label,

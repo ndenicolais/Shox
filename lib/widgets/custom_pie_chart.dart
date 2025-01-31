@@ -44,20 +44,20 @@ class CustomPieChartWidget<T> extends StatelessWidget {
 
     return Column(
       children: [
-        20.verticalSpace,
+        SizedBox(height: 20.h),
         Text(
           title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontFamily: 'CustomFont',
-            fontSize: 24.r,
+            fontSize: 24.sp,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
         ),
         SizedBox(
-          height: 400.r,
-          width: 350.r,
+          width: 350.w,
+          height: 400.h,
           child: SfCircularChart(
             legend: Legend(
               isVisible: true,
@@ -66,7 +66,7 @@ class CustomPieChartWidget<T> extends StatelessWidget {
               textStyle: TextStyle(
                 color: Theme.of(context).colorScheme.tertiary,
                 fontFamily: 'CustomFont',
-                fontSize: 14.r,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
               overflowMode: LegendItemOverflowMode.wrap,
@@ -96,7 +96,7 @@ class CustomPieChartWidget<T> extends StatelessWidget {
                   textStyle: TextStyle(
                     color: Theme.of(context).colorScheme.tertiary,
                     fontFamily: 'CustomFont',
-                    fontSize: 12.r,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   connectorLineSettings: const ConnectorLineSettings(

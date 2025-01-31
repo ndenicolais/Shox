@@ -12,17 +12,17 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns the total count of shoes in the list.
   Future<int> getTotalShoesCount() async {
-    List<Shoes> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await _shoesService.getShoes();
     return shoesList.length;
   }
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each color.
   Future<Map<String, int>> getShoesCountByColor() async {
-    List<Shoes> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> colorCounts = {};
 
-    for (var shoes in shoesList) {
-      String colorHex = shoes.color.value.toRadixString(16);
+    for (var shoe in shoesList) {
+      String colorHex = shoe.color.value.toRadixString(16);
       if (colorCounts.containsKey(colorHex)) {
         colorCounts[colorHex] = colorCounts[colorHex]! + 1;
       } else {
@@ -35,14 +35,14 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each brand.
   Future<Map<String, int>> getShoesCountByBrand() async {
-    List<Shoes> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> brandCounts = {};
 
-    for (var shoes in shoesList) {
-      if (brandCounts.containsKey(shoes.brand)) {
-        brandCounts[shoes.brand] = brandCounts[shoes.brand]! + 1;
+    for (var shoe in shoesList) {
+      if (brandCounts.containsKey(shoe.brand)) {
+        brandCounts[shoe.brand] = brandCounts[shoe.brand]! + 1;
       } else {
-        brandCounts[shoes.brand] = 1;
+        brandCounts[shoe.brand] = 1;
       }
     }
 
@@ -51,14 +51,14 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each category.
   Future<Map<String, int>> getShoesCountByCategory() async {
-    List<Shoes> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> categoryCounts = {};
 
-    for (var shoes in shoesList) {
-      if (categoryCounts.containsKey(shoes.category)) {
-        categoryCounts[shoes.category] = categoryCounts[shoes.category]! + 1;
+    for (var shoe in shoesList) {
+      if (categoryCounts.containsKey(shoe.category)) {
+        categoryCounts[shoe.category] = categoryCounts[shoe.category]! + 1;
       } else {
-        categoryCounts[shoes.category] = 1;
+        categoryCounts[shoe.category] = 1;
       }
     }
 
@@ -67,14 +67,14 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each type.
   Future<Map<String, int>> getShoesCountByType() async {
-    List<Shoes> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> typeCounts = {};
 
-    for (var shoes in shoesList) {
-      if (typeCounts.containsKey(shoes.type)) {
-        typeCounts[shoes.type] = typeCounts[shoes.type]! + 1;
+    for (var shoe in shoesList) {
+      if (typeCounts.containsKey(shoe.type)) {
+        typeCounts[shoe.type] = typeCounts[shoe.type]! + 1;
       } else {
-        typeCounts[shoes.type] = 1;
+        typeCounts[shoe.type] = 1;
       }
     }
 

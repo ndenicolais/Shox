@@ -25,7 +25,7 @@ class PdfService {
     try {
       // Request write permission on Android
       if (await Permission.manageExternalStorage.request().isGranted) {
-        List<Shoes> shoesList = await _shoesService.getShoes();
+        List<ShoesModel> shoesList = await _shoesService.getShoes();
         int totalShoesCount = shoesList.length;
 
         final userData = await _databaseService.getCurrentUserData();
@@ -41,8 +41,6 @@ class PdfService {
         shoesList.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
 
         final pdf = pw.Document();
-
-        // Upload your own fonts
         final customFont = await rootBundle.load("assets/fonts/Montserrat.ttf");
         final pw.Font ttf = pw.Font.ttf(customFont.buffer.asByteData());
         final customFontBold =
@@ -59,8 +57,8 @@ class PdfService {
         pdf.addPage(_buildUserPage(logoImage, userData, creationDateString,
             totalShoesCount, ttf, ttfBold));
 
-        for (var shoes in shoesList) {
-          await _addShoesPage(pdf, shoes, logoImage, ttf, ttfBold);
+        for (var shoe in shoesList) {
+          await _addShoesPage(pdf, shoe, logoImage, ttf, ttfBold);
         }
 
         // Save PDF
@@ -104,7 +102,7 @@ class PdfService {
     );
   }
 
-  Future<void> _addShoesPage(pw.Document pdf, Shoes shoes,
+  Future<void> _addShoesPage(pw.Document pdf, ShoesModel shoes,
       pw.MemoryImage logoImage, pw.Font ttf, pw.Font ttfBold) async {
     final imageBytes = await fetchImage(shoes.imageUrl);
     final image = img.decodeImage(imageBytes)!;
@@ -155,6 +153,8 @@ class PdfService {
       children: [
         pw.Text(S.current.field_date, style: _headerTextStyle(ttfBold)),
         pw.Text(S.current.field_color, style: _headerTextStyle(ttfBold)),
+        pw.Text(S.current.field_details_color,
+            style: _headerTextStyle(ttfBold)),
         pw.Text(S.current.field_brand, style: _headerTextStyle(ttfBold)),
         pw.Text(S.current.field_size, style: _headerTextStyle(ttfBold)),
         pw.Text(S.current.field_category, style: _headerTextStyle(ttfBold)),
@@ -164,12 +164,14 @@ class PdfService {
   }
 
   pw.Column _buildShoesDetailsValues(
-      Shoes shoes, String formattedDate, pw.Font ttf) {
+      ShoesModel shoes, String formattedDate, pw.Font ttf) {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text(formattedDate, style: _bodyTextStyle(ttf)),
         pw.Text(DbLocalizedValues.getColorName(shoes.color),
+            style: _bodyTextStyle(ttf)),
+        pw.Text(DbLocalizedValues.getColorName(shoes.detailsColor!),
             style: _bodyTextStyle(ttf)),
         pw.Text(shoes.brand, style: _bodyTextStyle(ttf)),
         pw.Text(shoes.size, style: _bodyTextStyle(ttf)),
@@ -181,7 +183,7 @@ class PdfService {
     );
   }
 
-  pw.Column _buildShoesNotes(Shoes shoes, pw.Font ttfBold, pw.Font ttf) {
+  pw.Column _buildShoesNotes(ShoesModel shoes, pw.Font ttfBold, pw.Font ttf) {
     return pw.Column(
       children: [
         pw.Padding(

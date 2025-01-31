@@ -20,8 +20,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 280.r,
-      height: 60.r,
+      width: 280.w,
+      height: 60.h,
       child: MaterialButton(
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
             title,
             style: TextStyle(
               color: textColor,
-              fontSize: 24.r,
+              fontSize: 24.sp,
               fontFamily: 'CustomFont',
             ),
           ),
