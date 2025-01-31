@@ -2,37 +2,56 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
 
-void showCustomToastBar(
-  BuildContext context, {
-  DelightSnackbarPosition position = DelightSnackbarPosition.bottom,
-  required Color color,
-  required Icon icon,
+// Function to show custom toast
+void showCustomToastBar({
+  required BuildContext context,
   required String title,
+  Color? titleColor,
+  Color? backgroundColor,
+  required IconData icon,
+  Color? iconColor,
 }) {
-  Icon defaultIcon = Icon(
-    icon.icon,
-    color: AppColors.white,
-    size: 28.r,
-  );
-
   DelightToastBar(
-    position: position,
+    position: DelightSnackbarPosition.bottom,
     snackbarDuration: const Duration(milliseconds: 1500),
     builder: (context) => ToastCard(
-      color: color,
-      leading: defaultIcon,
+      color: backgroundColor,
+      leading: Icon(icon, color: iconColor),
       title: Text(
         title,
         style: TextStyle(
-          color: AppColors.white,
-          fontSize: 16.r,
+          color: titleColor,
           fontFamily: 'CustomFont',
         ),
       ),
     ),
     autoDismiss: true,
   ).show(context);
+}
+
+// Function to show success custom toast
+void showSuccessToast(BuildContext context, String title) {
+  showCustomToastBar(
+    context: context,
+    title: title,
+    titleColor: AppColors.toastLightGreen,
+    icon: MingCuteIcons.mgc_check_fill,
+    iconColor: AppColors.toastLightGreen,
+    backgroundColor: AppColors.toastDarkGreen,
+  );
+}
+
+// Function to show error custom toast
+void showErrorToast(BuildContext context, String title) {
+  showCustomToastBar(
+    context: context,
+    title: title,
+    titleColor: AppColors.toastLightRed,
+    icon: MingCuteIcons.mgc_warning_line,
+    iconColor: AppColors.toastLightRed,
+    backgroundColor: AppColors.toastDarkRed,
+  );
 }
