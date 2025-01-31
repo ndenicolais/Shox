@@ -4,21 +4,51 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
-import 'package:shox/pages/welcome_page.dart';
+import 'package:shox/screens/welcome_screen.dart';
 import 'package:shox/services/auth_service.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/widgets/custom_delete_dialog.dart';
+import 'package:shox/widgets/custom_toast_bar.dart';
 
-class DeletePage extends StatefulWidget {
-  const DeletePage({super.key});
+class DeleteAccountScreen extends StatefulWidget {
+  const DeleteAccountScreen({super.key});
 
   @override
-  DeletePageState createState() => DeletePageState();
+  DeleteAccountScreenState createState() => DeleteAccountScreenState();
 }
 
-class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
+class DeleteAccountScreenState extends State<DeleteAccountScreen>
+    with TickerProviderStateMixin {
   final AuthService _authService = AuthService();
   late AnimationController _loadingController;
   bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(30.r),
+            child: Center(
+              child: Column(
+                children: [
+                  _buildTopImage(),
+                  SizedBox(height: 40.h),
+                  _buildBodyText(context),
+                  SizedBox(height: 40.h),
+                  _buildDeleteButton(context),
+                ],
+              ),
+            ),
+          ),
+          if (_isLoading) _buildDeleteLoading(context)
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -48,14 +78,18 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
 
         if (!mounted) return;
 
-        await _authService.deleteUserAccount(context);
+        await _authService.deleteAccount();
 
         setState(() {
           _isLoading = false;
         });
 
         if (mounted) {
-          Get.to(() => const WelcomePage(),
+          showSuccessToast(
+            context,
+            S.current.toast_delete_success,
+          );
+          Get.to(() => const WelcomeScreen(),
               transition: Transition.fade,
               duration: const Duration(milliseconds: 500));
         }
@@ -66,90 +100,20 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
   Future<bool> _showDeleteDialog(BuildContext context) async {
     return await showDialog<bool>(
           context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            title: Text(
-              S.current.delete_d_title,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontSize: 20.r,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'CustomFontBold',
-              ),
-            ),
-            content: Text(
-              S.current.delete_d_description,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontSize: 18.r,
-                fontFamily: 'CustomFont',
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Get.back(result: false),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    AppColors.errorColor,
-                  ),
-                ),
-                child: Text(
-                  S.current.delete_d_cancel,
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16.r,
-                    fontFamily: 'CustomFont',
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Get.back(result: true),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    AppColors.confirmColor,
-                  ),
-                ),
-                child: Text(
-                  S.current.delete_d_confirm,
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16.r,
-                    fontFamily: 'CustomFont',
-                  ),
-                ),
-              ),
-            ],
-          ),
+          builder: (BuildContext context) {
+            return CustomDeleteDialog(
+              title: S.current.delete_d_title,
+              content: S.current.delete_d_description,
+              onCancelPressed: () {
+                Get.back(result: false);
+              },
+              onConfirmPressed: () {
+                Get.back(result: true);
+              },
+            );
+          },
         ) ??
         false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 30.r, horizontal: 30.r),
-            child: Center(
-              child: Column(
-                children: [
-                  _buildTopImage(),
-                  40.verticalSpace,
-                  _buildBodyText(context),
-                  40.verticalSpace,
-                  _buildDeleteButton(context),
-                ],
-              ),
-            ),
-          ),
-          if (_isLoading) _buildDeleteLoading(context)
-        ],
-      ),
-    );
   }
 
   AppBar _buildAppBar(BuildContext context) {
@@ -180,8 +144,8 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
   Widget _buildTopImage() {
     return Image.asset(
       'assets/images/img_user_delete.png',
-      width: 120.r,
-      height: 120.r,
+      width: 120.w,
+      height: 120.h,
     );
   }
 
@@ -190,7 +154,7 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
       S.current.delete_description,
       style: TextStyle(
         color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 20.r,
+        fontSize: 20.sp,
         fontFamily: 'CustomFont',
       ),
       textAlign: TextAlign.center,
@@ -199,15 +163,15 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
 
   Widget _buildDeleteButton(BuildContext context) {
     return SizedBox(
-      width: 70.r,
-      height: 70.r,
+      width: 70.w,
+      height: 70.h,
       child: FloatingActionButton(
         onPressed: _deleteAccount,
         backgroundColor: AppColors.errorColor,
         shape: const CircleBorder(),
         child: Icon(
           MingCuteIcons.mgc_delete_2_fill,
-          size: 32.r,
+          size: 32.sp,
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
@@ -216,7 +180,7 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
 
   Widget _buildDeleteLoading(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
+      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.7),
       child: Center(
         child: ScaleTransition(
           scale: Tween<double>(begin: 0.5, end: 1.5).animate(
@@ -227,7 +191,7 @@ class DeletePageState extends State<DeletePage> with TickerProviderStateMixin {
           ),
           child: Icon(
             MingCuteIcons.mgc_eraser_fill,
-            size: 50.r,
+            size: 50.sp,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
