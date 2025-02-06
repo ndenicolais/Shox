@@ -252,7 +252,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Errore dureante il salvataggio"),
         "shoes_adder_screen_toast_error_brand":
             MessageLookupByLibrary.simpleMessage("Non hai inserito il brand"),
-        "shoes_adder_screen_toast_error_categort":
+        "shoes_adder_screen_toast_error_category":
             MessageLookupByLibrary.simpleMessage(
                 "Non hai selezionato una categoria"),
         "shoes_adder_screen_toast_error_size":
@@ -276,6 +276,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ritaglia Immagine"),
         "shoes_updater_screen_title":
             MessageLookupByLibrary.simpleMessage("Aggiorna Scarpe"),
+        "shoes_updater_screen_toast_error_brand":
+            MessageLookupByLibrary.simpleMessage("Non hai inserito il brand"),
+        "shoes_updater_screen_toast_error_size":
+            MessageLookupByLibrary.simpleMessage("Non hai inserito la taglia"),
         "shoes_updater_screen_toast_success":
             MessageLookupByLibrary.simpleMessage(
                 "Scarpe modificate con successo!"),

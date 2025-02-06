@@ -245,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error during saving"),
         "shoes_adder_screen_toast_error_brand":
             MessageLookupByLibrary.simpleMessage("You did not enter the brand"),
-        "shoes_adder_screen_toast_error_categort":
+        "shoes_adder_screen_toast_error_category":
             MessageLookupByLibrary.simpleMessage(
                 "You did not select a category"),
         "shoes_adder_screen_toast_error_size":
@@ -268,6 +268,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Crop Image"),
         "shoes_updater_screen_title":
             MessageLookupByLibrary.simpleMessage("Update Shoes"),
+        "shoes_updater_screen_toast_error_brand":
+            MessageLookupByLibrary.simpleMessage("You did not enter the brand"),
+        "shoes_updater_screen_toast_error_size":
+            MessageLookupByLibrary.simpleMessage("You did not enter the size"),
         "shoes_updater_screen_toast_success":
             MessageLookupByLibrary.simpleMessage("Shoes updated successfully!"),
         "signup_screen_account":

@@ -120,13 +120,15 @@
   "shoes_adder_screen_crop_image_title": "Ritaglia Immagine",
   "shoes_adder_screen_toast_error_brand": "Non hai inserito il brand",
   "shoes_adder_screen_toast_error_size": "Non hai inserito la taglia",
-  "shoes_adder_screen_toast_error_categort": "Non hai selezionato una categoria",
+  "shoes_adder_screen_toast_error_category": "Non hai selezionato una categoria",
   "shoes_adder_screen_toast_error_type": "Non hai selezionato un tipo",
   "shoes_adder_screen_toast_success": "Scarpe aggiunte con successo!",
   "shoes_adder_screen_toast_error": "Errore dureante il salvataggio",
 
   "shoes_updater_screen_title": "Aggiorna Scarpe",
   "shoes_updater_screen_crop_image_title": "Ritaglia Immagine",
+  "shoes_updater_screen_toast_error_brand": "Non hai inserito il brand",
+  "shoes_updater_screen_toast_error_size": "Non hai inserito la taglia",
   "shoes_updater_screen_toast_success": "Scarpe modificate con successo!",
 
   "shoes_details_screen_title": "Dettagli Scarpe",

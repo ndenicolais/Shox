@@ -251,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shoes_adder_screen_toast_error_brand":
             MessageLookupByLibrary.simpleMessage(
                 "Sie haben die Marke nicht eingegeben"),
-        "shoes_adder_screen_toast_error_categort":
+        "shoes_adder_screen_toast_error_category":
             MessageLookupByLibrary.simpleMessage(
                 "Sie haben keine Kategorie ausgewählt"),
         "shoes_adder_screen_toast_error_size":
@@ -277,6 +277,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bild zuschneiden"),
         "shoes_updater_screen_title":
             MessageLookupByLibrary.simpleMessage("Schuhe aktualisieren"),
+        "shoes_updater_screen_toast_error_brand":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben die Marke nicht eingegeben"),
+        "shoes_updater_screen_toast_error_size":
+            MessageLookupByLibrary.simpleMessage(
+                "Sie haben die Größe nicht eingegeben"),
         "shoes_updater_screen_toast_success":
             MessageLookupByLibrary.simpleMessage(
                 "Schuhe erfolgreich geändert!"),

@@ -1081,10 +1081,10 @@ class S {
   }
 
   /// `You did not select a category`
-  String get shoes_adder_screen_toast_error_categort {
+  String get shoes_adder_screen_toast_error_category {
     return Intl.message(
       'You did not select a category',
-      name: 'shoes_adder_screen_toast_error_categort',
+      name: 'shoes_adder_screen_toast_error_category',
       desc: '',
       args: [],
     );
@@ -1135,6 +1135,26 @@ class S {
     return Intl.message(
       'Crop Image',
       name: 'shoes_updater_screen_crop_image_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not enter the brand`
+  String get shoes_updater_screen_toast_error_brand {
+    return Intl.message(
+      'You did not enter the brand',
+      name: 'shoes_updater_screen_toast_error_brand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You did not enter the size`
+  String get shoes_updater_screen_toast_error_size {
+    return Intl.message(
+      'You did not enter the size',
+      name: 'shoes_updater_screen_toast_error_size',
       desc: '',
       args: [],
     );

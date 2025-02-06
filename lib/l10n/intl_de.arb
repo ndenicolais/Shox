@@ -119,13 +119,15 @@
   "shoes_adder_screen_crop_image_title": "Bild zuschneiden",
   "shoes_adder_screen_toast_error_brand": "Sie haben die Marke nicht eingegeben",
   "shoes_adder_screen_toast_error_size": "Sie haben die Größe nicht eingegeben",
-  "shoes_adder_screen_toast_error_categort": "Sie haben keine Kategorie ausgewählt",
+  "shoes_adder_screen_toast_error_category": "Sie haben keine Kategorie ausgewählt",
   "shoes_adder_screen_toast_error_type": "Sie haben keinen Typ ausgewählt",
   "shoes_adder_screen_toast_success": "Schuhe erfolgreich hinzugefügt!",
   "shoes_adder_screen_toast_error": "Fehler beim Speichern",
 
   "shoes_updater_screen_title": "Schuhe aktualisieren",
   "shoes_updater_screen_crop_image_title": "Bild zuschneiden",
+  "shoes_updater_screen_toast_error_brand": "Sie haben die Marke nicht eingegeben",
+  "shoes_updater_screen_toast_error_size": "Sie haben die Größe nicht eingegeben",
   "shoes_updater_screen_toast_success": "Schuhe erfolgreich geändert!",
 
   "shoes_details_screen_title": "Schuhdetails",

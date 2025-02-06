@@ -254,7 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error al guardar"),
         "shoes_adder_screen_toast_error_brand":
             MessageLookupByLibrary.simpleMessage("No has ingresado la marca"),
-        "shoes_adder_screen_toast_error_categort":
+        "shoes_adder_screen_toast_error_category":
             MessageLookupByLibrary.simpleMessage(
                 "No has seleccionado una categoría"),
         "shoes_adder_screen_toast_error_size":
@@ -278,6 +278,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Recortar Imagen"),
         "shoes_updater_screen_title":
             MessageLookupByLibrary.simpleMessage("Actualizar Zapatos"),
+        "shoes_updater_screen_toast_error_brand":
+            MessageLookupByLibrary.simpleMessage("No has ingresado la marca"),
+        "shoes_updater_screen_toast_error_size":
+            MessageLookupByLibrary.simpleMessage("No has ingresado la talla"),
         "shoes_updater_screen_toast_success":
             MessageLookupByLibrary.simpleMessage(
                 "¡Zapatos modificados con éxito!"),

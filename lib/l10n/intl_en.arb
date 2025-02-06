@@ -120,13 +120,15 @@
   "shoes_adder_screen_crop_image_title": "Crop Image",
   "shoes_adder_screen_toast_error_brand": "You did not enter the brand",
   "shoes_adder_screen_toast_error_size": "You did not enter the size",
-  "shoes_adder_screen_toast_error_categort": "You did not select a category",
+  "shoes_adder_screen_toast_error_category": "You did not select a category",
   "shoes_adder_screen_toast_error_type": "You did not select a type",
   "shoes_adder_screen_toast_success": "Shoes added successfully!",
   "shoes_adder_screen_toast_error": "Error during saving",
 
   "shoes_updater_screen_title": "Update Shoes",
   "shoes_updater_screen_crop_image_title": "Crop Image",
+  "shoes_updater_screen_toast_error_brand": "You did not enter the brand",
+  "shoes_updater_screen_toast_error_size": "You did not enter the size",
   "shoes_updater_screen_toast_success": "Shoes updated successfully!",
 
   "shoes_details_screen_title": "Shoes Details",

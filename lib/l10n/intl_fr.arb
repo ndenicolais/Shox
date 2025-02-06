@@ -120,13 +120,15 @@
   "shoes_adder_screen_crop_image_title": "Recadrer l'image",
   "shoes_adder_screen_toast_error_brand": "Vous n'avez pas saisi la marque",
   "shoes_adder_screen_toast_error_size": "Vous n'avez pas saisi la taille",
-  "shoes_adder_screen_toast_error_categort": "Vous n'avez pas sélectionné de catégorie",
+  "shoes_adder_screen_toast_error_category": "Vous n'avez pas sélectionné de catégorie",
   "shoes_adder_screen_toast_error_type": "Vous n'avez pas sélectionné de type",
   "shoes_adder_screen_toast_success": "Chaussures ajoutées avec succès!",
   "shoes_adder_screen_toast_error": "Erreur lors de l'enregistrement",
 
   "shoes_updater_screen_title": "Mettre à jour les Chaussures",
   "shoes_updater_screen_crop_image_title": "Recadrer l'image",
+  "shoes_updater_screen_toast_error_brand": "Vous n'avez pas saisi la marque",
+  "shoes_updater_screen_toast_error_size": "Vous n'avez pas saisi la taille",
   "shoes_updater_screen_toast_success": "Chaussures modifiées avec succès!",
 
   "shoes_details_screen_title": "Détails des Chaussures",
