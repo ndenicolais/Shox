@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,6 +33,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   final Logger _logger = Logger();
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesService _shoesService = ShoesService();
+  final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   String? _existingImageUrl;
   String? _removedExistingImages;
@@ -52,34 +54,37 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.r),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildImageSelector(context),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildColorSelector(context),
-                    _buildDetailsColorSelector(context),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                _buildSeasonSelector(context),
-                SizedBox(height: 20.h),
-                _buildBrandTextField(),
-                _buildSizeTextField(),
-                _buildCategoryDropdown(),
-                _buildTypeDropdown(),
-                _buildNotesTextField(),
-                SizedBox(height: 20.h),
-                _buildSaveButton(),
-              ],
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.r),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildImageSelector(context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildColorSelector(context),
+                      _buildDetailsColorSelector(context),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  _buildSeasonSelector(context),
+                  SizedBox(height: 20.h),
+                  _buildBrandTextField(context),
+                  _buildSizeTextField(context),
+                  _buildCategoryDropdown(context),
+                  _buildTypeDropdown(context),
+                  _buildNotesTextField(context),
+                  SizedBox(height: 20.h),
+                  _buildSaveButton(context),
+                ],
+              ),
             ),
           ),
         ),
@@ -172,58 +177,66 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     });
   }
 
-  void _updateShoes() async {
-    if (_newImage != null) {
-      final path = await _shoesService.addShoeImageSupabase(
-          currentUser!.uid, widget.shoes.id!, _newImage!);
-      final fileName = path.split('/').last;
-      _existingImageUrl = _shoesService.getShoeImageUrlSupabase(
-          currentUser!.uid, widget.shoes.id!, fileName);
+  void _removeNewImage() {
+    setState(() {
+      _newImage = null;
+    });
+  }
 
-      if (_removedExistingImages != null) {
-        final existingFileName = _removedExistingImages!.split('/').last;
-        try {
-          await _shoesService.deleteShoeImageSupabase(
-              currentUser!.uid, widget.shoes.id!, existingFileName);
-          _logger.i("Deleted existing image: $existingFileName");
-        } catch (e) {
-          _logger.e(
-              "Failed to delete existing image: $existingFileName, error: $e");
+  void _updateShoes() async {
+    if (_formKey.currentState!.validate()) {
+      if (_newImage != null) {
+        final path = await _shoesService.addShoeImageSupabase(
+            currentUser!.uid, widget.shoes.id!, _newImage!);
+        final fileName = path.split('/').last;
+        _existingImageUrl = _shoesService.getShoeImageUrlSupabase(
+            currentUser!.uid, widget.shoes.id!, fileName);
+
+        if (_removedExistingImages != null) {
+          final existingFileName = _removedExistingImages!.split('/').last;
+          try {
+            await _shoesService.deleteShoeImageSupabase(
+                currentUser!.uid, widget.shoes.id!, existingFileName);
+            _logger.i("Deleted existing image: $existingFileName");
+          } catch (e) {
+            _logger.e(
+                "Failed to delete existing image: $existingFileName, error: $e");
+          }
         }
       }
-    }
 
-    final updateShoe = ShoesModel(
-      id: widget.shoes.id,
-      imageUrl: _existingImageUrl!,
-      color: _color,
-      detailsColor: _detailsColor,
-      seasonIcon: _seasonIcon,
-      brand: _brandController.text.trim(),
-      size: _sizeController.text,
-      category: _categoryController.text,
-      type: _typeController.text,
-      notes: _notesController.text,
-      dateAdded: widget.shoes.dateAdded,
-      dateUpdated: DateTime.now(),
-    );
-
-    await _shoesService.updateShoes(updateShoe);
-
-    if (mounted) {
-      showSuccessToast(
-        context,
-        S.current.shoes_updater_screen_toast_success,
+      final updateShoe = ShoesModel(
+        id: widget.shoes.id,
+        imageUrl: _existingImageUrl!,
+        color: _color,
+        detailsColor: _detailsColor,
+        seasonIcon: _seasonIcon,
+        brand: _brandController.text.trim(),
+        size: _sizeController.text,
+        category: _categoryController.text,
+        type: _typeController.text,
+        notes: _notesController.text,
+        dateAdded: widget.shoes.dateAdded,
+        dateUpdated: DateTime.now(),
       );
-      Get.off(
-        () => const HomeScreen(),
-        transition: Transition.fade,
-        duration: const Duration(milliseconds: 500),
-      );
+
+      await _shoesService.updateShoes(updateShoe);
+
+      if (mounted) {
+        showSuccessToast(
+          context,
+          S.current.shoes_updater_screen_toast_success,
+        );
+        Get.off(
+          () => const HomeScreen(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
     }
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
         icon: Icon(
@@ -283,123 +296,98 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   }
 
   Widget _buildImageSelector(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _showImageSelector(context);
-      },
-      child: Column(
-        children: [
-          if (_newImage == null &&
-              (_existingImageUrl == null || _existingImageUrl!.isEmpty))
-            Stack(
-              children: [
-                CircleAvatar(
-                  radius: 80.r,
-                  backgroundColor: Theme.of(context)
-                      .colorScheme
-                      .secondary
-                      .withValues(alpha: 0.2),
-                  child: Icon(
-                    MingCuteIcons.mgc_pic_fill,
-                    color: Theme.of(context).colorScheme.tertiary,
-                    size: 100.sp,
-                  ),
-                ),
-                Positioned(
-                  top: 0.r,
-                  right: 0.r,
-                  child: CircleAvatar(
-                    radius: 25.r,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    child: Icon(
-                      MingCuteIcons.mgc_add_fill,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 30.sp,
-                    ),
-                  ),
-                ),
-              ],
+    return Column(
+      children: [
+        if (_newImage == null &&
+            (_existingImageUrl == null || _existingImageUrl!.isEmpty))
+          CircleAvatar(
+            radius: 80.r,
+            backgroundColor:
+                Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
+            child: IconButton(
+              icon: Icon(
+                MingCuteIcons.mgc_pic_fill,
+                color: Theme.of(context).colorScheme.tertiary,
+                size: 100.sp,
+              ),
+              onPressed: () {
+                _showImageSelector(context);
+              },
             ),
-          if (_newImage != null)
-            Stack(
-              children: [
-                Card(
-                  color: Theme.of(context).colorScheme.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.r),
-                  ),
-                  elevation: 0,
-                  clipBehavior: Clip.antiAlias,
-                  child: GestureDetector(
-                    onTap: () => _showImageSelector(context),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                      child: Image.file(
-                        File(_newImage!.path),
-                        width: 200.w,
-                        height: 200.h,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+          ),
+        if (_newImage != null)
+          Stack(
+            children: [
+              Card(
+                color: Theme.of(context).colorScheme.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                elevation: 0,
+                clipBehavior: Clip.antiAlias,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                  child: Image.file(
+                    File(_newImage!.path),
+                    width: 200.w,
+                    height: 200.h,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  top: -4,
-                  right: -4,
-                  child: IconButton(
-                    icon: Icon(
-                      MingCuteIcons.mgc_fault_fill,
-                      size: 30.sp,
-                      color: AppColors.errorColor,
-                    ),
-                    onPressed: () {
-                      _removeExistingImage();
-                    },
+              ),
+              Positioned(
+                top: -4,
+                right: -4,
+                child: IconButton(
+                  icon: Icon(
+                    MingCuteIcons.mgc_close_fill,
+                    size: 30.sp,
+                    color: AppColors.errorColor,
+                  ),
+                  onPressed: () {
+                    _removeNewImage();
+                  },
+                ),
+              ),
+            ],
+          ),
+        if (_existingImageUrl != null && _existingImageUrl!.isNotEmpty)
+          Stack(
+            children: [
+              Card(
+                color: Theme.of(context).colorScheme.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                elevation: 0,
+                clipBehavior: Clip.antiAlias,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                  child: CachedNetworkImage(
+                    imageUrl: _existingImageUrl!,
+                    width: 200.w,
+                    height: 200.h,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ],
-            ),
-          if (_existingImageUrl != null && _existingImageUrl!.isNotEmpty)
-            Stack(
-              children: [
-                Card(
-                  color: Theme.of(context).colorScheme.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.r),
+              ),
+              Positioned(
+                top: -4,
+                right: -4,
+                child: IconButton(
+                  icon: Icon(
+                    MingCuteIcons.mgc_close_fill,
+                    size: 30.sp,
+                    color: AppColors.errorColor,
                   ),
-                  elevation: 0,
-                  clipBehavior: Clip.antiAlias,
-                  child: GestureDetector(
-                    onTap: () => _showImageSelector(context),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                      child: Image.network(
-                        _existingImageUrl!,
-                        width: 200.w,
-                        height: 200.h,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
+                  onPressed: () {
+                    _removeExistingImage();
+                  },
                 ),
-                Positioned(
-                  top: -4,
-                  right: -4,
-                  child: IconButton(
-                    icon: Icon(
-                      MingCuteIcons.mgc_fault_fill,
-                      size: 30.sp,
-                      color: AppColors.errorColor,
-                    ),
-                    onPressed: () {
-                      _removeExistingImage();
-                    },
-                  ),
-                ),
-              ],
-            )
-        ],
-      ),
+              ),
+            ],
+          )
+      ],
     );
   }
 
@@ -694,28 +682,31 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     );
   }
 
-  Widget _buildBrandTextField() {
+  Widget _buildBrandTextField(BuildContext context) {
     return ShoesTextField(
       controller: _brandController,
       labelText: S.current.field_brand,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       textCapitalization: TextCapitalization.sentences,
-      validator: (val) => null,
+      validator: (val) => val!.isEmpty
+          ? S.current.shoes_updater_screen_toast_error_brand
+          : null,
     );
   }
 
-  Widget _buildSizeTextField() {
+  Widget _buildSizeTextField(BuildContext context) {
     return ShoesTextField(
       controller: _sizeController,
       labelText: S.current.field_size,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      validator: (val) => null,
+      validator: (val) =>
+          val!.isEmpty ? S.current.shoes_updater_screen_toast_error_size : null,
     );
   }
 
-  Widget _buildCategoryDropdown() {
+  Widget _buildCategoryDropdown(BuildContext context) {
     return CustomDropdown<String>(
       label: S.current.field_category,
       value:
@@ -750,7 +741,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     );
   }
 
-  Widget _buildTypeDropdown() {
+  Widget _buildTypeDropdown(BuildContext context) {
     return CustomDropdown<String>(
       label: S.current.field_type,
       value: _typeController.text.isNotEmpty ? _typeController.text : null,
@@ -784,25 +775,25 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     );
   }
 
-  Widget _buildNotesTextField() {
+  Widget _buildNotesTextField(BuildContext context) {
     return ShoesTextField(
       controller: _notesController,
       labelText: S.current.field_notes,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       textCapitalization: TextCapitalization.sentences,
-      maxLength: 80,
+      maxLength: 160,
       validator: (val) => null,
     );
   }
 
-  Widget _buildSaveButton() {
+  Widget _buildSaveButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: _updateShoes,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       shape: const CircleBorder(),
       child: const Icon(
-        MingCuteIcons.mgc_check_2_fill,
+        MingCuteIcons.mgc_check_fill,
       ),
     );
   }

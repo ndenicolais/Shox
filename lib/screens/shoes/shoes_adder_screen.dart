@@ -31,6 +31,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
   final Logger _logger = Logger();
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesService _shoesService = ShoesService();
+  final _formKey = GlobalKey<FormState>();
   // final ApiClient _apiClient = ApiClient();
   File? _imageFile;
   final ImagePicker _picker = ImagePicker();
@@ -52,34 +53,37 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.r),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildImageSelector(context),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildColorSelector(context),
-                    _buildDetailsColorSelector(context),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                _buildSeasonSelector(context),
-                SizedBox(height: 20.h),
-                _buildBrandTextField(),
-                _buildSizeTextField(),
-                _buildCategoryDropdown(),
-                _buildTypeDropdown(),
-                _buildNotesTextField(),
-                SizedBox(height: 20.h),
-                _buildSaveButton(),
-              ],
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.r),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildImageSelector(context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildColorSelector(context),
+                      _buildDetailsColorSelector(context),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  _buildSeasonSelector(context),
+                  SizedBox(height: 20.h),
+                  _buildBrandTextField(context),
+                  _buildSizeTextField(context),
+                  _buildCategoryDropdown(context),
+                  _buildTypeDropdown(context),
+                  _buildNotesTextField(context),
+                  SizedBox(height: 20.h),
+                  _buildSaveButton(context),
+                ],
+              ),
             ),
           ),
         ),
@@ -157,95 +161,30 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
   // }
 
   void _saveShoes() async {
-    if (_brandController.text.trim().isEmpty) {
-      showErrorToast(
-        context,
-        S.current.shoes_adder_screen_toast_error_brand,
-      );
-      return;
-    }
-
-    if (_sizeController.text.trim().isEmpty) {
-      showErrorToast(
-        context,
-        S.current.shoes_adder_screen_toast_error_size,
-      );
-      return;
-    }
-
-    if (_categoryController.text.trim().isEmpty) {
-      showErrorToast(
-        context,
-        S.current.shoes_adder_screen_toast_error_categort,
-      );
-      return;
-    }
-
-    if (_typeController.text.trim().isEmpty) {
-      showErrorToast(
-        context,
-        S.current.shoes_adder_screen_toast_error_type,
-      );
-      return;
-    }
-
-    if (!_colorSelected) {
-      if (mounted) {
-        showErrorToast(
-          context,
-          S.current.field_insert_color,
-        );
+    if (_formKey.currentState!.validate()) {
+      if (!_colorSelected) {
+        if (mounted) {
+          showErrorToast(
+            context,
+            S.current.field_insert_color,
+          );
+        }
+        return;
       }
-      return;
-    }
 
-    if (_imageFile == null) {
-      if (mounted) {
-        showErrorToast(
-          context,
-          S.current.field_insert_image,
-        );
+      if (_imageFile == null) {
+        if (mounted) {
+          showErrorToast(
+            context,
+            S.current.field_insert_image,
+          );
+        }
+        return;
       }
-      return;
-    }
 
-    final newShoes = ShoesModel(
-      id: '',
-      imageUrl: _imageFile!.path,
-      color: _color,
-      detailsColor: _detailsColor,
-      seasonIcon: _seasonIcon,
-      brand: _brandController.text.trim(),
-      size: _sizeController.text,
-      category: selectedCategory,
-      type: selectedType,
-      notes: _notesController.text.isNotEmpty ? _notesController.text : null,
-    );
-
-    String shoesId;
-    try {
-      shoesId = await _shoesService.addShoes(newShoes);
-    } catch (e) {
-      if (mounted) {
-        showErrorToast(
-            context, '${S.current.shoes_adder_screen_toast_error}, $e');
-      }
-      return;
-    }
-
-    String? imageUrl;
-    if (_imageFile != null) {
-      final path = await _shoesService.addShoeImageSupabase(
-          currentUser!.uid, shoesId, _imageFile!);
-      final fileName = path.split('/').last;
-      imageUrl = _shoesService.getShoeImageUrlSupabase(
-          currentUser!.uid, shoesId, fileName);
-    }
-
-    if (imageUrl != null) {
-      final confirmShoes = ShoesModel(
-        id: shoesId,
-        imageUrl: imageUrl,
+      final newShoes = ShoesModel(
+        id: '',
+        imageUrl: _imageFile!.path,
         color: _color,
         detailsColor: _detailsColor,
         seasonIcon: _seasonIcon,
@@ -256,23 +195,59 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
         notes: _notesController.text.isNotEmpty ? _notesController.text : null,
       );
 
-      await _shoesService.confirmAddShoes(confirmShoes);
+      String shoesId;
+      try {
+        shoesId = await _shoesService.addShoes(newShoes);
+      } catch (e) {
+        if (mounted) {
+          showErrorToast(
+              context, '${S.current.shoes_adder_screen_toast_error}, $e');
+        }
+        return;
+      }
 
-      if (mounted) {
-        showSuccessToast(
-          context,
-          S.current.shoes_adder_screen_toast_success,
+      String? imageUrl;
+      if (_imageFile != null) {
+        final path = await _shoesService.addShoeImageSupabase(
+            currentUser!.uid, shoesId, _imageFile!);
+        final fileName = path.split('/').last;
+        imageUrl = _shoesService.getShoeImageUrlSupabase(
+            currentUser!.uid, shoesId, fileName);
+      }
+
+      if (imageUrl != null) {
+        final confirmShoes = ShoesModel(
+          id: shoesId,
+          imageUrl: imageUrl,
+          color: _color,
+          detailsColor: _detailsColor,
+          seasonIcon: _seasonIcon,
+          brand: _brandController.text.trim(),
+          size: _sizeController.text,
+          category: selectedCategory,
+          type: selectedType,
+          notes:
+              _notesController.text.isNotEmpty ? _notesController.text : null,
         );
-        Get.off(
-          () => const HomeScreen(),
-          transition: Transition.fade,
-          duration: const Duration(milliseconds: 500),
-        );
+
+        await _shoesService.confirmAddShoes(confirmShoes);
+
+        if (mounted) {
+          showSuccessToast(
+            context,
+            S.current.shoes_adder_screen_toast_success,
+          );
+          Get.off(
+            () => const HomeScreen(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 500),
+          );
+        }
       }
     }
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
         icon: Icon(
@@ -340,34 +315,17 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
         radius: 100.r,
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: _imageFile == null
-            ? Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 80.r,
-                    backgroundColor: Theme.of(context)
-                        .colorScheme
-                        .secondary
-                        .withValues(alpha: 0.2),
-                    child: Icon(
-                      MingCuteIcons.mgc_pic_fill,
-                      color: Theme.of(context).colorScheme.tertiary,
-                      size: 100.sp,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0.r,
-                    right: 0.r,
-                    child: CircleAvatar(
-                      radius: 25.r,
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      child: Icon(
-                        MingCuteIcons.mgc_add_fill,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 30.sp,
-                      ),
-                    ),
-                  ),
-                ],
+            ? CircleAvatar(
+                radius: 80.r,
+                backgroundColor: Theme.of(context)
+                    .colorScheme
+                    .secondary
+                    .withValues(alpha: 0.2),
+                child: Icon(
+                  MingCuteIcons.mgc_pic_fill,
+                  color: Theme.of(context).colorScheme.tertiary,
+                  size: 100.sp,
+                ),
               )
             : Stack(
                 children: [
@@ -704,28 +662,30 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
     );
   }
 
-  Widget _buildBrandTextField() {
+  Widget _buildBrandTextField(BuildContext context) {
     return ShoesTextField(
       controller: _brandController,
       labelText: S.current.field_brand,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       textCapitalization: TextCapitalization.sentences,
-      validator: (val) => null,
+      validator: (val) =>
+          val!.isEmpty ? S.current.shoes_adder_screen_toast_error_brand : null,
     );
   }
 
-  Widget _buildSizeTextField() {
+  Widget _buildSizeTextField(BuildContext context) {
     return ShoesTextField(
       controller: _sizeController,
       labelText: S.current.field_size,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      validator: (val) => null,
+      validator: (val) =>
+          val!.isEmpty ? S.current.shoes_adder_screen_toast_error_size : null,
     );
   }
 
-  Widget _buildCategoryDropdown() {
+  Widget _buildCategoryDropdown(BuildContext context) {
     return CustomDropdown<String>(
       label: S.current.field_category,
       value: selectedCategory.isNotEmpty ? selectedCategory : null,
@@ -752,14 +712,14 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return S.current.field_insert_category;
+          return S.current.shoes_adder_screen_toast_error_category;
         }
         return null;
       },
     );
   }
 
-  Widget _buildTypeDropdown() {
+  Widget _buildTypeDropdown(BuildContext context) {
     return CustomDropdown<String>(
       label: S.current.field_type,
       value: selectedType.isNotEmpty ? selectedType : null,
@@ -785,26 +745,26 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return S.current.field_insert_type;
+          return S.current.shoes_adder_screen_toast_error_type;
         }
         return null;
       },
     );
   }
 
-  Widget _buildNotesTextField() {
+  Widget _buildNotesTextField(BuildContext context) {
     return ShoesTextField(
       controller: _notesController,
       labelText: S.current.field_notes,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       textCapitalization: TextCapitalization.sentences,
-      maxLength: 80,
+      maxLength: 160,
       validator: (val) => null,
     );
   }
 
-  Widget _buildSaveButton() {
+  Widget _buildSaveButton(BuildContext context) {
     return FloatingActionButton(
       foregroundColor: Theme.of(context).colorScheme.primary,
       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -812,7 +772,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
       onPressed: _saveShoes,
       shape: const CircleBorder(),
       child: const Icon(
-        MingCuteIcons.mgc_check_2_fill,
+        MingCuteIcons.mgc_check_fill,
       ),
     );
   }

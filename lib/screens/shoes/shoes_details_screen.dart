@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     if (isShoesDeleted) {
-      return _buildLoadingIndicator();
+      return _buildLoadingIndicator(context);
     }
     return _buildShoesStream(context);
   }
@@ -47,7 +48,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       stream: _shoesService.getShoesStreamById(widget.shoesId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return _buildLoadingIndicator();
+          return _buildLoadingIndicator(context);
         }
 
         if (snapshot.hasError) {
@@ -69,7 +70,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context, ShoesModel shoe) {
+  AppBar _buildAppBar(BuildContext context, ShoesModel shoes) {
     return AppBar(
       leading: IconButton(
         icon: Icon(
@@ -92,12 +93,12 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       foregroundColor: Theme.of(context).colorScheme.secondary,
       actions: [
-        _buildPopupMenu(context, shoe),
+        _buildPopupMenu(context, shoes),
       ],
     );
   }
 
-  Widget _buildPopupMenu(BuildContext context, ShoesModel shoe) {
+  Widget _buildPopupMenu(BuildContext context, ShoesModel shoes) {
     return PopupMenuButton<String>(
       color: Theme.of(context).colorScheme.secondary,
       icon: Icon(
@@ -107,12 +108,12 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       onSelected: (value) {
         if (value == 'edit') {
           Get.to(
-            () => ShoesUpdaterScreen(shoes: shoe),
+            () => ShoesUpdaterScreen(shoes: shoes),
             transition: Transition.fade,
             duration: const Duration(milliseconds: 500),
           );
         } else if (value == 'delete') {
-          _confirmDeleteShoes(context, shoe);
+          _confirmDeleteShoes(context, shoes);
         }
       },
       itemBuilder: (BuildContext context) {
@@ -135,7 +136,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
   }
 
   PopupMenuItem<String> _buildPopupMenuItem(
-      BuildContext context, String value, IconData icon, String text) {
+    BuildContext context,
+    String value,
+    IconData icon,
+    String text,
+  ) {
     return PopupMenuItem<String>(
       value: value,
       child: Row(
@@ -148,7 +153,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           Text(
             text,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.primary,
               fontSize: 14.sp,
               fontFamily: 'CustomFont',
               fontWeight: FontWeight.bold,
@@ -159,7 +164,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  Widget _buildLoadingIndicator() {
+  Widget _buildLoadingIndicator(BuildContext context) {
     return Center(
       child: CustomLoader(
         width: 50.w,
@@ -198,7 +203,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  Widget _buildShoesDetails(BuildContext context, ShoesModel shoe) {
+  Widget _buildShoesDetails(BuildContext context, ShoesModel shoes) {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -207,55 +212,65 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 20.h,
           children: [
-            _buildImage(context, shoe),
+            _buildImageCard(context, shoes),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLeftColumn(context, shoe),
+                _buildLeftColumn(context, shoes),
                 SizedBox(width: 20.w),
-                _buildRightColumn(context, shoe),
+                _buildRightColumn(context, shoes),
               ],
             ),
             _buildIconSection(
               context,
               S.current.text_season,
-              shoe.seasonIcon!,
+              shoes.seasonIcon!,
               Theme.of(context).colorScheme.tertiary,
             ),
-            _buildNotesSection(context, shoe.notes),
+            _buildNotesSection(context, shoes.notes),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildImage(BuildContext context, ShoesModel shoe) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(
-          () => CustomFullImage(imageUrl: shoe.imageUrl),
-          transition: Transition.fadeIn,
-          duration: const Duration(milliseconds: 500),
-        );
-      },
-      child: Card(
-        color: Theme.of(context).colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.r),
-        ),
-        elevation: 0,
-        clipBehavior: Clip.antiAlias,
-        child: Image.network(
-          shoe.imageUrl,
-          fit: BoxFit.cover,
-          width: 280.w,
-          height: 280.h,
-        ),
+  Widget _buildImage(BuildContext context, String imageUrl) {
+    final double imageWidth = ScreenUtil().screenWidth > 600 ? 560.w : 280.w;
+    final double imageHeight = ScreenUtil().screenWidth > 600 ? 560.h : 280.h;
+
+    return Card(
+      color: Theme.of(context).colorScheme.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      elevation: 0,
+      clipBehavior: Clip.antiAlias,
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        width: imageWidth,
+        height: imageHeight,
+        fit: BoxFit.cover,
       ),
     );
   }
 
-  Widget _buildLeftColumn(BuildContext context, ShoesModel shoe) {
+  Widget _buildImageCard(BuildContext context, ShoesModel shoes) {
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+          () => CustomFullImage(imageUrl: shoes.imageUrl),
+          transition: Transition.fadeIn,
+          duration: const Duration(milliseconds: 500),
+        );
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(20.r)),
+        child: _buildImage(context, shoes.imageUrl),
+      ),
+    );
+  }
+
+  Widget _buildLeftColumn(BuildContext context, ShoesModel shoes) {
     return Column(
       spacing: 10.h,
       children: [
@@ -263,49 +278,55 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           context,
           S.current.text_color,
           MingCuteIcons.mgc_palette_fill,
-          shoe.color,
+          shoes.color,
         ),
         _buildTextSection(
           context,
           S.current.text_brand,
-          shoe.brand,
+          shoes.brand,
         ),
         _buildTextSection(
           context,
           S.current.text_category,
           CategoryTranslations.translateCategory(
-              shoe.category, currentLanguageCode),
+              shoes.category, currentLanguageCode),
         ),
       ],
     );
   }
 
-  Widget _buildRightColumn(BuildContext context, ShoesModel shoe) {
+  Widget _buildRightColumn(BuildContext context, ShoesModel shoes) {
     return Column(
       spacing: 10.h,
       children: [
         _buildIconSection(
           context,
           S.current.text_details_color,
-          MingCuteIcons.mgc_palette_3_fill,
-          shoe.detailsColor!,
+          (shoes.detailsColor != null && shoes.detailsColor!.value == 0)
+              ? MingCuteIcons.mgc_line_fill
+              : MingCuteIcons.mgc_palette_3_fill,
+          shoes.detailsColor!,
         ),
         _buildTextSection(
           context,
           S.current.text_size,
-          shoe.size,
+          shoes.size,
         ),
         _buildTextSection(
           context,
           S.current.text_type,
-          CategoryTranslations.translateType(shoe.type, currentLanguageCode),
+          CategoryTranslations.translateType(shoes.type, currentLanguageCode),
         ),
       ],
     );
   }
 
   Widget _buildIconSection(
-      BuildContext context, String text, IconData icon, Color iconColor) {
+    BuildContext context,
+    String text,
+    IconData icon,
+    Color iconColor,
+  ) {
     return Column(
       children: [
         Text(
@@ -332,7 +353,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  Widget _buildTextSection(BuildContext context, String label, String details) {
+  Widget _buildTextSection(
+    BuildContext context,
+    String label,
+    String details,
+  ) {
     return Column(
       children: [
         Text(
@@ -384,7 +409,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  void _confirmDeleteShoes(BuildContext context, ShoesModel shoe) {
+  void _confirmDeleteShoes(BuildContext context, ShoesModel shoes) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -395,11 +420,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
             Get.back();
           },
           onConfirmPressed: () {
-            _shoesService.deleteShoes(shoe.id!);
-            if (shoe.imageUrl.isNotEmpty) {
-              final fileName = shoe.imageUrl.split('/').last;
+            _shoesService.deleteShoes(shoes.id!);
+            if (shoes.imageUrl.isNotEmpty) {
+              final fileName = shoes.imageUrl.split('/').last;
               _shoesService.deleteShoeImageSupabase(
-                  currentUser!.uid, shoe.id!, fileName);
+                  currentUser!.uid, shoes.id!, fileName);
             }
             showSuccessToast(
               context,

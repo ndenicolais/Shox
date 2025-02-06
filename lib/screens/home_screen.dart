@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/screens/profile/user_controller.dart';
-import 'package:shox/screens/profile/user_screen.dart';
+import 'package:shox/screens/user/user_controller.dart';
+import 'package:shox/screens/user/user_screen.dart';
 import 'package:shox/screens/settings/settings_screen.dart';
 import 'package:shox/screens/shoes/shoes_adder_screen.dart';
 import 'package:shox/screens/shoes/shoes_details_screen.dart';
@@ -306,8 +307,6 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildShoesGrid(BuildContext context, List<ShoesModel> shoesList) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final int numberOfColumns = (screenWidth / 200.r).floor();
     shoesList.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
 
     if (searchQuery.isNotEmpty) {
@@ -343,46 +342,65 @@ class HomeScreenState extends State<HomeScreen>
       ),
       itemCount: filteredShoes.length,
       itemBuilder: (context, index) {
-        final double cardWidth = (screenWidth - 24.r) / numberOfColumns;
-        final double imageHeight = cardWidth * 1.2.r;
         ShoesModel shoe = filteredShoes[index];
-        return _buildShoeCard(context, shoe, cardWidth, imageHeight);
+        return _buildShoesCard(context, shoe);
       },
     );
   }
 
-  Widget _buildShoeCard(BuildContext context, ShoesModel shoe, double cardWidth,
-      double imageHeight) {
+  Widget _buildImage(BuildContext context, String imageUrl) {
+    double imageWidth;
+    double imageHeight;
+
+    if (currentGridColumns == GridColumns.gOne) {
+      imageWidth = ScreenUtil().screenWidth;
+      imageHeight = 800.h;
+    } else {
+      imageWidth = ScreenUtil().screenWidth > 600 ? 600.w : 300.w;
+      imageHeight = ScreenUtil().screenWidth > 600 ? 1200.h : 200.h;
+    }
+
+    if (imageUrl.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: imageUrl,
+        width: imageWidth,
+        height: imageHeight,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Center(child: _buildLoadingIndicator()),
+        errorWidget: (context, url, error) => Icon(
+          MingCuteIcons.mgc_close_fill,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      );
+    } else {
+      return Image.asset(
+        imageUrl,
+        width: imageWidth,
+        height: imageHeight,
+        fit: BoxFit.cover,
+      );
+    }
+  }
+
+  Widget _buildShoesCard(BuildContext context, ShoesModel shoes) {
     return GestureDetector(
       onTap: () {
         Get.to(
-          () => ShoesDetailsScreen(shoesId: shoe.id!),
+          () => ShoesDetailsScreen(shoesId: shoes.id!),
           transition: Transition.fadeIn,
           duration: const Duration(milliseconds: 500),
         );
       },
       child: Stack(
         children: [
-          SizedBox(
-            width: cardWidth.w,
-            height: imageHeight.h,
-            child: Card(
-              color: Theme.of(context).colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              elevation: 5,
-              clipBehavior: Clip.antiAlias,
-              child: Image.network(
-                shoe.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20.r)),
+            child: _buildImage(context, shoes.imageUrl),
           ),
           Positioned(
             top: 2.r,
             right: 2.r,
-            child: _buildFavoriteButton(shoe, context),
+            child: _buildFavoriteButton(shoes, context),
           ),
         ],
       ),

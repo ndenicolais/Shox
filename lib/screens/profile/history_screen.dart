@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +22,6 @@ class HistoryScreenState extends State<HistoryScreen>
     with TickerProviderStateMixin {
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesService shoesService = ShoesService();
-  late AnimationController _loadingController;
 
   @override
   Widget build(BuildContext context) {
@@ -32,33 +32,11 @@ class HistoryScreenState extends State<HistoryScreen>
         child: Padding(
           padding: EdgeInsets.all(30.r),
           child: Column(
-            children: [
-              _buildBodyPage(context),
-            ],
+            children: [_buildBodyPage(context)],
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadingController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    )..repeat();
-  }
-
-  String formatTimestamp(Timestamp timestamp) {
-    DateTime dateTime = timestamp.toDate();
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
-  }
-
-  @override
-  void dispose() {
-    _loadingController.dispose();
-    super.dispose();
   }
 
   AppBar _buildAppBar(BuildContext context) {
@@ -86,7 +64,7 @@ class HistoryScreenState extends State<HistoryScreen>
     );
   }
 
-  Widget _buildLoadingIndicator() {
+  Widget _buildLoadingIndicator(BuildContext context) {
     return Center(
       child: CustomLoader(
         width: 50.w,
@@ -106,125 +84,140 @@ class HistoryScreenState extends State<HistoryScreen>
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return _buildLoadingIndicator();
+            return _buildLoadingIndicator(context);
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    MingCuteIcons.mgc_package_line,
-                    size: 80.sp,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  Text(
-                    S.current.history_empty,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20.sp,
-                      fontFamily: 'CustomFont',
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return _buildEmptyHistory(context);
           } else {
-            final historyEntries = snapshot.data!.docs;
-            return ListView.builder(
-              itemCount: historyEntries.length,
-              itemBuilder: (context, index) {
-                final entry =
-                    historyEntries[index].data() as Map<String, dynamic>;
-                final timestamp = entry['timestamp'] as Timestamp;
-                final formattedTimestamp = formatTimestamp(timestamp);
-                final imageUrl = entry['imageUrl'] as String? ?? '';
-                final operationType = entry['operationType'] as String;
-
-                String localizedOperationType;
-                switch (operationType) {
-                  case 'Added':
-                    localizedOperationType = S.current.history_added;
-                    break;
-                  case 'Updated':
-                    localizedOperationType = S.current.history_updated;
-                    break;
-                  case 'Deleted':
-                    localizedOperationType = S.current.history_deleted;
-                    break;
-                  default:
-                    localizedOperationType = 'Unknown';
-                }
-
-                return ListTile(
-                  leading: SizedBox(
-                    width: 50.w,
-                    height: 50.h,
-                    child: imageUrl.isNotEmpty
-                        ? Card(
-                            color: Theme.of(context).colorScheme.primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.r),
-                            ),
-                            elevation: 0,
-                            clipBehavior: Clip.antiAlias,
-                            child: Image.network(
-                              imageUrl,
-                              width: 50.w,
-                              height: 50.h,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Icon(
-                                  MingCuteIcons.mgc_close_fill,
-                                  size: 50.sp,
-                                  color: AppColors.errorColor,
-                                );
-                              },
-                            ),
-                          )
-                        : Icon(
-                            MingCuteIcons.mgc_close_fill,
-                            size: 50.sp,
-                            color: AppColors.errorColor,
-                          ),
-                  ),
-                  title: Text(
-                    localizedOperationType,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'CustomFont',
-                    ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        formattedTimestamp,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 16.sp,
-                          fontFamily: 'CustomFont',
-                        ),
-                      ),
-                      Text(
-                        '${entry['shoesId']}',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: 16.sp,
-                          fontFamily: 'CustomFont',
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
+            return _buildHistoryList(context, snapshot.data!.docs);
           }
         },
       ),
     );
+  }
+
+  Widget _buildEmptyHistory(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            MingCuteIcons.mgc_package_line,
+            size: 80.sp,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          Text(
+            S.current.history_empty,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 20.sp,
+              fontFamily: 'CustomFont',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHistoryList(
+    BuildContext context,
+    List<QueryDocumentSnapshot> historyEntries,
+  ) {
+    return ListView.builder(
+      itemCount: historyEntries.length,
+      itemBuilder: (context, index) {
+        final entry = historyEntries[index].data() as Map<String, dynamic>;
+        final timestamp = entry['timestamp'] as Timestamp;
+        final formattedTimestamp = formatTimestamp(timestamp);
+        final imageUrl = entry['imageUrl'] as String? ?? '';
+        final operationType = entry['operationType'] as String;
+        final localizedOperationType =
+            _getLocalizedOperationType(operationType);
+
+        return ListTile(
+          leading: _buildLeadingImage(context, imageUrl),
+          title: Text(
+            localizedOperationType,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'CustomFont',
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                formattedTimestamp,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 16.sp,
+                  fontFamily: 'CustomFont',
+                ),
+              ),
+              Text(
+                '${entry['shoesId']}',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 16.sp,
+                  fontFamily: 'CustomFont',
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLeadingImage(BuildContext context, String imageUrl) {
+    if (imageUrl.isNotEmpty) {
+      return Card(
+        color: Theme.of(context).colorScheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.r),
+        ),
+        elevation: 0,
+        clipBehavior: Clip.antiAlias,
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          width: 50.w,
+          height: 50.h,
+          fit: BoxFit.cover,
+          placeholder: (context, url) =>
+              Center(child: _buildLoadingIndicator(context)),
+          errorWidget: (context, url, error) => Icon(
+            MingCuteIcons.mgc_close_fill,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+      );
+    } else {
+      return Icon(
+        MingCuteIcons.mgc_close_fill,
+        size: 50.sp,
+        color: AppColors.errorColor,
+      );
+    }
+  }
+
+  String _getLocalizedOperationType(String operationType) {
+    switch (operationType) {
+      case 'Added':
+        return S.current.history_added;
+      case 'Updated':
+        return S.current.history_updated;
+      case 'Deleted':
+        return S.current.history_deleted;
+      default:
+        return 'Unknown';
+    }
+  }
+
+  String formatTimestamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
   }
 }
