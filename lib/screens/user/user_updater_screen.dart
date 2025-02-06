@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,7 @@ import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/user_model.dart';
-import 'package:shox/screens/profile/user_screen.dart';
+import 'package:shox/screens/user/user_screen.dart';
 import 'package:shox/services/user_service.dart';
 import 'package:shox/widgets/account_textfield.dart';
 import 'package:shox/widgets/custom_button.dart';
@@ -45,16 +46,16 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: isLoading
-            ? Center(child: _buildLoadingIndicator())
+            ? Center(child: _buildLoadingIndicator(context))
             : Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    _buildUserImage(),
+                    _buildUserImage(context),
                     SizedBox(height: 20.h),
                     _buildForm(context),
                     SizedBox(height: 40.h),
-                    _buildButton(),
+                    _buildButton(context),
                   ],
                 ),
               ),
@@ -229,7 +230,7 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
     );
   }
 
-  Widget _buildLoadingIndicator() {
+  Widget _buildLoadingIndicator(BuildContext context) {
     return Center(
       child: CustomLoader(
         width: 50.w,
@@ -238,7 +239,7 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
     );
   }
 
-  Widget _buildUserImage() {
+  Widget _buildUserImage(BuildContext context) {
     if (userImage == null || userImage!.path.isEmpty) {
       return Stack(
         children: [
@@ -272,19 +273,11 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
       return Stack(
         children: [
           ClipOval(
-            child: Image.network(
-              userImage!.path,
+            child: CachedNetworkImage(
+              imageUrl: userImage!.path,
               width: 160.w,
               height: 160.h,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Image.asset(
-                  "assets/images/img_profile.png",
-                  width: 160.w,
-                  height: 160.h,
-                  fit: BoxFit.cover,
-                );
-              },
             ),
           ),
           Positioned(
@@ -386,7 +379,7 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton(BuildContext context) {
     return CustomButton(
       title: S.current.profile_edit_save,
       backgroundColor: Theme.of(context).colorScheme.secondary,

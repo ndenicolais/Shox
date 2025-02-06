@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/models/user_model.dart';
-import 'package:shox/screens/profile/user_updater_screen.dart';
+import 'package:shox/screens/user/user_updater_screen.dart';
 import 'package:shox/screens/profile/delete_account_screen.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/screens/authentication/login/login_controller.dart';
-import 'package:shox/screens/profile/user_controller.dart';
+import 'package:shox/screens/user/user_controller.dart';
 import 'package:shox/screens/profile/database_screen.dart';
 import 'package:shox/screens/profile/history_screen.dart';
 import 'package:shox/screens/welcome_screen.dart';
@@ -52,7 +50,7 @@ class UserScreenState extends State<UserScreen> {
           child: Center(
             child: Column(
               children: [
-                _buildProfileImage(),
+                _buildProfileImage(context),
                 SizedBox(height: 20.h),
                 _buildProfileInfo(context),
                 SizedBox(height: 40.h),
@@ -126,18 +124,8 @@ class UserScreenState extends State<UserScreen> {
     }
   }
 
-  Future<void> logout() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    await googleSignIn.signOut();
-    await FirebaseAuth.instance.signOut();
-
-    if (mounted) {
-      loginController.logout(context);
-    }
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('remember_me');
-
+  Future<void> _logout() async {
+    loginController.logout(context);
     Get.to(
       () => const WelcomeScreen(),
       transition: Transition.fade,
@@ -187,7 +175,7 @@ class UserScreenState extends State<UserScreen> {
     );
   }
 
-  Widget _buildProfileImage() {
+  Widget _buildProfileImage(BuildContext context) {
     return CircleAvatar(
       radius: 80.r,
       backgroundImage:
@@ -259,7 +247,7 @@ class UserScreenState extends State<UserScreen> {
 
   Widget _buildLogoutButton(BuildContext context) {
     return CustomSectionButton(
-      onPressed: logout,
+      onPressed: _logout,
       icon: MingCuteIcons.mgc_exit_fill,
       text: S.current.profile_logout,
     );
