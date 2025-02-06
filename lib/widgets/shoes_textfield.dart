@@ -14,7 +14,7 @@ class ShoesTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.labelText,
-    this.validator,
+    required this.validator,
     this.keyboardType,
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
