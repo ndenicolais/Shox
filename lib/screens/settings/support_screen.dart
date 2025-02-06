@@ -22,7 +22,7 @@ class SupportScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTopImage(),
+                _buildTopImage(context),
                 SizedBox(height: 40.h),
                 _buildContactSection(
                   context,
@@ -79,7 +79,7 @@ class SupportScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Center(
       child: Image.asset(
         'assets/images/img_support.png',

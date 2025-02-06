@@ -16,30 +16,6 @@ class LanguagesScreenState extends State<LanguagesScreen> {
   String? _selectedLanguageCode;
 
   @override
-  void initState() {
-    super.initState();
-    _loadLanguagePreference().then((languageCode) {
-      setState(() {
-        _selectedLanguageCode = languageCode;
-      });
-    });
-  }
-
-  Future<void> _saveLanguagePreference(String languageCode) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('language_code', languageCode);
-    setState(() {
-      _selectedLanguageCode = languageCode;
-    });
-    Get.updateLocale(Locale(languageCode));
-  }
-
-  Future<String> _loadLanguagePreference() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('language_code') ?? '';
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
@@ -50,7 +26,7 @@ class LanguagesScreenState extends State<LanguagesScreen> {
           child: Center(
             child: Column(
               children: [
-                _buildTopImage(),
+                _buildTopImage(context),
                 SizedBox(height: 40.h),
                 _buildDescription(context),
                 SizedBox(height: 40.h),
@@ -81,6 +57,30 @@ class LanguagesScreenState extends State<LanguagesScreen> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _loadLanguagePreference().then((languageCode) {
+      setState(() {
+        _selectedLanguageCode = languageCode;
+      });
+    });
+  }
+
+  Future<void> _saveLanguagePreference(String languageCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('language_code', languageCode);
+    setState(() {
+      _selectedLanguageCode = languageCode;
+    });
+    Get.updateLocale(Locale(languageCode));
+  }
+
+  Future<String> _loadLanguagePreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('language_code') ?? '';
+  }
+
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
@@ -106,7 +106,7 @@ class LanguagesScreenState extends State<LanguagesScreen> {
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/img_languages.png',
       width: 120.w,
@@ -127,7 +127,10 @@ class LanguagesScreenState extends State<LanguagesScreen> {
   }
 
   Widget _buildLanguageCard(
-      String languageCode, String languageName, String flagAsset) {
+    String languageCode,
+    String languageName,
+    String flagAsset,
+  ) {
     final isSelected = languageCode == _selectedLanguageCode;
     return GestureDetector(
       onTap: () {

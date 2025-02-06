@@ -35,7 +35,7 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
             child: Center(
               child: Column(
                 children: [
-                  _buildTopImage(),
+                  _buildTopImage(context),
                   SizedBox(height: 40.h),
                   _buildBodyText(context),
                   SizedBox(height: 40.h),
@@ -141,7 +141,7 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/img_user_delete.png',
       width: 120.w,
@@ -150,14 +150,17 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
   }
 
   Widget _buildBodyText(BuildContext context) {
-    return Text(
-      S.current.delete_description,
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 20.sp,
-        fontFamily: 'CustomFont',
+    return SizedBox(
+      width: 420.w,
+      child: Text(
+        S.current.delete_description,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontSize: 20.sp,
+          fontFamily: 'CustomFont',
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 

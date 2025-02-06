@@ -28,7 +28,7 @@ class IntroScreenState extends State<IntroScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildLogo(),
+            _buildLogo(context),
           ],
         ),
       ),
@@ -108,7 +108,7 @@ class IntroScreenState extends State<IntroScreen> {
     }
   }
 
-  Widget _buildLogo() {
+  Widget _buildLogo(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

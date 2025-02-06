@@ -29,7 +29,7 @@ class SettingsPageState extends State<SettingsPage> {
           child: Center(
             child: Column(
               children: [
-                _buildTopImage(),
+                _buildTopImage(context),
                 SizedBox(height: 80.h),
                 _buildThemeButton(context),
                 SizedBox(height: 20.h),
@@ -73,7 +73,7 @@ class SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/img_settings.png',
       width: 120.w,

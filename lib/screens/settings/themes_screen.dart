@@ -21,7 +21,7 @@ class ThemesScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                _buildTopImage(),
+                _buildTopImage(context),
                 SizedBox(height: 40.h),
                 _buildDescription(context),
                 SizedBox(height: 40.h),
@@ -113,7 +113,7 @@ class ThemesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/img_theme.png',
       width: 120.w,
@@ -122,14 +122,17 @@ class ThemesScreen extends StatelessWidget {
   }
 
   Widget _buildDescription(BuildContext context) {
-    return Text(
-      S.current.theme_description,
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 22.sp,
-        fontFamily: 'CustomFont',
+    return SizedBox(
+      width: 320.w,
+      child: Text(
+        S.current.theme_description,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontSize: 22.sp,
+          fontFamily: 'CustomFont',
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 

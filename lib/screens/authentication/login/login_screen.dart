@@ -33,41 +33,48 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(30.r),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildTopImage(),
-                SizedBox(height: 60.h),
-                LoginForm(
-                  context: context,
-                  formKey: _formKey,
-                  emailController: controller.emailController,
-                  passwordController: controller.passwordController,
-                  passwordVisible: controller.passwordVisible,
-                  rememberMe: controller.rememberMe.value,
-                  togglePasswordVisibility: controller.togglePasswordVisibility,
-                  onLogin: () => controller.login(context, _formKey),
-                  onLoginWithGoogle: () => controller.loginWithGoogle(context),
-                ),
-                SizedBox(height: 20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildRememberMeCheckbox(controller),
-                    _buildForgotPasswordText(),
-                  ],
-                ),
-                SizedBox(height: 20.h),
-                _buildButtons(controller),
-                SizedBox(height: 20.h),
-                _buildSignupText(),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTopImage(context),
+                  SizedBox(height: 50.h),
+                  LoginForm(
+                    context: context,
+                    formKey: _formKey,
+                    emailController: controller.emailController,
+                    passwordController: controller.passwordController,
+                    passwordVisible: controller.passwordVisible,
+                    rememberMe: controller.rememberMe.value,
+                    togglePasswordVisibility:
+                        controller.togglePasswordVisibility,
+                    onLogin: () => controller.login(context, _formKey),
+                    onLoginWithGoogle: () =>
+                        controller.loginWithGoogle(context),
+                  ),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    width: 320.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildRememberMeCheckbox(context, controller),
+                        _buildForgotPasswordText(context),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  _buildButtons(context, controller),
+                  SizedBox(height: 20.h),
+                  _buildSignupText(context),
+                ],
+              ),
             ),
           ),
         ),
@@ -84,7 +91,7 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
         icon: Icon(
@@ -109,7 +116,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
       width: 160.w,
@@ -117,7 +124,8 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildButtons(LoginController controller) {
+  Widget _buildButtons(BuildContext context, LoginController controller) {
+    final double dividerIndent = ScreenUtil().screenWidth > 600 ? 220.w : 60.w;
     return Column(
       children: [
         CustomButton(
@@ -129,8 +137,8 @@ class LoginScreenState extends State<LoginScreen> {
         SizedBox(height: 20.h),
         Divider(
           thickness: 1,
-          indent: 80.w,
-          endIndent: 80.w,
+          indent: dividerIndent,
+          endIndent: dividerIndent,
           color: Theme.of(context).colorScheme.secondary,
         ),
         SizedBox(height: 20.h),
@@ -145,7 +153,8 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildRememberMeCheckbox(LoginController controller) {
+  Widget _buildRememberMeCheckbox(
+      BuildContext context, LoginController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -174,7 +183,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildForgotPasswordText() {
+  Widget _buildForgotPasswordText(BuildContext context) {
     return RichText(
       text: TextSpan(
         text: S.current.login_screen_password,
@@ -194,7 +203,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSignupText() {
+  Widget _buildSignupText(BuildContext context) {
     return RichText(
       text: TextSpan(
         text: S.current.login_screen_account,

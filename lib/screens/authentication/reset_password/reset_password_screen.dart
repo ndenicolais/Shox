@@ -21,26 +21,28 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(30.r),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildTopImage(),
-                SizedBox(height: 50.h),
-                _buildTextDescription(),
-                SizedBox(height: 50.h),
-                ResetPasswordForm(
-                    context: context,
-                    formKey: _formKey,
-                    emailController: controller.emailController),
-                SizedBox(height: 20.h),
-                _buildResetButton(controller),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTopImage(context),
+                  SizedBox(height: 50.h),
+                  _buildTextDescription(context),
+                  SizedBox(height: 50.h),
+                  ResetPasswordForm(
+                      context: context,
+                      formKey: _formKey,
+                      emailController: controller.emailController),
+                  SizedBox(height: 20.h),
+                  _buildResetButton(context, controller),
+                ],
+              ),
             ),
           ),
         ),
@@ -48,7 +50,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
         icon: Icon(
@@ -73,7 +75,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  Widget _buildTopImage() {
+  Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
       width: 160.w,
@@ -81,19 +83,23 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  Widget _buildTextDescription() {
-    return Text(
-      S.current.reset_password_screen_description,
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 24.sp,
-        fontFamily: 'CustomFont',
+  Widget _buildTextDescription(BuildContext context) {
+    return SizedBox(
+      width: 320.w,
+      child: Text(
+        S.current.reset_password_screen_description,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontSize: 24.sp,
+          fontFamily: 'CustomFont',
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 
-  Widget _buildResetButton(ResetPasswordController controller) {
+  Widget _buildResetButton(
+      BuildContext context, ResetPasswordController controller) {
     return CustomButton(
       title: S.current.reset_password_screen_text,
       backgroundColor: Theme.of(context).colorScheme.secondary,

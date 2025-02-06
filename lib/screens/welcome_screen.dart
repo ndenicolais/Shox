@@ -29,7 +29,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                   const Spacer(flex: 1),
                   _buildTitle(context),
                   const Spacer(flex: 2),
-                  _buildLogo(),
+                  _buildLogo(context),
                   const Spacer(flex: 2),
                   _buildLoginButton(context),
                   SizedBox(height: 20.h),
@@ -58,7 +58,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  Widget _buildLogo() {
+  Widget _buildLogo(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
       width: 180.w,
