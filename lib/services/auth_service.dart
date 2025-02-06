@@ -66,7 +66,6 @@ class AuthService {
 
       var userDoc = snapshot.docs.first;
       String primaryEmail = userDoc['userEmail'];
-
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: primaryEmail.trim(),
         password: password.trim(),
@@ -143,7 +142,7 @@ class AuthService {
     if (userDoc.exists) {
       return UserModel.fromFirestore(userDoc.data()!);
     } else {
-      throw Exception("Utente non trovato su Firestore.");
+      throw Exception("User not founded on Firestore.");
     }
   }
 
@@ -151,6 +150,7 @@ class AuthService {
   Future<void> logout() async {
     try {
       await _auth.signOut();
+      await googleSignOut();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.remove('remember_me');
       await prefs.remove('user_id');
@@ -163,12 +163,7 @@ class AuthService {
   Future<void> googleSignOut() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     await googleSignIn.signOut();
-
     await FirebaseAuth.instance.signOut();
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('remember_me');
-    await prefs.remove('user_id');
   }
 
   // RESET PASSWORD
