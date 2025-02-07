@@ -106,7 +106,6 @@ class LoginScreenState extends State<LoginScreen> {
         S.current.login_screen_title,
         style: TextStyle(
           color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
           fontFamily: 'CustomFont',
         ),
       ),

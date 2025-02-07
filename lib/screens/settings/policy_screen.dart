@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
+import 'package:shox/utils/constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PolicyScreen extends StatelessWidget {
@@ -11,8 +12,7 @@ class PolicyScreen extends StatelessWidget {
   final WebViewController _controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..loadRequest(
-      Uri.parse(
-          "https://www.freeprivacypolicy.com/live/95cdedf9-518b-416e-a016-b6dbc404463c"),
+      AppConstants.uriPrivacyPolicy,
     );
 
   @override

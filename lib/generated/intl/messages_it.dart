@@ -74,8 +74,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "database_shoes": MessageLookupByLibrary.simpleMessage("Scarpe nel DB"),
         "database_title": MessageLookupByLibrary.simpleMessage("Database"),
         "database_types": MessageLookupByLibrary.simpleMessage("Tipi"),
-        "delete_d_cancel": MessageLookupByLibrary.simpleMessage("Cancella"),
-        "delete_d_confirm": MessageLookupByLibrary.simpleMessage("Conferma"),
         "delete_d_description": MessageLookupByLibrary.simpleMessage(
             "Sei sicuro di voler eliminare il tuo account?"),
         "delete_d_title": MessageLookupByLibrary.simpleMessage("Elimina"),
@@ -118,8 +116,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_type": MessageLookupByLibrary.simpleMessage("Tipo"),
         "history_added": MessageLookupByLibrary.simpleMessage("Aggiunto"),
         "history_deleted": MessageLookupByLibrary.simpleMessage("Eliminato"),
-        "history_empty": MessageLookupByLibrary.simpleMessage("Storico vuoto"),
-        "history_title": MessageLookupByLibrary.simpleMessage("Storico"),
+        "history_empty":
+            MessageLookupByLibrary.simpleMessage("Cronologia vuoto"),
+        "history_title": MessageLookupByLibrary.simpleMessage("Cronologia"),
         "history_updated": MessageLookupByLibrary.simpleMessage("Aggiornato"),
         "home_add": MessageLookupByLibrary.simpleMessage("Aggiungi"),
         "home_empty": MessageLookupByLibrary.simpleMessage(
@@ -216,7 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_edit_save": MessageLookupByLibrary.simpleMessage("Salva"),
         "profile_edit_title":
             MessageLookupByLibrary.simpleMessage("Modifica Account"),
-        "profile_history": MessageLookupByLibrary.simpleMessage("Storico"),
+        "profile_history": MessageLookupByLibrary.simpleMessage("Cronologia"),
         "profile_logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profilo"),
         "reset_password_form_email":
@@ -324,9 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "support_screen_faq_a4": MessageLookupByLibrary.simpleMessage(
             "Se elimini un paio di scarpe, questo verrà rimosso permanentemente. Ti verrà chiesto di confermare prima di procedere all\'operazione."),
         "support_screen_faq_a5": MessageLookupByLibrary.simpleMessage(
-            "Sì, puoi vedere tutta la cronologia delle operazioni eseguite nella sezione \'Storico\'."),
-        "support_screen_faq_a6": MessageLookupByLibrary.simpleMessage(
-            "Per il momento no, ma in futuro sarà possibile attivare le notifiche per Anniversario o Giorniversario"),
+            "Sì, puoi vedere tutta la cronologia delle operazioni eseguite nella sezione \'Cronologia\'."),
         "support_screen_faq_a7": MessageLookupByLibrary.simpleMessage(
             "Se riscontri problemi, prova a riavviare l\'app. Se il problema persiste, contatta il supporto tecnico tramite la sezione \'Contattaci\'."),
         "support_screen_faq_decription": MessageLookupByLibrary.simpleMessage(
@@ -341,11 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Cosa succede se elimino un paio di scarpe?"),
         "support_screen_faq_q5": MessageLookupByLibrary.simpleMessage(
             "Posso vedere la cronologia delle paia di scarpe inserite o eliminate?"),
-        "support_screen_faq_q6": MessageLookupByLibrary.simpleMessage(
-            "Ci sono notifiche all\'interno dell\'applicazione?"),
         "support_screen_faq_q7": MessageLookupByLibrary.simpleMessage(
             "Cosa posso fare se l\'app non funziona correttamente?"),
-        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAq"),
         "support_screen_title":
             MessageLookupByLibrary.simpleMessage("Supporto"),
         "support_title": MessageLookupByLibrary.simpleMessage("Supporto"),
@@ -377,7 +372,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "toast_delete_user_data": MessageLookupByLibrary.simpleMessage(
             "Errore nell\'eliminazione dei dati dell\'utente: "),
         "toast_delete_user_history": MessageLookupByLibrary.simpleMessage(
-            "Errore nell\'eliminazione dello storico dell\'utente: "),
+            "Errore nell\'eliminazione della cronologia dell\'utente: "),
         "toast_delete_user_storage": MessageLookupByLibrary.simpleMessage(
             "Errore nell\'eliminazione dello storage dell\'utente: "),
         "toast_login_generic_error": MessageLookupByLibrary.simpleMessage(

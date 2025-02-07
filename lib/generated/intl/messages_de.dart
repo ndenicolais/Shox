@@ -73,8 +73,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schuhe in der DB"),
         "database_title": MessageLookupByLibrary.simpleMessage("Datenbank"),
         "database_types": MessageLookupByLibrary.simpleMessage("Typen"),
-        "delete_d_cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
-        "delete_d_confirm": MessageLookupByLibrary.simpleMessage("Bestätigen"),
         "delete_d_description": MessageLookupByLibrary.simpleMessage(
             "Bist du sicher, dass du dein Konto löschen möchtest?"),
         "delete_d_title": MessageLookupByLibrary.simpleMessage("Löschen"),
@@ -326,8 +324,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wenn du ein Ereignis oder ein Paar Schuhe lösche, wird es dauerhaft entfernt. Du wirst aufgefordert, die Aktion zu bestätigen, bevor du fortfährst."),
         "support_screen_faq_a5": MessageLookupByLibrary.simpleMessage(
             "Ja, du kannst den gesamten Verlauf der durchgeführten Aktionen im Abschnitt \'Verlauf\' sehen."),
-        "support_screen_faq_a6": MessageLookupByLibrary.simpleMessage(
-            "Derzeit noch nicht, aber in Zukunft wird es möglich sein, Benachrichtigungen für Jahrestage oder Tagesjubiläen zu aktivieren."),
         "support_screen_faq_a7": MessageLookupByLibrary.simpleMessage(
             "Wenn du Probleme hast, versuche die App neu zu starten. Wenn das Problem weiterhin besteht, kontaktiere den technischen Support über den Abschnitt \'Kontaktiere uns\'."),
         "support_screen_faq_decription": MessageLookupByLibrary.simpleMessage(
@@ -342,11 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Was passiert, wenn ich ein Paar Schuhe lösche?"),
         "support_screen_faq_q5": MessageLookupByLibrary.simpleMessage(
             "Kann ich die Historie der hinzugefügten oder gelöschten Paare Schuhe sehen?"),
-        "support_screen_faq_q6": MessageLookupByLibrary.simpleMessage(
-            "Gibt es Benachrichtigungen in der App?"),
         "support_screen_faq_q7": MessageLookupByLibrary.simpleMessage(
             "Was kann ich tun, wenn die App nicht richtig funktioniert?"),
-        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAq"),
         "support_screen_title": MessageLookupByLibrary.simpleMessage("Support"),
         "support_title": MessageLookupByLibrary.simpleMessage("Support"),
         "text_brand": MessageLookupByLibrary.simpleMessage("MARKE"),

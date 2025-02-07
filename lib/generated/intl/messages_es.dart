@@ -74,8 +74,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zapatos en la DB"),
         "database_title": MessageLookupByLibrary.simpleMessage("Database"),
         "database_types": MessageLookupByLibrary.simpleMessage("Tipi"),
-        "delete_d_cancel": MessageLookupByLibrary.simpleMessage("Cancela"),
-        "delete_d_confirm": MessageLookupByLibrary.simpleMessage("Confirma"),
         "delete_d_description": MessageLookupByLibrary.simpleMessage(
             "¿Seguro que quieres eliminar tu cuenta?"),
         "delete_d_title": MessageLookupByLibrary.simpleMessage("Elimina"),
@@ -327,8 +325,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Si eliminas un par de zapatos, se eliminará permanentemente. Se te pedirá que confirmes antes de proceder con la operación."),
         "support_screen_faq_a5": MessageLookupByLibrary.simpleMessage(
             "Sí, puedes ver todo el historial de operaciones realizadas en la sección \'Historial\'."),
-        "support_screen_faq_a6": MessageLookupByLibrary.simpleMessage(
-            "Por el momento no, pero en el futuro será posible activar notificaciones para Aniversario o Día del aniversario."),
         "support_screen_faq_a7": MessageLookupByLibrary.simpleMessage(
             "Si tienes problemas, intenta reiniciar la aplicación. Si el problema persiste, contacta con el soporte técnico a través de la sección \'Contáctanos\'."),
         "support_screen_faq_decription": MessageLookupByLibrary.simpleMessage(
@@ -343,11 +339,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿Qué pasa si elimino un par de zapatos?"),
         "support_screen_faq_q5": MessageLookupByLibrary.simpleMessage(
             "¿Puedo ver el historial de los pares de zapatos añadidos o eliminados?"),
-        "support_screen_faq_q6": MessageLookupByLibrary.simpleMessage(
-            "¿Hay notificaciones dentro de la aplicación?"),
         "support_screen_faq_q7": MessageLookupByLibrary.simpleMessage(
             "¿Qué puedo hacer si la aplicación no funciona correctamente?"),
-        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "support_screen_faq_text": MessageLookupByLibrary.simpleMessage("FAq"),
         "support_screen_title": MessageLookupByLibrary.simpleMessage("Soporte"),
         "support_title": MessageLookupByLibrary.simpleMessage("Soporte"),
         "text_brand": MessageLookupByLibrary.simpleMessage("BRAND"),

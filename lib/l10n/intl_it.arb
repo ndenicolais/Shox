@@ -68,7 +68,7 @@
   "toast_delete_google": "Ri-autenticazione con Google fallita.",
   "toast_delete_user_data": "Errore nell'eliminazione dei dati dell'utente: ",
   "toast_delete_user_storage": "Errore nell'eliminazione dello storage dell'utente: ",
-  "toast_delete_user_history": "Errore nell'eliminazione dello storico dell'utente: ",
+  "toast_delete_user_history": "Errore nell'eliminazione della cronologia dell'utente: ",
   "toast_delete_generic_error": "Si è verificato un errore imprevisto. Per favore riprova.",
 
   "toast_add_shoes_success": "Scarpe aggiunte con successo",
@@ -174,7 +174,7 @@
 
   "profile_title": "Profilo",
   "profile_database": "Database",
-  "profile_history": "Storico",
+  "profile_history": "Cronologia",
   "profile_logout": "Log Out",
   "profile_delete": "Elimina Account",
 
@@ -237,8 +237,8 @@
   "database_pdf_confirm" : "PDF salvato nella cartella Download",
   "database_pdf_error" : "Impossibile generare il PDF",
 
-  "history_title": "Storico",
-  "history_empty": "Storico vuoto",
+  "history_title": "Cronologia",
+  "history_empty": "Cronologia vuoto",
   "history_added": "Aggiunto",
   "history_updated": "Aggiornato",
   "history_deleted": "Eliminato",
@@ -247,8 +247,6 @@
   "delete_description": "In questa pagina puoi cancellare definitivamente il tuo account.\n\nLa conferma della cancellazione comporterà anche l'eliminazione di tutti i database collegati all'account.\n\nRicorda che il processo è irreversibile.\n\nSe desideri procedere clicca sul pulsante qui sotto:",
   "delete_d_title": "Elimina",
   "delete_d_description": "Sei sicuro di voler eliminare il tuo account?",
-  "delete_d_cancel": "Cancella",
-  "delete_d_confirm": "Conferma",
 
   "settings_title": "Impostazioni",
   "settings_theme": "Tema",
@@ -284,7 +282,7 @@
   "support_screen_contacts_text": "Contattaci",
   "support_screen_contacts_decription": "Per qualsiasi problema o domanda, scrivi a:",
   "support_screen_contacts_info": "ndn21dev@gmail.com",
-  "support_screen_faq_text": "FAQ",
+  "support_screen_faq_text": "FAq",
   "support_screen_faq_decription": "Trova risposte alle domande più frequenti.",
   "support_screen_faq_q1": "Come aggiungere un paio di scarpe?",
   "support_screen_faq_a1": "Per aggiungere un paio di scarpe, vai nella Home e clicca sul pulsante '+'. Compila tutti i dettagli necessari e salva.",
@@ -295,9 +293,7 @@
   "support_screen_faq_q4": "Cosa succede se elimino un paio di scarpe?",
   "support_screen_faq_a4": "Se elimini un paio di scarpe, questo verrà rimosso permanentemente. Ti verrà chiesto di confermare prima di procedere all'operazione.",
   "support_screen_faq_q5": "Posso vedere la cronologia delle paia di scarpe inserite o eliminate?",
-  "support_screen_faq_a5": "Sì, puoi vedere tutta la cronologia delle operazioni eseguite nella sezione 'Storico'.",
-  "support_screen_faq_q6": "Ci sono notifiche all'interno dell'applicazione?",
-  "support_screen_faq_a6": "Per il momento no, ma in futuro sarà possibile attivare le notifiche per Anniversario o Giorniversario",
+  "support_screen_faq_a5": "Sì, puoi vedere tutta la cronologia delle operazioni eseguite nella sezione 'Cronologia'.",
   "support_screen_faq_q7": "Cosa posso fare se l'app non funziona correttamente?",
   "support_screen_faq_a7": "Se riscontri problemi, prova a riavviare l'app. Se il problema persiste, contatta il supporto tecnico tramite la sezione 'Contattaci'.",
   "support_screen_documentation_text": "Documentazione",

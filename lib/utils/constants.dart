@@ -8,4 +8,6 @@ class AppConstants {
   static final Uri uriGithubLink = Uri.parse('https://ndenicolais.github.io/');
   static final Uri uriGithubDocumentation =
       Uri.parse('https://github.com/ndenicolais/Shox/');
+  static final Uri uriPrivacyPolicy = Uri.parse(
+      "https://www.freeprivacypolicy.com/live/95cdedf9-518b-416e-a016-b6dbc404463c");
 }

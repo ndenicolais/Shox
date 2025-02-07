@@ -64,8 +64,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
       title: Text(
         S.current.reset_password_screen_title,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.secondary,
-          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.tertiary,
           fontFamily: 'CustomFont',
         ),
       ),

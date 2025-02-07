@@ -2220,26 +2220,6 @@ class S {
     );
   }
 
-  /// `Cancel`
-  String get delete_d_cancel {
-    return Intl.message(
-      'Cancel',
-      name: 'delete_d_cancel',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm`
-  String get delete_d_confirm {
-    return Intl.message(
-      'Confirm',
-      name: 'delete_d_confirm',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Settings`
   String get settings_title {
     return Intl.message(
@@ -2540,10 +2520,10 @@ class S {
     );
   }
 
-  /// `FAQ`
+  /// `FAq`
   String get support_screen_faq_text {
     return Intl.message(
-      'FAQ',
+      'FAq',
       name: 'support_screen_faq_text',
       desc: '',
       args: [],
@@ -2655,26 +2635,6 @@ class S {
     return Intl.message(
       'Yes, you can see the entire history of actions performed in the \'History\' section.',
       name: 'support_screen_faq_a5',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Are there notifications within the application?`
-  String get support_screen_faq_q6 {
-    return Intl.message(
-      'Are there notifications within the application?',
-      name: 'support_screen_faq_q6',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Not at the moment, but in the future it will be possible to activate notifications for Anniversary or Day Anniversary.`
-  String get support_screen_faq_a6 {
-    return Intl.message(
-      'Not at the moment, but in the future it will be possible to activate notifications for Anniversary or Day Anniversary.',
-      name: 'support_screen_faq_a6',
       desc: '',
       args: [],
     );

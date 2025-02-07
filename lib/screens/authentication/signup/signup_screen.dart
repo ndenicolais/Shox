@@ -73,7 +73,6 @@ class SignupScreenState extends State<SignupScreen> {
         S.current.signup_screen_title,
         style: TextStyle(
           color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
           fontFamily: 'CustomFont',
         ),
       ),

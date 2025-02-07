@@ -78,11 +78,10 @@ class UserScreenState extends State<UserScreen> {
   }
 
   void _loadUserEmail() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    if (currentUser != null) {
       setState(
         () {
-          _userEmail = user.email ?? 'Email';
+          _userEmail = currentUser!.email ?? 'Email';
         },
       );
     }
