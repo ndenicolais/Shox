@@ -42,7 +42,7 @@ class IntroScreenState extends State<IntroScreen> {
   }
 
   Future<void> _startSplashScreen() async {
-    await Future.delayed(const Duration(milliseconds: 1200));
+    await Future.delayed(const Duration(milliseconds: 800));
     _checkRememberMe();
   }
 
@@ -64,6 +64,7 @@ class IntroScreenState extends State<IntroScreen> {
   Future<void> _checkRememberMe() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool onboardingCompleted = prefs.getBool('onboarding_completed') ?? false;
+    bool rememberMe = prefs.getBool('remember_me') ?? false;
 
     if (!onboardingCompleted) {
       Get.to(
@@ -72,8 +73,6 @@ class IntroScreenState extends State<IntroScreen> {
         duration: const Duration(milliseconds: 500),
       );
     } else {
-      bool rememberMe = prefs.getBool('remember_me') ?? false;
-
       if (rememberMe) {
         String? userId = prefs.getString('user_id');
         if (userId != null) {
@@ -114,14 +113,14 @@ class IntroScreenState extends State<IntroScreen> {
       children: [
         Image.asset(
           'assets/images/app_logo.png',
-          width: 180.w,
-          height: 180.h,
+          width: 200.w,
+          height: 200.h,
         ),
         Text(
           S.current.intro_title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
-            fontSize: 80.sp,
+            fontSize: 70.sp,
             fontWeight: FontWeight.bold,
             fontFamily: 'CustomFont',
           ),
