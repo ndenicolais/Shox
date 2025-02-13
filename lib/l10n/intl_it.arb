@@ -4,11 +4,11 @@
   "intro_title": "Shox",
 
   "onboarding_first_title": "Aggiungi",
-  "onboarding_first_description": "Aggiungi tutte le tue scarpe a questa scatola digitale per averle sempre con te.\nOrganizza facilmente la tua collezione e tieni traccia di ogni paio che possiedi a portata di mano.",
+  "onboarding_first_description": "Aggiungi tutte le tue scarpe a questa scatola digitale per averle sempre con te. Organizza facilmente la tua collezione e tieni traccia di ogni paio che possiedi a portata di mano.",
   "onboarding_second_title": "Filtra",
-  "onboarding_second_description": "Trova rapidamente le tue scarpe preferite utilizzando filtri avanzati.\nCerca per marca, modello, colore e altro ancora, e scopri tutte le caratteristiche delle tue scarpe in un attimo.",
+  "onboarding_second_description": "Trova rapidamente le tue scarpe preferite utilizzando filtri avanzati. Cerca per marca, modello, colore e altro ancora, e scopri tutte le caratteristiche delle tue scarpe in un attimo.",
   "onboarding_third_title": "Visualizza",
-  "onboarding_third_description": "Visualizza schede dettagliate delle tue scarpe complete di tutte le loro caratteristiche.\nDalle specifiche tecniche alle foto, esplora ogni aspetto delle tue scarpe con un'interfaccia intuitiva.",
+  "onboarding_third_description": "Visualizza schede dettagliate delle tue scarpe complete di tutte le loro caratteristiche. Dalle specifiche tecniche alle foto, esplora ogni aspetto delle tue scarpe con un'interfaccia intuitiva.",
   "onboarding_fourth_title": "Grafici",
   "onboarding_fourth_description": "Esplora vari grafici colorati che mostrano statistiche dettagliate sul totale e le specifiche delle tue scarpe nel database.",
   "onboarding_skip": "Salta",
@@ -99,6 +99,8 @@
   "validator_password_hint": "Inserisci la tua password",
   "validator_password_required": "Password è richiesta",
   "validator_password_error": "Password non valida: ",
+
+  "storage_permission_error": "Permesso per accedere ai file negato",
 
   "users_updater_screen_crop_image_title": "Ritaglia Immagine",
   "users_updater_screen_user_name_field_error": "Non hai inserito il nome",
@@ -267,7 +269,7 @@
   "info_screen_origin_text": "ORIGINE",
   "info_screen_origin_description": "Il nome dell'app è una fusione tra 'Shoes' e 'Box', proprio per simulare la creazione di una grande scatola dove contenere le scarpe.",
   "info_screen_description_text": "DESCRIZIONE",
-  "info_screen_description_description": "Questa applicazione permette di creare un guardaroba digitale dove è possibile salvare e visualizzare tutte le scarpe. In questo modo tutte le vostre scarpe saranno catalogate e sempre a portata di mano.",
+  "info_screen_description_description": "Questa applicazione consente di creare un guardaroba digitale personalizzato, dedicato esclusivamente alle vostre scarpe. Qui, potrete facilmente salvare, organizzare e visualizzare tutte le vostre scarpe in un unico luogo virtuale. Ogni paio di scarpe potrà essere catalogato con dettagli specifici come marca, modello, colore, e occasione d'uso, rendendo più semplice trovare esattamente quello che cercate in qualsiasi momento. Con il vostro guardaroba digitale, avrete sempre a portata di mano una visione completa della vostra collezione di scarpe, facilitando la scelta del paio perfetto per ogni occasione.",
   "info_screen_credits_text": "CREDITI",
   "info_screen_credits_a_text": "Ideazione",
   "info_screen_credits_a_value": "Nicola De Nicolais",
@@ -305,6 +307,14 @@
   "support_title": "Supporto",
   "support_developer": "Sviluppatore",
   "support_contacts": "Contatti",
+
+  "full_screen_image_save_success_toast": "Immagine salvata con successo!",
+  "full_screen_image_save_error_toast": "Salvataggio dell'immagine non riuscito.",
+  "full_screen_image_download_error_toast": "Download dell'immagine non riuscito.",
+  "full_screen_image_save_error_toast": "Errore",
+  "full_screen_image_share_success_toast": "Immagine condivisa con successo!",
+  "full_screen_image_share_download_error_toast": "Download dell'immagine per la condivisione non riuscito.",
+  "full_screen_image_share_error_toast": "Errore",
 
   "custom_delete_dialog_confirm": "Elimina",
   "custom_delete_dialog_cancel": "Annulla"

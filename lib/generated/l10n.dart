@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `Add all your shoes to this digital box to always have them with you.\nEasily organize your collection and keep track of every pair you own at your fingertips.`
+  /// `Add all your shoes to this digital box to always have them with you. Easily organize your collection and keep track of every pair you own at your fingertips.`
   String get onboarding_first_description {
     return Intl.message(
-      'Add all your shoes to this digital box to always have them with you.\nEasily organize your collection and keep track of every pair you own at your fingertips.',
+      'Add all your shoes to this digital box to always have them with you. Easily organize your collection and keep track of every pair you own at your fingertips.',
       name: 'onboarding_first_description',
       desc: '',
       args: [],
@@ -90,10 +90,10 @@ class S {
     );
   }
 
-  /// `Quickly find your favorite shoes using advanced filters.\nSearch by brand, model, color, and more, and discover all the features of your shoes in a snap.`
+  /// `Quickly find your favorite shoes using advanced filters. Search by brand, model, color, and more, and discover all the features of your shoes in a snap.`
   String get onboarding_second_description {
     return Intl.message(
-      'Quickly find your favorite shoes using advanced filters.\nSearch by brand, model, color, and more, and discover all the features of your shoes in a snap.',
+      'Quickly find your favorite shoes using advanced filters. Search by brand, model, color, and more, and discover all the features of your shoes in a snap.',
       name: 'onboarding_second_description',
       desc: '',
       args: [],
@@ -110,10 +110,10 @@ class S {
     );
   }
 
-  /// `View detailed cards of your shoes complete with all their features.\nFrom technical specifications to photos, explore every aspect of your shoes with an intuitive interface.`
+  /// `View detailed cards of your shoes complete with all their features. From technical specifications to photos, explore every aspect of your shoes with an intuitive interface.`
   String get onboarding_third_description {
     return Intl.message(
-      'View detailed cards of your shoes complete with all their features.\nFrom technical specifications to photos, explore every aspect of your shoes with an intuitive interface.',
+      'View detailed cards of your shoes complete with all their features. From technical specifications to photos, explore every aspect of your shoes with an intuitive interface.',
       name: 'onboarding_third_description',
       desc: '',
       args: [],
@@ -895,6 +895,16 @@ class S {
     return Intl.message(
       'Invalid password: ',
       name: 'validator_password_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Storage permission denied`
+  String get storage_permission_error {
+    return Intl.message(
+      'Storage permission denied',
+      name: 'storage_permission_error',
       desc: '',
       args: [],
     );
@@ -2380,10 +2390,10 @@ class S {
     );
   }
 
-  /// `This application allows you to create a digital wardrobe where you can save and view all your shoes. In this way, all your shoes will be catalogued and always at hand.`
+  /// `This application allows you to create a personalized digital wardrobe exclusively for your shoes. Here, you can easily save, organize, and view all your shoes in one virtual place. Each pair of shoes can be cataloged with specific details such as brand, model, color, and occasion of use, making it easier to find exactly what you are looking for at any time. With your digital wardrobe, you will always have a complete view of your shoe collection at your fingertips, making it easier to choose the perfect pair for every occasion.`
   String get info_screen_description_description {
     return Intl.message(
-      'This application allows you to create a digital wardrobe where you can save and view all your shoes. In this way, all your shoes will be catalogued and always at hand.',
+      'This application allows you to create a personalized digital wardrobe exclusively for your shoes. Here, you can easily save, organize, and view all your shoes in one virtual place. Each pair of shoes can be cataloged with specific details such as brand, model, color, and occasion of use, making it easier to find exactly what you are looking for at any time. With your digital wardrobe, you will always have a complete view of your shoe collection at your fingertips, making it easier to choose the perfect pair for every occasion.',
       name: 'info_screen_description_description',
       desc: '',
       args: [],
@@ -2725,6 +2735,66 @@ class S {
     return Intl.message(
       'Contacts',
       name: 'support_contacts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image saved successfully!`
+  String get full_screen_image_save_success_toast {
+    return Intl.message(
+      'Image saved successfully!',
+      name: 'full_screen_image_save_success_toast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get full_screen_image_save_error_toast {
+    return Intl.message(
+      'Error',
+      name: 'full_screen_image_save_error_toast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to download image.`
+  String get full_screen_image_download_error_toast {
+    return Intl.message(
+      'Failed to download image.',
+      name: 'full_screen_image_download_error_toast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image shared successfully!`
+  String get full_screen_image_share_success_toast {
+    return Intl.message(
+      'Image shared successfully!',
+      name: 'full_screen_image_share_success_toast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to download image for sharing.`
+  String get full_screen_image_share_download_error_toast {
+    return Intl.message(
+      'Failed to download image for sharing.',
+      name: 'full_screen_image_share_download_error_toast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get full_screen_image_share_error_toast {
+    return Intl.message(
+      'Error',
+      name: 'full_screen_image_share_error_toast',
       desc: '',
       args: [],
     );

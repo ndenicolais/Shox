@@ -4,11 +4,11 @@
   "intro_title": "Shox",
 
   "onboarding_first_title": "Hinzufügen",
-  "onboarding_first_description": "Füge alle deine Schuhe zu dieser digitalen Box hinzu, um sie immer bei dir zu haben.\nOrganisiere deine Sammlung einfach und behalte den Überblick über jedes Paar, das du besitzt.",
+  "onboarding_first_description": "Füge alle deine Schuhe zu dieser digitalen Box hinzu, um sie immer bei dir zu haben. Organisiere deine Sammlung einfach und behalte den Überblick über jedes Paar, das du besitzt.",
   "onboarding_second_title": "Filtern",
-  "onboarding_second_description": "Finde schnell deine Lieblingsschuhe mit erweiterten Filtern.\nSuche nach Marke, Modell, Farbe und mehr und entdecke alle Merkmale deiner Schuhe im Handumdrehen.",
+  "onboarding_second_description": "Finde schnell deine Lieblingsschuhe mit erweiterten Filtern. Suche nach Marke, Modell, Farbe und mehr und entdecke alle Merkmale deiner Schuhe im Handumdrehen.",
   "onboarding_third_title": "Anzeigen",
-  "onboarding_third_description": "Sieh dir detaillierte Karten deiner Schuhe mit allen ihren Merkmalen an.\nVon technischen Spezifikationen bis zu Fotos, erkunde jeden Aspekt deiner Schuhe mit einer intuitiven Benutzeroberfläche.",
+  "onboarding_third_description": "Sieh dir detaillierte Karten deiner Schuhe mit allen ihren Merkmalen an. Von technischen Spezifikationen bis zu Fotos, erkunde jeden Aspekt deiner Schuhe mit einer intuitiven Benutzeroberfläche.",
   "onboarding_fourth_title": "Diagramme",
   "onboarding_fourth_description": "Erkunde verschiedene farbige Diagramme, die detaillierte Statistiken über die Gesamtanzahl und die Spezifikationen deiner Schuhe in der Datenbank anzeigen.",
   "onboarding_skip": "Überspringen",
@@ -98,6 +98,8 @@
   "validator_password_hint": "Gib dein Passwort ein",
   "validator_password_required": "Passwort ist erforderlich",
   "validator_password_error": "Ungültiges Passwort: ",
+
+  "storage_permission_error": "Zugriff auf Dateien verweigert",
 
   "users_updater_screen_crop_image_title": "Bild zuschneiden",
   "users_updater_screen_user_name_field_error": "Sie haben den Namen nicht eingegeben",
@@ -266,7 +268,7 @@
   "info_screen_origin_text": "HERKUNFT",
   "info_screen_origin_description": "Der Name der App ist eine Verschmelzung von 'Shoes' und 'Box', um die Erstellung einer großen Schachtel zu simulieren, in der die Schuhe aufbewahrt werden können.",
   "info_screen_description_text": "BESCHREIBUNG",
-  "info_screen_description_description": "Diese App ermöglicht es, einen digitalen Kleiderschrank zu erstellen, in dem alle Schuhe gespeichert und angezeigt werden können. Auf diese Weise sind alle Ihre Schuhe katalogisiert und immer griffbereit.",
+"info_screen_description_description": "Diese Anwendung ermöglicht es Ihnen, eine personalisierte digitale Garderobe ausschließlich für Ihre Schuhe zu erstellen. Hier können Sie ganz einfach alle Ihre Schuhe an einem virtuellen Ort speichern, organisieren und anzeigen. Jedes Paar Schuhe kann mit spezifischen Details wie Marke, Modell, Farbe und Verwendungszweck katalogisiert werden, was es einfacher macht, jederzeit genau das zu finden, wonach Sie suchen. Mit Ihrer digitalen Garderobe haben Sie stets einen vollständigen Überblick über Ihre Schuhsammlung, was die Auswahl des perfekten Paares für jeden Anlass erleichtert.",
   "info_screen_credits_text": "CREDITS",
   "info_screen_credits_a_text": "Idee",
   "info_screen_credits_a_value": "Nicola De Nicolais",
@@ -304,6 +306,14 @@
   "support_title": "Support",
   "support_developer": "Entwickler",
   "support_contacts": "Kontakte",
+
+  "full_screen_image_save_success_toast": "Bild erfolgreich gespeichert!",
+  "full_screen_image_save_error_toast": "Bild konnte nicht gespeichert werden.",
+  "full_screen_image_download_error_toast": "Bild konnte nicht heruntergeladen werden.",
+  "full_screen_image_save_error_toast": "Fehler",
+  "full_screen_image_share_success_toast": "Bild erfolgreich geteilt!",
+  "full_screen_image_share_download_error_toast": "Bild konnte nicht zum Teilen heruntergeladen werden.",
+  "full_screen_image_share_error_toast": "Fehler",
 
   "custom_delete_dialog_confirm": "Löschen",
   "custom_delete_dialog_cancel": "Abbrechen"

@@ -4,11 +4,11 @@
   "intro_title": "Shox",
 
   "onboarding_first_title": "Ajouter",
-  "onboarding_first_description": "Ajoutez toutes vos chaussures à cette boîte numérique pour les avoir toujours avec vous.\nOrganisez facilement votre collection et suivez chaque paire que vous possédez à portée de main.",
+  "onboarding_first_description": "Ajoutez toutes vos chaussures à cette boîte numérique pour les avoir toujours avec vous. Organisez facilement votre collection et suivez chaque paire que vous possédez à portée de main.",
   "onboarding_second_title": "Filtrer",
-  "onboarding_second_description": "Trouvez rapidement vos chaussures préférées en utilisant des filtres avancés.\nRecherchez par marque, modèle, couleur et plus encore, et découvrez toutes les caractéristiques de vos chaussures en un instant.",
+  "onboarding_second_description": "Trouvez rapidement vos chaussures préférées en utilisant des filtres avancés. Recherchez par marque, modèle, couleur et plus encore, et découvrez toutes les caractéristiques de vos chaussures en un instant.",
   "onboarding_third_title": "Afficher",
-  "onboarding_third_description": "Affichez des fiches détaillées de vos chaussures avec toutes leurs caractéristiques.\nDes spécifications techniques aux photos, explorez chaque aspect de vos chaussures avec une interface intuitive.",
+  "onboarding_third_description": "Affichez des fiches détaillées de vos chaussures avec toutes leurs caractéristiques. Des spécifications techniques aux photos, explorez chaque aspect de vos chaussures avec une interface intuitive.",
   "onboarding_fourth_title": "Graphiques",
   "onboarding_fourth_description": "Explorez divers graphiques colorés montrant des statistiques détaillées sur le total et les spécifications de vos chaussures dans la base de données.",
   "onboarding_skip": "Passer",
@@ -99,6 +99,8 @@
   "validator_password_hint": "Entrez votre mot de passe",
   "validator_password_required": "Le mot de passe est requis",
   "validator_password_error": "Mot de passe invalide : ",
+
+  "storage_permission_error": "Permission d'accéder aux fichiers refusée",
 
   "users_updater_screen_crop_image_title": "Recadrer l'image",
   "users_updater_screen_user_name_field_error": "Vous n'avez pas entré le nom",
@@ -267,7 +269,7 @@
   "info_screen_origin_text": "ORIGINE",
   "info_screen_origin_description": "Le nom de l'application est une fusion entre 'Shoes' et 'Box', pour simuler la création d'une grande boîte où ranger les chaussures.",
   "info_screen_description_text": "DESCRIPTION",
-  "info_screen_description_description": "Cette application permet de créer une garde-robe numérique où toutes les chaussures peuvent être enregistrées et visualisées. De cette façon, toutes vos chaussures seront cataloguées et toujours à portée de main.",
+"info_screen_description_description": "Cette application vous permet de créer une garde-robe numérique personnalisée exclusivement pour vos chaussures. Ici, vous pouvez facilement enregistrer, organiser et visualiser toutes vos chaussures en un seul endroit virtuel. Chaque paire de chaussures peut être cataloguée avec des détails spécifiques tels que la marque, le modèle, la couleur et l'occasion d'utilisation, ce qui facilite la recherche de ce que vous cherchez à tout moment. Avec votre garde-robe numérique, vous aurez toujours une vue complète de votre collection de chaussures à portée de main, facilitant le choix de la paire parfaite pour chaque occasion.",
   "info_screen_credits_text": "CRÉDITS",
   "info_screen_credits_a_text": "Idée",
   "info_screen_credits_a_value": "Nicola De Nicolais",
@@ -305,6 +307,14 @@
   "support_title": "Support",
   "support_developer": "Développeur",
   "support_contacts": "Contacts",
+
+  "full_screen_image_save_success_toast": "Image enregistrée avec succès !",
+  "full_screen_image_save_error_toast": "Échec de l'enregistrement de l'image.",
+  "full_screen_image_download_error_toast": "Échec du téléchargement de l'image.",
+  "full_screen_image_save_error_toast": "Erreur",
+  "full_screen_image_share_success_toast": "Image partagée avec succès !",
+  "full_screen_image_share_download_error_toast": "Échec du téléchargement de l'image pour le partage.",
+  "full_screen_image_share_error_toast": "Erreur",
 
   "custom_delete_dialog_confirm": "Supprimer",
   "custom_delete_dialog_cancel": "Annuler"

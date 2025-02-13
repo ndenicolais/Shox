@@ -117,6 +117,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_season_winter": MessageLookupByLibrary.simpleMessage("Hiver"),
         "field_size": MessageLookupByLibrary.simpleMessage("Taille"),
         "field_type": MessageLookupByLibrary.simpleMessage("Type"),
+        "full_screen_image_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Échec du téléchargement de l\'image."),
+        "full_screen_image_save_error_toast":
+            MessageLookupByLibrary.simpleMessage("Erreur"),
+        "full_screen_image_save_success_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Image enregistrée avec succès !"),
+        "full_screen_image_share_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Échec du téléchargement de l\'image pour le partage."),
+        "full_screen_image_share_error_toast":
+            MessageLookupByLibrary.simpleMessage("Erreur"),
+        "full_screen_image_share_success_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Image partagée avec succès !"),
         "history_added": MessageLookupByLibrary.simpleMessage("Ajouté"),
         "history_deleted": MessageLookupByLibrary.simpleMessage("Supprimé"),
         "history_empty":
@@ -153,7 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "info_screen_credits_text":
             MessageLookupByLibrary.simpleMessage("CRÉDITS"),
         "info_screen_description_description": MessageLookupByLibrary.simpleMessage(
-            "Cette application permet de créer une garde-robe numérique où toutes les chaussures peuvent être enregistrées et visualisées. De cette façon, toutes vos chaussures seront cataloguées et toujours à portée de main."),
+            "Cette application vous permet de créer une garde-robe numérique personnalisée exclusivement pour vos chaussures. Ici, vous pouvez facilement enregistrer, organiser et visualiser toutes vos chaussures en un seul endroit virtuel. Chaque paire de chaussures peut être cataloguée avec des détails spécifiques tels que la marque, le modèle, la couleur et l\'occasion d\'utilisation, ce qui facilite la recherche de ce que vous cherchez à tout moment. Avec votre garde-robe numérique, vous aurez toujours une vue complète de votre collection de chaussures à portée de main, facilitant le choix de la paire parfaite pour chaque occasion."),
         "info_screen_description_text":
             MessageLookupByLibrary.simpleMessage("DESCRIPTION"),
         "info_screen_origin_description": MessageLookupByLibrary.simpleMessage(
@@ -196,7 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("À bientôt!"),
         "onboarding_finish": MessageLookupByLibrary.simpleMessage("Commencer"),
         "onboarding_first_description": MessageLookupByLibrary.simpleMessage(
-            "Ajoutez toutes vos chaussures à cette boîte numérique pour les avoir toujours avec vous.\nOrganisez facilement votre collection et suivez chaque paire que vous possédez à portée de main."),
+            "Ajoutez toutes vos chaussures à cette boîte numérique pour les avoir toujours avec vous. Organisez facilement votre collection et suivez chaque paire que vous possédez à portée de main."),
         "onboarding_first_title":
             MessageLookupByLibrary.simpleMessage("Ajouter"),
         "onboarding_fourth_description": MessageLookupByLibrary.simpleMessage(
@@ -205,12 +221,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Graphiques"),
         "onboarding_next": MessageLookupByLibrary.simpleMessage("Suivant"),
         "onboarding_second_description": MessageLookupByLibrary.simpleMessage(
-            "Trouvez rapidement vos chaussures préférées en utilisant des filtres avancés.\nRecherchez par marque, modèle, couleur et plus encore, et découvrez toutes les caractéristiques de vos chaussures en un instant."),
+            "Trouvez rapidement vos chaussures préférées en utilisant des filtres avancés. Recherchez par marque, modèle, couleur et plus encore, et découvrez toutes les caractéristiques de vos chaussures en un instant."),
         "onboarding_second_title":
             MessageLookupByLibrary.simpleMessage("Filtrer"),
         "onboarding_skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "onboarding_third_description": MessageLookupByLibrary.simpleMessage(
-            "Affichez des fiches détaillées de vos chaussures avec toutes leurs caractéristiques.\nDes spécifications techniques aux photos, explorez chaque aspect de vos chaussures avec une interface intuitive."),
+            "Affichez des fiches détaillées de vos chaussures avec toutes leurs caractéristiques. Des spécifications techniques aux photos, explorez chaque aspect de vos chaussures avec une interface intuitive."),
         "onboarding_third_title":
             MessageLookupByLibrary.simpleMessage("Afficher"),
         "policy_title": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
@@ -309,6 +325,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Erreur lors de l\'inscription:"),
         "signup_toast_success":
             MessageLookupByLibrary.simpleMessage("Inscription réussie!"),
+        "storage_permission_error": MessageLookupByLibrary.simpleMessage(
+            "Permission d\'accéder aux fichiers refusée"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contacts"),
         "support_developer":
             MessageLookupByLibrary.simpleMessage("Développeur"),

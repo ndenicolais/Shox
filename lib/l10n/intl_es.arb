@@ -4,11 +4,11 @@
   "intro_title": "Shox",
 
   "onboarding_first_title": "Añade",
-  "onboarding_first_description": "Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo.\nOrganice fácilmente su colección y mantenga un registro de cada par que tiene a mano.",
+  "onboarding_first_description": "Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo. Organice fácilmente su colección y mantenga un registro de cada par que tiene a mano.",
   "onboarding_second_title": "Filtra",
-  "onboarding_second_description": "Encuentra rápidamente tus zapatos favoritos usando filtros avanzados.\nBusca por marca, modelo, color y más, y descubre todas las características de tus zapatos en un instante.",
+  "onboarding_second_description": "Encuentra rápidamente tus zapatos favoritos usando filtros avanzados. Busca por marca, modelo, color y más, y descubre todas las características de tus zapatos en un instante.",
   "onboarding_third_title": "Muestra",
-  "onboarding_third_description": "Ver fichas detalladas de sus zapatos con todas sus características.\nDesde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva.",
+  "onboarding_third_description": "Ver fichas detalladas de sus zapatos con todas sus características. Desde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva.",
   "onboarding_fourth_title": "Gráficos",
   "onboarding_fourth_description": "Explora varios gráficos coloridos que muestran estadísticas detalladas sobre el total y las especificaciones de tus zapatos en la base de datos.",
   "onboarding_skip": "Skip",
@@ -99,6 +99,8 @@
   "validator_password_hint": "Introduce tu password",
   "validator_password_required": "Password es requerido",
   "validator_password_error": "Inválido password: ",
+
+  "storage_permission_error": "Permiso para acceder a los archivos denegado",
 
   "users_updater_screen_crop_image_title": "Recortar Imagen",
   "users_updater_screen_user_name_field_error": "No has ingresado el nombre",
@@ -267,7 +269,7 @@
   "info_screen_origin_text": "ORIGEN",
   "info_screen_origin_description": "El nombre de la aplicación es una fusión entre 'Shoes' y 'Box', para simular la creación de una gran caja donde guardar los zapatos.",
   "info_screen_description_text": "DESCRIPCIÓN",
-  "info_screen_description_description": "Esta aplicación permite crear un armario digital donde se pueden guardar y visualizar todos los zapatos. De esta manera, todos tus zapatos estarán catalogados y siempre a mano.",
+"info_screen_description_description": "Esta aplicación te permite crear un armario digital personalizado exclusivamente para tus zapatos. Aquí, puedes guardar, organizar y visualizar fácilmente todos tus zapatos en un solo lugar virtual. Cada par de zapatos puede catalogarse con detalles específicos como marca, modelo, color y ocasión de uso, lo que facilita encontrar exactamente lo que buscas en cualquier momento. Con tu armario digital, siempre tendrás una vista completa de tu colección de zapatos al alcance de tu mano, facilitando la elección del par perfecto para cada ocasión.",
   "info_screen_credits_text": "CRÉDITOS",
   "info_screen_credits_a_text": "Idea",
   "info_screen_credits_a_value": "Nicola De Nicolais",
@@ -305,6 +307,14 @@
   "support_title": "Soporte",
   "support_developer": "Desarrollador",
   "support_contacts": "Contactos",
+
+  "full_screen_image_save_success_toast": "¡Imagen guardada con éxito!",
+  "full_screen_image_save_error_toast": "No se pudo guardar la imagen.",
+  "full_screen_image_download_error_toast": "No se pudo descargar la imagen.",
+  "full_screen_image_save_error_toast": "Error",
+  "full_screen_image_share_success_toast": "¡Imagen compartida con éxito!",
+  "full_screen_image_share_download_error_toast": "No se pudo descargar la imagen para compartir.",
+  "full_screen_image_share_error_toast": "Error",
 
   "custom_delete_dialog_confirm": "Eliminar",
   "custom_delete_dialog_cancel": "Cancelar"

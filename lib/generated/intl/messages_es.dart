@@ -114,6 +114,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_season_winter": MessageLookupByLibrary.simpleMessage("Invierno"),
         "field_size": MessageLookupByLibrary.simpleMessage("Talla"),
         "field_type": MessageLookupByLibrary.simpleMessage("Tipo"),
+        "full_screen_image_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "No se pudo descargar la imagen."),
+        "full_screen_image_save_error_toast":
+            MessageLookupByLibrary.simpleMessage("Error"),
+        "full_screen_image_save_success_toast":
+            MessageLookupByLibrary.simpleMessage("¡Imagen guardada con éxito!"),
+        "full_screen_image_share_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "No se pudo descargar la imagen para compartir."),
+        "full_screen_image_share_error_toast":
+            MessageLookupByLibrary.simpleMessage("Error"),
+        "full_screen_image_share_success_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "¡Imagen compartida con éxito!"),
         "history_added": MessageLookupByLibrary.simpleMessage("Añadido"),
         "history_deleted": MessageLookupByLibrary.simpleMessage("Eliminado"),
         "history_empty":
@@ -149,7 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "info_screen_credits_text":
             MessageLookupByLibrary.simpleMessage("CRÉDITOS"),
         "info_screen_description_description": MessageLookupByLibrary.simpleMessage(
-            "Esta aplicación permite crear un armario digital donde se pueden guardar y visualizar todos los zapatos. De esta manera, todos tus zapatos estarán catalogados y siempre a mano."),
+            "Esta aplicación te permite crear un armario digital personalizado exclusivamente para tus zapatos. Aquí, puedes guardar, organizar y visualizar fácilmente todos tus zapatos en un solo lugar virtual. Cada par de zapatos puede catalogarse con detalles específicos como marca, modelo, color y ocasión de uso, lo que facilita encontrar exactamente lo que buscas en cualquier momento. Con tu armario digital, siempre tendrás una vista completa de tu colección de zapatos al alcance de tu mano, facilitando la elección del par perfecto para cada ocasión."),
         "info_screen_description_text":
             MessageLookupByLibrary.simpleMessage("DESCRIPCIÓN"),
         "info_screen_origin_description": MessageLookupByLibrary.simpleMessage(
@@ -193,7 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("¡Hasta pronto!"),
         "onboarding_finish": MessageLookupByLibrary.simpleMessage("Comienza"),
         "onboarding_first_description": MessageLookupByLibrary.simpleMessage(
-            "Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo.\nOrganice fácilmente su colección y mantenga un registro de cada par que tiene a mano."),
+            "Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo. Organice fácilmente su colección y mantenga un registro de cada par que tiene a mano."),
         "onboarding_first_title": MessageLookupByLibrary.simpleMessage("Añade"),
         "onboarding_fourth_description": MessageLookupByLibrary.simpleMessage(
             "Explora varios gráficos coloridos que muestran estadísticas detalladas sobre el total y las especificaciones de tus zapatos en la base de datos."),
@@ -201,12 +216,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gráficos"),
         "onboarding_next": MessageLookupByLibrary.simpleMessage("Next"),
         "onboarding_second_description": MessageLookupByLibrary.simpleMessage(
-            "Encuentra rápidamente tus zapatos favoritos usando filtros avanzados.\nBusca por marca, modelo, color y más, y descubre todas las características de tus zapatos en un instante."),
+            "Encuentra rápidamente tus zapatos favoritos usando filtros avanzados. Busca por marca, modelo, color y más, y descubre todas las características de tus zapatos en un instante."),
         "onboarding_second_title":
             MessageLookupByLibrary.simpleMessage("Filtra"),
         "onboarding_skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "onboarding_third_description": MessageLookupByLibrary.simpleMessage(
-            "Ver fichas detalladas de sus zapatos con todas sus características.\nDesde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva."),
+            "Ver fichas detalladas de sus zapatos con todas sus características. Desde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva."),
         "onboarding_third_title":
             MessageLookupByLibrary.simpleMessage("Muestra"),
         "policy_title": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
@@ -297,6 +312,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error durante el registro:"),
         "signup_toast_success":
             MessageLookupByLibrary.simpleMessage("¡Registro exitoso!"),
+        "storage_permission_error": MessageLookupByLibrary.simpleMessage(
+            "Permiso para acceder a los archivos denegado"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contactos"),
         "support_developer":
             MessageLookupByLibrary.simpleMessage("Desarrollador"),

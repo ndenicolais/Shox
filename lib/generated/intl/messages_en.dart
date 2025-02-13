@@ -110,6 +110,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_season_winter": MessageLookupByLibrary.simpleMessage("Winter"),
         "field_size": MessageLookupByLibrary.simpleMessage("Size"),
         "field_type": MessageLookupByLibrary.simpleMessage("Type"),
+        "full_screen_image_download_error_toast":
+            MessageLookupByLibrary.simpleMessage("Failed to download image."),
+        "full_screen_image_save_error_toast":
+            MessageLookupByLibrary.simpleMessage("Error"),
+        "full_screen_image_save_success_toast":
+            MessageLookupByLibrary.simpleMessage("Image saved successfully!"),
+        "full_screen_image_share_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Failed to download image for sharing."),
+        "full_screen_image_share_error_toast":
+            MessageLookupByLibrary.simpleMessage("Error"),
+        "full_screen_image_share_success_toast":
+            MessageLookupByLibrary.simpleMessage("Image shared successfully!"),
         "history_added": MessageLookupByLibrary.simpleMessage("Added"),
         "history_deleted": MessageLookupByLibrary.simpleMessage("Deleted"),
         "history_empty": MessageLookupByLibrary.simpleMessage("Empty history"),
@@ -144,7 +157,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "info_screen_credits_text":
             MessageLookupByLibrary.simpleMessage("CREDITS"),
         "info_screen_description_description": MessageLookupByLibrary.simpleMessage(
-            "This application allows you to create a digital wardrobe where you can save and view all your shoes. In this way, all your shoes will be catalogued and always at hand."),
+            "This application allows you to create a personalized digital wardrobe exclusively for your shoes. Here, you can easily save, organize, and view all your shoes in one virtual place. Each pair of shoes can be cataloged with specific details such as brand, model, color, and occasion of use, making it easier to find exactly what you are looking for at any time. With your digital wardrobe, you will always have a complete view of your shoe collection at your fingertips, making it easier to choose the perfect pair for every occasion."),
         "info_screen_description_text":
             MessageLookupByLibrary.simpleMessage("DESCRIPTION"),
         "info_screen_origin_description": MessageLookupByLibrary.simpleMessage(
@@ -186,7 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "onboarding_finish":
             MessageLookupByLibrary.simpleMessage("Get started"),
         "onboarding_first_description": MessageLookupByLibrary.simpleMessage(
-            "Add all your shoes to this digital box to always have them with you.\nEasily organize your collection and keep track of every pair you own at your fingertips."),
+            "Add all your shoes to this digital box to always have them with you. Easily organize your collection and keep track of every pair you own at your fingertips."),
         "onboarding_first_title": MessageLookupByLibrary.simpleMessage("Add"),
         "onboarding_fourth_description": MessageLookupByLibrary.simpleMessage(
             "Explore various colorful charts that display detailed statistics about the total and the specifications of yours shoes in the database."),
@@ -194,12 +207,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Graphs"),
         "onboarding_next": MessageLookupByLibrary.simpleMessage("Next"),
         "onboarding_second_description": MessageLookupByLibrary.simpleMessage(
-            "Quickly find your favorite shoes using advanced filters.\nSearch by brand, model, color, and more, and discover all the features of your shoes in a snap."),
+            "Quickly find your favorite shoes using advanced filters. Search by brand, model, color, and more, and discover all the features of your shoes in a snap."),
         "onboarding_second_title":
             MessageLookupByLibrary.simpleMessage("Filter"),
         "onboarding_skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "onboarding_third_description": MessageLookupByLibrary.simpleMessage(
-            "View detailed cards of your shoes complete with all their features.\nFrom technical specifications to photos, explore every aspect of your shoes with an intuitive interface."),
+            "View detailed cards of your shoes complete with all their features. From technical specifications to photos, explore every aspect of your shoes with an intuitive interface."),
         "onboarding_third_title": MessageLookupByLibrary.simpleMessage("View"),
         "policy_title": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profile_database": MessageLookupByLibrary.simpleMessage("Database"),
@@ -285,6 +298,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error during registration:"),
         "signup_toast_success":
             MessageLookupByLibrary.simpleMessage("Successfully registered!"),
+        "storage_permission_error":
+            MessageLookupByLibrary.simpleMessage("Storage permission denied"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contacts"),
         "support_developer": MessageLookupByLibrary.simpleMessage("Developer"),
         "support_screen_contacts_decription":

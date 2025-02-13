@@ -114,6 +114,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_season_winter": MessageLookupByLibrary.simpleMessage("Inverno"),
         "field_size": MessageLookupByLibrary.simpleMessage("Taglia"),
         "field_type": MessageLookupByLibrary.simpleMessage("Tipo"),
+        "full_screen_image_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Download dell\'immagine non riuscito."),
+        "full_screen_image_save_error_toast":
+            MessageLookupByLibrary.simpleMessage("Errore"),
+        "full_screen_image_save_success_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Immagine salvata con successo!"),
+        "full_screen_image_share_download_error_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Download dell\'immagine per la condivisione non riuscito."),
+        "full_screen_image_share_error_toast":
+            MessageLookupByLibrary.simpleMessage("Errore"),
+        "full_screen_image_share_success_toast":
+            MessageLookupByLibrary.simpleMessage(
+                "Immagine condivisa con successo!"),
         "history_added": MessageLookupByLibrary.simpleMessage("Aggiunto"),
         "history_deleted": MessageLookupByLibrary.simpleMessage("Eliminato"),
         "history_empty":
@@ -149,7 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "info_screen_credits_text":
             MessageLookupByLibrary.simpleMessage("CREDITI"),
         "info_screen_description_description": MessageLookupByLibrary.simpleMessage(
-            "Questa applicazione permette di creare un guardaroba digitale dove è possibile salvare e visualizzare tutte le scarpe. In questo modo tutte le vostre scarpe saranno catalogate e sempre a portata di mano."),
+            "Questa applicazione consente di creare un guardaroba digitale personalizzato, dedicato esclusivamente alle vostre scarpe. Qui, potrete facilmente salvare, organizzare e visualizzare tutte le vostre scarpe in un unico luogo virtuale. Ogni paio di scarpe potrà essere catalogato con dettagli specifici come marca, modello, colore, e occasione d\'uso, rendendo più semplice trovare esattamente quello che cercate in qualsiasi momento. Con il vostro guardaroba digitale, avrete sempre a portata di mano una visione completa della vostra collezione di scarpe, facilitando la scelta del paio perfetto per ogni occasione."),
         "info_screen_description_text":
             MessageLookupByLibrary.simpleMessage("DESCRIZIONE"),
         "info_screen_origin_description": MessageLookupByLibrary.simpleMessage(
@@ -191,7 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("A presto!"),
         "onboarding_finish": MessageLookupByLibrary.simpleMessage("Inizia"),
         "onboarding_first_description": MessageLookupByLibrary.simpleMessage(
-            "Aggiungi tutte le tue scarpe a questa scatola digitale per averle sempre con te.\nOrganizza facilmente la tua collezione e tieni traccia di ogni paio che possiedi a portata di mano."),
+            "Aggiungi tutte le tue scarpe a questa scatola digitale per averle sempre con te. Organizza facilmente la tua collezione e tieni traccia di ogni paio che possiedi a portata di mano."),
         "onboarding_first_title":
             MessageLookupByLibrary.simpleMessage("Aggiungi"),
         "onboarding_fourth_description": MessageLookupByLibrary.simpleMessage(
@@ -200,12 +216,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Grafici"),
         "onboarding_next": MessageLookupByLibrary.simpleMessage("Avanti"),
         "onboarding_second_description": MessageLookupByLibrary.simpleMessage(
-            "Trova rapidamente le tue scarpe preferite utilizzando filtri avanzati.\nCerca per marca, modello, colore e altro ancora, e scopri tutte le caratteristiche delle tue scarpe in un attimo."),
+            "Trova rapidamente le tue scarpe preferite utilizzando filtri avanzati. Cerca per marca, modello, colore e altro ancora, e scopri tutte le caratteristiche delle tue scarpe in un attimo."),
         "onboarding_second_title":
             MessageLookupByLibrary.simpleMessage("Filtra"),
         "onboarding_skip": MessageLookupByLibrary.simpleMessage("Salta"),
         "onboarding_third_description": MessageLookupByLibrary.simpleMessage(
-            "Visualizza schede dettagliate delle tue scarpe complete di tutte le loro caratteristiche.\nDalle specifiche tecniche alle foto, esplora ogni aspetto delle tue scarpe con un\'interfaccia intuitiva."),
+            "Visualizza schede dettagliate delle tue scarpe complete di tutte le loro caratteristiche. Dalle specifiche tecniche alle foto, esplora ogni aspetto delle tue scarpe con un\'interfaccia intuitiva."),
         "onboarding_third_title":
             MessageLookupByLibrary.simpleMessage("Visualizza"),
         "policy_title": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
@@ -296,6 +312,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Errore durante la registrazione:"),
         "signup_toast_success": MessageLookupByLibrary.simpleMessage(
             "Registrazione effettuata con successo!"),
+        "storage_permission_error": MessageLookupByLibrary.simpleMessage(
+            "Permesso per accedere ai file negato"),
         "support_contacts": MessageLookupByLibrary.simpleMessage("Contatti"),
         "support_developer":
             MessageLookupByLibrary.simpleMessage("Sviluppatore"),
