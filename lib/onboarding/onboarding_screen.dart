@@ -73,7 +73,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       SizedBox(height: 40.h),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.r),
+                        padding: EdgeInsets.symmetric(horizontal: 60.h),
                         child: Text(
                           item.description,
                           textAlign: TextAlign.center,
@@ -96,8 +96,8 @@ class OnboardingScreenState extends State<OnboardingScreen> {
               child: isLastPage
                   ? Center(
                       child: SizedBox(
-                        width: 250.w,
-                        height: 50.h,
+                        width: 220.w,
+                        height: 60.h,
                         child: MaterialButton(
                           onPressed: () async {
                             final pres = await SharedPreferences.getInstance();
@@ -129,6 +129,11 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                         children: [
                           TextButton(
                             onPressed: _skip,
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all<Color>(
+                                Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
                             child: Text(
                               S.current.onboarding_skip,
                               style: TextStyle(
@@ -144,8 +149,8 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                               controller: _pageController,
                               count: _totalPages,
                               effect: WormEffect(
-                                dotWidth: 10.r,
-                                dotHeight: 10.r,
+                                dotWidth: 10.w,
+                                dotHeight: 10.h,
                                 spacing: 16.r,
                                 radius: 8.r,
                                 activeDotColor:
@@ -157,6 +162,11 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           TextButton(
                             onPressed: _nextPage,
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all<Color>(
+                                Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
                             child: Text(
                               S.current.onboarding_next,
                               style: TextStyle(

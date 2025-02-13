@@ -22,7 +22,7 @@ class LanguagesScreenState extends State<LanguagesScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(30.r),
+          padding: EdgeInsets.symmetric(horizontal: 30.r),
           child: Center(
             child: Column(
               children: [

@@ -17,7 +17,7 @@ class SupportScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(30.r),
+          padding: EdgeInsets.symmetric(horizontal: 30.r),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,10 +178,6 @@ class SupportScreen extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10.h),
-        CustomExpansionTile(
-          title: S.current.support_screen_faq_q1,
-          answer: S.current.support_screen_faq_a1,
-        ),
         CustomExpansionTile(
           title: S.current.support_screen_faq_q1,
           answer: S.current.support_screen_faq_a1,
