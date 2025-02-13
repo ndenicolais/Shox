@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
 import 'package:shox/services/database_service.dart';
@@ -11,6 +11,7 @@ import 'package:shox/services/pdf_service.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/db_localized_values.dart';
+import 'package:shox/widgets/custom_loader.dart';
 import 'package:shox/widgets/custom_pie_chart.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 
@@ -28,10 +29,10 @@ class DatabaseScreenState extends State<DatabaseScreen>
   late final ShoesService _shoesService;
   late final DatabaseService _databaseService;
   late final PdfService _pdfService;
-  late AnimationController _loadingPdfController;
-  bool _isPdfLoading = false;
   late AnimationController _loadingController;
   bool _isLoading = true;
+  late AnimationController _loadingPdfController;
+  bool _isPdfLoading = false;
   int _totalShoesCount = 0;
   Map<String, int> _brandCounts = {};
   Map<String, int> _colorCounts = {};
@@ -39,11 +40,47 @@ class DatabaseScreenState extends State<DatabaseScreen>
   Map<String, int> _typeCounts = {};
 
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.r),
+            child: _isLoading
+                ? _buildLoadingIndicator(context)
+                : _totalShoesCount == 0
+                    ? _buildDatabaseEmpty(context)
+                    : SingleChildScrollView(
+                        child: Center(
+                          child: Column(
+                            children: <Widget>[
+                              _buildDatabaseInfo(context),
+                              SizedBox(height: 20.h),
+                              _buildDownloadButton(context),
+                              SizedBox(height: 20.h),
+                              _buildColorPieChart(context),
+                              _buildBrandPieChart(),
+                              _buildCategoryPieChart(),
+                              _buildTypePieChart(),
+                            ],
+                          ),
+                        ),
+                      ),
+          ),
+          if (_isPdfLoading) _buildPdfLoading(context)
+        ],
+      ),
+    );
+  }
+
+  @override
   void initState() {
     super.initState();
     _shoesService = ShoesService();
     _databaseService = DatabaseService(_shoesService);
-    _pdfService = PdfService(_shoesService, _databaseService);
+    _pdfService = PdfService(context, _shoesService, _databaseService);
     _fetchData();
     _loadingController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -78,50 +115,32 @@ class DatabaseScreenState extends State<DatabaseScreen>
     );
   }
 
-  Future<void> requestStoragePermission() async {
-    // Request permission to manage external memory on Android 13+
-    final status = await Permission.manageExternalStorage.request();
+  Future<void> _generatePdf() async {
+    setState(() {
+      _isPdfLoading = true;
+    });
 
-    if (status.isGranted) {
-      logger.i('Storage permission granted');
-    } else if (status.isDenied) {
-      logger.e('Storage permission denied');
-    } else if (status.isPermanentlyDenied) {
-      logger.e('Storage permission permanently denied');
-      // Opens app settings to change permissions
-      openAppSettings();
+    try {
+      final filePath = await _pdfService.generateShoesPdf();
+      if (mounted) {
+        showSuccessToast(context, S.current.database_pdf_confirm);
+      }
+      await _sharePdf(filePath);
+    } catch (e) {
+      if (mounted) {
+        showErrorToast(context, S.current.database_pdf_error);
+      }
+    } finally {
+      setState(() {
+        _isPdfLoading = false;
+      });
     }
   }
 
-  Future<void> _generatePdf() async {
-    setState(
-      () {
-        _isPdfLoading = true;
-      },
-    );
-
-    try {
-      await _pdfService.generateShoesPdf();
-      if (mounted) {
-        showSuccessToast(
-          context,
-          S.current.database_pdf_confirm,
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        showErrorToast(
-          context,
-          S.current.database_pdf_error,
-        );
-      }
-    } finally {
-      setState(
-        () {
-          _isPdfLoading = false;
-        },
-      );
-    }
+  Future<void> _sharePdf(String filePath) async {
+    final xFile = XFile(filePath);
+    await Share.shareXFiles([xFile],
+        text: 'Here are your exported shoes (PDF)!');
   }
 
   @override
@@ -129,42 +148,6 @@ class DatabaseScreenState extends State<DatabaseScreen>
     _loadingController.dispose();
     _loadingPdfController.dispose();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 30.r),
-            child: _isLoading
-                ? _buildDatabaseLoading(context)
-                : _totalShoesCount == 0
-                    ? _buildDatabaseEmpty(context)
-                    : SingleChildScrollView(
-                        child: Center(
-                          child: Column(
-                            children: <Widget>[
-                              _buildDatabaseInfo(context),
-                              SizedBox(height: 20.h),
-                              _buildDownloadButton(context),
-                              SizedBox(height: 20.h),
-                              _buildColorPieChart(context),
-                              _buildBrandPieChart(),
-                              _buildCategoryPieChart(),
-                              _buildTypePieChart(),
-                            ],
-                          ),
-                        ),
-                      ),
-          ),
-          if (_isPdfLoading) _buildPdfLoading(context)
-        ],
-      ),
-    );
   }
 
   AppBar _buildAppBar(BuildContext context) {
@@ -192,21 +175,11 @@ class DatabaseScreenState extends State<DatabaseScreen>
     );
   }
 
-  Widget _buildDatabaseLoading(BuildContext context) {
+  Widget _buildLoadingIndicator(BuildContext context) {
     return Center(
-      child: AnimatedBuilder(
-        animation: _loadingController,
-        builder: (_, child) {
-          return Transform.rotate(
-            angle: _loadingController.value * 2.0 * 3.14159,
-            child: child,
-          );
-        },
-        child: Icon(
-          MingCuteIcons.mgc_shoe_fill,
-          size: 50.sp,
-          color: Theme.of(context).colorScheme.secondary,
-        ),
+      child: CustomLoader(
+        width: 50.w,
+        height: 50.h,
       ),
     );
   }
@@ -222,11 +195,7 @@ class DatabaseScreenState extends State<DatabaseScreen>
               curve: Curves.easeInOut,
             ),
           ),
-          child: Icon(
-            MingCuteIcons.mgc_file_download_fill,
-            size: 120.sp,
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          child: _buildLoadingIndicator(context),
         ),
       ),
     );
