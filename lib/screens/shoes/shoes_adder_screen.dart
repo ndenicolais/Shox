@@ -9,13 +9,14 @@ import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/screens/home_screen.dart';
 import 'package:shox/utils/category_translations.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/utils/permission_helper.dart';
 // import 'package:shox/utils/api_client.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/custom_dropdown.dart';
+import 'package:shox/widgets/custom_loader.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
@@ -50,6 +51,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
   late Map<String, String> translatedTypeOptions;
   String selectedCategory = '';
   String selectedType = '';
+  bool isSaveLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -58,34 +60,48 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
       child: Scaffold(
         appBar: _buildAppBar(context),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.r),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildImageSelector(context),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        body: Stack(
+          children: [
+            SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.r),
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      _buildColorSelector(context),
-                      _buildDetailsColorSelector(context),
+                      _buildImageSelector(context),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildColorSelector(context),
+                          _buildDetailsColorSelector(context),
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                      _buildSeasonSelector(context),
+                      SizedBox(height: 20.h),
+                      _buildBrandTextField(context),
+                      _buildSizeTextField(context),
+                      _buildCategoryDropdown(context),
+                      _buildTypeDropdown(context),
+                      _buildNotesTextField(context),
+                      SizedBox(height: 20.h),
+                      _buildSaveButton(context),
                     ],
                   ),
-                  SizedBox(height: 10.h),
-                  _buildSeasonSelector(context),
-                  SizedBox(height: 20.h),
-                  _buildBrandTextField(context),
-                  _buildSizeTextField(context),
-                  _buildCategoryDropdown(context),
-                  _buildTypeDropdown(context),
-                  _buildNotesTextField(context),
-                  SizedBox(height: 20.h),
-                  _buildSaveButton(context),
-                ],
+                ),
               ),
             ),
-          ),
+            if (isSaveLoading)
+              Container(
+                color: Theme.of(context)
+                    .colorScheme
+                    .tertiary
+                    .withValues(alpha: 0.7),
+                child: Center(
+                  child: _buildLoadingIndicator(context),
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -133,18 +149,20 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
   }
 
   Future<void> _pickImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
+    await requestStoragePermission(context, () async {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
 
-    if (pickedFile != null && currentUser != null) {
-      File? croppedImage = await _cropImage(File(pickedFile.path));
-      if (croppedImage != null) {
-        setState(() {
-          _imageFile = croppedImage;
-        });
+      if (pickedFile != null && currentUser != null) {
+        File? croppedImage = await _cropImage(File(pickedFile.path));
+        if (croppedImage != null) {
+          setState(() {
+            _imageFile = croppedImage;
+          });
+        }
+      } else {
+        _logger.e("Error: no image selected");
       }
-    } else {
-      _logger.e("Error: user not logged in or no image selected");
-    }
+    });
   }
 
   // Future<void> _removeBackground() async {
@@ -181,6 +199,10 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
         }
         return;
       }
+
+      setState(() {
+        isSaveLoading = true;
+      });
 
       final newShoes = ShoesModel(
         id: '',
@@ -237,12 +259,12 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
             context,
             S.current.shoes_adder_screen_toast_success,
           );
-          Get.off(
-            () => const HomeScreen(),
-            transition: Transition.fade,
-            duration: const Duration(milliseconds: 500),
-          );
+          Get.back();
         }
+
+        setState(() {
+          isSaveLoading = false;
+        });
       }
     }
   }
@@ -272,9 +294,19 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
     );
   }
 
+  Widget _buildLoadingIndicator(BuildContext context) {
+    return Center(
+      child: CustomLoader(
+        width: 50.w,
+        height: 50.h,
+      ),
+    );
+  }
+
   void _showImageSelector(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       builder: (BuildContext context) {
         return SafeArea(
           child: Row(
@@ -302,7 +334,6 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
           ),
         );
       },
-      backgroundColor: Theme.of(context).colorScheme.primary,
     );
   }
 
@@ -569,7 +600,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
           builder: (BuildContext context) {
             return Dialog(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              insetPadding: EdgeInsets.symmetric(horizontal: 100.w),
+              insetPadding: EdgeInsets.symmetric(horizontal: 100.h),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.r),
               ),
@@ -782,6 +813,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
             S.current.field_season_title,
             style: TextStyle(
@@ -846,7 +878,6 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
               ),
             ],
           ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
           actions: [
             TextButton(
               style: ButtonStyle(

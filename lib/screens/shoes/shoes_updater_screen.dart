@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,12 +9,13 @@ import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/screens/home_screen.dart';
 import 'package:shox/utils/category_translations.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
+import 'package:shox/utils/permission_helper.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/custom_dropdown.dart';
+import 'package:shox/widgets/custom_loader.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 import 'package:shox/widgets/shoes_textfield.dart';
 
@@ -51,6 +51,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   late String _languageCode;
   late Map<String, String> translatedCategoryOptions;
   late Map<String, String> translatedTypeOptions;
+  bool isSaveLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,34 +60,48 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       child: Scaffold(
         appBar: _buildAppBar(context),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.r),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildImageSelector(context),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        body: Stack(
+          children: [
+            SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.r),
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      _buildColorSelector(context),
-                      _buildDetailsColorSelector(context),
+                      _buildImageSelector(context),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildColorSelector(context),
+                          _buildDetailsColorSelector(context),
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                      _buildSeasonSelector(context),
+                      SizedBox(height: 20.h),
+                      _buildBrandTextField(context),
+                      _buildSizeTextField(context),
+                      _buildCategoryDropdown(context),
+                      _buildTypeDropdown(context),
+                      _buildNotesTextField(context),
+                      SizedBox(height: 20.h),
+                      _buildSaveButton(context),
                     ],
                   ),
-                  SizedBox(height: 10.h),
-                  _buildSeasonSelector(context),
-                  SizedBox(height: 20.h),
-                  _buildBrandTextField(context),
-                  _buildSizeTextField(context),
-                  _buildCategoryDropdown(context),
-                  _buildTypeDropdown(context),
-                  _buildNotesTextField(context),
-                  SizedBox(height: 20.h),
-                  _buildSaveButton(context),
-                ],
+                ),
               ),
             ),
-          ),
+            if (isSaveLoading)
+              Container(
+                color: Theme.of(context)
+                    .colorScheme
+                    .tertiary
+                    .withValues(alpha: 0.7),
+                child: Center(
+                  child: _buildLoadingIndicator(context),
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -154,18 +169,20 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   }
 
   Future<void> _pickImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
+    await requestStoragePermission(context, () async {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
 
-    if (pickedFile != null && currentUser != null) {
-      File? croppedImage = await _cropImage(File(pickedFile.path));
-      if (croppedImage != null) {
-        setState(() {
-          _newImage = croppedImage;
-        });
+      if (pickedFile != null && currentUser != null) {
+        File? croppedImage = await _cropImage(File(pickedFile.path));
+        if (croppedImage != null) {
+          setState(() {
+            _newImage = croppedImage;
+          });
+        }
+      } else {
+        _logger.e("Error: no image selected");
       }
-    } else {
-      _logger.e("Error: user not logged in or no image selected");
-    }
+    });
   }
 
   void _removeExistingImage() {
@@ -205,6 +222,10 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
         }
       }
 
+      setState(() {
+        isSaveLoading = true;
+      });
+
       final updateShoe = ShoesModel(
         id: widget.shoes.id,
         imageUrl: _existingImageUrl!,
@@ -227,12 +248,12 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           context,
           S.current.shoes_updater_screen_toast_success,
         );
-        Get.off(
-          () => const HomeScreen(),
-          transition: Transition.fade,
-          duration: const Duration(milliseconds: 500),
-        );
+        Get.back();
       }
+
+      setState(() {
+        isSaveLoading = false;
+      });
     }
   }
 
@@ -261,9 +282,19 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     );
   }
 
+  Widget _buildLoadingIndicator(BuildContext context) {
+    return Center(
+      child: CustomLoader(
+        width: 50.w,
+        height: 50.h,
+      ),
+    );
+  }
+
   void _showImageSelector(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       builder: (BuildContext context) {
         return SafeArea(
           child: Row(
@@ -291,7 +322,6 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           ),
         );
       },
-      backgroundColor: Theme.of(context).colorScheme.primary,
     );
   }
 
@@ -363,8 +393,8 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                 clipBehavior: Clip.antiAlias,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                  child: CachedNetworkImage(
-                    imageUrl: _existingImageUrl!,
+                  child: Image.network(
+                    _existingImageUrl!,
                     width: 200.w,
                     height: 200.h,
                     fit: BoxFit.cover,
@@ -589,7 +619,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           builder: (BuildContext context) {
             return Dialog(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              insetPadding: EdgeInsets.symmetric(horizontal: 100.w),
+              insetPadding: EdgeInsets.symmetric(horizontal: 100.h),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.r),
               ),
@@ -803,6 +833,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
             S.current.field_season_title,
             style: TextStyle(
@@ -819,7 +850,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                 children: [
                   Icon(Icons.sunny,
                       color: Theme.of(context).colorScheme.secondary),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text(
                     S.current.field_season_summer,
                     style: TextStyle(
@@ -861,7 +892,6 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
               ),
             ],
           ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
           actions: [
             TextButton(
               style: ButtonStyle(
