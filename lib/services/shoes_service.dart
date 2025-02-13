@@ -106,7 +106,7 @@ class ShoesService {
     }
   }
 
-  // Get Shoes collection reference for current user
+  // Function that get Shoes collection reference for current user
   CollectionReference getShoesCollection() {
     return _firestore
         .collection('users')
@@ -114,7 +114,7 @@ class ShoesService {
         .collection('shoes');
   }
 
-  // Retrieves a list of ShoeModel objects from Firestore collection
+  // Function that retrieves a list of ShoeModel objects from Firestore collection
   Future<List<ShoesModel>> getShoes({bool onlyFavorites = false}) async {
     try {
       CollectionReference shoesCollection = getShoesCollection();
@@ -166,6 +166,7 @@ class ShoesService {
     }
   }
 
+  // Function that adds an entry to the user's history in Firestore.
   Future<void> historyEvents(
       String operationType, String shoesId, String? imageUrl) async {
     try {
@@ -173,7 +174,6 @@ class ShoesService {
         throw Exception('User ID is null');
       }
 
-      // Add a document to the current user’s history collection
       await _firestore
           .collection('users')
           .doc(currentUser!.uid)

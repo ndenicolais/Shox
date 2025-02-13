@@ -81,6 +81,7 @@ class DatabaseService {
     return typeCounts;
   }
 
+  // This function retrieves the current user's data from Firebase Auth and Firestore.
   Future<Map<String, dynamic>> getCurrentUserData() async {
     final user = FirebaseAuth.instance.currentUser;
 
@@ -94,14 +95,12 @@ class DatabaseService {
 
     if (user.providerData.isNotEmpty &&
         user.providerData[0].providerId == 'google.com') {
-      // If the user is logged in through Google, get the name from the Google account
       String? googleUserName = user.displayName;
       if (googleUserName != null) {
         List<String> nameParts = googleUserName.split(" ");
         userName = nameParts.isNotEmpty ? nameParts[0] : 'User';
       }
     } else {
-      // Log in to Firestore to retrieve user data
       final docSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
@@ -113,7 +112,6 @@ class DatabaseService {
       }
     }
 
-    // Return user data as Map
     return {
       'userId': userId,
       'name': userName,
@@ -121,6 +119,7 @@ class DatabaseService {
     };
   }
 
+  // This function retrieves the account creation date of the current user if the provided user ID matches the logged-in user.
   Future<DateTime> getUserCreationDate(String userId) async {
     final user = FirebaseAuth.instance.currentUser;
 

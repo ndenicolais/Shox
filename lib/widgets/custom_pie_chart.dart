@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-// Generic data for the pie chart
 class PieChartData {
   final String label;
   final double value;
@@ -12,7 +11,6 @@ class PieChartData {
   PieChartData(this.label, this.value, {required this.color});
 }
 
-// Specific data for the color pie chart
 class ColorChartData {
   final String colorHex;
   final double count;
@@ -21,7 +19,6 @@ class ColorChartData {
   ColorChartData(this.colorHex, this.count, this.color);
 }
 
-// Reusable widget for pie chart
 class CustomPieChartWidget<T> extends StatelessWidget {
   final List<T> chartData;
   final String title;
@@ -112,7 +109,6 @@ class CustomPieChartWidget<T> extends StatelessWidget {
     );
   }
 
-  // Function to generate a random color
   Color getRandomColor() {
     Random random = Random();
     return Color.fromARGB(

@@ -10,7 +10,7 @@ import 'package:shox/utils/category_translations.dart';
 import 'package:shox/screens/shoes/shoes_updater_screen.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/widgets/custom_delete_dialog.dart';
-import 'package:shox/widgets/custom_full_image.dart';
+import 'package:shox/widgets/full_screen_image.dart';
 import 'package:shox/widgets/custom_loader.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 
@@ -258,7 +258,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     return GestureDetector(
       onTap: () {
         Get.to(
-          () => CustomFullImage(imageUrl: shoes.imageUrl),
+          () => FullScreenImage(imageUrl: shoes.imageUrl),
           transition: Transition.fadeIn,
           duration: const Duration(milliseconds: 500),
         );

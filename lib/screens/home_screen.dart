@@ -97,7 +97,7 @@ class HomeScreenState extends State<HomeScreen>
     _searchController.clear();
   }
 
-  Widget _buildLoadingIndicator() {
+  Widget _buildLoadingIndicator(BuildContext context) {
     return Center(
       child: CustomLoader(
         width: 50.w,
@@ -294,7 +294,7 @@ class HomeScreenState extends State<HomeScreen>
         stream: _shoesListFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return _buildLoadingIndicator();
+            return _buildLoadingIndicator(context);
           } else if (snapshot.hasError) {
             return _buildErrorState(context);
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -366,7 +366,8 @@ class HomeScreenState extends State<HomeScreen>
         width: imageWidth,
         height: imageHeight,
         fit: BoxFit.cover,
-        placeholder: (context, url) => Center(child: _buildLoadingIndicator()),
+        placeholder: (context, url) =>
+            Center(child: _buildLoadingIndicator(context)),
         errorWidget: (context, url, error) => Icon(
           MingCuteIcons.mgc_close_fill,
           color: Theme.of(context).colorScheme.secondary,
@@ -670,7 +671,7 @@ class HomeScreenState extends State<HomeScreen>
             break;
           case 1:
             Get.to(() => const ShoesAdderScreen(),
-                transition: Transition.zoom,
+                transition: Transition.fadeIn,
                 duration: const Duration(milliseconds: 500));
             break;
           case 2:
