@@ -13,6 +13,7 @@ import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/user_model.dart';
 import 'package:shox/screens/user/user_screen.dart';
 import 'package:shox/services/user_service.dart';
+import 'package:shox/utils/permission_helper.dart';
 import 'package:shox/widgets/account_textfield.dart';
 import 'package:shox/widgets/custom_button.dart';
 import 'package:shox/widgets/custom_loader.dart';
@@ -141,25 +142,27 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
   }
 
   Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      File? croppedImage = await _cropImage(File(pickedFile.path));
+    await requestStoragePermission(context, () async {
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        File? croppedImage = await _cropImage(File(pickedFile.path));
 
-      if (croppedImage != null) {
-        setState(() {
+        if (croppedImage != null) {
+          setState(() {
+            userImage = croppedImage;
+          });
+        } else {
+          if (_imageUrl != null) {
+            final oldFileName = _imageUrl!.split('/').last;
+            _userService.deleteUserImageSupabase(currentUser!.uid, oldFileName);
+          }
           userImage = croppedImage;
-        });
-      } else {
-        if (_imageUrl != null) {
-          final oldFileName = _imageUrl!.split('/').last;
-          _userService.deleteUserImageSupabase(currentUser!.uid, oldFileName);
         }
-        userImage = croppedImage;
+      } else {
+        _logger.i("Cropping deleted, image not updated");
       }
-    } else {
-      _logger.i("Cropping deleted, image not updated");
-    }
+    });
   }
 
   Future<void> _saveData() async {
