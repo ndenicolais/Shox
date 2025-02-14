@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:logger/logger.dart';
+import 'package:path/path.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -14,7 +15,8 @@ class UserService {
   Future<String> addUserImageSupabase(String userId, File imageFile) async {
     var uuid = const Uuid();
     String uniqueId = uuid.v4();
-    final path = '$userId/users/$uniqueId.jpg';
+    String fileExtension = extension(imageFile.path);
+    final path = '$userId/users/$uniqueId$fileExtension';
 
     await _client.storage.from('images').upload(path, imageFile);
 

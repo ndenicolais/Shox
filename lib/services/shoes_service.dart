@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:logger/logger.dart';
+import 'package:path/path.dart';
 import 'package:shox/models/shoes_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -191,7 +192,7 @@ class ShoesService {
   }
 
   // Function to update shoes status as favorite
-  Future<void> toggleFavoriteStatus(String shoeId, bool isFavorite) async {
+  Future<void> toggleFavoriteStatus(String shoesId, bool isFavorite) async {
     try {
       if (currentUser == null) {
         throw "User not logged in";
@@ -201,21 +202,22 @@ class ShoesService {
           .collection('users')
           .doc(currentUser!.uid)
           .collection('shoes')
-          .doc(shoeId)
+          .doc(shoesId)
           .update({'isFavorite': isFavorite});
 
-      _logger.i("Favorite state of the shoes $shoeId successfully updated");
+      _logger.i("Favorite state of the shoes $shoesId successfully updated");
     } catch (e) {
       _logger.e("Error updating shoes favorite status: $e");
     }
   }
 
   // Function to add an image to Supabase under the shoe ID folder
-  Future<String> addShoeImageSupabase(
+  Future<String> addShoesImageSupabase(
       String userId, String shoesId, File imageFile) async {
     var uuid = const Uuid();
     String uniqueId = uuid.v4();
-    final path = '$userId/shoes/$shoesId/$uniqueId.jpg';
+    String fileExtension = extension(imageFile.path);
+    final path = '$userId/shoes/$shoesId/$uniqueId$fileExtension';
 
     await _client.storage.from('images').upload(path, imageFile);
 
@@ -223,7 +225,7 @@ class ShoesService {
   }
 
   // Function to delete an image from Supabase
-  Future<void> deleteShoeImageSupabase(
+  Future<void> deleteShoesImageSupabase(
       String userId, String shoesId, String fileName) async {
     final path = '$userId/shoes/$shoesId/$fileName';
     _logger.i('Deleting image from Supabase with path: $path');
@@ -237,7 +239,7 @@ class ShoesService {
   }
 
   // Function to get public url from Supabase
-  String getShoeImageUrlSupabase(
+  String getShoesImageUrlSupabase(
       String userId, String shoesId, String fileName) {
     return _client.storage
         .from('images')
