@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -111,8 +112,14 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
   }
 
   Future<File?> _cropImage(File imageFile) async {
+    final extension = imageFile.path.split('.').last.toLowerCase();
+    final format = (extension == 'png')
+        ? ImageCompressFormat.png
+        : ImageCompressFormat.jpg;
+
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
+      compressFormat: format,
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: S.current.users_updater_screen_crop_image_title,
@@ -145,12 +152,13 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
     await requestStoragePermission(context, () async {
       final XFile? pickedFile =
           await _picker.pickImage(source: ImageSource.gallery);
+
       if (pickedFile != null) {
         File? croppedImage = await _cropImage(File(pickedFile.path));
-
         if (croppedImage != null) {
+          File compressedImage = await _compressImage(croppedImage);
           setState(() {
-            userImage = croppedImage;
+            userImage = compressedImage;
           });
         } else {
           if (_imageUrl != null) {
@@ -163,6 +171,22 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
         _logger.i("Cropping deleted, image not updated");
       }
     });
+  }
+
+  Future<File> _compressImage(File imageFile) async {
+    final extension = imageFile.path.split('.').last.toLowerCase();
+    final format =
+        (extension == 'png') ? CompressFormat.png : CompressFormat.jpeg;
+
+    final compressedBytes = await FlutterImageCompress.compressWithFile(
+      imageFile.path,
+      quality: 70,
+      format: format,
+    );
+
+    final compressedFile = File(imageFile.path);
+    await compressedFile.writeAsBytes(compressedBytes!);
+    return compressedFile;
   }
 
   Future<void> _saveData() async {

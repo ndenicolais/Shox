@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -138,8 +139,14 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   }
 
   Future<File?> _cropImage(File imageFile) async {
+    final extension = imageFile.path.split('.').last.toLowerCase();
+    final format = (extension == 'png')
+        ? ImageCompressFormat.png
+        : ImageCompressFormat.jpg;
+
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
+      compressFormat: format,
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: S.current.shoes_updater_screen_crop_image_title,
@@ -163,7 +170,6 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           title: S.current.shoes_updater_screen_crop_image_title,
         ),
       ],
-      compressFormat: ImageCompressFormat.png,
     );
     return croppedFile != null ? File(croppedFile.path) : null;
   }
@@ -172,17 +178,34 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     await requestStoragePermission(context, () async {
       final XFile? pickedFile = await _picker.pickImage(source: source);
 
-      if (pickedFile != null && currentUser != null) {
+      if (pickedFile != null) {
         File? croppedImage = await _cropImage(File(pickedFile.path));
         if (croppedImage != null) {
+          File compressedImage = await _compressImage(croppedImage);
           setState(() {
-            _newImage = croppedImage;
+            _newImage = compressedImage;
           });
         }
       } else {
         _logger.e("Error: no image selected");
       }
     });
+  }
+
+  Future<File> _compressImage(File imageFile) async {
+    final extension = imageFile.path.split('.').last.toLowerCase();
+    final format =
+        (extension == 'png') ? CompressFormat.png : CompressFormat.jpeg;
+
+    final compressedBytes = await FlutterImageCompress.compressWithFile(
+      imageFile.path,
+      quality: 70,
+      format: format,
+    );
+
+    final compressedFile = File(imageFile.path);
+    await compressedFile.writeAsBytes(compressedBytes!);
+    return compressedFile;
   }
 
   void _removeExistingImage() {
@@ -203,16 +226,16 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   void _updateShoes() async {
     if (_formKey.currentState!.validate()) {
       if (_newImage != null) {
-        final path = await _shoesService.addShoeImageSupabase(
+        final path = await _shoesService.addShoesImageSupabase(
             currentUser!.uid, widget.shoes.id!, _newImage!);
         final fileName = path.split('/').last;
-        _existingImageUrl = _shoesService.getShoeImageUrlSupabase(
+        _existingImageUrl = _shoesService.getShoesImageUrlSupabase(
             currentUser!.uid, widget.shoes.id!, fileName);
 
         if (_removedExistingImages != null) {
           final existingFileName = _removedExistingImages!.split('/').last;
           try {
-            await _shoesService.deleteShoeImageSupabase(
+            await _shoesService.deleteShoesImageSupabase(
                 currentUser!.uid, widget.shoes.id!, existingFileName);
             _logger.i("Deleted existing image: $existingFileName");
           } catch (e) {
