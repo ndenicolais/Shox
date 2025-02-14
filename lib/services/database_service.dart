@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:logger/logger.dart';
 import 'package:shox/models/shoes_model.dart';
 import 'package:shox/services/shoes_service.dart';
 
 class DatabaseService {
-  var logger = Logger();
   final ShoesService _shoesService;
 
   DatabaseService(this._shoesService);
@@ -21,8 +19,8 @@ class DatabaseService {
     List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> colorCounts = {};
 
-    for (var shoe in shoesList) {
-      String colorHex = shoe.color.value.toRadixString(16);
+    for (var shoes in shoesList) {
+      String colorHex = shoes.color.value.toRadixString(16);
       if (colorCounts.containsKey(colorHex)) {
         colorCounts[colorHex] = colorCounts[colorHex]! + 1;
       } else {
@@ -38,11 +36,11 @@ class DatabaseService {
     List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> brandCounts = {};
 
-    for (var shoe in shoesList) {
-      if (brandCounts.containsKey(shoe.brand)) {
-        brandCounts[shoe.brand] = brandCounts[shoe.brand]! + 1;
+    for (var shoes in shoesList) {
+      if (brandCounts.containsKey(shoes.brand)) {
+        brandCounts[shoes.brand] = brandCounts[shoes.brand]! + 1;
       } else {
-        brandCounts[shoe.brand] = 1;
+        brandCounts[shoes.brand] = 1;
       }
     }
 
@@ -54,11 +52,11 @@ class DatabaseService {
     List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> categoryCounts = {};
 
-    for (var shoe in shoesList) {
-      if (categoryCounts.containsKey(shoe.category)) {
-        categoryCounts[shoe.category] = categoryCounts[shoe.category]! + 1;
+    for (var shoes in shoesList) {
+      if (categoryCounts.containsKey(shoes.category)) {
+        categoryCounts[shoes.category] = categoryCounts[shoes.category]! + 1;
       } else {
-        categoryCounts[shoe.category] = 1;
+        categoryCounts[shoes.category] = 1;
       }
     }
 
@@ -70,11 +68,11 @@ class DatabaseService {
     List<ShoesModel> shoesList = await _shoesService.getShoes();
     Map<String, int> typeCounts = {};
 
-    for (var shoe in shoesList) {
-      if (typeCounts.containsKey(shoe.type)) {
-        typeCounts[shoe.type] = typeCounts[shoe.type]! + 1;
+    for (var shoes in shoesList) {
+      if (typeCounts.containsKey(shoes.type)) {
+        typeCounts[shoes.type] = typeCounts[shoes.type]! + 1;
       } else {
-        typeCounts[shoe.type] = 1;
+        typeCounts[shoes.type] = 1;
       }
     }
 

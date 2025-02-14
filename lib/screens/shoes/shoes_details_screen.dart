@@ -423,7 +423,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
             _shoesService.deleteShoes(shoes.id!);
             if (shoes.imageUrl.isNotEmpty) {
               final fileName = shoes.imageUrl.split('/').last;
-              _shoesService.deleteShoeImageSupabase(
+              _shoesService.deleteShoesImageSupabase(
                   currentUser!.uid, shoes.id!, fileName);
             }
             showSuccessToast(
