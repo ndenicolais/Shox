@@ -23,7 +23,7 @@ class PdfService {
 
   Future<String> generateShoesPdf() async {
     try {
-      return await requestStoragePermission(context, () async {
+      return await requestManageExternalStoragePermission(context, () async {
         List<ShoesModel> shoesList = await _shoesService.getShoes();
         int totalShoesCount = shoesList.length;
         shoesList.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
@@ -48,8 +48,8 @@ class PdfService {
         pdf.addPage(_buildUserPage(logoImage, userData, creationDateString,
             totalShoesCount, ttf, ttfBold));
 
-        for (var shoe in shoesList) {
-          await _addShoesPage(pdf, shoe, logoImage, ttf, ttfBold);
+        for (var shoes in shoesList) {
+          await _addShoesPage(pdf, shoes, logoImage, ttf, ttfBold);
         }
 
         final filePath = await _savePdf(pdf);

@@ -5,7 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shox/generated/l10n.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 
-Future<String> requestStoragePermission(
+Future<void> requestStoragePermission(
     BuildContext context, Function pickImage) async {
   if (Platform.isAndroid) {
     final androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -16,12 +16,12 @@ Future<String> requestStoragePermission(
       PermissionStatus filePermission = await Permission.storage.status;
 
       if (filePermission.isGranted) {
-        return await pickImage();
+        pickImage();
       } else {
         filePermission = await Permission.storage.request();
 
         if (filePermission.isGranted) {
-          return await pickImage();
+          pickImage();
         } else if (filePermission.isDenied) {
           if (context.mounted) {
             showErrorToast(
@@ -29,10 +29,8 @@ Future<String> requestStoragePermission(
               S.current.storage_permission_error,
             );
           }
-          throw Exception('Storage permission denied');
         } else if (filePermission.isPermanentlyDenied) {
           openAppSettings();
-          throw Exception('Storage permission permanently denied');
         }
       }
     }
@@ -41,12 +39,12 @@ Future<String> requestStoragePermission(
       PermissionStatus filePermission = await Permission.photos.status;
 
       if (filePermission.isGranted) {
-        return await pickImage();
+        pickImage();
       } else {
         filePermission = await Permission.photos.request();
 
         if (filePermission.isGranted) {
-          return await pickImage();
+          pickImage();
         } else if (filePermission.isDenied) {
           if (context.mounted) {
             showErrorToast(
@@ -54,11 +52,37 @@ Future<String> requestStoragePermission(
               S.current.storage_permission_error,
             );
           }
-          throw Exception('Photos permission denied');
         } else if (filePermission.isPermanentlyDenied) {
           openAppSettings();
-          throw Exception('Photos permission permanently denied');
         }
+      }
+    }
+  }
+}
+
+Future<String> requestManageExternalStoragePermission(
+    BuildContext context, Function pickImage) async {
+  if (Platform.isAndroid) {
+    PermissionStatus manageExternalStoragePermission =
+        await Permission.manageExternalStorage.status;
+
+    if (manageExternalStoragePermission.isGranted) {
+      return await pickImage();
+    } else {
+      manageExternalStoragePermission =
+          await Permission.manageExternalStorage.request();
+
+      if (manageExternalStoragePermission.isGranted) {
+        return await pickImage();
+      } else if (manageExternalStoragePermission.isDenied) {
+        if (context.mounted) {
+          showErrorToast(
+            context,
+            S.current.storage_permission_error,
+          );
+        }
+      } else if (manageExternalStoragePermission.isPermanentlyDenied) {
+        openAppSettings();
       }
     }
   }
