@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shox/theme/app_colors.dart';
 
 class AppTheme {
@@ -14,6 +15,33 @@ class AppTheme {
         surface: AppColors.lightPeach,
         onSurface: AppColors.smoothBlack,
         onError: AppColors.errorColor,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: GoogleFonts.montserrat(
+          color: AppColors.smoothBlack,
+        ),
+        hintStyle: GoogleFonts.montserrat(
+          color: AppColors.darkPeach,
+        ),
+        errorStyle: GoogleFonts.montserrat(
+          color: AppColors.errorColor,
+          fontWeight: FontWeight.w600,
+        ),
+        errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.errorColor,
+          ),
+        ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.darkPeach,
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.darkPeach,
+          ),
+        ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
         selectionColor: AppColors.darkGold,
@@ -34,6 +62,33 @@ class AppTheme {
         surface: AppColors.lightGrey,
         onSurface: AppColors.smoothBlack,
         onError: AppColors.errorColor,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: GoogleFonts.montserrat(
+          color: AppColors.lightYellow,
+        ),
+        hintStyle: GoogleFonts.montserrat(
+          color: AppColors.darkGold,
+        ),
+        errorStyle: GoogleFonts.montserrat(
+          color: AppColors.errorColor,
+          fontWeight: FontWeight.w600,
+        ),
+        errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.errorColor,
+          ),
+        ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.darkGold,
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.darkGold,
+          ),
+        ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
         selectionColor: AppColors.lightPeach,

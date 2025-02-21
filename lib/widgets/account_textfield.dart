@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shox/theme/app_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AccountTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -36,40 +36,15 @@ class AccountTextField extends StatelessWidget {
       cursorColor: Theme.of(context).colorScheme.secondary,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontFamily: 'CustomFont',
-        ),
         hintText: hintText,
-        errorStyle: const TextStyle(
-          color: AppColors.errorColor,
-          fontFamily: 'CustomFont',
-          fontWeight: FontWeight.bold,
-        ),
         prefixIcon: Icon(
           prefixIcon,
           color: Theme.of(context).colorScheme.tertiary,
         ),
         suffixIcon: suffixIcon,
-        errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.errorColor,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
       ),
-      style: TextStyle(
+      style: GoogleFonts.montserrat(
         color: Theme.of(context).colorScheme.secondary,
-        fontFamily: 'CustomFont',
       ),
       obscureText: obscureText!,
       keyboardType: keyboardType,
