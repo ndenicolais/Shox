@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/onboarding/onboarding_items.dart';
 import 'package:shox/screens/home_screen.dart';
 import 'package:shox/screens/welcome_screen.dart';
@@ -17,9 +18,20 @@ class OnboardingScreen extends StatefulWidget {
 
 class OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
-  final OnboardingItems onboardingItems = OnboardingItems();
+  late OnboardingItems onboardingItems;
   final int _totalPages = 4;
   bool isLastPage = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    onboardingItems = OnboardingItems(context);
+  }
 
   void _nextPage() {
     if (_pageController.page!.toInt() < _totalPages - 1) {
@@ -64,11 +76,10 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                       Text(
                         item.title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
+                        style: GoogleFonts.montserrat(
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 70.sp,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'CustomFont',
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       SizedBox(height: 40.h),
@@ -77,10 +88,9 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                         child: Text(
                           item.description,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                             color: Theme.of(context).colorScheme.tertiary,
                             fontSize: 18.sp,
-                            fontFamily: 'CustomFont',
                           ),
                         ),
                       ),
@@ -112,11 +122,10 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                           color: Theme.of(context).colorScheme.secondary,
                           child: Center(
                             child: Text(
-                              S.current.onboarding_finish,
-                              style: TextStyle(
+                              AppLocalizations.of(context)!.onboarding_finish,
+                              style: GoogleFonts.montserrat(
                                 color: Theme.of(context).colorScheme.primary,
                                 fontSize: 20.sp,
-                                fontFamily: 'CustomFont',
                               ),
                             ),
                           ),
@@ -135,12 +144,11 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                             ),
                             child: Text(
-                              S.current.onboarding_skip,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
+                              AppLocalizations.of(context)!.onboarding_skip,
+                              style: GoogleFonts.montserrat(
+                                color: Theme.of(context).colorScheme.secondary,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'CustomFont',
                               ),
                             ),
                           ),
@@ -168,12 +176,11 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                             ),
                             child: Text(
-                              S.current.onboarding_next,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
+                              AppLocalizations.of(context)!.onboarding_next,
+                              style: GoogleFonts.montserrat(
+                                color: Theme.of(context).colorScheme.secondary,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'CustomFont',
                               ),
                             ),
                           ),

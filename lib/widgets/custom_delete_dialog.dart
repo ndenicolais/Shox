@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shox/theme/app_colors.dart';
 
 class CustomDeleteDialog extends StatelessWidget {
   final String title;
@@ -19,22 +21,20 @@ class CustomDeleteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: AppColors.errorColor,
       title: Text(
         title,
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.primary,
-          fontSize: 24.sp,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w600,
         ),
       ),
       content: Text(
         content,
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.primary,
-          fontSize: 18.sp,
-          fontFamily: 'CustomFont',
+          fontSize: 16.sp,
         ),
       ),
       actions: [
@@ -46,11 +46,10 @@ class CustomDeleteDialog extends StatelessWidget {
             ),
           ),
           child: Text(
-            S.current.custom_delete_dialog_cancel,
-            style: TextStyle(
+            AppLocalizations.of(context)!.custom_delete_dialog_cancel,
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.primary,
-              fontSize: 14.sp,
-              fontFamily: 'CustomFont',
+              fontSize: 12.sp,
             ),
           ),
         ),
@@ -62,11 +61,10 @@ class CustomDeleteDialog extends StatelessWidget {
             ),
           ),
           child: Text(
-            S.current.custom_delete_dialog_confirm,
-            style: TextStyle(
+            AppLocalizations.of(context)!.custom_delete_dialog_confirm,
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 14.sp,
-              fontFamily: 'CustomFont',
+              fontSize: 12.sp,
             ),
           ),
         ),

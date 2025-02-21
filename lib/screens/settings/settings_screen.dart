@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/screens/settings/languages_screen.dart';
 import 'package:shox/screens/settings/support_screen.dart';
 import 'package:shox/screens/settings/info_screen.dart';
@@ -28,17 +29,14 @@ class SettingsPageState extends State<SettingsPage> {
           padding: EdgeInsets.all(30.r),
           child: Center(
             child: Column(
+              spacing: 20.h,
               children: [
                 _buildTopImage(context),
-                SizedBox(height: 80.h),
+                SizedBox(height: 40.h),
                 _buildThemeButton(context),
-                SizedBox(height: 20.h),
                 _buildLanguageButton(context),
-                SizedBox(height: 20.h),
                 _buildInfoButton(context),
-                SizedBox(height: 20.h),
                 _buildPolicyButton(context),
-                SizedBox(height: 20.h),
                 _buildSupportButton(context),
               ],
             ),
@@ -60,11 +58,9 @@ class SettingsPageState extends State<SettingsPage> {
         },
       ),
       title: Text(
-        S.current.settings_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.settings_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -91,7 +87,7 @@ class SettingsPageState extends State<SettingsPage> {
         );
       },
       icon: MingCuteIcons.mgc_palette_fill,
-      text: S.current.settings_theme,
+      text: AppLocalizations.of(context)!.settings_screen_theme,
     );
   }
 
@@ -105,7 +101,7 @@ class SettingsPageState extends State<SettingsPage> {
         );
       },
       icon: MingCuteIcons.mgc_translate_2_fill,
-      text: S.current.settings_languages,
+      text: AppLocalizations.of(context)!.settings_screen_languages,
     );
   }
 
@@ -119,7 +115,7 @@ class SettingsPageState extends State<SettingsPage> {
         );
       },
       icon: MingCuteIcons.mgc_information_fill,
-      text: S.current.settings_info,
+      text: AppLocalizations.of(context)!.settings_screen_info,
     );
   }
 
@@ -133,7 +129,7 @@ class SettingsPageState extends State<SettingsPage> {
         );
       },
       icon: MingCuteIcons.mgc_safe_lock_fill,
-      text: S.current.settings_policy,
+      text: AppLocalizations.of(context)!.settings_screen_policy,
     );
   }
 
@@ -147,7 +143,7 @@ class SettingsPageState extends State<SettingsPage> {
         );
       },
       icon: MingCuteIcons.mgc_send_fill,
-      text: S.current.settings_support,
+      text: AppLocalizations.of(context)!.settings_screen_support,
     );
   }
 }

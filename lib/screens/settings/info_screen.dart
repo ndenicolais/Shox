@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({super.key});
@@ -18,15 +19,12 @@ class InfoScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 20.h,
               children: [
                 _buildLogo(context),
-                SizedBox(height: 20.h),
                 _buildAppName(context),
-                SizedBox(height: 20.h),
                 _buildDescription(context),
-                SizedBox(height: 20.h),
                 _buildCredits(context),
-                SizedBox(height: 20.h),
                 _buildVersion(context),
               ],
             ),
@@ -48,11 +46,9 @@ class InfoScreen extends StatelessWidget {
         },
       ),
       title: Text(
-        S.current.info_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.info_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -76,21 +72,19 @@ class InfoScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.current.info_screen_origin_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_origin_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(height: 10.h),
         Text(
-          S.current.info_screen_origin_description,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_origin_description,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
       ],
@@ -102,21 +96,19 @@ class InfoScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.current.info_screen_description_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_description_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(height: 10.h),
         Text(
-          S.current.info_screen_description_description,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_description_description,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
       ],
@@ -128,64 +120,57 @@ class InfoScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.current.info_screen_credits_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(height: 10.h),
         Text(
-          S.current.info_screen_credits_a_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_a_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(
-          S.current.info_screen_credits_a_value,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_a_value,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
         Text(
-          S.current.info_screen_credits_b_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_b_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(
-          S.current.info_screen_credits_b_value,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_b_value,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
         Text(
-          S.current.info_screen_credits_c_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_c_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(
-          S.current.info_screen_credits_c_value,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_credits_c_value,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 16.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
       ],
@@ -197,20 +182,18 @@ class InfoScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.current.info_screen_version_text,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_version_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(
-          S.current.info_screen_version_value,
-          style: TextStyle(
+          AppLocalizations.of(context)!.info_screen_version_value,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 14.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
       ],

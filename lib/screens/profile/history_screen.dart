@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/widgets/custom_loader.dart';
@@ -51,11 +52,9 @@ class HistoryScreenState extends State<HistoryScreen>
         },
       ),
       title: Text(
-        S.current.history_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.history_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -108,11 +107,10 @@ class HistoryScreenState extends State<HistoryScreen>
             color: Theme.of(context).colorScheme.secondary,
           ),
           Text(
-            S.current.history_empty,
-            style: TextStyle(
+            AppLocalizations.of(context)!.history_empty,
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
               fontSize: 20.sp,
-              fontFamily: 'CustomFont',
             ),
           ),
         ],
@@ -139,11 +137,10 @@ class HistoryScreenState extends State<HistoryScreen>
           leading: _buildLeadingImage(context, imageUrl),
           title: Text(
             localizedOperationType,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
               fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFont',
+              fontWeight: FontWeight.w600,
             ),
           ),
           subtitle: Column(
@@ -151,18 +148,16 @@ class HistoryScreenState extends State<HistoryScreen>
             children: [
               Text(
                 formattedTimestamp,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Theme.of(context).colorScheme.tertiary,
                   fontSize: 16.sp,
-                  fontFamily: 'CustomFont',
                 ),
               ),
               Text(
                 '${entry['shoesId']}',
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Theme.of(context).colorScheme.tertiary,
                   fontSize: 16.sp,
-                  fontFamily: 'CustomFont',
                 ),
               ),
             ],
@@ -206,11 +201,11 @@ class HistoryScreenState extends State<HistoryScreen>
   String _getLocalizedOperationType(String operationType) {
     switch (operationType) {
       case 'Added':
-        return S.current.history_added;
+        return AppLocalizations.of(context)!.history_added;
       case 'Updated':
-        return S.current.history_updated;
+        return AppLocalizations.of(context)!.history_updated;
       case 'Deleted':
-        return S.current.history_deleted;
+        return AppLocalizations.of(context)!.history_deleted;
       default:
         return 'Unknown';
     }

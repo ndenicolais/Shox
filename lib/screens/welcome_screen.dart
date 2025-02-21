@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shox/screens/authentication/login/login_screen.dart';
 import 'package:shox/screens/authentication/signup/signup_screen.dart';
 import 'package:shox/widgets/custom_button.dart';
@@ -47,12 +48,11 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   Widget _buildTitle(BuildContext context) {
     return Center(
       child: Text(
-        S.current.welcome_text,
-        style: TextStyle(
+        AppLocalizations.of(context)!.welcome_text,
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.secondary,
-          fontSize: 68.sp,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+          fontSize: 60.sp,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -61,14 +61,14 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   Widget _buildLogo(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
-      width: 180.w,
-      height: 180.h,
+      width: 200.w,
+      height: 200.h,
     );
   }
 
   Widget _buildLoginButton(BuildContext context) {
     return CustomButton(
-      title: S.current.welcome_login,
+      title: AppLocalizations.of(context)!.welcome_login,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       textColor: Theme.of(context).colorScheme.primary,
       isOutline: false,
@@ -84,7 +84,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
 
   Widget _buildSignupButton(BuildContext context) {
     return CustomButton(
-      title: S.current.welcome_signup,
+      title: AppLocalizations.of(context)!.welcome_signup,
       backgroundColor: Theme.of(context).colorScheme.primary,
       textColor: Theme.of(context).colorScheme.secondary,
       isOutline: true,

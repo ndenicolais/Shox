@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/onboarding/onboarding_screen.dart';
 import 'package:shox/screens/welcome_screen.dart';
 import 'package:shox/screens/home_screen.dart';
@@ -117,12 +118,11 @@ class IntroScreenState extends State<IntroScreen> {
           height: 200.h,
         ),
         Text(
-          S.current.intro_title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontSize: 70.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'CustomFont',
+          AppLocalizations.of(context)!.intro_title,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 80.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

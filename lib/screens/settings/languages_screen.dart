@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/generated/l10n.dart';
 
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({super.key});
@@ -25,11 +26,10 @@ class LanguagesScreenState extends State<LanguagesScreen> {
           padding: EdgeInsets.symmetric(horizontal: 30.r),
           child: Center(
             child: Column(
+              spacing: 40.h,
               children: [
                 _buildTopImage(context),
-                SizedBox(height: 40.h),
                 _buildDescription(context),
-                SizedBox(height: 40.h),
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 3,
@@ -37,15 +37,28 @@ class LanguagesScreenState extends State<LanguagesScreen> {
                     mainAxisSpacing: 12.r,
                     children: [
                       _buildLanguageCard(
-                          'en', 'English', 'assets/images/img_flag_eng.png'),
+                          'en',
+                          AppLocalizations.of(context)!
+                              .languages_screen_english,
+                          'assets/images/img_flag_eng.png'),
                       _buildLanguageCard(
-                          'it', 'Italian', 'assets/images/img_flag_ita.png'),
+                          'it',
+                          AppLocalizations.of(context)!
+                              .languages_screen_italian,
+                          'assets/images/img_flag_ita.png'),
                       _buildLanguageCard(
-                          'es', 'Spanish', 'assets/images/img_flag_esp.png'),
+                          'es',
+                          AppLocalizations.of(context)!
+                              .languages_screen_spanish,
+                          'assets/images/img_flag_esp.png'),
                       _buildLanguageCard(
-                          'fr', 'French', 'assets/images/img_flag_fra.png'),
+                          'fr',
+                          AppLocalizations.of(context)!.languages_screen_french,
+                          'assets/images/img_flag_fra.png'),
                       _buildLanguageCard(
-                          'de', 'German', 'assets/images/img_flag_deu.png'),
+                          'de',
+                          AppLocalizations.of(context)!.languages_screen_german,
+                          'assets/images/img_flag_deu.png'),
                     ],
                   ),
                 ),
@@ -93,11 +106,9 @@ class LanguagesScreenState extends State<LanguagesScreen> {
         },
       ),
       title: Text(
-        S.current.languages_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.languages_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -116,11 +127,10 @@ class LanguagesScreenState extends State<LanguagesScreen> {
 
   Widget _buildDescription(BuildContext context) {
     return Text(
-      S.current.languages_description,
-      style: TextStyle(
+      AppLocalizations.of(context)!.languages_screen_description,
+      style: GoogleFonts.montserrat(
         color: Theme.of(context).colorScheme.tertiary,
         fontSize: 22.sp,
-        fontFamily: 'CustomFont',
       ),
       textAlign: TextAlign.center,
     );
@@ -142,7 +152,9 @@ class LanguagesScreenState extends State<LanguagesScreen> {
             : Theme.of(context).colorScheme.primary,
         shape: RoundedRectangleBorder(
           side: BorderSide(
-              color: Theme.of(context).colorScheme.tertiary, width: 0.2),
+            color: Theme.of(context).colorScheme.tertiary,
+            width: 0.5.w,
+          ),
           borderRadius: BorderRadius.circular(10.0.r),
         ),
         child: SizedBox(
@@ -160,10 +172,9 @@ class LanguagesScreenState extends State<LanguagesScreen> {
               SizedBox(height: 10.h),
               Text(
                 languageName,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Theme.of(context).colorScheme.tertiary,
                   fontSize: 18.sp,
-                  fontFamily: 'CustomFont',
                 ),
               ),
             ],

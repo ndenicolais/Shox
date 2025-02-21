@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 
 class CustomExpansionTile extends StatefulWidget {
@@ -28,10 +29,9 @@ class CustomExpansionTileState extends State<CustomExpansionTile> {
     return ExpansionTile(
       title: Text(
         widget.title,
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 16.sp,
-          fontFamily: 'CustomFont',
         ),
       ),
       trailing: Icon(
@@ -51,10 +51,9 @@ class CustomExpansionTileState extends State<CustomExpansionTile> {
           padding: EdgeInsets.all(12.r),
           child: Text(
             widget.answer,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
               fontSize: 14.sp,
-              fontFamily: 'CustomFont',
             ),
           ),
         ),

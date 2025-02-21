@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/utils/constants.dart';
 import 'package:shox/widgets/custom_expansiontile.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -21,28 +22,31 @@ class SupportScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 20.h,
               children: [
                 _buildTopImage(context),
-                SizedBox(height: 40.h),
                 _buildContactSection(
                   context,
-                  title: S.current.support_screen_contacts_text,
-                  description: S.current.support_screen_contacts_decription,
-                  contactInfo: S.current.support_screen_contacts_info,
+                  title: AppLocalizations.of(context)!
+                      .support_screen_contacts_text,
+                  description: AppLocalizations.of(context)!
+                      .support_screen_contacts_decription,
+                  contactInfo: AppLocalizations.of(context)!
+                      .support_screen_contacts_info,
                   icon: MingCuteIcons.mgc_mail_send_line,
                   onTap: () => _launchEmail(),
                 ),
                 Divider(color: Theme.of(context).colorScheme.tertiaryFixed),
-                SizedBox(height: 20.h),
                 _buildFaqSection(context),
                 Divider(color: Theme.of(context).colorScheme.tertiaryFixed),
-                SizedBox(height: 20.h),
                 _buildContactSection(
                   context,
-                  title: S.current.support_screen_documentation_text,
-                  description:
-                      S.current.support_screen_documentation_decription,
-                  contactInfo: S.current.support_screen_documentation_info,
+                  title: AppLocalizations.of(context)!
+                      .support_screen_documentation_text,
+                  description: AppLocalizations.of(context)!
+                      .support_screen_documentation_decription,
+                  contactInfo: AppLocalizations.of(context)!
+                      .support_screen_documentation_info,
                   icon: MingCuteIcons.mgc_book_6_line,
                   onTap: () => _launchDocumentation(),
                 ),
@@ -66,11 +70,9 @@ class SupportScreen extends StatelessWidget {
         },
       ),
       title: Text(
-        S.current.support_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.support_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -112,11 +114,10 @@ class SupportScreen extends StatelessWidget {
               SizedBox(width: 10.w),
               Text(
                 title,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Theme.of(context).colorScheme.secondary,
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'CustomFont',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -124,20 +125,18 @@ class SupportScreen extends StatelessWidget {
           SizedBox(height: 10.h),
           Text(
             description,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.tertiary,
               fontSize: 14.sp,
-              fontFamily: 'CustomFont',
             ),
           ),
           SizedBox(height: 5.h),
           Text(
             contactInfo,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.tertiary,
               fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFont',
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -158,49 +157,47 @@ class SupportScreen extends StatelessWidget {
             ),
             SizedBox(width: 10.w),
             Text(
-              S.current.support_screen_faq_text,
-              style: TextStyle(
+              AppLocalizations.of(context)!.support_screen_faq_text,
+              style: GoogleFonts.montserrat(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'CustomFont',
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
         ),
         SizedBox(height: 10.h),
         Text(
-          S.current.support_screen_faq_decription,
-          style: TextStyle(
+          AppLocalizations.of(context)!.support_screen_faq_decription,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 14.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
         SizedBox(height: 10.h),
         CustomExpansionTile(
-          title: S.current.support_screen_faq_q1,
-          answer: S.current.support_screen_faq_a1,
+          title: AppLocalizations.of(context)!.support_screen_faq_q1,
+          answer: AppLocalizations.of(context)!.support_screen_faq_a1,
         ),
         CustomExpansionTile(
-          title: S.current.support_screen_faq_q2,
-          answer: S.current.support_screen_faq_a2,
+          title: AppLocalizations.of(context)!.support_screen_faq_q2,
+          answer: AppLocalizations.of(context)!.support_screen_faq_a2,
         ),
         CustomExpansionTile(
-          title: S.current.support_screen_faq_q3,
-          answer: S.current.support_screen_faq_a3,
+          title: AppLocalizations.of(context)!.support_screen_faq_q3,
+          answer: AppLocalizations.of(context)!.support_screen_faq_a3,
         ),
         CustomExpansionTile(
-          title: S.current.support_screen_faq_q4,
-          answer: S.current.support_screen_faq_a4,
+          title: AppLocalizations.of(context)!.support_screen_faq_q4,
+          answer: AppLocalizations.of(context)!.support_screen_faq_a4,
         ),
         CustomExpansionTile(
-          title: S.current.support_screen_faq_q5,
-          answer: S.current.support_screen_faq_a5,
+          title: AppLocalizations.of(context)!.support_screen_faq_q5,
+          answer: AppLocalizations.of(context)!.support_screen_faq_a5,
         ),
         CustomExpansionTile(
-          title: S.current.support_screen_faq_q7,
-          answer: S.current.support_screen_faq_a7,
+          title: AppLocalizations.of(context)!.support_screen_faq_q7,
+          answer: AppLocalizations.of(context)!.support_screen_faq_a7,
         ),
       ],
     );

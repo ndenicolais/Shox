@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/screens/authentication/reset_password/reset_password_controller.dart';
 import 'package:shox/screens/authentication/reset_password/reset_password_form.dart';
 import 'package:shox/widgets/custom_button.dart';
@@ -62,10 +63,9 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
         },
       ),
       title: Text(
-        S.current.reset_password_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.reset_password_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -77,8 +77,8 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
-      width: 160.w,
-      height: 160.h,
+      width: 180.w,
+      height: 180.h,
     );
   }
 
@@ -86,11 +86,10 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return SizedBox(
       width: 320.w,
       child: Text(
-        S.current.reset_password_screen_description,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
+        AppLocalizations.of(context)!.reset_password_screen_description,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
           fontSize: 24.sp,
-          fontFamily: 'CustomFont',
         ),
         textAlign: TextAlign.center,
       ),
@@ -100,7 +99,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget _buildResetButton(
       BuildContext context, ResetPasswordController controller) {
     return CustomButton(
-      title: S.current.reset_password_screen_text,
+      title: AppLocalizations.of(context)!.reset_password_screen_text,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       textColor: Theme.of(context).colorScheme.primary,
       onPressed: () => controller.resetPassword(context, _formKey),

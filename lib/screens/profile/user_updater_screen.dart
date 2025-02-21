@@ -3,16 +3,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/user_model.dart';
-import 'package:shox/screens/user/user_screen.dart';
 import 'package:shox/services/user_service.dart';
 import 'package:shox/utils/permission_helper.dart';
 import 'package:shox/widgets/account_textfield.dart';
@@ -122,7 +122,8 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
       compressFormat: format,
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: S.current.users_updater_screen_crop_image_title,
+          toolbarTitle: AppLocalizations.of(context)!
+              .user_updater_screen_crop_image_title,
           toolbarColor: Theme.of(context).colorScheme.secondary,
           statusBarColor: Theme.of(context).colorScheme.secondary,
           toolbarWidgetColor: Theme.of(context).colorScheme.primary,
@@ -140,7 +141,8 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
           showCropGrid: true,
         ),
         IOSUiSettings(
-          title: S.current.users_updater_screen_crop_image_title,
+          title: AppLocalizations.of(context)!
+              .user_updater_screen_crop_image_title,
         ),
       ],
     );
@@ -193,7 +195,7 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
     if (_nameController.text.trim().isEmpty) {
       showErrorToast(
         context,
-        S.current.users_updater_screen_user_name_field_error,
+        AppLocalizations.of(context)!.user_updater_screen_username_field_error,
       );
       return;
     }
@@ -222,11 +224,7 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
         });
       }
 
-      Get.off(
-        () => UserScreen(userId: currentUser!.uid),
-        transition: Transition.fade,
-        duration: const Duration(milliseconds: 500),
-      );
+      Get.back(result: true);
     } catch (e) {
       _logger.e("Error during data saving: $e");
     }
@@ -244,11 +242,9 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
         },
       ),
       title: Text(
-        S.current.profile_edit_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.user_updater_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -372,8 +368,8 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
         children: [
           _buildTextField(
             _nameController,
-            S.current.validator_name,
-            S.current.validator_name_hint,
+            AppLocalizations.of(context)!.validator_name,
+            AppLocalizations.of(context)!.validator_name_hint,
             MingCuteIcons.mgc_user_2_fill,
             TextInputType.text,
             TextInputAction.done,
@@ -408,7 +404,7 @@ class UserUpdaterScreenState extends State<UserUpdaterScreen> {
 
   Widget _buildButton(BuildContext context) {
     return CustomButton(
-      title: S.current.profile_edit_save,
+      title: AppLocalizations.of(context)!.user_updater_screen_save,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       textColor: Theme.of(context).colorScheme.primary,
       onPressed: _saveData,

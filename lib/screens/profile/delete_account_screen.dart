@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/screens/welcome_screen.dart';
 import 'package:shox/services/auth_service.dart';
 import 'package:shox/theme/app_colors.dart';
@@ -66,33 +67,40 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
   }
 
   Future<void> _deleteAccount() async {
-    User? user = _authService.currentUser;
+    try {
+      User? user = _authService.currentUser;
 
-    if (user != null) {
-      bool confirmDelete = await _showDeleteDialog(context);
+      if (user != null) {
+        bool confirmDelete = await _showDeleteDialog(context);
 
-      if (confirmDelete) {
-        setState(() {
-          _isLoading = true;
-        });
+        if (confirmDelete) {
+          setState(() {
+            _isLoading = true;
+          });
 
-        if (!mounted) return;
+          if (!mounted) return;
 
-        await _authService.deleteAccount();
+          await _authService.deleteAccount();
 
-        setState(() {
-          _isLoading = false;
-        });
+          setState(() {
+            _isLoading = false;
+          });
 
-        if (mounted) {
-          showSuccessToast(
-            context,
-            S.current.toast_delete_success,
-          );
-          Get.to(() => const WelcomeScreen(),
-              transition: Transition.fade,
-              duration: const Duration(milliseconds: 500));
+          if (mounted) {
+            showSuccessToast(
+              context,
+              AppLocalizations.of(context)!.delete_account_screen_toast_success,
+            );
+            Get.to(() => const WelcomeScreen(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500));
+          }
         }
+      }
+    } catch (e) {
+      if (mounted) {
+        showErrorToast(context,
+            '${AppLocalizations.of(context)!.delete_account_screen_toast_error} $e');
       }
     }
   }
@@ -102,8 +110,10 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
           context: context,
           builder: (BuildContext context) {
             return CustomDeleteDialog(
-              title: S.current.delete_d_title,
-              content: S.current.delete_d_description,
+              title: AppLocalizations.of(context)!
+                  .delete_account_screen_delete_dialog_title,
+              content: AppLocalizations.of(context)!
+                  .delete_account_screen_delete_dialog_text,
               onCancelPressed: () {
                 Get.back(result: false);
               },
@@ -128,11 +138,9 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
         },
       ),
       title: Text(
-        S.current.delete_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.delete_account_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -150,32 +158,62 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
   }
 
   Widget _buildBodyText(BuildContext context) {
-    return SizedBox(
-      width: 420.w,
-      child: Text(
-        S.current.delete_description,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontSize: 20.sp,
-          fontFamily: 'CustomFont',
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          AppLocalizations.of(context)!.delete_account_screen_text_a,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontSize: 22.sp,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        textAlign: TextAlign.center,
-      ),
+        SizedBox(height: 20.h),
+        Text(
+          AppLocalizations.of(context)!.delete_account_screen_text_b,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontSize: 20.sp,
+          ),
+        ),
+        SizedBox(height: 20.h),
+        Text(
+          AppLocalizations.of(context)!.delete_account_screen_text_c,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            color: AppColors.errorColor,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildDeleteButton(BuildContext context) {
     return SizedBox(
-      width: 70.w,
-      height: 70.h,
-      child: FloatingActionButton(
+      width: 180.w,
+      height: 80.h,
+      child: ElevatedButton.icon(
         onPressed: _deleteAccount,
-        backgroundColor: AppColors.errorColor,
-        shape: const CircleBorder(),
-        child: Icon(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.errorColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.r))),
+        icon: Icon(
           MingCuteIcons.mgc_delete_2_fill,
           size: 32.sp,
           color: Theme.of(context).colorScheme.primary,
+        ),
+        label: Text(
+          AppLocalizations.of(context)!.delete_account_screen_delete_button,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.primary,
+            fontSize: 20.sp,
+          ),
         ),
       ),
     );
@@ -183,7 +221,7 @@ class DeleteAccountScreenState extends State<DeleteAccountScreen>
 
   Widget _buildDeleteLoading(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.7),
+      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.5),
       child: Center(
         child: ScaleTransition(
           scale: Tween<double>(begin: 0.5, end: 1.5).animate(

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class PieChartData {
@@ -44,11 +45,10 @@ class CustomPieChartWidget<T> extends StatelessWidget {
         SizedBox(height: 20.h),
         Text(
           title,
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
-            fontFamily: 'CustomFont',
             fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
           textAlign: TextAlign.center,
         ),
@@ -60,11 +60,10 @@ class CustomPieChartWidget<T> extends StatelessWidget {
               isVisible: true,
               position: LegendPosition.bottom,
               height: '40%',
-              textStyle: TextStyle(
+              textStyle: GoogleFonts.montserrat(
                 color: Theme.of(context).colorScheme.tertiary,
-                fontFamily: 'CustomFont',
                 fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
               ),
               overflowMode: LegendItemOverflowMode.wrap,
             ),
@@ -90,11 +89,10 @@ class CustomPieChartWidget<T> extends StatelessWidget {
                   isVisible: true,
                   labelIntersectAction: LabelIntersectAction.shift,
                   labelPosition: ChartDataLabelPosition.outside,
-                  textStyle: TextStyle(
+                  textStyle: GoogleFonts.montserrat(
                     color: Theme.of(context).colorScheme.tertiary,
-                    fontFamily: 'CustomFont',
                     fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                   connectorLineSettings: const ConnectorLineSettings(
                     type: ConnectorType.curve,

@@ -2,9 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/screens/authentication/login/login_screen.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/screens/authentication/signup/signup_controller.dart';
 import 'package:shox/screens/authentication/signup/signup_form.dart';
 import 'package:shox/widgets/custom_button.dart';
@@ -34,7 +35,7 @@ class SignupScreenState extends State<SignupScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildTopImage(context),
-                  SizedBox(height: 60.h),
+                  SizedBox(height: 50.h),
                   SignupForm(
                     context: context,
                     formKey: _formKey,
@@ -70,10 +71,9 @@ class SignupScreenState extends State<SignupScreen> {
         },
       ),
       title: Text(
-        S.current.signup_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.signup_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -85,14 +85,14 @@ class SignupScreenState extends State<SignupScreen> {
   Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
-      width: 160.w,
-      height: 160.h,
+      width: 180.w,
+      height: 180.h,
     );
   }
 
   Widget _buildButton(BuildContext context, SignupController controller) {
     return CustomButton(
-      title: S.current.signup_screen_text,
+      title: AppLocalizations.of(context)!.signup_screen_text,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       textColor: Theme.of(context).colorScheme.primary,
       onPressed: () => controller.register(context, _formKey),
@@ -102,19 +102,18 @@ class SignupScreenState extends State<SignupScreen> {
   Widget _buildSignupText(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: S.current.signup_screen_account,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontFamily: 'CustomFont',
+        text: AppLocalizations.of(context)!.signup_screen_account,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 14.sp,
         ),
         children: [
           TextSpan(
-            text: S.current.signup_screen_login,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFont',
+            text: AppLocalizations.of(context)!.signup_screen_login,
+            style: GoogleFonts.montserrat(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () => Get.off(

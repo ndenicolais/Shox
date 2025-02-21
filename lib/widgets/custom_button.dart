@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
@@ -32,10 +33,9 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: textColor,
               fontSize: 24.sp,
-              fontFamily: 'CustomFont',
             ),
           ),
         ),

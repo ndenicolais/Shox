@@ -1,14 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/screens/authentication/login/login_controller.dart';
 import 'package:shox/screens/authentication/login/login_form.dart';
 import 'package:shox/screens/authentication/reset_password/reset_password_screen.dart';
 import 'package:shox/screens/authentication/signup/signup_screen.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/screens/home_screen.dart';
 import 'package:shox/widgets/custom_button.dart';
 
@@ -103,10 +104,9 @@ class LoginScreenState extends State<LoginScreen> {
         },
       ),
       title: Text(
-        S.current.login_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.login_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -118,8 +118,8 @@ class LoginScreenState extends State<LoginScreen> {
   Widget _buildTopImage(BuildContext context) {
     return Image.asset(
       'assets/images/app_logo.png',
-      width: 160.w,
-      height: 160.h,
+      width: 180.w,
+      height: 180.h,
     );
   }
 
@@ -128,7 +128,7 @@ class LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         CustomButton(
-          title: S.current.login_screen_text,
+          title: AppLocalizations.of(context)!.login_screen_text,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           textColor: Theme.of(context).colorScheme.primary,
           onPressed: () => controller.login(context, _formKey),
@@ -171,11 +171,10 @@ class LoginScreenState extends State<LoginScreen> {
           ),
         ),
         Text(
-          S.current.login_screen_remember,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontSize: 18.sp,
-            fontFamily: 'CustomFont',
+          AppLocalizations.of(context)!.login_screen_remember,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 16.sp,
           ),
         ),
       ],
@@ -185,12 +184,11 @@ class LoginScreenState extends State<LoginScreen> {
   Widget _buildForgotPasswordText(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: S.current.login_screen_password,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.secondary,
+        text: AppLocalizations.of(context)!.login_screen_password,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.tertiary,
           fontSize: 12.sp,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+          fontWeight: FontWeight.w600,
         ),
         recognizer: TapGestureRecognizer()
           ..onTap = () => Get.off(
@@ -205,20 +203,19 @@ class LoginScreenState extends State<LoginScreen> {
   Widget _buildSignupText(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: S.current.login_screen_account,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
+        text: AppLocalizations.of(context)!.login_screen_account,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
           fontSize: 16.sp,
-          fontFamily: 'CustomFont',
+          fontWeight: FontWeight.w600,
         ),
         children: [
           TextSpan(
-            text: S.current.login_screen_signup,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
+            text: AppLocalizations.of(context)!.login_screen_signup,
+            style: GoogleFonts.montserrat(
+              color: Theme.of(context).colorScheme.tertiary,
               fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFont',
+              fontWeight: FontWeight.w600,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () => Get.off(

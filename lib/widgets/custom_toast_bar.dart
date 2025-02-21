@@ -2,6 +2,7 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
 
@@ -22,9 +23,8 @@ void showCustomToastBar({
       leading: Icon(icon, color: iconColor),
       title: Text(
         title,
-        style: TextStyle(
+        style: GoogleFonts.montserrat(
           color: titleColor,
-          fontFamily: 'CustomFont',
         ),
       ),
     ),

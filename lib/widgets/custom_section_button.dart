@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 
 class CustomSectionButton extends StatelessWidget {
@@ -32,10 +33,9 @@ class CustomSectionButton extends StatelessWidget {
             Icon(icon, color: Theme.of(context).colorScheme.secondary),
             Text(
               text,
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                 color: Theme.of(context).colorScheme.tertiary,
                 fontSize: 20.sp,
-                fontFamily: 'CustomFont',
               ),
             ),
             Icon(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/theme_notifier.dart';
 
@@ -20,11 +21,10 @@ class ThemesScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 30.r),
           child: Center(
             child: Column(
+              spacing: 40.h,
               children: [
                 _buildTopImage(context),
-                SizedBox(height: 40.h),
                 _buildDescription(context),
-                SizedBox(height: 40.h),
                 _buildThemeLayout(context),
               ],
             ),
@@ -45,10 +45,11 @@ class ThemesScreen extends StatelessWidget {
       color: backgroundColor,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-            color: backgroundColor == AppColors.lightYellow
-                ? AppColors.smoothBlack
-                : AppColors.lightYellow,
-            width: 1.0),
+          color: backgroundColor == AppColors.lightYellow
+              ? AppColors.smoothBlack
+              : AppColors.lightYellow,
+          width: 1.w,
+        ),
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: InkWell(
@@ -73,12 +74,11 @@ class ThemesScreen extends StatelessWidget {
               SizedBox(height: 10.h),
               Text(
                 text,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: backgroundColor == AppColors.lightYellow
                       ? AppColors.smoothBlack
                       : AppColors.white,
                   fontSize: 16.sp,
-                  fontFamily: 'CustomFont',
                 ),
               ),
             ],
@@ -100,11 +100,9 @@ class ThemesScreen extends StatelessWidget {
         },
       ),
       title: Text(
-        S.current.theme_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.themes_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -125,11 +123,10 @@ class ThemesScreen extends StatelessWidget {
     return SizedBox(
       width: 320.w,
       child: Text(
-        S.current.theme_description,
-        style: TextStyle(
+        AppLocalizations.of(context)!.themes_screen_description,
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 22.sp,
-          fontFamily: 'CustomFont',
         ),
         textAlign: TextAlign.center,
       ),
@@ -144,7 +141,7 @@ class ThemesScreen extends StatelessWidget {
           context,
           AppColors.lightYellow,
           MingCuteIcons.mgc_sun_fill,
-          S.current.theme_light,
+          AppLocalizations.of(context)!.themes_screen_light,
           () {
             Provider.of<ThemeNotifier>(context, listen: false).setLightTheme();
           },
@@ -154,7 +151,7 @@ class ThemesScreen extends StatelessWidget {
           context,
           AppColors.smoothBlack,
           MingCuteIcons.mgc_moon_fill,
-          S.current.theme_dark,
+          AppLocalizations.of(context)!.themes_screen_dark,
           () {
             Provider.of<ThemeNotifier>(context, listen: false).setDarkTheme();
           },

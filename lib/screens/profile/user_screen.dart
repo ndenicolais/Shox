@@ -1,27 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/models/user_model.dart';
-import 'package:shox/screens/user/user_updater_screen.dart';
-import 'package:shox/screens/profile/delete_account_screen.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/screens/authentication/login/login_controller.dart';
-import 'package:shox/screens/user/user_controller.dart';
 import 'package:shox/screens/profile/database_screen.dart';
+import 'package:shox/screens/profile/delete_account_screen.dart';
 import 'package:shox/screens/profile/history_screen.dart';
+import 'package:shox/screens/profile/user_controller.dart';
+import 'package:shox/screens/profile/user_updater_screen.dart';
 import 'package:shox/screens/welcome_screen.dart';
 import 'package:shox/services/user_service.dart';
 import 'package:shox/widgets/custom_section_button.dart';
 
 class UserScreen extends StatefulWidget {
   final String userId;
-  const UserScreen({
-    super.key,
-    required this.userId,
-  });
+  const UserScreen({super.key, required this.userId});
 
   @override
   UserScreenState createState() => UserScreenState();
@@ -32,6 +30,7 @@ class UserScreenState extends State<UserScreen> {
   final LoginController loginController = Get.put(LoginController());
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final UserService _userService = UserService();
+  String _userName = '';
   String _userEmail = '';
   String? _profileImageUrl;
   String? _userProfileImage;
@@ -49,17 +48,14 @@ class UserScreenState extends State<UserScreen> {
           padding: EdgeInsets.all(30.r),
           child: Center(
             child: Column(
+              spacing: 20.h,
               children: [
                 _buildProfileImage(context),
-                SizedBox(height: 20.h),
                 _buildProfileInfo(context),
-                SizedBox(height: 40.h),
+                SizedBox(height: 10.h),
                 _buildDatabaseButton(context),
-                SizedBox(height: 20.h),
                 _buildHistoryButton(context),
-                SizedBox(height: 20.h),
                 _buildLogoutButton(context),
-                SizedBox(height: 20.h),
                 _buildDeleteAccount(context),
               ],
             ),
@@ -72,22 +68,11 @@ class UserScreenState extends State<UserScreen> {
   @override
   void initState() {
     super.initState();
-    userController.loadUserName();
-    _loadUserEmail();
-    _loadUserProfileImage();
+    _loadProfileImage();
+    _loadProfileData();
   }
 
-  void _loadUserEmail() {
-    if (currentUser != null) {
-      setState(
-        () {
-          _userEmail = currentUser!.email ?? 'Email';
-        },
-      );
-    }
-  }
-
-  Future<void> _loadUserProfileImage() async {
+  Future<void> _loadProfileImage() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null &&
         user.providerData.isNotEmpty &&
@@ -123,6 +108,23 @@ class UserScreenState extends State<UserScreen> {
     }
   }
 
+  Future<void> _loadProfileData() async {
+    if (currentUser != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+      if (userDoc.exists) {
+        var data = userDoc.data() as Map<String, dynamic>;
+        UserModel user = UserModel.fromFirestore(data);
+        setState(() {
+          _userEmail = user.userEmail;
+          _userName = user.userName;
+        });
+      }
+    }
+  }
+
   Future<void> _logout() async {
     loginController.logout(context);
     Get.to(
@@ -144,11 +146,9 @@ class UserScreenState extends State<UserScreen> {
         },
       ),
       title: Text(
-        S.current.profile_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.user_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -161,12 +161,17 @@ class UserScreenState extends State<UserScreen> {
                   MingCuteIcons.mgc_edit_2_fill,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
-                onPressed: () {
-                  Get.off(
+                onPressed: () async {
+                  bool? result = await Get.to(
                     () => UserUpdaterScreen(userId: currentUser!.uid),
                     transition: Transition.fade,
                     duration: const Duration(milliseconds: 500),
                   );
+                  if (result == true) {
+                    _loadProfileData();
+                  } else {
+                    //User data not updated
+                  }
                 },
               ),
             ]
@@ -192,24 +197,20 @@ class UserScreenState extends State<UserScreen> {
   Widget _buildProfileInfo(BuildContext context) {
     return Column(
       children: [
-        Obx(
-          () => Text(
-            userController.userName.value,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: 26.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFontBold',
-            ),
+        Text(
+          _userName,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 26.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(height: 10.h),
         Text(
           _userEmail,
-          style: TextStyle(
-            fontSize: 18.sp,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
-            fontFamily: 'CustomFont',
+            fontSize: 18.sp,
           ),
         ),
       ],
@@ -226,7 +227,7 @@ class UserScreenState extends State<UserScreen> {
         );
       },
       icon: MingCuteIcons.mgc_chart_pie_2_fill,
-      text: S.current.profile_database,
+      text: AppLocalizations.of(context)!.user_screen_button_database,
     );
   }
 
@@ -240,7 +241,7 @@ class UserScreenState extends State<UserScreen> {
         );
       },
       icon: MingCuteIcons.mgc_history_fill,
-      text: S.current.profile_history,
+      text: AppLocalizations.of(context)!.user_screen_button_history,
     );
   }
 
@@ -248,7 +249,7 @@ class UserScreenState extends State<UserScreen> {
     return CustomSectionButton(
       onPressed: _logout,
       icon: MingCuteIcons.mgc_exit_fill,
-      text: S.current.profile_logout,
+      text: AppLocalizations.of(context)!.user_screen_button_logout,
     );
   }
 
@@ -262,7 +263,7 @@ class UserScreenState extends State<UserScreen> {
         );
       },
       icon: MingCuteIcons.mgc_delete_2_fill,
-      text: S.current.profile_delete,
+      text: AppLocalizations.of(context)!.user_screen_button_delete,
     );
   }
 }
