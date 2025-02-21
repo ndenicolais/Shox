@@ -1,16 +1,18 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/utils/category_translations.dart';
+import 'package:shox/utils/custom_icons.dart';
+import 'package:shox/utils/shoes_text_translations.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/permission_helper.dart';
@@ -39,19 +41,20 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   String? _existingImageUrl;
   String? _removedExistingImages;
   File? _newImage;
-  Color _color = AppColors.smoothBlack;
-  Color _detailsColor = Colors.transparent;
-  bool _colorSelected = false;
-  bool _detailsColorSelected = false;
-  IconData? _seasonIcon;
+  Color _colorPrimary = AppColors.smoothBlack;
+  Color _colorSecondary = Colors.transparent;
+  bool _colorPrimarySelected = false;
+  bool _colorSecondarySelected = false;
   late TextEditingController _brandController;
   late TextEditingController _sizeController;
   late TextEditingController _categoryController;
   late TextEditingController _typeController;
+  late TextEditingController _seasonController;
   late TextEditingController _notesController;
   late String _languageCode;
   late Map<String, String> translatedCategoryOptions;
   late Map<String, String> translatedTypeOptions;
+  late Map<String, String> translatedSeasonOptions;
   bool isSaveLoading = false;
 
   @override
@@ -68,24 +71,16 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                 padding: EdgeInsets.symmetric(horizontal: 30.r),
                 child: SingleChildScrollView(
                   child: Column(
+                    spacing: 10.h,
                     children: [
                       _buildImageSelector(context),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildColorSelector(context),
-                          _buildDetailsColorSelector(context),
-                        ],
-                      ),
-                      SizedBox(height: 10.h),
-                      _buildSeasonSelector(context),
-                      SizedBox(height: 20.h),
+                      _buildColorSelector(context),
                       _buildBrandTextField(context),
                       _buildSizeTextField(context),
                       _buildCategoryDropdown(context),
                       _buildTypeDropdown(context),
+                      _buildSeasonDropdown(context),
                       _buildNotesTextField(context),
-                      SizedBox(height: 20.h),
                       _buildSaveButton(context),
                     ],
                   ),
@@ -116,15 +111,15 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
 
   void loadShoes() {
     _existingImageUrl = widget.shoes.imageUrl;
-    _color = widget.shoes.color;
-    _colorSelected = true;
-    _detailsColor = widget.shoes.detailsColor!;
-    _detailsColorSelected = true;
-    _seasonIcon = widget.shoes.seasonIcon;
+    _colorPrimary = widget.shoes.colorPrimary;
+    _colorPrimarySelected = true;
+    _colorSecondary = widget.shoes.colorSecondary!;
+    _colorSecondarySelected = true;
     _brandController = TextEditingController(text: widget.shoes.brand);
     _sizeController = TextEditingController(text: widget.shoes.size.toString());
     _categoryController = TextEditingController(text: widget.shoes.category);
     _typeController = TextEditingController(text: widget.shoes.type);
+    _seasonController = TextEditingController(text: widget.shoes.season);
     _notesController = TextEditingController(text: widget.shoes.notes);
   }
 
@@ -133,9 +128,11 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
     super.didChangeDependencies();
     _languageCode = Localizations.localeOf(context).languageCode;
     translatedCategoryOptions =
-        CategoryTranslations.categoryTranslations[_languageCode] ?? {};
+        ShoesTextTranslations.categoryTranslations[_languageCode] ?? {};
     translatedTypeOptions =
-        CategoryTranslations.typeTranslations[_languageCode] ?? {};
+        ShoesTextTranslations.typeTranslations[_languageCode] ?? {};
+    translatedSeasonOptions =
+        ShoesTextTranslations.seasonTranslations[_languageCode] ?? {};
   }
 
   Future<File?> _cropImage(File imageFile) async {
@@ -149,7 +146,8 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       compressFormat: format,
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: S.current.shoes_updater_screen_crop_image_title,
+          toolbarTitle: AppLocalizations.of(context)!
+              .shoes_updater_screen_crop_image_title,
           toolbarColor: Theme.of(context).colorScheme.secondary,
           statusBarColor: Theme.of(context).colorScheme.secondary,
           toolbarWidgetColor: Theme.of(context).colorScheme.primary,
@@ -167,7 +165,8 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           showCropGrid: true,
         ),
         IOSUiSettings(
-          title: S.current.shoes_updater_screen_crop_image_title,
+          title: AppLocalizations.of(context)!
+              .shoes_updater_screen_crop_image_title,
         ),
       ],
     );
@@ -252,13 +251,13 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       final updateShoe = ShoesModel(
         id: widget.shoes.id,
         imageUrl: _existingImageUrl!,
-        color: _color,
-        detailsColor: _detailsColor,
-        seasonIcon: _seasonIcon,
+        colorPrimary: _colorPrimary,
+        colorSecondary: _colorSecondary,
         brand: _brandController.text.trim(),
         size: _sizeController.text,
         category: _categoryController.text,
         type: _typeController.text,
+        season: _seasonController.text,
         notes: _notesController.text,
         dateAdded: widget.shoes.dateAdded,
         dateUpdated: DateTime.now(),
@@ -269,7 +268,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       if (mounted) {
         showSuccessToast(
           context,
-          S.current.shoes_updater_screen_toast_success,
+          AppLocalizations.of(context)!.shoes_updater_screen_toast_success,
         );
         Get.back();
       }
@@ -292,11 +291,9 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
         },
       ),
       title: Text(
-        S.current.shoes_updater_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.shoes_adder_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -445,291 +442,201 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   }
 
   Widget _buildColorSelector(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-              child: Container(
-                padding: EdgeInsets.all(12.r),
-                child: Wrap(
-                  spacing: 8.r,
-                  runSpacing: 8.r,
-                  children: colorList.map((color) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _color = color;
-                          _colorSelected = true;
-                          Get.back();
-                        });
-                      },
-                      child: Container(
-                        width: 24.w,
-                        height: 24.h,
-                        decoration: BoxDecoration(
-                          color: color,
-                          borderRadius: BorderRadius.circular(50.r),
-                          border: Border.all(
-                            color: _color == color
-                                ? Colors.black
-                                : Colors.transparent,
-                          ),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return _buildColorPrimaryDialog(context);
+              },
             );
           },
-        );
-      },
-      child: Card(
-        color: Theme.of(context).colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.r),
-        ),
-        elevation: 5,
-        child: Container(
-          width: 120.w,
-          padding: EdgeInsets.all(8.r),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  if (_colorSelected == false)
-                    Text(
-                      S.current.field_color,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontFamily: 'CustomFont',
-                        fontSize: 16.sp,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 14.r),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Row(
+              children: [
+                if (_colorPrimarySelected)
+                  Row(
+                    children: [
+                      SizedBox(width: 10.w),
+                      Icon(
+                        ShoxIcons.iconShoesPrimary,
+                        color: _colorPrimary,
+                        size: 32.sp,
                       ),
-                    ),
-                  if (_colorSelected == true)
-                    Icon(
-                      MingCuteIcons.mgc_palette_fill,
-                      color: _color,
-                      size: 32.sp,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withValues(alpha: 0.6),
-                          offset: const Offset(2, 2),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-              Icon(
-                MingCuteIcons.mgc_down_line,
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
-            ],
+                    ],
+                  ),
+                SizedBox(width: 10.w),
+                Text(
+                  AppLocalizations.of(context)!
+                      .shoes_updater_screen_field_color_primary,
+                  style: GoogleFonts.montserrat(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                const Spacer(),
+                Icon(
+                  MingCuteIcons.mgc_down_line,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                SizedBox(width: 10.w),
+              ],
+            ),
           ),
+        ),
+        SizedBox(height: 10.h),
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return _buildColorSecondaryDialog(context);
+              },
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 14.r),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Row(
+              children: [
+                if (_colorSecondarySelected)
+                  Row(
+                    children: [
+                      SizedBox(width: 10.w),
+                      Icon(
+                        ShoxIcons.iconShoesSecondary,
+                        color: _colorSecondary,
+                        size: 32.sp,
+                      ),
+                    ],
+                  ),
+                SizedBox(width: 10.w),
+                Text(
+                  AppLocalizations.of(context)!
+                      .shoes_updater_screen_field_color_secondary,
+                  style: GoogleFonts.montserrat(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                const Spacer(),
+                Icon(
+                  MingCuteIcons.mgc_down_line,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                SizedBox(width: 10.w),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildColorPrimaryDialog(BuildContext context) {
+    return Dialog(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(12.r),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              AppLocalizations.of(context)!
+                  .shoes_updater_screen_field_color_primary_selection,
+              style: GoogleFonts.montserrat(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 16.h),
+            Wrap(
+              spacing: 8.r,
+              runSpacing: 8.r,
+              children: colorList.map((colorPrimary) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _colorPrimary = colorPrimary;
+                      _colorPrimarySelected = true;
+                      Get.back();
+                    });
+                  },
+                  child: Icon(
+                    ShoxIcons.iconShoesPrimary,
+                    size: 28.sp,
+                    color: colorPrimary,
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildDetailsColorSelector(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-              child: Container(
-                padding: EdgeInsets.all(12.r),
-                child: Wrap(
-                  spacing: 8.r,
-                  runSpacing: 8.r,
-                  children: colorList.map((detailsColor) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _detailsColor = detailsColor;
-                          _detailsColorSelected = true;
-                          Get.back();
-                        });
-                      },
-                      child: Container(
-                        width: 24.w,
-                        height: 24.h,
-                        decoration: BoxDecoration(
-                          color: detailsColor,
-                          borderRadius: BorderRadius.circular(50.r),
-                          border: Border.all(
-                            color: _detailsColor == detailsColor
-                                ? Colors.black
-                                : Colors.transparent,
-                          ),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            );
-          },
-        );
-      },
-      child: Card(
-        color: Theme.of(context).colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.r),
-        ),
-        elevation: 5,
-        child: Container(
-          width: 120.w,
-          padding: EdgeInsets.all(8.r),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  if (_detailsColorSelected == false)
-                    Text(
-                      S.current.field_details_color,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontFamily: 'CustomFont',
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  if (_detailsColorSelected == true)
-                    Icon(
-                      MingCuteIcons.mgc_palette_3_fill,
-                      color: _detailsColor,
-                      size: 32.sp,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withValues(alpha: 0.6),
-                          offset: const Offset(2, 2),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-              Icon(
-                MingCuteIcons.mgc_down_line,
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
-            ],
-          ),
-        ),
+  Widget _buildColorSecondaryDialog(BuildContext context) {
+    return Dialog(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.r),
       ),
-    );
-  }
-
-  Widget _buildSeasonSelector(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              insetPadding: EdgeInsets.symmetric(horizontal: 100.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-              child: Container(
-                padding: EdgeInsets.all(12.r),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...ShoesModel.seasonOptions.map((icon) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _seasonIcon = icon;
-                          });
-                          Get.back();
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.all(4.r),
-                          child: Icon(
-                            icon,
-                            color: _seasonIcon == icon
-                                ? Colors.black
-                                : Colors.black.withValues(alpha: 0.5),
-                            size: 32.sp,
-                          ),
-                        ),
-                      );
-                    }),
-                    GestureDetector(
-                      onTap: () {
-                        showSeasonDialog(context);
-                      },
-                      child: Icon(
-                        MingCuteIcons.mgc_information_fill,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-      child: Card(
-        color: Theme.of(context).colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.r),
-        ),
-        elevation: 5,
-        child: Container(
-          width: 120.w,
-          padding: EdgeInsets.all(8.r),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  if (_seasonIcon == null)
-                    Text(
-                      S.current.field_season,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontFamily: 'CustomFont',
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  if (_seasonIcon != null)
-                    Icon(
-                      _seasonIcon!,
-                      size: 32.sp,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withValues(alpha: 0.2),
-                          offset: const Offset(2, 2),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-              Icon(
-                MingCuteIcons.mgc_down_line,
+      child: Container(
+        padding: EdgeInsets.all(12.r),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              AppLocalizations.of(context)!
+                  .shoes_updater_screen_field_color_secondary_selection,
+              style: GoogleFonts.montserrat(
                 color: Theme.of(context).colorScheme.tertiary,
+                fontWeight: FontWeight.w600,
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 16.h),
+            Wrap(
+              spacing: 8.r,
+              runSpacing: 8.r,
+              children: colorList.map((colorSecondary) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _colorSecondary = colorSecondary;
+                      _colorSecondarySelected = true;
+                      Get.back();
+                    });
+                  },
+                  child: Icon(
+                    ShoxIcons.iconShoesSecondary,
+                    size: 28.sp,
+                    color: colorSecondary,
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         ),
       ),
     );
@@ -738,12 +645,12 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   Widget _buildBrandTextField(BuildContext context) {
     return ShoesTextField(
       controller: _brandController,
-      labelText: S.current.field_brand,
+      labelText: AppLocalizations.of(context)!.shoes_updater_screen_field_brand,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       textCapitalization: TextCapitalization.sentences,
       validator: (val) => val!.isEmpty
-          ? S.current.shoes_updater_screen_toast_error_brand
+          ? AppLocalizations.of(context)!.shoes_updater_screen_toast_error_brand
           : null,
     );
   }
@@ -751,17 +658,18 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
   Widget _buildSizeTextField(BuildContext context) {
     return ShoesTextField(
       controller: _sizeController,
-      labelText: S.current.field_size,
+      labelText: AppLocalizations.of(context)!.shoes_updater_screen_field_size,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      validator: (val) =>
-          val!.isEmpty ? S.current.shoes_updater_screen_toast_error_size : null,
+      validator: (val) => val!.isEmpty
+          ? AppLocalizations.of(context)!.shoes_updater_screen_toast_error_size
+          : null,
     );
   }
 
   Widget _buildCategoryDropdown(BuildContext context) {
     return CustomDropdown<String>(
-      label: S.current.field_category,
+      label: AppLocalizations.of(context)!.shoes_updater_screen_field_category,
       value:
           _categoryController.text.isNotEmpty ? _categoryController.text : null,
       onChanged: (newValue) {
@@ -777,26 +685,19 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
           value: category,
           child: Text(
             translatedCategoryOptions[category] ?? category,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
-              fontFamily: 'CustomFont',
             ),
           ),
         );
       }).toList(),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return S.current.field_insert_category;
-        }
-        return null;
-      },
     );
   }
 
   Widget _buildTypeDropdown(BuildContext context) {
     return CustomDropdown<String>(
-      label: S.current.field_type,
+      label: AppLocalizations.of(context)!.shoes_updater_screen_field_type,
       value: _typeController.text.isNotEmpty ? _typeController.text : null,
       onChanged: (newValue) {
         setState(
@@ -810,28 +711,45 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
               value: type,
               child: Text(
                 translatedTypeOptions[type] ?? type,
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Theme.of(context).colorScheme.secondary,
-                  fontFamily: 'CustomFont',
                 ),
               ),
             );
           }).toList() ??
           [],
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return S.current.field_insert_type;
-        }
-        return null;
+    );
+  }
+
+  Widget _buildSeasonDropdown(BuildContext context) {
+    return CustomDropdown<String>(
+      label: AppLocalizations.of(context)!.shoes_updater_screen_field_season,
+      value: _seasonController.text.isNotEmpty ? _seasonController.text : null,
+      onChanged: (newValue) {
+        setState(() {
+          _seasonController.text = newValue!;
+        });
       },
+      items: translatedSeasonOptions.keys.map((season) {
+        return DropdownMenuItem<String>(
+          value: season,
+          child: Text(
+            translatedSeasonOptions[season] ?? season,
+            style: GoogleFonts.montserrat(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+        );
+      }).toList(),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 
   Widget _buildNotesTextField(BuildContext context) {
     return ShoesTextField(
       controller: _notesController,
-      labelText: S.current.field_notes,
+      labelText: AppLocalizations.of(context)!.shoes_updater_screen_field_note,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       textCapitalization: TextCapitalization.sentences,
@@ -845,98 +763,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
       onPressed: _updateShoes,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       shape: const CircleBorder(),
-      child: const Icon(
-        MingCuteIcons.mgc_check_fill,
-      ),
-    );
-  }
-
-  Future<void> showSeasonDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          title: Text(
-            S.current.field_season_title,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFontBold',
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.sunny,
-                      color: Theme.of(context).colorScheme.secondary),
-                  SizedBox(width: 8.w),
-                  Text(
-                    S.current.field_season_summer,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontFamily: 'CustomFont',
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              Row(
-                children: [
-                  Icon(Icons.ac_unit,
-                      color: Theme.of(context).colorScheme.secondary),
-                  SizedBox(width: 8.w),
-                  Text(
-                    S.current.field_season_winter,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontFamily: 'CustomFont',
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              Row(
-                children: [
-                  Icon(Icons.star,
-                      color: Theme.of(context).colorScheme.secondary),
-                  SizedBox(width: 8.w),
-                  Text(
-                    S.current.field_season_all,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontFamily: 'CustomFont',
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                  AppColors.confirmColor,
-                ),
-              ),
-              child: Text(
-                'Chiudi',
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 16.sp,
-                  fontFamily: 'CustomFont',
-                ),
-              ),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-          ],
-        );
-      },
+      child: const Icon(MingCuteIcons.mgc_check_fill),
     );
   }
 }

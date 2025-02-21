@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/utils/category_translations.dart';
+import 'package:shox/utils/custom_icons.dart';
+import 'package:shox/utils/shoes_text_translations.dart';
 import 'package:shox/screens/shoes/shoes_updater_screen.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/widgets/custom_delete_dialog.dart';
@@ -82,11 +84,9 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
         },
       ),
       title: Text(
-        S.current.shoes_details_screen_title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+        AppLocalizations.of(context)!.shoes_details_screen_title,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       centerTitle: true,
@@ -100,7 +100,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
 
   Widget _buildPopupMenu(BuildContext context, ShoesModel shoes) {
     return PopupMenuButton<String>(
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.primary,
       icon: Icon(
         MingCuteIcons.mgc_more_2_fill,
         color: Theme.of(context).colorScheme.secondary,
@@ -122,13 +122,13 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
             context,
             'edit',
             MingCuteIcons.mgc_edit_2_fill,
-            S.current.shoes_details_screen_menu_edit,
+            AppLocalizations.of(context)!.shoes_details_screen_menu_edit,
           ),
           _buildPopupMenuItem(
             context,
             'delete',
             MingCuteIcons.mgc_delete_3_fill,
-            S.current.shoes_details_screen_menu_delete,
+            AppLocalizations.of(context)!.shoes_details_screen_menu_delete,
           ),
         ];
       },
@@ -147,16 +147,15 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
         children: [
           Icon(
             icon,
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           SizedBox(width: 10.w),
           Text(
             text,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+            style: GoogleFonts.montserrat(
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 14.sp,
-              fontFamily: 'CustomFont',
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -176,12 +175,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
   Widget _buildErrorState(BuildContext context) {
     return Center(
       child: Text(
-        S.current.shoes_details_screen_error_state,
-        style: TextStyle(
+        AppLocalizations.of(context)!.shoes_details_screen_error_state,
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 22.sp,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+          fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
       ),
@@ -191,12 +189,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
   Widget _buildEmptyState(BuildContext context) {
     return Center(
       child: Text(
-        S.current.shoes_details_screen_empty_state,
-        style: TextStyle(
+        AppLocalizations.of(context)!.shoes_details_screen_empty_state,
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 22.sp,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+          fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
       ),
@@ -208,26 +205,12 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.r),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 20.h,
+          spacing: 10.h,
           children: [
             _buildImageCard(context, shoes),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildLeftColumn(context, shoes),
-                SizedBox(width: 20.w),
-                _buildRightColumn(context, shoes),
-              ],
-            ),
-            _buildIconSection(
-              context,
-              S.current.text_season,
-              shoes.seasonIcon!,
-              Theme.of(context).colorScheme.tertiary,
-            ),
+            _buildDetails(context, shoes),
             _buildNotesSection(context, shoes.notes),
+            SizedBox(height: 20.h),
           ],
         ),
       ),
@@ -235,8 +218,8 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
   }
 
   Widget _buildImage(BuildContext context, String imageUrl) {
-    final double imageWidth = ScreenUtil().screenWidth > 600 ? 560.w : 280.w;
-    final double imageHeight = ScreenUtil().screenWidth > 600 ? 560.h : 280.h;
+    final double imageWidth = ScreenUtil().screenWidth > 600 ? 560.w : 260.w;
+    final double imageHeight = ScreenUtil().screenWidth > 600 ? 560.h : 260.h;
 
     return Card(
       color: Theme.of(context).colorScheme.primary,
@@ -270,84 +253,101 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  Widget _buildLeftColumn(BuildContext context, ShoesModel shoes) {
+  Widget _buildDetails(BuildContext context, ShoesModel shoes) {
     return Column(
       spacing: 10.h,
       children: [
-        _buildIconSection(
-          context,
-          S.current.text_color,
-          MingCuteIcons.mgc_palette_fill,
-          shoes.color,
+        Column(
+          children: [
+            Text(
+              AppLocalizations.of(context)!.shoes_details_screen_field_color,
+              style: GoogleFonts.montserrat(
+                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 20.w,
+              children: [
+                _buildColorSection(
+                  context,
+                  AppLocalizations.of(context)!
+                      .shoes_details_screen_field_color_primary,
+                  ShoxIcons.iconShoesPrimary,
+                  shoes.colorPrimary,
+                ),
+                _buildColorSection(
+                  context,
+                  AppLocalizations.of(context)!
+                      .shoes_details_screen_field_color_secondary,
+                  ShoxIcons.iconShoesSecondary,
+                  shoes.colorSecondary!,
+                ),
+              ],
+            ),
+          ],
         ),
         _buildTextSection(
           context,
-          S.current.text_brand,
+          AppLocalizations.of(context)!.shoes_details_screen_field_brand,
           shoes.brand,
         ),
         _buildTextSection(
           context,
-          S.current.text_category,
-          CategoryTranslations.translateCategory(
-              shoes.category, currentLanguageCode),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRightColumn(BuildContext context, ShoesModel shoes) {
-    return Column(
-      spacing: 10.h,
-      children: [
-        _buildIconSection(
-          context,
-          S.current.text_details_color,
-          (shoes.detailsColor != null && shoes.detailsColor!.value == 0)
-              ? MingCuteIcons.mgc_line_fill
-              : MingCuteIcons.mgc_palette_3_fill,
-          shoes.detailsColor!,
-        ),
-        _buildTextSection(
-          context,
-          S.current.text_size,
+          AppLocalizations.of(context)!.shoes_details_screen_field_size,
           shoes.size,
         ),
         _buildTextSection(
           context,
-          S.current.text_type,
-          CategoryTranslations.translateType(shoes.type, currentLanguageCode),
+          AppLocalizations.of(context)!.shoes_details_screen_field_category,
+          ShoesTextTranslations.translateCategory(
+            shoes.category,
+            currentLanguageCode,
+          ),
+        ),
+        _buildTextSection(
+          context,
+          AppLocalizations.of(context)!.shoes_details_screen_field_type,
+          ShoesTextTranslations.translateType(
+            shoes.type,
+            currentLanguageCode,
+          ),
+        ),
+        _buildTextSection(
+          context,
+          AppLocalizations.of(context)!.shoes_details_screen_field_season,
+          ShoesTextTranslations.translateSeason(
+            shoes.season!,
+            currentLanguageCode,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildIconSection(
+  Widget _buildColorSection(
     BuildContext context,
-    String text,
+    String label,
     IconData icon,
     Color iconColor,
   ) {
     return Column(
       children: [
         Text(
-          text,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: 22.sp,
-            fontFamily: 'CustomFontBold',
+          label,
+          style: GoogleFonts.montserrat(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
         Icon(
           icon,
+          size: 36.sp,
           color: iconColor,
-          size: 32.sp,
-          shadows: [
-            Shadow(
-              color: Colors.black.withValues(alpha: 0.2),
-              offset: const Offset(1, 1),
-              blurRadius: 5,
-            ),
-          ],
         ),
       ],
     );
@@ -362,19 +362,18 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 22.sp,
-            fontFamily: 'CustomFontBold',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(
           details,
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
-            fontSize: 20.sp,
-            fontFamily: 'CustomFont',
-            fontWeight: FontWeight.bold,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],
@@ -385,22 +384,21 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     return Column(
       children: [
         Text(
-          S.current.text_notes,
-          style: TextStyle(
+          AppLocalizations.of(context)!.shoes_details_screen_field_note,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 22.sp,
-            fontFamily: 'CustomFontBold',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 40.r),
           child: Text(
             notes ?? '',
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.tertiary,
               fontSize: 16.sp,
-              fontFamily: 'CustomFont',
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.center,
           ),
@@ -414,8 +412,10 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
       context: context,
       builder: (BuildContext context) {
         return CustomDeleteDialog(
-          title: S.current.delete_shoes_title,
-          content: S.current.delete_shoes_description,
+          title:
+              AppLocalizations.of(context)!.shoes_details_screen_delete_title,
+          content: AppLocalizations.of(context)!
+              .shoes_details_screen_delete_description,
           onCancelPressed: () {
             Get.back();
           },
@@ -428,7 +428,8 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
             }
             showSuccessToast(
               context,
-              S.current.toast_delete_shoes_success,
+              AppLocalizations.of(context)!
+                  .shoes_details_screen_delete_toast_success,
             );
             setState(() {
               isShoesDeleted = true;
