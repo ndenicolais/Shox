@@ -2,19 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/screens/user/user_controller.dart';
-import 'package:shox/screens/user/user_screen.dart';
+import 'package:shox/screens/profile/user_controller.dart';
+import 'package:shox/screens/profile/user_screen.dart';
 import 'package:shox/screens/settings/settings_screen.dart';
 import 'package:shox/screens/shoes/shoes_adder_screen.dart';
 import 'package:shox/screens/shoes/shoes_details_screen.dart';
-import 'package:shox/utils/category_translations.dart';
+import 'package:shox/utils/shoes_text_translations.dart';
 import 'package:shox/services/shoes_service.dart';
-import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/utils.dart';
 import 'package:shox/widgets/custom_loader.dart';
 
@@ -31,19 +31,20 @@ class HomeScreenState extends State<HomeScreen>
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesService _shoesService = ShoesService();
   late Stream<List<ShoesModel>> _shoesListFuture;
-  IconData currentIcon = Icons.grid_on;
+  IconData currentIcon = MingCuteIcons.mgc_dot_grid_fill;
   GridColumns currentGridColumns = GridColumns.gTwo;
   bool filtersActive = false;
   bool showOnlyFavorites = false;
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
   Color? selectedColor;
-  IconData? selectedSeasonIcon;
-  String selectedCategory = 'All';
+  String? selectedCategory = 'All';
   String? selectedType = 'All';
+  String selectedSeason = 'All';
   late String _languageCode;
   late Map<String, String> translatedCategoryOptions;
   late Map<String, String> translatedTypeOptions;
+  late Map<String, String> translatedSeasonOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,6 @@ class HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    userController.loadUserName();
     _shoesListFuture = _shoesService.getShoesList(currentUser!.uid);
   }
 
@@ -69,9 +69,11 @@ class HomeScreenState extends State<HomeScreen>
     super.didChangeDependencies();
     _languageCode = Localizations.localeOf(context).languageCode;
     translatedCategoryOptions =
-        CategoryTranslations.categoryTranslations[_languageCode] ?? {};
+        ShoesTextTranslations.categoryTranslations[_languageCode] ?? {};
     translatedTypeOptions =
-        CategoryTranslations.typeTranslations[_languageCode] ?? {};
+        ShoesTextTranslations.typeTranslations[_languageCode] ?? {};
+    translatedSeasonOptions =
+        ShoesTextTranslations.seasonTranslations[_languageCode] ?? {};
   }
 
   void toggleGrid() {
@@ -79,13 +81,13 @@ class HomeScreenState extends State<HomeScreen>
       () {
         if (currentGridColumns == GridColumns.gOne) {
           currentGridColumns = GridColumns.gTwo;
-          currentIcon = Icons.grid_on;
+          currentIcon = MingCuteIcons.mgc_dot_grid_fill;
         } else if (currentGridColumns == GridColumns.gTwo) {
           currentGridColumns = GridColumns.gThree;
-          currentIcon = Icons.view_agenda_outlined;
+          currentIcon = MingCuteIcons.mgc_distribute_spacing_vertical_fill;
         } else {
           currentGridColumns = GridColumns.gOne;
-          currentIcon = Icons.grid_view;
+          currentIcon = MingCuteIcons.mgc_layout_grid_fill;
         }
       },
     );
@@ -94,6 +96,7 @@ class HomeScreenState extends State<HomeScreen>
   void _resetFilters() {
     searchQuery = '';
     selectedType = 'All';
+    selectedSeason = 'All';
     _searchController.clear();
   }
 
@@ -112,7 +115,7 @@ class HomeScreenState extends State<HomeScreen>
         padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 20.r),
         child: Column(
           children: [
-            _buildGreeting(),
+            _buildGreeting(context),
             SizedBox(height: 10.h),
             _buildSearchBar(context),
             SizedBox(height: 20.h),
@@ -124,26 +127,24 @@ class HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildGreeting() {
+  Widget _buildGreeting(BuildContext context) {
     return Row(
       children: [
         Text(
-          'Hey',
-          style: TextStyle(
+          AppLocalizations.of(context)!.home_screen_welcome_text,
+          style: GoogleFonts.montserrat(
             color: Theme.of(context).colorScheme.tertiary,
             fontSize: 40.sp,
-            fontFamily: 'CustomFont',
           ),
         ),
         SizedBox(width: 10.w),
         Obx(
           () => Text(
             userController.userName.value,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
               fontSize: 40.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFontBold',
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
@@ -159,9 +160,8 @@ class HomeScreenState extends State<HomeScreen>
             controller: _searchController,
             onTapOutside: (event) =>
                 FocusManager.instance.primaryFocus?.unfocus(),
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
-              fontFamily: 'CustomFont',
             ),
             cursorColor: Theme.of(context).colorScheme.tertiary,
             onChanged: (value) {
@@ -190,21 +190,7 @@ class HomeScreenState extends State<HomeScreen>
                       },
                     )
                   : null,
-              labelText: S.current.home_search,
-              labelStyle: TextStyle(
-                color: Theme.of(context).colorScheme.tertiary,
-                fontFamily: 'CustomFont',
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
+              labelText: AppLocalizations.of(context)!.home_screen_search_bar,
             ),
           ),
         ),
@@ -236,7 +222,7 @@ class HomeScreenState extends State<HomeScreen>
                 ? MingCuteIcons.mgc_heart_fill
                 : MingCuteIcons.mgc_heart_line,
             color: showOnlyFavorites
-                ? AppColors.errorColor
+                ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).colorScheme.tertiary,
           ),
           onPressed: () {
@@ -252,15 +238,13 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildErrorState(BuildContext context) {
-    return SizedBox(
-      width: 320.w,
+    return Center(
       child: Text(
-        'Error state',
-        style: TextStyle(
+        AppLocalizations.of(context)!.home_screen_error_state,
+        style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 22.sp,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'CustomFont',
+          fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
       ),
@@ -268,23 +252,28 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildEmptyState(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          MingCuteIcons.mgc_package_line,
-          size: 60.sp,
-          color: Theme.of(context).colorScheme.secondary,
+    return Center(
+      child: SizedBox(
+        width: 260.w,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              MingCuteIcons.mgc_package_line,
+              size: 80.sp,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            Text(
+              AppLocalizations.of(context)!.home_screen_empty_state,
+              style: GoogleFonts.montserrat(
+                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 22.sp,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
-        Text(
-          S.current.home_empty,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: 22.sp,
-            fontFamily: 'CustomFont',
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -318,15 +307,21 @@ class HomeScreenState extends State<HomeScreen>
 
     List<ShoesModel> filteredShoes = shoesList.where((shoes) {
       if (showOnlyFavorites && !shoes.isFavorite) return false;
-      if (selectedColor != null && shoes.color != selectedColor) return false;
-      if (selectedSeasonIcon != null &&
-          shoes.seasonIcon != selectedSeasonIcon) {
+      if (selectedColor != null && shoes.colorPrimary != selectedColor) {
         return false;
       }
       if (selectedCategory != 'All' && shoes.category != selectedCategory) {
         return false;
       }
-      if (selectedType != 'All' && shoes.type != selectedType) return false;
+      if (selectedType != null &&
+          selectedType != 'All' &&
+          (translatedTypeOptions[shoes.type] ?? shoes.type) != selectedType) {
+        return false;
+      }
+      if (selectedSeason != 'All' && shoes.season != selectedSeason) {
+        return false;
+      }
+
       return true;
     }).toList();
 
@@ -409,158 +404,157 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   void _showFilterDialog() {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          title: Text(
-            S.current.home_filter_title,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CustomFontBold',
-            ),
-          ),
-          content: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.r),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        S.current.home_filter_color,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: 'CustomFont',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Wrap(
-                    spacing: 8.r,
-                    runSpacing: 8.r,
-                    children: colorList.map((color) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedColor = color;
-                          });
-                        },
-                        child: Container(
-                          width: 24.w,
-                          height: 24.h,
-                          decoration: BoxDecoration(
-                            color: color,
-                            borderRadius: BorderRadius.circular(50.r),
-                            border: Border.all(
-                              color: selectedColor == color
-                                  ? Theme.of(context).colorScheme.tertiary
-                                  : Colors.transparent,
+        return Padding(
+          padding: EdgeInsets.all(16.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.home_screen_filter_title,
+                style: GoogleFonts.montserrat(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.r),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .home_screen_filter_color_primary,
+                            style: GoogleFonts.montserrat(
+                              color: Theme.of(context).colorScheme.tertiary,
                             ),
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 10.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.r),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        S.current.home_filter_season,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: 'CustomFont',
-                        ),
                       ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: ShoesModel.seasonOptions.map((IconData icon) {
-                      return GestureDetector(
-                        onTap: () {
+                      Wrap(
+                        spacing: 8.r,
+                        runSpacing: 8.r,
+                        children: colorList.map((color) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedColor = color;
+                              });
+                            },
+                            child: Container(
+                              width: 24.w,
+                              height: 24.h,
+                              decoration: BoxDecoration(
+                                color: color,
+                                borderRadius: BorderRadius.circular(50.r),
+                                border: Border.all(
+                                  color: selectedColor == color
+                                      ? Theme.of(context).colorScheme.tertiary
+                                      : Colors.transparent,
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(height: 10.h),
+                      _buildDropdown(
+                        value: selectedCategory != null
+                            ? translatedCategoryOptions[selectedCategory]
+                            : null,
+                        items: ['All', ...translatedCategoryOptions.values],
+                        onChanged: (newValue) {
                           setState(() {
-                            selectedSeasonIcon = icon;
+                            selectedCategory = newValue != 'All'
+                                ? translatedCategoryOptions.entries
+                                    .firstWhere(
+                                        (entry) => entry.value == newValue)
+                                    .key
+                                : null;
+                            selectedType = 'All';
                           });
                         },
-                        child: Icon(
-                          icon,
-                          color: selectedSeasonIcon == icon
-                              ? Theme.of(context).colorScheme.tertiary
-                              : Theme.of(context)
-                                  .colorScheme
-                                  .tertiary
-                                  .withValues(alpha: 0.3),
-                          size: 32.sp,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 10.h),
-                  _buildDropdown(
-                    value: selectedCategory,
-                    items: ['All', ...translatedCategoryOptions.keys],
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedCategory = newValue!;
-                      });
-                    },
-                    labelText: S.current.home_filter_category,
-                  ),
-                  _buildDropdown(
-                    value: selectedType,
-                    items: selectedType == null
-                        ? []
-                        : [
+                        labelText: AppLocalizations.of(context)!
+                            .home_screen_filter_category,
+                      ),
+                      if (selectedCategory != null)
+                        _buildDropdown(
+                          value: selectedType,
+                          items: [
                             'All',
-                            ...ShoesModel.categoryToTypes[selectedCategory] ??
-                                []
+                            ...?ShoesModel.categoryToTypes[selectedCategory]
+                                ?.map((type) =>
+                                    translatedTypeOptions[type] ?? type)
                           ],
-                    onChanged: (newValue) {
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedType = newValue!;
+                            });
+                          },
+                          labelText: AppLocalizations.of(context)!
+                              .home_screen_filter_type,
+                        ),
+                      _buildDropdown(
+                        value: selectedSeason,
+                        items: ['All', ...translatedSeasonOptions.values],
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedSeason = newValue!;
+                          });
+                        },
+                        labelText: AppLocalizations.of(context)!
+                            .home_screen_filter_season,
+                      ),
+                    ],
+                  );
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  _buildActionButton(
+                    label:
+                        AppLocalizations.of(context)!.home_screen_filter_reset,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                    onPressed: () {
                       setState(() {
-                        selectedType = newValue!;
+                        selectedColor = null;
+                        selectedCategory = 'All';
+                        selectedType = 'All';
+                        selectedSeason = 'All';
+                        showOnlyFavorites = false;
+                        filtersActive = false;
                       });
+                      Get.back();
                     },
-                    labelText: S.current.home_filter_type,
+                  ),
+                  SizedBox(width: 8.w),
+                  _buildActionButton(
+                    label:
+                        AppLocalizations.of(context)!.home_screen_filter_apply,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    onPressed: () {
+                      setState(() {
+                        filtersActive = true;
+                      });
+                      Get.back();
+                    },
                   ),
                 ],
-              );
-            },
+              ),
+            ],
           ),
-          actions: [
-            _buildActionButton(
-              label: S.current.home_filter_cancel,
-              color: AppColors.errorColor,
-              onPressed: () {
-                setState(() {
-                  selectedCategory = 'All';
-                  selectedType = 'All';
-                  selectedColor = null;
-                  selectedSeasonIcon = null;
-                  showOnlyFavorites = false;
-                  filtersActive = false;
-                });
-                Get.back();
-              },
-            ),
-            _buildActionButton(
-              label: S.current.home_filter_apply,
-              color: AppColors.confirmColor,
-              onPressed: () {
-                setState(() {
-                  filtersActive = true;
-                });
-                Get.back();
-              },
-            ),
-          ],
         );
       },
     );
@@ -568,20 +562,19 @@ class HomeScreenState extends State<HomeScreen>
 
   Widget _buildActionButton({
     required String label,
-    required Color color,
+    required Color backgroundColor,
     required VoidCallback onPressed,
   }) {
     return TextButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all<Color>(color),
+        backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
       ),
       onPressed: onPressed,
       child: Text(
         label,
-        style: TextStyle(
-          color: AppColors.white,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.primary,
           fontSize: 16.sp,
-          fontFamily: 'CustomFont',
         ),
       ),
     );
@@ -600,31 +593,20 @@ class HomeScreenState extends State<HomeScreen>
         return DropdownMenuItem<String>(
           value: item,
           child: Text(
-            translatedCategoryOptions[item] ?? item,
-            style: TextStyle(
+            item,
+            style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.secondary,
-              fontFamily: 'CustomFont',
             ),
           ),
         );
       }).toList(),
+      icon: Icon(
+        MingCuteIcons.mgc_down_line,
+        color: Theme.of(context).colorScheme.tertiary,
+      ),
       dropdownColor: Theme.of(context).colorScheme.primary,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontFamily: 'CustomFont',
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
-        ),
       ),
     );
   }
@@ -647,18 +629,18 @@ class HomeScreenState extends State<HomeScreen>
     return ConvexAppBar(
       items: [
         TabItem(
-          fontFamily: 'CustomFont',
-          title: S.current.home_profile,
+          fontFamily: GoogleFonts.montserrat().fontFamily,
+          title: AppLocalizations.of(context)!.home_screen_bottom_bar_profile,
           icon: MingCuteIcons.mgc_user_3_fill,
         ),
         TabItem(
-          fontFamily: 'CustomFont',
-          title: S.current.home_add,
+          fontFamily: GoogleFonts.montserrat().fontFamily,
+          title: AppLocalizations.of(context)!.home_screen_bottom_bar_add,
           icon: MingCuteIcons.mgc_add_line,
         ),
         TabItem(
-          fontFamily: 'CustomFont',
-          title: S.current.home_settings,
+          fontFamily: GoogleFonts.montserrat().fontFamily,
+          title: AppLocalizations.of(context)!.home_screen_bottom_bar_settings,
           icon: MingCuteIcons.mgc_settings_5_fill,
         ),
       ],
