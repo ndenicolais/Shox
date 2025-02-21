@@ -20,7 +20,7 @@ class DatabaseService {
     Map<String, int> colorCounts = {};
 
     for (var shoes in shoesList) {
-      String colorHex = shoes.color.value.toRadixString(16);
+      String colorHex = shoes.colorPrimary.value.toRadixString(16);
       if (colorCounts.containsKey(colorHex)) {
         colorCounts[colorHex] = colorCounts[colorHex]! + 1;
       } else {
@@ -81,7 +81,7 @@ class DatabaseService {
 
   // This function retrieves the current user's data from Firebase Auth and Firestore.
   Future<Map<String, dynamic>> getCurrentUserData() async {
-    final user = FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
       throw Exception('User is not logged in');
@@ -106,7 +106,7 @@ class DatabaseService {
 
       if (docSnapshot.exists) {
         final userData = docSnapshot.data();
-        userName = userData?['name'] ?? 'User';
+        userName = userData?['userName'] ?? 'User';
       }
     }
 
