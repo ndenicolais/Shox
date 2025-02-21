@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/utils/validator.dart';
 import 'package:shox/widgets/account_textfield.dart';
 
@@ -34,8 +34,8 @@ class SignupForm extends StatelessWidget {
         children: [
           _buildTextField(
             nameController,
-            S.current.validator_name,
-            S.current.validator_name_hint,
+            AppLocalizations.of(context)!.validator_name,
+            AppLocalizations.of(context)!.validator_name_hint,
             MingCuteIcons.mgc_user_2_fill,
             TextInputType.text,
             TextCapitalization.sentences,
@@ -45,8 +45,8 @@ class SignupForm extends StatelessWidget {
           SizedBox(height: 20.h),
           _buildTextField(
             emailController,
-            S.current.validator_email,
-            S.current.validator_email_hint,
+            AppLocalizations.of(context)!.validator_email,
+            AppLocalizations.of(context)!.validator_email_hint,
             MingCuteIcons.mgc_mail_fill,
             TextInputType.emailAddress,
             TextCapitalization.none,
@@ -56,8 +56,8 @@ class SignupForm extends StatelessWidget {
           SizedBox(height: 20.h),
           _buildPasswordField(
             passwordController,
-            S.current.validator_password,
-            S.current.validator_password_hint,
+            AppLocalizations.of(context)!.validator_password,
+            AppLocalizations.of(context)!.validator_password_hint,
             MingCuteIcons.mgc_lock_fill,
             TextInputType.text,
             TextCapitalization.none,
@@ -135,33 +135,33 @@ class SignupForm extends StatelessWidget {
 
   String? _validateName(String? val) {
     if (val == null || val.isEmpty) {
-      return S.current.validator_name_required;
+      return AppLocalizations.of(context)!.validator_name_required;
     }
-    String? nameError = val.nameValidationError;
+    String? nameError = val.nameValidationError(context);
     if (nameError != null) {
-      return '${S.current.validator_name_error} $nameError';
+      return '${AppLocalizations.of(context)!.validator_name_error} $nameError';
     }
     return null;
   }
 
   String? _validateEmail(String? val) {
     if (val == null || val.isEmpty) {
-      return S.current.validator_email_required;
+      return AppLocalizations.of(context)!.validator_email_required;
     }
-    String? emailError = val.emailValidationError;
+    String? emailError = val.emailValidationError(context);
     if (emailError != null) {
-      return '${S.current.validator_email_error} $emailError';
+      return '${AppLocalizations.of(context)!.validator_email_error} $emailError';
     }
     return null;
   }
 
   String? _validatePassword(String? val) {
     if (val == null || val.isEmpty) {
-      return S.current.validator_password_required;
+      return AppLocalizations.of(context)!.validator_password_required;
     }
-    String? passwordError = val.passwordValidationError;
+    String? passwordError = val.passwordValidationError(context);
     if (passwordError != null) {
-      return '${S.current.validator_password_error} $passwordError';
+      return '${AppLocalizations.of(context)!.validator_password_error} $passwordError';
     }
     return null;
   }

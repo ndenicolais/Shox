@@ -1,7 +1,7 @@
-import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:shox/screens/home_screen.dart';
 import 'package:shox/screens/welcome_screen.dart';
 import 'package:shox/services/auth_service.dart';
@@ -35,7 +35,7 @@ class LoginController extends GetxController {
           if (context.mounted) {
             showSuccessToast(
               context,
-              '${S.current.toast_login_welcome}${userModel.userName}',
+              AppLocalizations.of(context)!.login_toast_success,
             );
           }
         }
@@ -45,11 +45,17 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       String errorMessage = e.toString();
-      if (e is Exception && errorMessage.contains("email_not_found")) {
-        errorMessage = S.current.login_toast_error_email_not_found;
+      if (context.mounted) {
+        if (e is Exception && errorMessage.contains("email_not_found")) {
+          errorMessage =
+              AppLocalizations.of(context)!.login_toast_error_email_not_found;
+        }
       }
-      if (e is Exception && errorMessage.contains("invalid_password")) {
-        errorMessage = S.current.login_toast_error_invalid_password;
+      if (context.mounted) {
+        if (e is Exception && errorMessage.contains("invalid_password")) {
+          errorMessage =
+              AppLocalizations.of(context)!.login_toast_error_invalid_password;
+        }
       }
 
       if (context.mounted) {
@@ -74,7 +80,7 @@ class LoginController extends GetxController {
         if (context.mounted) {
           showSuccessToast(
             context,
-            '${S.current.toast_login_welcome}$googleUserName',
+            AppLocalizations.of(context)!.login_toast_success,
           );
         }
       }
@@ -94,7 +100,7 @@ class LoginController extends GetxController {
       if (context.mounted) {
         showSuccessToast(
           context,
-          S.current.logout_toast_success,
+          AppLocalizations.of(context)!.logout_toast_success,
         );
       }
 
@@ -105,7 +111,7 @@ class LoginController extends GetxController {
       if (context.mounted) {
         showErrorToast(
           context,
-          S.current.logout_toast_success,
+          AppLocalizations.of(context)!.logout_toast_success,
         );
       }
     }

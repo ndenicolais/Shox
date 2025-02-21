@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
 
 Future<void> requestStoragePermission(
@@ -26,7 +26,7 @@ Future<void> requestStoragePermission(
           if (context.mounted) {
             showErrorToast(
               context,
-              S.current.storage_permission_error,
+              AppLocalizations.of(context)!.storage_permission_error,
             );
           }
         } else if (filePermission.isPermanentlyDenied) {
@@ -49,7 +49,7 @@ Future<void> requestStoragePermission(
           if (context.mounted) {
             showErrorToast(
               context,
-              S.current.storage_permission_error,
+              AppLocalizations.of(context)!.storage_permission_error,
             );
           }
         } else if (filePermission.isPermanentlyDenied) {
@@ -78,7 +78,7 @@ Future<String> requestManageExternalStoragePermission(
         if (context.mounted) {
           showErrorToast(
             context,
-            S.current.storage_permission_error,
+            AppLocalizations.of(context)!.storage_permission_error,
           );
         }
       } else if (manageExternalStoragePermission.isPermanentlyDenied) {

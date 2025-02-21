@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/models/user_model.dart';
 import 'package:shox/screens/home_screen.dart';
 import 'package:shox/services/auth_service.dart';
@@ -44,7 +44,7 @@ class SignupController extends GetxController {
           if (context.mounted) {
             showSuccessToast(
               context,
-              '${S.current.toast_signup_welcome}${user.userName}',
+              AppLocalizations.of(context)!.signup_toast_success,
             );
           }
           Get.to(() => const HomeScreen(),
@@ -54,8 +54,11 @@ class SignupController extends GetxController {
       }
     } catch (e) {
       String errorMessage = e.toString();
-      if (e is Exception && errorMessage.contains("email_already_register")) {
-        errorMessage = S.current.signup_toast_error_email_already_register;
+      if (context.mounted) {
+        if (e is Exception && errorMessage.contains("email_already_register")) {
+          errorMessage = AppLocalizations.of(context)!
+              .signup_toast_error_email_already_register;
+        }
       }
 
       if (context.mounted) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/utils/validator.dart';
 import 'package:shox/widgets/account_textfield.dart';
 
@@ -25,13 +25,13 @@ class ResetPasswordForm extends StatelessWidget {
         children: [
           _buildTextField(
             emailController,
-            S.current.reset_password_form_email,
-            S.current.reset_password_form_email_field,
+            AppLocalizations.of(context)!.reset_password_form_email,
+            AppLocalizations.of(context)!.reset_password_form_email_field,
             MingCuteIcons.mgc_mail_fill,
             TextInputType.emailAddress,
             TextCapitalization.none,
             TextInputAction.done,
-            (val) => val!.emailValidationError!,
+            (val) => val?.emailValidationError(context),
           ),
         ],
       ),

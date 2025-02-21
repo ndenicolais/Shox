@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DbLocalizedValues {
-  static String getColorName(Color color) {
+  static String getColorName(BuildContext context, Color color) {
     final colorHex = color.value
         .toRadixString(16)
         .padLeft(8, '0')
@@ -11,93 +11,103 @@ class DbLocalizedValues {
 
     switch (colorHex) {
       case 'FFFFFF':
-        return S.current.color_white;
+        return AppLocalizations.of(context)!.color_white;
       case '000000':
-        return S.current.color_black;
+        return AppLocalizations.of(context)!.color_black;
       case 'BFBFBF':
-        return S.current.color_light_grey;
+        return AppLocalizations.of(context)!.color_light_grey;
       case '757575':
-        return S.current.color_dark_grey;
+        return AppLocalizations.of(context)!.color_dark_grey;
       case 'FF962E':
-        return S.current.color_orange;
+        return AppLocalizations.of(context)!.color_orange;
       case 'FFDAE3':
-        return S.current.color_pink;
+        return AppLocalizations.of(context)!.color_pink;
       case 'FF2810':
-        return S.current.color_red;
+        return AppLocalizations.of(context)!.color_red;
       case '760000':
-        return S.current.color_bordeaux;
+        return AppLocalizations.of(context)!.color_bordeaux;
       case 'B37B4E':
-        return S.current.color_camel;
+        return AppLocalizations.of(context)!.color_camel;
       case 'D9D0B5':
-        return S.current.color_beige;
+        return AppLocalizations.of(context)!.color_beige;
       case '927D67':
-        return S.current.color_light_brown;
+        return AppLocalizations.of(context)!.color_light_brown;
       case '654321':
-        return S.current.color_dark_brown;
+        return AppLocalizations.of(context)!.color_dark_brown;
       case 'FFE79E':
-        return S.current.color_yellow;
+        return AppLocalizations.of(context)!.color_yellow;
       case '91AA80':
-        return S.current.color_green;
+        return AppLocalizations.of(context)!.color_green;
       case '425797':
-        return S.current.color_light_blue;
+        return AppLocalizations.of(context)!.color_light_blue;
       case '05003E':
-        return S.current.color_dark_blue;
+        return AppLocalizations.of(context)!.color_dark_blue;
       default:
-        return S.current.color_white;
+        return AppLocalizations.of(context)!.color_white;
     }
   }
 
-  static String getCategoryName(String category) {
+  static String getCategoryName(BuildContext context, String category) {
     switch (category) {
       case 'Sneakers':
-        return S.current.category_sneakers;
+        return AppLocalizations.of(context)!.category_sneakers;
+      case 'Heeled':
+        return AppLocalizations.of(context)!.category_heeled;
       case 'Sandals':
-        return S.current.category_sandals;
+        return AppLocalizations.of(context)!.category_sandals;
       case 'Boots':
-        return S.current.category_boots;
+        return AppLocalizations.of(context)!.category_boots;
       case 'Loafers':
-        return S.current.category_loafers;
+        return AppLocalizations.of(context)!.category_loafers;
       case 'Ballets':
-        return S.current.category_ballets;
+        return AppLocalizations.of(context)!.category_ballets;
       case 'Other':
-        return S.current.category_other;
+        return AppLocalizations.of(context)!.category_other;
       default:
-        return S.current.category_other;
+        return AppLocalizations.of(context)!.category_other;
     }
   }
 
-  static String getTypeName(String type) {
+  static String getTypeName(BuildContext context, String type) {
     switch (type) {
       case 'Sport':
-        return S.current.type_sport;
+        return AppLocalizations.of(context)!.type_sport;
       case 'Casual':
-        return S.current.type_casual;
+        return AppLocalizations.of(context)!.type_casual;
       case 'Lifestyle':
-        return S.current.type_lifestyle;
+        return AppLocalizations.of(context)!.type_lifestyle;
       case 'Running':
-        return S.current.type_running;
+        return AppLocalizations.of(context)!.type_running;
+      case 'Decollete':
+        return AppLocalizations.of(context)!.type_decollete;
+      case 'Spuntas':
+        return AppLocalizations.of(context)!.type_spuntas;
+      case 'Wedge':
+        return AppLocalizations.of(context)!.type_wedge;
+      case 'Lace-Up':
+        return AppLocalizations.of(context)!.type_lace_up;
       case 'Flat':
-        return S.current.type_flat;
+        return AppLocalizations.of(context)!.type_flat;
       case 'Heeled':
-        return S.current.type_heeled;
+        return AppLocalizations.of(context)!.type_heeled;
       case 'Flip-Flops':
-        return S.current.type_flip_flops;
+        return AppLocalizations.of(context)!.type_flip_flops;
       case 'Dressy':
-        return S.current.type_dressy;
+        return AppLocalizations.of(context)!.type_dressy;
       case 'Ankle Boots':
-        return S.current.type_ankle_boots;
+        return AppLocalizations.of(context)!.type_ankle_boots;
       case 'High Boots':
-        return S.current.type_high_boots;
+        return AppLocalizations.of(context)!.type_high_boots;
       case 'Work Boots':
-        return S.current.type_work_boots;
+        return AppLocalizations.of(context)!.type_work_boots;
       case 'Knee-High':
-        return S.current.type_knee_high;
+        return AppLocalizations.of(context)!.type_knee_high;
       case 'Classic':
-        return S.current.type_classic;
+        return AppLocalizations.of(context)!.type_classic;
       case 'Other':
-        return S.current.type_other;
+        return AppLocalizations.of(context)!.type_other;
       default:
-        return S.current.type_other;
+        return AppLocalizations.of(context)!.type_other;
     }
   }
 }

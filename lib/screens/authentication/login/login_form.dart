@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shox/widgets/account_textfield.dart';
 
 class LoginForm extends StatelessWidget {
@@ -37,8 +37,8 @@ class LoginForm extends StatelessWidget {
         children: [
           _buildTextField(
             emailController,
-            S.current.validator_email,
-            S.current.validator_email_hint,
+            AppLocalizations.of(context)!.validator_email,
+            AppLocalizations.of(context)!.validator_email_hint,
             MingCuteIcons.mgc_mail_fill,
             TextInputType.emailAddress,
             TextInputAction.next,
@@ -46,8 +46,8 @@ class LoginForm extends StatelessWidget {
           SizedBox(height: 20.h),
           _buildPasswordField(
             passwordController,
-            S.current.validator_password,
-            S.current.validator_password_hint,
+            AppLocalizations.of(context)!.validator_password,
+            AppLocalizations.of(context)!.validator_password_hint,
             MingCuteIcons.mgc_lock_fill,
             TextInputType.text,
             TextInputAction.done,
@@ -76,7 +76,7 @@ class LoginForm extends StatelessWidget {
         textInputAction: textInputAction,
         validator: (val) {
           if (val == null || val.isEmpty) {
-            return S.current.validator_email_required;
+            return AppLocalizations.of(context)!.validator_email_required;
           }
           return null;
         },
@@ -116,7 +116,7 @@ class LoginForm extends StatelessWidget {
           obscureText: !passwordVisible.value,
           validator: (val) {
             if (val == null || val.isEmpty) {
-              return S.current.validator_password_required;
+              return AppLocalizations.of(context)!.validator_password_required;
             }
             return null;
           },
