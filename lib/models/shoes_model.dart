@@ -1,21 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class ShoesModel {
   String? id;
   String imageUrl;
-  Color color;
-  Color? detailsColor;
-  IconData? seasonIcon;
-  static List<IconData> seasonOptions = [
-    Icons.sunny,
-    Icons.ac_unit,
-    Icons.star,
-  ];
+  Color colorPrimary;
+  Color? colorSecondary;
   String brand;
   String size;
   String category;
   String type;
+  String? season;
   String? notes;
   bool isFavorite;
   DateTime dateAdded;
@@ -24,18 +19,19 @@ class ShoesModel {
   ShoesModel({
     this.id,
     required this.imageUrl,
-    required this.color,
-    this.detailsColor,
-    this.seasonIcon,
+    required this.colorPrimary,
+    this.colorSecondary,
     required this.brand,
     required this.size,
     required this.category,
     String? type,
+    String? season,
     this.notes,
     this.isFavorite = false,
     DateTime? dateAdded,
     DateTime? dateUpdated,
   })  : type = type ?? _determineType(category),
+        season = season ?? 'All',
         dateAdded = dateAdded ?? DateTime.now(),
         dateUpdated = dateUpdated ?? DateTime.now();
 
@@ -46,14 +42,13 @@ class ShoesModel {
   Map<String, dynamic> toFirestore() {
     return {
       'imageUrl': imageUrl,
-      'color': color.value,
-      'detailsColor': detailsColor!.value,
-      'seasonIcon':
-          seasonIcon != null ? seasonIcon!.codePoint : Icons.star.codePoint,
+      'colorPrimary': colorPrimary.value,
+      'colorSecondary': colorSecondary!.value,
       'brand': brand,
       'size': size,
       'category': category,
       'type': type,
+      'season': season,
       'notes': notes,
       'isFavorite': isFavorite,
       'dateAdded': Timestamp.fromDate(dateAdded),
@@ -65,15 +60,13 @@ class ShoesModel {
     return ShoesModel(
       id: id,
       imageUrl: data['imageUrl'],
-      color: Color(data['color']),
-      detailsColor: Color(data['detailsColor']),
-      seasonIcon: data['seasonIcon'] != null
-          ? IconData(data['seasonIcon'], fontFamily: 'MaterialIcons')
-          : Icons.star,
+      colorPrimary: Color(data['colorPrimary']),
+      colorSecondary: Color(data['colorSecondary']),
       brand: data['brand'],
       size: data['size'],
       category: data['category'],
       type: data['type'],
+      season: data['season'],
       notes: data['notes'],
       isFavorite: data['isFavorite'],
       dateAdded: (data['dateAdded'] as Timestamp).toDate(),
@@ -83,6 +76,7 @@ class ShoesModel {
 
   static Map<String, List<String>> categoryToTypes = {
     'Sneakers': ['Sport', 'Casual', 'Lifestyle', 'Running'],
+    'Heeled': ['Decollete', 'Spuntas', 'Wedge', 'Lace-Up'],
     'Sandals': ['Flat', 'Heeled', 'Flip-Flops', 'Dressy'],
     'Boots': ['Ankle Boots', 'High Boots', 'Work Boots', 'Knee-High'],
     'Loafers': ['Classic', 'Dressy', 'Casual', 'Moccasins'],
@@ -90,12 +84,11 @@ class ShoesModel {
     'Other': ['Other'],
   };
 
-  static List<String> categoryOptions = [
-    'Sneakers',
-    'Sandals',
-    'Boots',
-    'Loafers',
-    'Ballets',
-    'Other',
+  static List<String> seasonOptions = [
+    'All',
+    'Summer',
+    'Autumn',
+    'Winter',
+    'Spring',
   ];
 }

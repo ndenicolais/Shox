@@ -1,7 +1,8 @@
-class CategoryTranslations {
+class ShoesTextTranslations {
   static const Map<String, Map<String, String>> categoryTranslations = {
     'en': {
       'Sneakers': 'Sneakers',
+      'Heeled': 'Heeled',
       'Sandals': 'Sandals',
       'Boots': 'Boots',
       'Loafers': 'Loafers',
@@ -10,6 +11,7 @@ class CategoryTranslations {
     },
     'it': {
       'Sneakers': 'Sneakers',
+      'Heeled': 'Con tacco',
       'Sandals': 'Sandali',
       'Boots': 'Stivali',
       'Loafers': 'Mocassini',
@@ -18,6 +20,7 @@ class CategoryTranslations {
     },
     'es': {
       'Sneakers': 'Zapatillas',
+      'Heeled': 'Con tacón',
       'Sandals': 'Sandalias',
       'Boots': 'Botas',
       'Loafers': 'Mocasines',
@@ -26,6 +29,7 @@ class CategoryTranslations {
     },
     'fr': {
       'Sneakers': 'Baskets',
+      'Heeled': 'À talon',
       'Sandals': 'Sandales',
       'Boots': 'Bottes',
       'Loafers': 'Mocassins',
@@ -34,6 +38,7 @@ class CategoryTranslations {
     },
     'de': {
       'Sneakers': 'Sneaker',
+      'Heeled': 'Mit Absatz',
       'Sandals': 'Sandalen',
       'Boots': 'Stiefel',
       'Loafers': 'Loafer',
@@ -48,6 +53,10 @@ class CategoryTranslations {
       'Casual': 'Casual',
       'Lifestyle': 'Lifestyle',
       'Running': 'Running',
+      "Decollete": "Decolleté",
+      "Spuntas": "Peep",
+      "Wedge": "Wedge",
+      "Lace-Up": "Lace-Up",
       'Flat': 'Flat',
       'Heeled': 'Heeled',
       'Flip-Flops': 'Flip-Flops',
@@ -64,6 +73,10 @@ class CategoryTranslations {
       'Casual': 'Informali',
       'Lifestyle': 'Lifestyle',
       'Running': 'Da corsa',
+      'Decollete': 'Decolleté',
+      'Spuntas': 'Spuntate',
+      'Wedge': 'Con zeppa',
+      'Lace-Up': 'Francesine',
       'Flat': 'Basse',
       'Heeled': 'Con tacco',
       'Flip-Flops': 'Infradito',
@@ -80,6 +93,10 @@ class CategoryTranslations {
       'Casual': 'Casual',
       'Lifestyle': 'Estilo de vida',
       'Running': 'Correr',
+      'Decollete': 'Escotado',
+      'Spuntas': 'Punta abierta',
+      'Wedge': 'Con cuña',
+      'Lace-Up': 'Cordones',
       'Flat': 'Plano',
       'Heeled': 'Con tacón',
       'Flip-Flops': 'Chanclas',
@@ -96,6 +113,10 @@ class CategoryTranslations {
       'Casual': 'Décontracté',
       'Lifestyle': 'Style de vie',
       'Running': 'Course',
+      "Decollete": "Décolleté",
+      "Spuntas": "Ouvert",
+      "Wedge": "Compensées",
+      "Lace-Up": "À lacets",
       'Flat': 'Plat',
       'Heeled': 'À talon',
       'Flip-Flops': 'Tongs',
@@ -112,6 +133,10 @@ class CategoryTranslations {
       'Casual': 'Lässig',
       'Lifestyle': 'Lebensstil',
       'Running': 'Laufen',
+      'Decollete': 'Dekolleté',
+      'Spuntas': 'Offen',
+      'Wedge': 'Mit Keilabsatz',
+      'Lace-Up': 'Schnürschuhe',
       'Flat': 'Flach',
       'Heeled': 'Mit Absatz',
       'Flip-Flops': 'Flip-Flops',
@@ -125,11 +150,53 @@ class CategoryTranslations {
     },
   };
 
+  static const Map<String, Map<String, String>> seasonTranslations = {
+    'en': {
+      'All': 'All',
+      'Summer': 'Summer',
+      'Autumn': 'Autumn',
+      'Winter': 'Winter',
+      'Spring': 'Spring',
+    },
+    'it': {
+      'All': 'Tutte',
+      'Summer': 'Estate',
+      'Autumn': 'Autunno',
+      'Winter': 'Inverno',
+      'Spring': 'Primavera',
+    },
+    'de': {
+      'All': 'Alle',
+      'Summer': 'Sommer',
+      'Autumn': 'Herbst',
+      'Winter': 'Winter',
+      'Spring': 'Frühling',
+    },
+    'es': {
+      'All': 'Todas',
+      'Summer': 'Verano',
+      'Autumn': 'Otoño',
+      'Winter': 'Invierno',
+      'Spring': 'Primavera',
+    },
+    'fr': {
+      'All': 'Toutes',
+      'Summer': 'Été',
+      'Autumn': 'Automne',
+      'Winter': 'Hiver',
+      'Spring': 'Printemps',
+    },
+  };
+
   static String translateCategory(String category, String languageCode) {
     return categoryTranslations[languageCode]?[category] ?? category;
   }
 
   static String translateType(String type, String languageCode) {
     return typeTranslations[languageCode]?[type] ?? type;
+  }
+
+  static String translateSeason(String season, String languageCode) {
+    return seasonTranslations[languageCode]?[season] ?? season;
   }
 }
