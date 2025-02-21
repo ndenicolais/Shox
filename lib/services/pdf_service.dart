@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 import 'package:intl/intl.dart';
-import 'package:shox/generated/l10n.dart';
 import 'package:shox/models/shoes_model.dart';
 import 'package:shox/services/database_service.dart';
 import 'package:shox/services/shoes_service.dart';
@@ -21,7 +21,7 @@ class PdfService {
 
   PdfService(this.context, this._shoesService, this._databaseService);
 
-  Future<String> generateShoesPdf() async {
+  Future<String> generateShoesPdf(Function(double) onProgress) async {
     try {
       return await requestManageExternalStoragePermission(context, () async {
         List<ShoesModel> shoesList = await _shoesService.getShoes();
@@ -44,15 +44,26 @@ class PdfService {
         final Uint8List bytes = data.buffer.asUint8List();
         final logoImage = pw.MemoryImage(bytes);
 
-        pdf.addPage(_buildFirstPage(logoImage, ttf));
-        pdf.addPage(_buildUserPage(logoImage, userData, creationDateString,
-            totalShoesCount, ttf, ttfBold));
+        final appLocalizations = AppLocalizations.of(context)!;
 
-        for (var shoes in shoesList) {
-          await _addShoesPage(pdf, shoes, logoImage, ttf, ttfBold);
+        pdf.addPage(_buildFirstPage(logoImage, ttf));
+        onProgress(0.1);
+        pdf.addPage(_buildUserPage(logoImage, userData, creationDateString,
+            totalShoesCount, ttf, ttfBold, appLocalizations));
+        onProgress(0.2);
+
+        for (var i = 0; i < shoesList.length; i++) {
+          var shoes = shoesList[i];
+          await _addShoesPage(
+              context, pdf, shoes, logoImage, ttf, ttfBold, appLocalizations);
+          onProgress(0.2 + 0.8 * (i + 1) / shoesList.length);
+
+          double additionalProgress = 0.8 * (i + 1) / shoesList.length;
+          onProgress(0.2 + additionalProgress);
         }
 
         final filePath = await _savePdf(pdf);
+        onProgress(1.0);
         return filePath;
       });
     } catch (e) {
@@ -95,37 +106,50 @@ pw.TextStyle _bodyTextStyle(pw.Font font) {
   );
 }
 
-pw.Column _buildShoesDetailsLabels(pw.Font ttfBold) {
+pw.Column _buildShoesDetails(
+  BuildContext context,
+  ShoesModel shoes,
+  String formattedDate,
+  pw.Font ttf,
+  pw.Font ttfBold,
+  AppLocalizations localizations,
+) {
   return pw.Column(
-    crossAxisAlignment: pw.CrossAxisAlignment.start,
     children: [
-      pw.Text(S.current.field_date, style: _headerTextStyle(ttfBold)),
-      pw.Text(S.current.field_color, style: _headerTextStyle(ttfBold)),
-      pw.Text(S.current.field_details_color, style: _headerTextStyle(ttfBold)),
-      pw.Text(S.current.field_brand, style: _headerTextStyle(ttfBold)),
-      pw.Text(S.current.field_size, style: _headerTextStyle(ttfBold)),
-      pw.Text(S.current.field_category, style: _headerTextStyle(ttfBold)),
-      pw.Text(S.current.field_type, style: _headerTextStyle(ttfBold)),
-    ],
-  );
-}
-
-pw.Column _buildShoesDetailsValues(
-    ShoesModel shoes, String formattedDate, pw.Font ttf) {
-  return pw.Column(
-    crossAxisAlignment: pw.CrossAxisAlignment.start,
-    children: [
+      pw.Text(localizations.pdf_field_date, style: _headerTextStyle(ttfBold)),
       pw.Text(formattedDate, style: _bodyTextStyle(ttf)),
-      pw.Text(DbLocalizedValues.getColorName(shoes.color),
+      pw.Text(localizations.pdf_field_color_primary,
+          style: _headerTextStyle(ttfBold)),
+      pw.Text(DbLocalizedValues.getColorName(context, shoes.colorPrimary),
           style: _bodyTextStyle(ttf)),
-      pw.Text(DbLocalizedValues.getColorName(shoes.detailsColor!),
-          style: _bodyTextStyle(ttf)),
+      pw.Text(localizations.pdf_field_color_secondary,
+          style: _headerTextStyle(ttfBold)),
+      pw.Text(
+        shoes.colorSecondary == Colors.transparent
+            ? "-"
+            : DbLocalizedValues.getColorName(context, shoes.colorSecondary!),
+        style: _bodyTextStyle(ttf),
+      ),
+      pw.Text(localizations.pdf_field_brand, style: _headerTextStyle(ttfBold)),
       pw.Text(shoes.brand, style: _bodyTextStyle(ttf)),
+      pw.Text(localizations.pdf_field_size, style: _headerTextStyle(ttfBold)),
       pw.Text(shoes.size, style: _bodyTextStyle(ttf)),
-      pw.Text(DbLocalizedValues.getCategoryName(shoes.category),
+      pw.Text(localizations.pdf_field_category,
+          style: _headerTextStyle(ttfBold)),
+      pw.Text(DbLocalizedValues.getCategoryName(context, shoes.category),
           style: _bodyTextStyle(ttf)),
-      pw.Text(DbLocalizedValues.getTypeName(shoes.type),
+      pw.Text(localizations.pdf_field_type, style: _headerTextStyle(ttfBold)),
+      pw.Text(DbLocalizedValues.getTypeName(context, shoes.type),
           style: _bodyTextStyle(ttf)),
+      pw.Text(localizations.pdf_field_notes, style: _headerTextStyle(ttfBold)),
+      pw.Container(
+        width: 300,
+        child: pw.Text(
+          shoes.notes ?? '-',
+          style: _bodyTextStyle(ttf),
+          textAlign: pw.TextAlign.center,
+        ),
+      ),
     ],
   );
 }
@@ -208,7 +232,8 @@ pw.Page _buildUserPage(
     String creationDateString,
     int totalShoesCount,
     pw.Font ttf,
-    pw.Font ttfBold) {
+    pw.Font ttfBold,
+    AppLocalizations localizations) {
   return pw.Page(
     build: (pw.Context context) {
       final pageNumber = context.pageNumber;
@@ -221,9 +246,9 @@ pw.Page _buildUserPage(
                 _buildHeader(logoImage, ttf),
                 pw.SizedBox(height: 8),
                 _buildUserInfo(userData, creationDateString, totalShoesCount,
-                    ttf, ttfBold),
+                    ttf, ttfBold, localizations),
                 pw.Spacer(),
-                _buildFooter(pageNumber, pagesCount, ttf),
+                _buildFooter(pageNumber, pagesCount, ttf, localizations),
               ],
             ),
           ),
@@ -238,11 +263,12 @@ pw.Widget _buildUserInfo(
     String creationDateString,
     int totalShoesCount,
     pw.Font ttf,
-    pw.Font ttfBold) {
+    pw.Font ttfBold,
+    AppLocalizations localizations) {
   return pw.Column(
     children: [
       pw.Text(
-        S.current.database_pdf_user,
+        localizations.database_screen_pdf_user,
         style: pw.TextStyle(
           font: ttfBold,
           fontWeight: pw.FontWeight.bold,
@@ -251,7 +277,7 @@ pw.Widget _buildUserInfo(
       ),
       pw.SizedBox(height: 8),
       pw.Text(
-        S.current.database_pdf_name,
+        localizations.database_screen_pdf_name,
         style: pw.TextStyle(font: ttfBold),
       ),
       pw.SizedBox(height: 8),
@@ -261,7 +287,7 @@ pw.Widget _buildUserInfo(
       ),
       pw.SizedBox(height: 8),
       pw.Text(
-        S.current.database_pdf_email,
+        localizations.database_screen_pdf_email,
         style: pw.TextStyle(font: ttfBold),
       ),
       pw.SizedBox(height: 8),
@@ -271,7 +297,7 @@ pw.Widget _buildUserInfo(
       ),
       pw.SizedBox(height: 8),
       pw.Text(
-        S.current.database_pdf_date,
+        localizations.database_screen_pdf_date,
         style: pw.TextStyle(font: ttfBold),
       ),
       pw.SizedBox(height: 8),
@@ -281,7 +307,7 @@ pw.Widget _buildUserInfo(
       ),
       pw.SizedBox(height: 8),
       pw.Text(
-        S.current.database_pdf_shoes,
+        localizations.database_screen_pdf_shoes,
         style: pw.TextStyle(font: ttfBold),
       ),
       pw.SizedBox(height: 8),
@@ -294,11 +320,13 @@ pw.Widget _buildUserInfo(
 }
 
 Future<void> _addShoesPage(
+  BuildContext context,
   pw.Document pdf,
   ShoesModel shoes,
   pw.MemoryImage logoImage,
   pw.Font ttf,
   pw.Font ttfBold,
+  AppLocalizations localizations,
 ) async {
   final imageBytes = await fetchImage(shoes.imageUrl);
   final image = img.decodeImage(imageBytes)!;
@@ -308,13 +336,12 @@ Future<void> _addShoesPage(
   String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
 
   final shoesDetails = pw.Column(
-    crossAxisAlignment: pw.CrossAxisAlignment.center,
     children: [
       pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
         children: [
-          _buildShoesDetailsLabels(ttfBold),
-          _buildShoesDetailsValues(shoes, formattedDate, ttf),
+          _buildShoesDetails(
+              context, shoes, formattedDate, ttf, ttfBold, localizations),
         ],
       ),
     ],
@@ -328,14 +355,12 @@ Future<void> _addShoesPage(
         return pw.Column(
           children: [
             _buildHeader(logoImage, ttf),
-            pw.SizedBox(height: 8),
+            pw.Image(pdfImage, width: 300, height: 300),
             pw.Text('ID', style: _headerTextStyle(ttfBold)),
             pw.Text(shoes.id ?? 'N/A', style: _bodyTextStyle(ttf)),
-            pw.Image(pdfImage, width: 300, height: 300),
             shoesDetails,
-            _buildShoesNotes(shoes, ttfBold, ttf),
             pw.Spacer(),
-            _buildFooter(pageNumber, pagesCount, ttf),
+            _buildFooter(pageNumber, pagesCount, ttf, localizations),
           ],
         );
       },
@@ -343,22 +368,8 @@ Future<void> _addShoesPage(
   );
 }
 
-pw.Column _buildShoesNotes(ShoesModel shoes, pw.Font ttfBold, pw.Font ttf) {
-  return pw.Column(
-    children: [
-      pw.Padding(
-        padding: const pw.EdgeInsets.symmetric(horizontal: 28.0),
-        child: pw.Text(S.current.field_notes, style: _headerTextStyle(ttfBold)),
-      ),
-      pw.Padding(
-        padding: const pw.EdgeInsets.symmetric(horizontal: 28.0),
-        child: pw.Text(shoes.notes ?? 'N/A', style: _bodyTextStyle(ttf)),
-      ),
-    ],
-  );
-}
-
-pw.Widget _buildFooter(int pageNumber, int pagesCount, pw.Font ttf) {
+pw.Widget _buildFooter(int pageNumber, int pagesCount, pw.Font ttf,
+    AppLocalizations localizations) {
   return pw.Container(
     padding: const pw.EdgeInsets.only(top: 10, bottom: 10),
     decoration: pw.BoxDecoration(
@@ -373,7 +384,7 @@ pw.Widget _buildFooter(int pageNumber, int pagesCount, pw.Font ttf) {
       mainAxisAlignment: pw.MainAxisAlignment.center,
       children: [
         pw.Text(
-          '${S.current.database_pdf_page} $pageNumber of $pagesCount',
+          '${localizations.database_screen_pdf_page} $pageNumber of $pagesCount',
           style: pw.TextStyle(
             font: ttf,
             fontSize: 12,
