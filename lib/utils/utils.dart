@@ -9,7 +9,7 @@ List<Color> colorList = [
   const Color(0xFF757575), // Dark Grey
   const Color(0xFFFF962E), // Orange
   const Color(0xFFFFDAE3), // Pink
-  const Color(0xFFFF2810), // Red
+  const Color(0xFFCF2B19), // Red
   const Color(0xFF760000), // Bordeaux
   const Color(0xFFB37B4E), // Camel
   const Color(0xFFD9D0B5), // Beige
