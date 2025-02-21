@@ -35,10 +35,10 @@ The release of version 3.0.0 of the application is now available for download. Y
 Below is a list of some of the most relevant packages:
 - [get](https://pub.dev/packages/get)
 - [flutter_screenutil](https://pub.dev/packages/flutter_screenutil)
+- [google_fonts](https://pub.dev/packages/google_fonts)
 - [cloud_firestore](https://pub.dev/packages/cloud_firestore)
 - [supabase_flutter](https://pub.dev/packages/supabase_flutter)
 - [intl](https://pub.dev/packages/intl)
 - [shared_preferences](https://pub.dev/packages/shared_preferences)
 - [convex_bottom_bar](https://pub.dev/packages/convex_bottom_bar)
 - [syncfusion_flutter_charts](https://pub.dev/packages/syncfusion_flutter_charts)
-- [flutter_localization](https://pub.dev/packages/flutter_localization)
