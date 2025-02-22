@@ -82,6 +82,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                       _buildSeasonDropdown(context),
                       _buildNotesTextField(context),
                       _buildSaveButton(context),
+                      SizedBox(height: 20.h),
                     ],
                   ),
                 ),
@@ -473,6 +474,13 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                         ShoxIcons.iconShoesPrimary,
                         color: _colorPrimary,
                         size: 32.sp,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 12,
+                            color: Colors.black.withValues(alpha: 0.5),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -524,6 +532,13 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                         ShoxIcons.iconShoesSecondary,
                         color: _colorSecondary,
                         size: 32.sp,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 12,
+                            color: Colors.black.withValues(alpha: 0.5),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -586,6 +601,13 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                     ShoxIcons.iconShoesPrimary,
                     size: 28.sp,
                     color: colorPrimary,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 1,
+                        color: Colors.black.withValues(alpha: 0.5),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),
@@ -632,6 +654,13 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                     ShoxIcons.iconShoesSecondary,
                     size: 28.sp,
                     color: colorSecondary,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 1,
+                        color: Colors.black.withValues(alpha: 0.5),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),

@@ -425,6 +425,22 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                       ),
                     ),
                   ),
+                  // Positioned(
+                  //   right: 0.r,
+                  //   bottom: 0.r,
+                  //   child: CircleAvatar(
+                  //     radius: 25.r,
+                  //     backgroundColor: Theme.of(context).colorScheme.secondary,
+                  //     child: IconButton(
+                  //       color: Theme.of(context).colorScheme.secondary,
+                  //       onPressed: _removeBackground,
+                  //       icon: Icon(
+                  //         MingCuteIcons.mgc_mirror_fill,
+                  //         color: Theme.of(context).colorScheme.tertiary,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
       ),
@@ -451,7 +467,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                 color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(5.r),
+              borderRadius: BorderRadius.circular(50.r),
             ),
             child: Row(
               children: [
@@ -463,6 +479,13 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                         ShoxIcons.iconShoesPrimary,
                         color: _colorPrimary,
                         size: 32.sp,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 1,
+                            color: Colors.black.withValues(alpha: 0.5),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -502,7 +525,7 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                 color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(5.r),
+              borderRadius: BorderRadius.circular(50.r),
             ),
             child: Row(
               children: [
@@ -514,6 +537,13 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                         ShoxIcons.iconShoesSecondary,
                         color: _colorSecondary,
                         size: 32.sp,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 1,
+                            color: Colors.black.withValues(alpha: 0.5),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -576,6 +606,13 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                     ShoxIcons.iconShoesPrimary,
                     size: 28.sp,
                     color: colorPrimary,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 1,
+                        color: Colors.black.withValues(alpha: 0.5),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),
@@ -622,6 +659,13 @@ class ShoesAdderScreenState extends State<ShoesAdderScreen>
                     ShoxIcons.iconShoesSecondary,
                     size: 28.sp,
                     color: colorSecondary,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 1,
+                        color: Colors.black.withValues(alpha: 0.5),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),

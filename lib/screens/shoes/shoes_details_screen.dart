@@ -348,6 +348,13 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           icon,
           size: 36.sp,
           color: iconColor,
+          shadows: [
+            Shadow(
+              offset: const Offset(1, 1),
+              blurRadius: 12,
+              color: Colors.black.withValues(alpha: 0.5),
+            ),
+          ],
         ),
       ],
     );
