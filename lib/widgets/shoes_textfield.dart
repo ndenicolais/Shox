@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shox/theme/app_colors.dart';
 
 class ShoesTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -30,24 +29,6 @@ class ShoesTextField extends StatelessWidget {
       onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         labelText: labelText,
-        counterStyle: GoogleFonts.montserrat(
-          color: Theme.of(context).colorScheme.tertiary,
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.errorColor,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
-        ),
       ),
       keyboardType: keyboardType,
       textCapitalization: textCapitalization!,

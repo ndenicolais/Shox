@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
@@ -35,20 +36,23 @@ class CustomDropdown<T> extends StatelessWidget {
       dropdownColor: Theme.of(context).colorScheme.primary,
       decoration: InputDecoration(
         labelText: label,
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.errorColor,
           ),
+          borderRadius: BorderRadius.circular(50.r),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.secondary,
           ),
+          borderRadius: BorderRadius.circular(50.r),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.tertiary,
           ),
+          borderRadius: BorderRadius.circular(50.r),
         ),
       ),
       style: GoogleFonts.montserrat(

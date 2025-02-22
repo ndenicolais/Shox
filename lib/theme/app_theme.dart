@@ -27,20 +27,26 @@ class AppTheme {
           color: AppColors.errorColor,
           fontWeight: FontWeight.w600,
         ),
-        errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
+        counterStyle: GoogleFonts.montserrat(
+          color: AppColors.smoothBlack,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.errorColor,
           ),
+          borderRadius: BorderRadius.circular(50),
         ),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.darkPeach,
           ),
+          borderRadius: BorderRadius.circular(50),
         ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.darkPeach,
           ),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
@@ -74,20 +80,26 @@ class AppTheme {
           color: AppColors.errorColor,
           fontWeight: FontWeight.w600,
         ),
-        errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
+        counterStyle: GoogleFonts.montserrat(
+          color: AppColors.lightYellow,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.errorColor,
           ),
+          borderRadius: BorderRadius.circular(50),
         ),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.darkGold,
           ),
+          borderRadius: BorderRadius.circular(50),
         ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: AppColors.darkGold,
           ),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
