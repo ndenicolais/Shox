@@ -76,11 +76,11 @@ class ShoesModel {
 
   static Map<String, List<String>> categoryToTypes = {
     'Sneakers': ['Sport', 'Casual', 'Lifestyle', 'Running'],
+    'Elegant': ['Dressy', 'Loafers'],
     'Heeled': ['Decollete', 'Spuntas', 'Wedge', 'Lace-Up'],
-    'Sandals': ['Flat', 'Heeled', 'Flip-Flops', 'Dressy'],
+    'Sandals': ['Flat', 'Heeled'],
     'Boots': ['Ankle Boots', 'High Boots', 'Work Boots', 'Knee-High'],
-    'Loafers': ['Classic', 'Dressy', 'Casual', 'Moccasins'],
-    'Ballets': ['Classic', 'Flat', 'Dressy', 'Casual'],
+    'Mules': ['Flat', 'Heeled'],
     'Other': ['Other'],
   };
 

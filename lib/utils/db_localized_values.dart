@@ -51,16 +51,16 @@ class DbLocalizedValues {
     switch (category) {
       case 'Sneakers':
         return AppLocalizations.of(context)!.category_sneakers;
+      case 'Elegant':
+        return AppLocalizations.of(context)!.category_elegant;
       case 'Heeled':
         return AppLocalizations.of(context)!.category_heeled;
       case 'Sandals':
         return AppLocalizations.of(context)!.category_sandals;
       case 'Boots':
         return AppLocalizations.of(context)!.category_boots;
-      case 'Loafers':
-        return AppLocalizations.of(context)!.category_loafers;
-      case 'Ballets':
-        return AppLocalizations.of(context)!.category_ballets;
+      case 'Mules':
+        return AppLocalizations.of(context)!.category_mules;
       case 'Other':
         return AppLocalizations.of(context)!.category_other;
       default:
@@ -78,6 +78,10 @@ class DbLocalizedValues {
         return AppLocalizations.of(context)!.type_lifestyle;
       case 'Running':
         return AppLocalizations.of(context)!.type_running;
+      case 'Dressy':
+        return AppLocalizations.of(context)!.type_dressy;
+      case 'Loafers':
+        return AppLocalizations.of(context)!.type_loafers;
       case 'Decollete':
         return AppLocalizations.of(context)!.type_decollete;
       case 'Spuntas':
@@ -90,10 +94,6 @@ class DbLocalizedValues {
         return AppLocalizations.of(context)!.type_flat;
       case 'Heeled':
         return AppLocalizations.of(context)!.type_heeled;
-      case 'Flip-Flops':
-        return AppLocalizations.of(context)!.type_flip_flops;
-      case 'Dressy':
-        return AppLocalizations.of(context)!.type_dressy;
       case 'Ankle Boots':
         return AppLocalizations.of(context)!.type_ankle_boots;
       case 'High Boots':
