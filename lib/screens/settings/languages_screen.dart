@@ -33,8 +33,8 @@ class LanguagesScreenState extends State<LanguagesScreen> {
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 12.r,
-                    mainAxisSpacing: 12.r,
+                    crossAxisSpacing: 3.r,
+                    mainAxisSpacing: 3.r,
                     children: [
                       _buildLanguageCard(
                           'en',
@@ -126,13 +126,16 @@ class LanguagesScreenState extends State<LanguagesScreen> {
   }
 
   Widget _buildDescription(BuildContext context) {
-    return Text(
-      AppLocalizations.of(context)!.languages_screen_description,
-      style: GoogleFonts.montserrat(
-        color: Theme.of(context).colorScheme.tertiary,
-        fontSize: 22.sp,
+    return SizedBox(
+      width: 280.w,
+      child: Text(
+        AppLocalizations.of(context)!.languages_screen_description,
+        style: GoogleFonts.montserrat(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontSize: 22.sp,
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 
@@ -174,7 +177,7 @@ class LanguagesScreenState extends State<LanguagesScreen> {
                 languageName,
                 style: GoogleFonts.montserrat(
                   color: Theme.of(context).colorScheme.tertiary,
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                 ),
               ),
             ],

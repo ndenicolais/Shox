@@ -195,12 +195,12 @@
   "settings_screen_support": "Supporto",
 
   "themes_screen_title": "Tema",
-  "themes_screen_description": "Seleziona il tema dell'applicazione scegliendo tra le opzioni presenti qui sotto",
+  "themes_screen_description": "Seleziona il tema dell'applicazione scegliendo tra le opzioni presenti sotto",
   "themes_screen_light": "Chiaro",
   "themes_screen_dark": "Scuro",
 
   "languages_screen_title": "Lingue",
-  "languages_screen_description": "Seleziona la lingua dell'applicazione scegliendo tra le opzioni presenti qui sotto",
+  "languages_screen_description": "Seleziona la lingua dell'applicazione scegliendo tra le opzioni presenti sotto",
   "languages_screen_english": "Inglese",
   "languages_screen_italian": "Italiano",
   "languages_screen_spanish": "Spagnolo",
