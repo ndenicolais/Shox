@@ -51,6 +51,7 @@ class LoginController extends GetxController {
               AppLocalizations.of(context)!.login_toast_error_email_not_found;
         }
       }
+
       if (context.mounted) {
         if (e is Exception && errorMessage.contains("invalid_password")) {
           errorMessage =
