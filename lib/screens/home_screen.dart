@@ -415,6 +415,7 @@ class HomeScreenState extends State<HomeScreen>
           padding: EdgeInsets.all(16.r),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 AppLocalizations.of(context)!.home_screen_filter_title,
@@ -488,6 +489,7 @@ class HomeScreenState extends State<HomeScreen>
                         labelText: AppLocalizations.of(context)!
                             .home_screen_filter_category,
                       ),
+                      SizedBox(height: 10.h),
                       if (selectedCategory != null)
                         _buildDropdown(
                           value: selectedType,
@@ -505,6 +507,7 @@ class HomeScreenState extends State<HomeScreen>
                           labelText: AppLocalizations.of(context)!
                               .home_screen_filter_type,
                         ),
+                      SizedBox(height: 10.h),
                       _buildDropdown(
                         value: selectedSeason,
                         items: ['All', ...translatedSeasonOptions.values],
@@ -516,6 +519,7 @@ class HomeScreenState extends State<HomeScreen>
                         labelText: AppLocalizations.of(context)!
                             .home_screen_filter_season,
                       ),
+                      SizedBox(height: 10.h),
                     ],
                   );
                 },
@@ -591,14 +595,16 @@ class HomeScreenState extends State<HomeScreen>
       onChanged: onChanged,
       items: items.map((item) {
         return DropdownMenuItem<String>(
-          value: item,
-          child: Text(
-            item,
-            style: GoogleFonts.montserrat(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-        );
+            value: item,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10.r),
+              child: Text(
+                item,
+                style: GoogleFonts.montserrat(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ));
       }).toList(),
       icon: Icon(
         MingCuteIcons.mgc_down_line,
