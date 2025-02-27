@@ -194,10 +194,10 @@
   "settings_screen_policy": "Privacy Policy",
   "settings_screen_support": "Support",
 
-  "themes_screen_title": "Thema",
-  "themes_screen_description": "Wählen Sie das Anwendungsthema aus den folgenden Optionen",
-  "themes_screen_light": "Hell",
-  "themes_screen_dark": "Dunkel",
+  "theme_screen_title": "Thema",
+  "theme_screen_description": "Wählen Sie das Anwendungsthema aus den folgenden Optionen",
+  "theme_screen_light": "Hell",
+  "theme_screen_dark": "Dunkel",
 
   "language_screen_title": "Sprache",
   "language_screen_description": "Wählen Sie die Anwendungssprache aus den untenstehenden Optionen",
