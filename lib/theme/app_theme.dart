@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shox/theme/app_colors.dart';
 
 class AppTheme {
   static ThemeData lightTheme() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: AppColors.lightYellow,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
     return ThemeData(
       colorScheme: const ColorScheme.light(
         primary: AppColors.lightYellow,
@@ -57,6 +62,10 @@ class AppTheme {
   }
 
   static ThemeData darkTheme() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: AppColors.smoothBlack,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ));
     return ThemeData(
       colorScheme: const ColorScheme.dark(
         primary: AppColors.smoothBlack,
