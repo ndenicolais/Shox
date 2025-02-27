@@ -13,7 +13,6 @@ import 'package:shox/screens/profile/delete_account_screen.dart';
 import 'package:shox/screens/profile/history_screen.dart';
 import 'package:shox/screens/profile/user_controller.dart';
 import 'package:shox/screens/profile/user_updater_screen.dart';
-import 'package:shox/screens/welcome_screen.dart';
 import 'package:shox/services/user_service.dart';
 import 'package:shox/widgets/custom_section_button.dart';
 
@@ -123,15 +122,6 @@ class UserScreenState extends State<UserScreen> {
         });
       }
     }
-  }
-
-  Future<void> _logout() async {
-    loginController.logout(context);
-    Get.to(
-      () => const WelcomeScreen(),
-      transition: Transition.fade,
-      duration: const Duration(milliseconds: 500),
-    );
   }
 
   AppBar _buildAppBar(BuildContext context, bool isEmailPasswordUser) {
@@ -247,7 +237,9 @@ class UserScreenState extends State<UserScreen> {
 
   Widget _buildLogoutButton(BuildContext context) {
     return CustomSectionButton(
-      onPressed: _logout,
+      onPressed: () {
+        loginController.logout(context);
+      },
       icon: MingCuteIcons.mgc_exit_fill,
       text: AppLocalizations.of(context)!.user_screen_button_logout,
     );

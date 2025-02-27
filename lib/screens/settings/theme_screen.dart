@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/theme_notifier.dart';
 
-class ThemesScreen extends StatelessWidget {
-  const ThemesScreen({super.key});
+class ThemeScreen extends StatelessWidget {
+  const ThemeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class ThemesScreen extends StatelessWidget {
         },
       ),
       title: Text(
-        AppLocalizations.of(context)!.themes_screen_title,
+        AppLocalizations.of(context)!.theme_screen_title,
         style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.secondary,
         ),
@@ -123,7 +123,7 @@ class ThemesScreen extends StatelessWidget {
     return SizedBox(
       width: 320.w,
       child: Text(
-        AppLocalizations.of(context)!.themes_screen_description,
+        AppLocalizations.of(context)!.theme_screen_description,
         style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 22.sp,
@@ -141,7 +141,7 @@ class ThemesScreen extends StatelessWidget {
           context,
           AppColors.lightYellow,
           MingCuteIcons.mgc_sun_fill,
-          AppLocalizations.of(context)!.themes_screen_light,
+          AppLocalizations.of(context)!.theme_screen_light,
           () {
             Provider.of<ThemeNotifier>(context, listen: false).setLightTheme();
           },
@@ -151,7 +151,7 @@ class ThemesScreen extends StatelessWidget {
           context,
           AppColors.smoothBlack,
           MingCuteIcons.mgc_moon_fill,
-          AppLocalizations.of(context)!.themes_screen_dark,
+          AppLocalizations.of(context)!.theme_screen_dark,
           () {
             Provider.of<ThemeNotifier>(context, listen: false).setDarkTheme();
           },

@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LanguagesScreen extends StatefulWidget {
-  const LanguagesScreen({super.key});
+class LanguageScreen extends StatefulWidget {
+  const LanguageScreen({super.key});
 
   @override
-  LanguagesScreenState createState() => LanguagesScreenState();
+  LanguageScreenState createState() => LanguageScreenState();
 }
 
-class LanguagesScreenState extends State<LanguagesScreen> {
+class LanguageScreenState extends State<LanguageScreen> {
   String? _selectedLanguageCode;
 
   @override
@@ -38,26 +38,23 @@ class LanguagesScreenState extends State<LanguagesScreen> {
                     children: [
                       _buildLanguageCard(
                           'en',
-                          AppLocalizations.of(context)!
-                              .languages_screen_english,
+                          AppLocalizations.of(context)!.language_screen_english,
                           'assets/images/img_flag_eng.png'),
                       _buildLanguageCard(
                           'it',
-                          AppLocalizations.of(context)!
-                              .languages_screen_italian,
+                          AppLocalizations.of(context)!.language_screen_italian,
                           'assets/images/img_flag_ita.png'),
                       _buildLanguageCard(
                           'es',
-                          AppLocalizations.of(context)!
-                              .languages_screen_spanish,
+                          AppLocalizations.of(context)!.language_screen_spanish,
                           'assets/images/img_flag_esp.png'),
                       _buildLanguageCard(
                           'fr',
-                          AppLocalizations.of(context)!.languages_screen_french,
+                          AppLocalizations.of(context)!.language_screen_french,
                           'assets/images/img_flag_fra.png'),
                       _buildLanguageCard(
                           'de',
-                          AppLocalizations.of(context)!.languages_screen_german,
+                          AppLocalizations.of(context)!.language_screen_german,
                           'assets/images/img_flag_deu.png'),
                     ],
                   ),
@@ -106,7 +103,7 @@ class LanguagesScreenState extends State<LanguagesScreen> {
         },
       ),
       title: Text(
-        AppLocalizations.of(context)!.languages_screen_title,
+        AppLocalizations.of(context)!.language_screen_title,
         style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.secondary,
         ),
@@ -129,7 +126,7 @@ class LanguagesScreenState extends State<LanguagesScreen> {
     return SizedBox(
       width: 280.w,
       child: Text(
-        AppLocalizations.of(context)!.languages_screen_description,
+        AppLocalizations.of(context)!.language_screen_description,
         style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 22.sp,

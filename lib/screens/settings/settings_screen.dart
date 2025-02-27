@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/screens/settings/languages_screen.dart';
+import 'package:shox/screens/settings/language_screen.dart';
 import 'package:shox/screens/settings/support_screen.dart';
 import 'package:shox/screens/settings/info_screen.dart';
 import 'package:shox/screens/settings/policy_screen.dart';
-import 'package:shox/screens/settings/themes_screen.dart';
+import 'package:shox/screens/settings/theme_screen.dart';
 import 'package:shox/widgets/custom_section_button.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -81,7 +81,7 @@ class SettingsPageState extends State<SettingsPage> {
     return CustomSectionButton(
       onPressed: () {
         Get.to(
-          () => const ThemesScreen(),
+          () => const ThemeScreen(),
           transition: Transition.fade,
           duration: const Duration(milliseconds: 500),
         );
@@ -95,13 +95,13 @@ class SettingsPageState extends State<SettingsPage> {
     return CustomSectionButton(
       onPressed: () {
         Get.to(
-          () => const LanguagesScreen(),
+          () => const LanguageScreen(),
           transition: Transition.fade,
           duration: const Duration(milliseconds: 500),
         );
       },
       icon: MingCuteIcons.mgc_translate_2_fill,
-      text: AppLocalizations.of(context)!.settings_screen_languages,
+      text: AppLocalizations.of(context)!.settings_screen_language,
     );
   }
 
