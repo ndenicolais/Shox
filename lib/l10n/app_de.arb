@@ -3,13 +3,13 @@
 
   "intro_title": "Shox",
 
-  "onboarding_first_title": "Hinzufügen",
+  "onboarding_first_title": "Füge",
   "onboarding_first_description": "Füge alle deine Schuhe zu dieser digitalen Box hinzu, um sie immer bei dir zu haben. Organisiere deine Sammlung einfach und behalte den Überblick über jedes Paar, das du besitzt.",
   "onboarding_second_title": "Filtern",
-  "onboarding_second_description": "Finde schnell deine Lieblingsschuhe mit erweiterten Filtern. Suche nach Marke, Modell, Farbe und mehr und entdecke alle Merkmale deiner Schuhe im Handumdrehen.",
+  "onboarding_second_description": "Filtern schnell deine Lieblingsschuhe mit erweiterten Filtern. Suche nach Marke, Modell, Farbe und mehr und entdecke alle Merkmale deiner Schuhe im Handumdrehen.",
   "onboarding_third_title": "Anzeigen",
-  "onboarding_third_description": "Sieh dir detaillierte Karten deiner Schuhe mit allen ihren Merkmalen an. Von technischen Spezifikationen bis zu Fotos, erkunde jeden Aspekt deiner Schuhe mit einer intuitiven Benutzeroberfläche.",
-  "onboarding_fourth_title": "Diagramme",
+  "onboarding_third_description": "Anzeigen dir detaillierte Karten deiner Schuhe mit allen ihren Merkmalen an. Von technischen Spezifikationen bis zu Fotos, erkunde jeden Aspekt deiner Schuhe mit einer intuitiven Benutzeroberfläche.",
+  "onboarding_fourth_title": "Erkunde",
   "onboarding_fourth_description": "Erkunde verschiedene farbige Diagramme, die detaillierte Statistiken über die Gesamtanzahl und die Spezifikationen deiner Schuhe in der Datenbank anzeigen.",
   "onboarding_skip": "Überspringen",
   "onboarding_next": "Weiter",
@@ -71,7 +71,10 @@
   "validator_password_required": "Passwort ist erforderlich",
   "validator_password_error": "Ungültiges Passwort: ",
 
-  "storage_permission_error": "Zugriff auf Dateien verweigert",
+  "permission_storage_denied": "Speicherberechtigung verweigert",
+  "permission_storage_toast": "Erteilen Sie die Speicherberechtigung in den Einstellungen",
+  "permission_camera_denied": "Kameraberechtigung verweigert",
+  "permission_camera_toast": "Erteilen Sie die Kameraberechtigung in den Einstellungen",
 
   "home_screen_welcome_text": "Hey",
   "home_screen_bottom_bar_profile": "Profil",
@@ -170,6 +173,12 @@
   "database_screen_pdf_download": "Download PDF",
   "database_screen_pdf_confirm" : "PDF im Download-Ordner gespeichert",
   "database_screen_pdf_error" : "PDF konnte nicht erstellt werden",
+  "database_screen_export_menu": "JSON exportieren",
+  "database_screen_import_menu": "JSON importieren",
+  "database_screen_export_success": "JSON im Download-Ordner exportiert",
+  "database_screen_export_error": "Fehler beim Exportieren",
+  "database_screen_import_success": "JSON erfolgreich importiert!",
+  "database_screen_import_error": "Fehler beim Importieren",
 
   "history_title": "Verlauf",
   "history_empty": "Leere Historie",
