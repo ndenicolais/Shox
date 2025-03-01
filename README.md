@@ -24,6 +24,7 @@ The release of version 3.0.0 of the application is now available for download. Y
 - A history of all operations performed within the app so you can remember when you have added, updated or deleted a shoes
 - Pie charts showing the distribution of your shoes by color, brand, category and type
 - PDF document that contains detailed information from the database. Each page of the document is dedicated to a single pair of shoes, displaying all details
+- Database export and import in JSON format
 - The layout of the app adapts to the screen on which the device is opened, differing the size of the UI based on smartphone or tablet
 - Light and dark theme variants
 - English, Italian, French, Spanish, and German languages variants
