@@ -1,22 +1,46 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
 import 'package:shox/models/shoes_model.dart';
-import 'package:shox/services/shoes_service.dart';
 
 class DatabaseService {
-  final ShoesService _shoesService;
+  final Logger _logger = Logger();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? get currentUser => _auth.currentUser;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  DatabaseService(this._shoesService);
+  // Function that get Shoes collection reference for current user
+  CollectionReference getShoesCollection() {
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('shoes');
+  }
+
+  // Function that retrieves a list of ShoeModel objects from Firestore collection
+  Future<List<ShoesModel>> getShoes() async {
+    try {
+      CollectionReference shoesCollection = getShoesCollection();
+      QuerySnapshot querySnapshot = await shoesCollection.get();
+      return querySnapshot.docs
+          .map((doc) => ShoesModel.fromFirestore(
+              doc.id, doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      _logger.e('Error getting shoes: $e');
+      throw Exception('Failed to get shoes: $e');
+    }
+  }
 
   // This function retrieves a list of shoes asynchronously and returns the total count of shoes in the list.
   Future<int> getTotalShoesCount() async {
-    List<ShoesModel> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await getShoes();
     return shoesList.length;
   }
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each color.
   Future<Map<String, int>> getShoesCountByColor() async {
-    List<ShoesModel> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await getShoes();
     Map<String, int> colorCounts = {};
 
     for (var shoes in shoesList) {
@@ -33,7 +57,7 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each brand.
   Future<Map<String, int>> getShoesCountByBrand() async {
-    List<ShoesModel> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await getShoes();
     Map<String, int> brandCounts = {};
 
     for (var shoes in shoesList) {
@@ -49,7 +73,7 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each category.
   Future<Map<String, int>> getShoesCountByCategory() async {
-    List<ShoesModel> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await getShoes();
     Map<String, int> categoryCounts = {};
 
     for (var shoes in shoesList) {
@@ -65,7 +89,7 @@ class DatabaseService {
 
   // This function retrieves a list of shoes asynchronously and returns a map containing the count of shoes for each type.
   Future<Map<String, int>> getShoesCountByType() async {
-    List<ShoesModel> shoesList = await _shoesService.getShoes();
+    List<ShoesModel> shoesList = await getShoes();
     Map<String, int> typeCounts = {};
 
     for (var shoes in shoesList) {
@@ -125,7 +149,6 @@ class DatabaseService {
       throw Exception('User is not logged in');
     }
 
-    // Check if the user ID matches
     if (user.uid == userId) {
       DateTime creationDate = user.metadata.creationTime!;
       return creationDate;

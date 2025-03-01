@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:share_plus/share_plus.dart';
@@ -12,6 +16,7 @@ import 'package:shox/services/pdf_service.dart';
 import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/db_localized_values.dart';
+import 'package:shox/utils/permission_helper.dart';
 import 'package:shox/widgets/custom_loader.dart';
 import 'package:shox/widgets/custom_pie_chart.dart';
 import 'package:shox/widgets/custom_toast_bar.dart';
@@ -26,14 +31,15 @@ class DatabaseScreen extends StatefulWidget {
 class DatabaseScreenState extends State<DatabaseScreen>
     with TickerProviderStateMixin {
   var logger = Logger();
-  final ShoesService _firebaseShoesService = ShoesService();
-  late final ShoesService _shoesService;
-  late final DatabaseService _databaseService;
+  final User? currentUser = FirebaseAuth.instance.currentUser;
+  final ShoesService _shoesService = ShoesService();
+  final DatabaseService _databaseService = DatabaseService();
   late final PdfService _pdfService;
   late AnimationController _loadingController;
   bool _isLoading = true;
   late AnimationController _loadingPdfController;
   bool _isPdfLoading = false;
+  bool _isJSONLoading = false;
   double _downloadProgress = 0.0;
   int _totalShoesCount = 0;
   Map<String, int> _brandCounts = {};
@@ -70,7 +76,11 @@ class DatabaseScreenState extends State<DatabaseScreen>
           ),
           if (_isPdfLoading)
             Positioned.fill(
-              child: _buildPdfLoadingIndicator(context),
+              child: _buildPDFLoading(context),
+            ),
+          if (_isJSONLoading)
+            Positioned.fill(
+              child: _buildJSONLoading(context),
             ),
         ],
       ),
@@ -80,9 +90,7 @@ class DatabaseScreenState extends State<DatabaseScreen>
   @override
   void initState() {
     super.initState();
-    _shoesService = ShoesService();
-    _databaseService = DatabaseService(_shoesService);
-    _pdfService = PdfService(context, _shoesService, _databaseService);
+    _pdfService = PdfService(context, _databaseService);
     _fetchData();
     _loadingController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -95,7 +103,7 @@ class DatabaseScreenState extends State<DatabaseScreen>
   }
 
   Future<void> _fetchData() async {
-    List<ShoesModel> shoesList = await _firebaseShoesService.getShoes();
+    List<ShoesModel> shoesList = await _databaseService.getShoes();
     int totalShoesCount = shoesList.length;
     Map<String, int> colorCounts =
         await _databaseService.getShoesCountByColor();
@@ -117,19 +125,19 @@ class DatabaseScreenState extends State<DatabaseScreen>
     );
   }
 
-  Future<void> _generatePdf() async {
+  Future<void> _generatePdf(BuildContext context) async {
     setState(() {
       _isPdfLoading = true;
       _downloadProgress = 0.0;
     });
 
     try {
-      final filePath = await _pdfService.generateShoesPdf((progress) {
+      final filePath = await _pdfService.generateShoesPdf(context, (progress) {
         setState(() {
           _downloadProgress = progress;
         });
       });
-      if (mounted) {
+      if (context.mounted) {
         showSuccessToast(
             context, AppLocalizations.of(context)!.database_screen_pdf_confirm);
       }
@@ -137,7 +145,7 @@ class DatabaseScreenState extends State<DatabaseScreen>
       await Future.delayed(const Duration(milliseconds: 1400));
       await _sharePdf(filePath);
     } catch (e) {
-      if (mounted) {
+      if (context.mounted) {
         showErrorToast(
             context, AppLocalizations.of(context)!.database_screen_pdf_error);
       }
@@ -150,8 +158,75 @@ class DatabaseScreenState extends State<DatabaseScreen>
 
   Future<void> _sharePdf(String filePath) async {
     final xFile = XFile(filePath);
-    await Share.shareXFiles([xFile],
-        text: 'Here are your exported shoes (PDF)!');
+    await Share.shareXFiles([xFile]);
+  }
+
+  Future<void> _exportShoes(BuildContext context) async {
+    setState(() {
+      _isJSONLoading = true;
+    });
+
+    try {
+      String permissionStatus =
+          await requestManageExternalStoragePermission(context);
+      if (permissionStatus != 'Permission granted') {
+        throw Exception('Permission not granted');
+      }
+
+      final jsonCodes = await _shoesService.exportCodesToJson();
+      final directory = Directory('/storage/emulated/0/Download');
+      final now = DateTime.now();
+      final dateFormat = DateFormat('yyyyMMdd_HHmmss');
+      final formattedDate = dateFormat.format(now);
+      final filePath = '${directory.path}/shox_db_$formattedDate.json';
+      final file = File(filePath);
+      await file.writeAsString(jsonCodes);
+      if (context.mounted) {
+        showSuccessToast(context,
+            AppLocalizations.of(context)!.database_screen_export_success);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showErrorToast(context,
+            '${AppLocalizations.of(context)!.database_screen_export_error} $e');
+      }
+    } finally {
+      setState(() {
+        _isJSONLoading = false;
+      });
+    }
+  }
+
+  Future<void> _importShoes(BuildContext context) async {
+    setState(() {
+      _isJSONLoading = true;
+    });
+
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+      );
+
+      if (result != null) {
+        File file = File(result.files.single.path!);
+        String jsonCodes = await file.readAsString();
+        await _shoesService.importCodesFromJson(jsonCodes, currentUser!.uid);
+        if (context.mounted) {
+          showSuccessToast(context,
+              AppLocalizations.of(context)!.database_screen_import_success);
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showErrorToast(context,
+            '${AppLocalizations.of(context)!.database_screen_import_error} $e');
+      }
+    } finally {
+      setState(() {
+        _isJSONLoading = false;
+      });
+    }
   }
 
   @override
@@ -181,6 +256,71 @@ class DatabaseScreenState extends State<DatabaseScreen>
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.primary,
       foregroundColor: Theme.of(context).colorScheme.secondary,
+      actions: [
+        _buildPopupMenu(context),
+      ],
+    );
+  }
+
+  Widget _buildPopupMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      color: Theme.of(context).colorScheme.primary,
+      icon: Icon(
+        MingCuteIcons.mgc_more_2_fill,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
+      onSelected: (String result) {
+        switch (result) {
+          case 'export':
+            _exportShoes(context);
+            break;
+          case 'import':
+            _importShoes(context);
+            break;
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        _buildPopupMenuItem(
+          context,
+          'export',
+          MingCuteIcons.mgc_file_export_line,
+          AppLocalizations.of(context)!.database_screen_export_menu,
+        ),
+        _buildPopupMenuItem(
+          context,
+          'import',
+          MingCuteIcons.mgc_file_import_line,
+          AppLocalizations.of(context)!.database_screen_import_menu,
+        ),
+      ],
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupMenuItem(
+    BuildContext context,
+    String value,
+    IconData icon,
+    String text,
+  ) {
+    return PopupMenuItem<String>(
+      value: value,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          SizedBox(width: 10.w),
+          Text(
+            text,
+            style: GoogleFonts.montserrat(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -288,7 +428,9 @@ class DatabaseScreenState extends State<DatabaseScreen>
               width: 240.w,
               height: 60.h,
               child: MaterialButton(
-                onPressed: _generatePdf,
+                onPressed: () {
+                  _generatePdf(context);
+                },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.r),
                 ),
@@ -317,6 +459,20 @@ class DatabaseScreenState extends State<DatabaseScreen>
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPDFLoading(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.5),
+      child: Center(child: _buildPdfLoadingIndicator(context)),
+    );
+  }
+
+  Widget _buildJSONLoading(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.5),
+      child: Center(child: _buildLoadingIndicator(context)),
     );
   }
 

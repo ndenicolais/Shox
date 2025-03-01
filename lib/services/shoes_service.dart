@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 import 'package:shox/models/shoes_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -14,19 +17,19 @@ class ShoesService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final SupabaseClient _client = Supabase.instance.client;
 
+  // Function that get Shoes collection reference for current user
+  CollectionReference getShoesCollection() {
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('shoes');
+  }
+
   // Function that adds a new Shoes to Firestore
   Future<String> addShoes(ShoesModel shoes) async {
     try {
-      if (currentUser == null) {
-        throw "User not logged in";
-      }
-
-      DocumentReference docRef = await _firestore
-          .collection('users')
-          .doc(currentUser!.uid)
-          .collection('shoes')
-          .add(shoes.toFirestore());
-
+      CollectionReference shoesCollection = getShoesCollection();
+      DocumentReference docRef = await shoesCollection.add(shoes.toFirestore());
       _logger.i("Shoes added successfully with ID: ${docRef.id}");
       return docRef.id;
     } catch (e) {
@@ -38,20 +41,8 @@ class ShoesService {
   // Function that confirm saving a Shoes
   Future<void> confirmAddShoes(ShoesModel shoes) async {
     try {
-      if (currentUser == null) {
-        throw "User not logged in";
-      }
-      if (shoes.id == null) {
-        throw "ID missing Shoes";
-      }
-
-      await _firestore
-          .collection('users')
-          .doc(currentUser!.uid)
-          .collection('shoes')
-          .doc(shoes.id)
-          .update(shoes.toFirestore());
-
+      CollectionReference shoesCollection = getShoesCollection();
+      await shoesCollection.doc(shoes.id).update(shoes.toFirestore());
       await historyEvents('Added', shoes.id!, shoes.imageUrl);
       _logger.i("Shoes with ID ${shoes.id} successfully added");
     } catch (e) {
@@ -63,20 +54,8 @@ class ShoesService {
   // Function that updates an existing Shoes
   Future<void> updateShoes(ShoesModel shoes) async {
     try {
-      if (currentUser == null) {
-        throw "User not logged in";
-      }
-      if (shoes.id == null) {
-        throw "ID missing Shoes";
-      }
-
-      await _firestore
-          .collection('users')
-          .doc(currentUser!.uid)
-          .collection('shoes')
-          .doc(shoes.id)
-          .update(shoes.toFirestore());
-
+      CollectionReference shoesCollection = getShoesCollection();
+      await shoesCollection.doc(shoes.id).update(shoes.toFirestore());
       await historyEvents('Updated', shoes.id!, shoes.imageUrl);
       _logger.i("Shoes with ID ${shoes.id} successfully updated");
     } catch (e) {
@@ -88,45 +67,13 @@ class ShoesService {
   // Function that deletes an Shoes
   Future<void> deleteShoes(String shoesId) async {
     try {
-      if (currentUser == null) {
-        throw "User not logged in";
-      }
-
-      await _firestore
-          .collection('users')
-          .doc(currentUser!.uid)
-          .collection('shoes')
-          .doc(shoesId)
-          .delete();
-
+      CollectionReference shoesCollection = getShoesCollection();
+      await shoesCollection.doc(shoesId).delete();
       await historyEvents('Deleted', shoesId, shoesId);
       _logger.i("Shoes with ID $shoesId successfully deleted");
     } catch (e) {
       _logger.e("Error in deleting the Shoes: $e");
       rethrow;
-    }
-  }
-
-  // Function that get Shoes collection reference for current user
-  CollectionReference getShoesCollection() {
-    return _firestore
-        .collection('users')
-        .doc(currentUser!.uid)
-        .collection('shoes');
-  }
-
-  // Function that retrieves a list of ShoeModel objects from Firestore collection
-  Future<List<ShoesModel>> getShoes({bool onlyFavorites = false}) async {
-    try {
-      CollectionReference shoesCollection = getShoesCollection();
-      QuerySnapshot querySnapshot = await shoesCollection.get();
-      return querySnapshot.docs
-          .map((doc) => ShoesModel.fromFirestore(
-              doc.id, doc.data() as Map<String, dynamic>))
-          .toList();
-    } catch (e) {
-      _logger.e('Error getting shoes: $e');
-      throw Exception('Failed to get shoes: $e');
     }
   }
 
@@ -169,7 +116,10 @@ class ShoesService {
 
   // Function that adds an entry to the user's history in Firestore.
   Future<void> historyEvents(
-      String operationType, String shoesId, String? imageUrl) async {
+    String operationType,
+    String shoesId,
+    String? imageUrl,
+  ) async {
     try {
       if (currentUser == null) {
         throw Exception('User ID is null');
@@ -213,7 +163,10 @@ class ShoesService {
 
   // Function to add an image to Supabase under the shoe ID folder
   Future<String> addShoesImageSupabase(
-      String userId, String shoesId, File imageFile) async {
+    String userId,
+    String shoesId,
+    File imageFile,
+  ) async {
     var uuid = const Uuid();
     String uniqueId = uuid.v4();
     String fileExtension = extension(imageFile.path);
@@ -226,7 +179,10 @@ class ShoesService {
 
   // Function to delete an image from Supabase
   Future<void> deleteShoesImageSupabase(
-      String userId, String shoesId, String fileName) async {
+    String userId,
+    String shoesId,
+    String fileName,
+  ) async {
     final path = '$userId/shoes/$shoesId/$fileName';
     _logger.i('Deleting image from Supabase with path: $path');
 
@@ -240,9 +196,91 @@ class ShoesService {
 
   // Function to get public url from Supabase
   String getShoesImageUrlSupabase(
-      String userId, String shoesId, String fileName) {
+    String userId,
+    String shoesId,
+    String fileName,
+  ) {
     return _client.storage
         .from('images')
         .getPublicUrl('$userId/shoes/$shoesId/$fileName');
+  }
+
+  // Converts Timestamp objects in the map to ISO 8601 string representations
+  Map<String, dynamic> _convertTimestamps(Map<String, dynamic> data) {
+    data.forEach((key, value) {
+      if (value is Timestamp) {
+        data[key] = value.toDate().toIso8601String();
+      }
+    });
+    return data;
+  }
+
+  // Export all shoes to JSON
+  Future<String> exportCodesToJson() async {
+    try {
+      CollectionReference shoesCollection = getShoesCollection();
+      QuerySnapshot querySnapshot = await shoesCollection.get();
+      List<Map<String, dynamic>> shoesList = querySnapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return _convertTimestamps(data);
+      }).toList();
+      String jsonShoes = jsonEncode(shoesList);
+      _logger.i('Shoes exported successfully.');
+      return jsonShoes;
+    } catch (e) {
+      _logger.e('Error exporting shoes to JSON: $e');
+      throw Exception('Failed to export shoes to JSON: $e');
+    }
+  }
+
+  // Converts string representations of dates in the map to Timestamp objects
+  Map<String, dynamic> _convertStringsToTimestamps(Map<String, dynamic> data) {
+    data.forEach((key, value) {
+      if (key == 'dateAdded' || key == 'dateUpdated') {
+        data[key] = Timestamp.fromDate(DateTime.parse(value));
+      }
+    });
+    return data;
+  }
+
+  // Import shoes from JSON
+  Future<void> importCodesFromJson(String jsonCodes, String userId) async {
+    try {
+      List<dynamic> shoesList = jsonDecode(jsonCodes);
+      for (var shoesMap in shoesList) {
+        Map<String, dynamic> shoesData = shoesMap as Map<String, dynamic>;
+        shoesData = _convertStringsToTimestamps(shoesData);
+
+        ShoesModel shoes = ShoesModel.fromFirestore('', shoesData);
+        String shoesId = await addShoes(shoes);
+        String? imageUrl = shoesData['imageUrl'];
+
+        if (imageUrl != null && imageUrl.isNotEmpty) {
+          Uri imageUri = Uri.parse(imageUrl);
+          http.Response response = await http.get(imageUri);
+          if (response.statusCode == 200) {
+            File imageFile = File(
+                '${Directory.systemTemp.path}/${path.basename(imageUri.path)}');
+            await imageFile.writeAsBytes(response.bodyBytes);
+            String uploadedImagePath =
+                await addShoesImageSupabase(userId, shoesId, imageFile);
+            shoesData['imageUrl'] = uploadedImagePath;
+            final fileName = uploadedImagePath.split('/').last;
+            imageUrl =
+                getShoesImageUrlSupabase(currentUser!.uid, shoesId, fileName);
+            shoesData['imageUrl'] = imageUrl;
+          } else {
+            _logger.e('Failed to download image from $imageUrl');
+          }
+        }
+
+        ShoesModel confirmShoes = ShoesModel.fromFirestore(shoesId, shoesData);
+        await confirmAddShoes(confirmShoes);
+      }
+      _logger.i('Shoes imported successfully.');
+    } catch (e) {
+      _logger.e('Error importing shoes from JSON: $e');
+      throw Exception('Failed to import shoes from JSON: $e');
+    }
   }
 }
