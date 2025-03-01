@@ -2,70 +2,70 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 import 'package:intl/intl.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:shox/models/shoes_model.dart';
 import 'package:shox/services/database_service.dart';
-import 'package:shox/services/shoes_service.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/utils/db_localized_values.dart';
 import 'package:shox/utils/permission_helper.dart';
 
 class PdfService {
   final BuildContext context;
-  final ShoesService _shoesService;
   final DatabaseService _databaseService;
 
-  PdfService(this.context, this._shoesService, this._databaseService);
+  PdfService(this.context, this._databaseService);
 
-  Future<String> generateShoesPdf(Function(double) onProgress) async {
+  Future<String> generateShoesPdf(
+      BuildContext context, Function(double) onProgress) async {
     try {
-      return await requestManageExternalStoragePermission(context, () async {
-        List<ShoesModel> shoesList = await _shoesService.getShoes();
-        int totalShoesCount = shoesList.length;
-        shoesList.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
-        final userData = await _databaseService.getCurrentUserData();
-        String userId = userData['userId'] ?? '';
-        DateTime creationDate =
-            await _databaseService.getUserCreationDate(userId);
-        String creationDateString =
-            DateFormat('dd/MM/yyyy').format(creationDate);
-        final pdf = pw.Document();
-        final customFont = await rootBundle.load("assets/fonts/Montserrat.ttf");
-        final pw.Font ttf = pw.Font.ttf(customFont.buffer.asByteData());
-        final customFontBold =
-            await rootBundle.load("assets/fonts/Montserrat-Bold.ttf");
-        final pw.Font ttfBold = pw.Font.ttf(customFontBold.buffer.asByteData());
-        final ByteData data =
-            await rootBundle.load('assets/images/app_logo.png');
-        final Uint8List bytes = data.buffer.asUint8List();
-        final logoImage = pw.MemoryImage(bytes);
+      String permissionStatus =
+          await requestManageExternalStoragePermission(context);
+      if (permissionStatus != 'Permission granted') {
+        throw Exception('Permission not granted');
+      }
 
-        final appLocalizations = AppLocalizations.of(context)!;
+      List<ShoesModel> shoesList = await _databaseService.getShoes();
+      int totalShoesCount = shoesList.length;
+      shoesList.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
+      final userData = await _databaseService.getCurrentUserData();
+      String userId = userData['userId'] ?? '';
+      DateTime creationDate =
+          await _databaseService.getUserCreationDate(userId);
+      String creationDateString = DateFormat('dd/MM/yyyy').format(creationDate);
+      final pdf = pw.Document();
+      final customFont = await rootBundle.load("assets/fonts/Montserrat.ttf");
+      final pw.Font ttf = pw.Font.ttf(customFont.buffer.asByteData());
+      final customFontBold =
+          await rootBundle.load("assets/fonts/Montserrat-Bold.ttf");
+      final pw.Font ttfBold = pw.Font.ttf(customFontBold.buffer.asByteData());
+      final ByteData data = await rootBundle.load('assets/images/app_logo.png');
+      final Uint8List bytes = data.buffer.asUint8List();
+      final logoImage = pw.MemoryImage(bytes);
+      final appLocalizations = AppLocalizations.of(context)!;
 
-        pdf.addPage(_buildFirstPage(logoImage, ttf));
-        onProgress(0.1);
-        pdf.addPage(_buildUserPage(logoImage, userData, creationDateString,
-            totalShoesCount, ttf, ttfBold, appLocalizations));
-        onProgress(0.2);
+      pdf.addPage(_buildFirstPage(logoImage, ttf));
+      onProgress(0.1);
+      pdf.addPage(_buildUserPage(logoImage, userData, creationDateString,
+          totalShoesCount, ttf, ttfBold, appLocalizations));
+      onProgress(0.2);
 
-        for (var i = 0; i < shoesList.length; i++) {
-          var shoes = shoesList[i];
-          await _addShoesPage(
-              context, pdf, shoes, logoImage, ttf, ttfBold, appLocalizations);
-          onProgress(0.2 + 0.8 * (i + 1) / shoesList.length);
+      for (var i = 0; i < shoesList.length; i++) {
+        var shoes = shoesList[i];
+        await _addShoesPage(
+            context, pdf, shoes, logoImage, ttf, ttfBold, appLocalizations);
+        onProgress(0.2 + 0.8 * (i + 1) / shoesList.length);
 
-          double additionalProgress = 0.8 * (i + 1) / shoesList.length;
-          onProgress(0.2 + additionalProgress);
-        }
+        double additionalProgress = 0.8 * (i + 1) / shoesList.length;
+        onProgress(0.2 + additionalProgress);
+      }
 
-        final filePath = await _savePdf(pdf);
-        onProgress(1.0);
-        return filePath;
-      });
+      final filePath = await _savePdf(pdf);
+      onProgress(1.0);
+      return filePath;
     } catch (e) {
       throw Exception('Failed to generate PDF: $e');
     }
@@ -227,13 +227,14 @@ pw.Widget _buildHeader(pw.ImageProvider logoImage, pw.Font ttf) {
 }
 
 pw.Page _buildUserPage(
-    pw.MemoryImage logoImage,
-    Map<String, dynamic> userData,
-    String creationDateString,
-    int totalShoesCount,
-    pw.Font ttf,
-    pw.Font ttfBold,
-    AppLocalizations localizations) {
+  pw.MemoryImage logoImage,
+  Map<String, dynamic> userData,
+  String creationDateString,
+  int totalShoesCount,
+  pw.Font ttf,
+  pw.Font ttfBold,
+  AppLocalizations localizations,
+) {
   return pw.Page(
     build: (pw.Context context) {
       final pageNumber = context.pageNumber;
@@ -259,12 +260,13 @@ pw.Page _buildUserPage(
 }
 
 pw.Widget _buildUserInfo(
-    Map<String, dynamic> userData,
-    String creationDateString,
-    int totalShoesCount,
-    pw.Font ttf,
-    pw.Font ttfBold,
-    AppLocalizations localizations) {
+  Map<String, dynamic> userData,
+  String creationDateString,
+  int totalShoesCount,
+  pw.Font ttf,
+  pw.Font ttfBold,
+  AppLocalizations localizations,
+) {
   return pw.Column(
     children: [
       pw.Text(
