@@ -43,9 +43,10 @@ class LoginScreenState extends State<LoginScreen> {
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 20.h,
                 children: [
-                  _buildTopImage(context),
-                  SizedBox(height: 50.h),
+                  _buildLogo(),
+                  SizedBox(height: 20.h),
                   LoginForm(
                     context: context,
                     formKey: _formKey,
@@ -59,7 +60,6 @@ class LoginScreenState extends State<LoginScreen> {
                     onLoginWithGoogle: () =>
                         controller.loginWithGoogle(context),
                   ),
-                  SizedBox(height: 20.h),
                   SizedBox(
                     width: 320.w,
                     child: Row(
@@ -70,9 +70,7 @@ class LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20.h),
                   _buildButtons(context, controller),
-                  SizedBox(height: 20.h),
                   _buildSignupText(context),
                 ],
               ),
@@ -115,7 +113,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildTopImage(BuildContext context) {
+  Widget _buildLogo() {
     return Image.asset(
       'assets/images/app_logo.png',
       width: 180.w,
@@ -123,7 +121,10 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildButtons(BuildContext context, LoginController controller) {
+  Widget _buildButtons(
+    BuildContext context,
+    LoginController controller,
+  ) {
     final double dividerIndent = ScreenUtil().screenWidth > 600 ? 220.w : 60.w;
     return Column(
       children: [
@@ -153,7 +154,9 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildRememberMeCheckbox(
-      BuildContext context, LoginController controller) {
+    BuildContext context,
+    LoginController controller,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -206,15 +209,14 @@ class LoginScreenState extends State<LoginScreen> {
         text: AppLocalizations.of(context)!.login_screen_account,
         style: GoogleFonts.montserrat(
           color: Theme.of(context).colorScheme.secondary,
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w600,
+          fontSize: 14.sp,
         ),
         children: [
           TextSpan(
             text: AppLocalizations.of(context)!.login_screen_signup,
             style: GoogleFonts.montserrat(
               color: Theme.of(context).colorScheme.tertiary,
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
             ),
             recognizer: TapGestureRecognizer()

@@ -32,14 +32,15 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildTopImage(context),
+                  _buildLogo(),
                   SizedBox(height: 50.h),
                   _buildTextDescription(context),
                   SizedBox(height: 50.h),
                   ResetPasswordForm(
-                      context: context,
-                      formKey: _formKey,
-                      emailController: controller.emailController),
+                    context: context,
+                    formKey: _formKey,
+                    emailController: controller.emailController,
+                  ),
                   SizedBox(height: 20.h),
                   _buildResetButton(context, controller),
                 ],
@@ -74,7 +75,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  Widget _buildTopImage(BuildContext context) {
+  Widget _buildLogo() {
     return Image.asset(
       'assets/images/app_logo.png',
       width: 180.w,
@@ -84,7 +85,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   Widget _buildTextDescription(BuildContext context) {
     return SizedBox(
-      width: 320.w,
+      width: 300.w,
       child: Text(
         AppLocalizations.of(context)!.reset_password_screen_description,
         style: GoogleFonts.montserrat(
@@ -97,7 +98,9 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   Widget _buildResetButton(
-      BuildContext context, ResetPasswordController controller) {
+    BuildContext context,
+    ResetPasswordController controller,
+  ) {
     return CustomButton(
       title: AppLocalizations.of(context)!.reset_password_screen_text,
       backgroundColor: Theme.of(context).colorScheme.secondary,
