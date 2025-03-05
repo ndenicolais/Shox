@@ -7,15 +7,15 @@ This app allows you to create a personalized digital wardrobe exclusively for yo
 
 ## 💎 Release
 <img src="images/shox_version.png" title="Shox's version">
-The release of version 3.0.0 of the app is now available for download. You can download it from the following link:
+App release 3.0.0 is available for download. You can download it from the following link:
 
 [Download v3.0.0](https://github.com/ndenicolais/Shox/releases/download/v3.0.0/Shox_v3.0.0.apk)
 
 ## 🔑 Features
-- Logi via Google or email & password
+- Login via Google or email & password
 - Data storage with Firestore Database
 - Image storage with Supabase Storage
-- Responsive design for all screens
+- Responsive design for all screens with ScreenUtil
 - Navigation with transition effects with Get
 - Light and dark theme variants
 - English, Italian, French, Spanish, and German languages variants
