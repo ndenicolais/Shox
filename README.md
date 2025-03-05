@@ -1,32 +1,34 @@
-## Authors
+## 🔶 Authors
 - [@ndn21](https://github.com/ndenicolais)
 
 ## 📄 Description
 <img src="images/shox_logo.png" title="Shox's logo" width="140" height="140">
-This application allows you to create a digital wardrobe where you can save and view all your Shoes. In this way all your shoes will be cataloged and always at your fingertips.
+This app allows you to create a personalized digital wardrobe exclusively for your shoes. Here, you can easily save, organize, and view all your shoes in one virtual place. Each pair of shoes can be cataloged with specific details such as brand, model, color, and occasion of use, making it easier to find exactly what you are looking for at any time. With your digital wardrobe, you will always have a complete view of your shoe collection at your fingertips, making it easier to choose the perfect pair for every occasion.
 
 ## 💎 Release
 <img src="images/shox_version.png" title="Shox's version">
-The release of version 3.0.0 of the application is now available for download. You can download it from the following link:
+The release of version 3.0.0 of the app is now available for download. You can download it from the following link:
 
 [Download v3.0.0](https://github.com/ndenicolais/Shox/releases/download/v3.0.0/Shox_v3.0.0.apk)
 
 ## 🔑 Features
-- Users can access the app via Google or by registering with an email and password
+- Logi via Google or email & password
 - Data storage with Firestore Database
 - Image storage with Supabase Storage
-- Navigation with transition effects using get
-- The organization of shoes by colors, brand, category and type allowing users to quickly search and filter through the available options
-- The app allows users to add shoes to their favorites, making it easy to filter and view only their preferred items
-- Home shows all the shoes added by the user, with options to filter and display the shoes in three different views: grid, mosaic and list
-- A search feature that allows users to find shoes by typing the brand name, and also by color, season, category, or type
-- A feature that allows users to edit and crop the shoes photos before saving them
-- A history of all operations performed within the app so you can remember when you have added, updated or deleted a shoes
-- Pie charts showing the distribution of your shoes by color, brand, category and type
-- PDF document that contains detailed information from the database. Each page of the document is dedicated to a single pair of shoes, displaying all details
-- The layout of the app adapts to the screen on which the device is opened, differing the size of the UI based on smartphone or tablet
+- Responsive design for all screens
+- Navigation with transition effects with Get
 - Light and dark theme variants
 - English, Italian, French, Spanish, and German languages variants
+- CRUD operations for your shoes
+- Different shoes display layouts
+- Shoes divided according to their brands, colors, categories, types
+- Filter to search for a specific shoes based on its characteristics
+- View of shoes added to favorites
+- History of all operations performed in the app
+- Graphs showing the shoes divided according to their characteristics
+- Download or share photos of each shoes
+- Generation of a PDF containing all the shoes saved in database
+- Database export and import in JSON format
 
 ## 🎨 Screenshots
 <img src="images/shox_release.png" title="Shox's release">
@@ -39,6 +41,7 @@ Below is a list of some of the most relevant packages:
 - [cloud_firestore](https://pub.dev/packages/cloud_firestore)
 - [supabase_flutter](https://pub.dev/packages/supabase_flutter)
 - [intl](https://pub.dev/packages/intl)
+- [provider](https://pub.dev/packages/provider)
 - [shared_preferences](https://pub.dev/packages/shared_preferences)
 - [convex_bottom_bar](https://pub.dev/packages/convex_bottom_bar)
 - [syncfusion_flutter_charts](https://pub.dev/packages/syncfusion_flutter_charts)
