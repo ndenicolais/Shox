@@ -462,7 +462,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                 color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(5.r),
+              borderRadius: BorderRadius.circular(50.r),
             ),
             child: Row(
               children: [
@@ -520,7 +520,7 @@ class ShoesUpdaterScreenState extends State<ShoesUpdaterScreen>
                 color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(5.r),
+              borderRadius: BorderRadius.circular(50.r),
             ),
             child: Row(
               children: [
