@@ -47,3 +47,6 @@ android/app/google-services.json
 
 # Ignore config.json file
 config.json
+
+# Android debug
+.cxx/
