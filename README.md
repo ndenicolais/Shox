@@ -7,9 +7,9 @@ This app allows you to create a personalized digital wardrobe exclusively for yo
 
 ## 💎 Release
 <img src="images/shox_version.png" title="Shox's version">
-The release of version 3.0.0 of the app is now available for download. You can download it from the following link:
+The release of version 3.0.1 of the app is now available for download. You can download it from the following link:
 
-[Download v3.0.0](https://github.com/ndenicolais/Shox/releases/download/v3.0.0/Shox_v3.0.0.apk)
+[Download v3.0.1](https://github.com/ndenicolais/Shox/releases/download/v3.0.0/Shox_v3.0.1.apk)
 
 ## 🔑 Features
 - Logi via Google or email & password
