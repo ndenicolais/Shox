@@ -51,7 +51,8 @@ jobs:
             try {
               const { createClient } = require('@supabase/supabase-js');
               const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-              const { data, error } = await supabase.from('images').select('id').limit(1);
+              // Ping la tabella keepalive appena creata
+              const { data, error } = await supabase.from('keepalive').select('id').limit(1);
               if (error) throw error;
               console.log('Ping Database successful. Data:', data);
             } catch (err) {
