@@ -16,47 +16,28 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Supabase Client
         run: npm install @supabase/supabase-js --force
 
-      - name: Ping Supabase Storage
+      - name: Ping Supabase Storage (upload dummy file)
         env:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }}
+          SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
           node -e "
           (async () => {
             try {
               const { createClient } = require('@supabase/supabase-js');
               const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-              const { data, error } = await supabase.storage.listBuckets();
+              const content = Buffer.from('keepalive ' + new Date().toISOString());
+              const { error } = await supabase.storage.from('images')
+                .upload('keepalive/ping.txt', content, { upsert: true });
               if (error) throw error;
-              console.log('Ping Storage successful. Buckets:', data);
+              console.log('Ping Storage upload successful.');
             } catch (err) {
               console.error('Error pinging Supabase Storage:', err.message);
-              process.exit(1);
-            }
-          })();
-          "
-
-      - name: Ping Supabase Database
-        env:
-          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }}
-        run: |
-          node -e "
-          (async () => {
-            try {
-              const { createClient } = require('@supabase/supabase-js');
-              const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-              // Ping la tabella keepalive appena creata
-              const { data, error } = await supabase.from('keepalive').select('id').limit(1);
-              if (error) throw error;
-              console.log('Ping Database successful. Data:', data);
-            } catch (err) {
-              console.error('Error pinging Supabase Database:', err.message);
               process.exit(1);
             }
           })();
