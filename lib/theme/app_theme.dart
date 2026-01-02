@@ -6,24 +6,25 @@ import 'package:shox/theme/app_colors.dart';
 class AppTheme {
   static ThemeData lightTheme() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.lightYellow,
+      systemNavigationBarColor: AppColors.whiteSmoke,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
     return ThemeData(
       colorScheme: const ColorScheme.light(
-        primary: AppColors.lightYellow,
-        onPrimary: AppColors.lightYellow,
+        primary: AppColors.whiteSmoke,
+        onPrimary: AppColors.whiteSmoke,
         secondary: AppColors.darkPeach,
-        onSecondary: AppColors.lightYellow,
-        tertiary: AppColors.smoothBlack,
+        onSecondary: AppColors.whiteSmoke,
+        tertiary: AppColors.darkGray,
         onTertiary: AppColors.darkPeach,
-        surface: AppColors.lightPeach,
-        onSurface: AppColors.smoothBlack,
+        surface: AppColors.darkSalamon,
+        onSurface: AppColors.darkGray,
         onError: AppColors.errorColor,
+        tertiaryFixed: AppColors.valspar,
       ),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: GoogleFonts.montserrat(
-          color: AppColors.smoothBlack,
+          color: AppColors.darkGray,
         ),
         hintStyle: GoogleFonts.montserrat(
           color: AppColors.darkPeach,
@@ -33,7 +34,7 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
         counterStyle: GoogleFonts.montserrat(
-          color: AppColors.smoothBlack,
+          color: AppColors.darkGray,
         ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -55,42 +56,43 @@ class AppTheme {
         ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
-        selectionColor: AppColors.darkGold,
-        selectionHandleColor: AppColors.darkGold,
+        selectionColor: AppColors.champagne,
+        selectionHandleColor: AppColors.champagne,
       ),
     );
   }
 
   static ThemeData darkTheme() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.smoothBlack,
+      systemNavigationBarColor: AppColors.darkGray,
       systemNavigationBarIconBrightness: Brightness.light,
     ));
     return ThemeData(
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.smoothBlack,
-        onPrimary: AppColors.smoothBlack,
-        secondary: AppColors.darkGold,
-        onSecondary: AppColors.smoothBlack,
-        tertiary: AppColors.lightYellow,
-        onTertiary: AppColors.darkGold,
-        surface: AppColors.lightGrey,
-        onSurface: AppColors.smoothBlack,
+        primary: AppColors.darkGray,
+        onPrimary: AppColors.darkGray,
+        secondary: AppColors.champagne,
+        onSecondary: AppColors.darkGray,
+        tertiary: AppColors.darkSalamon,
+        onTertiary: AppColors.champagne,
+        surface: AppColors.valspar,
+        onSurface: AppColors.darkGray,
         onError: AppColors.errorColor,
+        tertiaryFixed: AppColors.darkPeach,
       ),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: GoogleFonts.montserrat(
-          color: AppColors.lightYellow,
+          color: AppColors.whiteSmoke,
         ),
         hintStyle: GoogleFonts.montserrat(
-          color: AppColors.darkGold,
+          color: AppColors.champagne,
         ),
         errorStyle: GoogleFonts.montserrat(
           color: AppColors.errorColor,
           fontWeight: FontWeight.w600,
         ),
         counterStyle: GoogleFonts.montserrat(
-          color: AppColors.lightYellow,
+          color: AppColors.whiteSmoke,
         ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -100,20 +102,20 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: AppColors.darkGold,
+            color: AppColors.champagne,
           ),
           borderRadius: BorderRadius.circular(50),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: AppColors.darkGold,
+            color: AppColors.champagne,
           ),
           borderRadius: BorderRadius.circular(50),
         ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
-        selectionColor: AppColors.lightPeach,
-        selectionHandleColor: AppColors.lightPeach,
+        selectionColor: AppColors.darkSalamon,
+        selectionHandleColor: AppColors.darkSalamon,
       ),
     );
   }
