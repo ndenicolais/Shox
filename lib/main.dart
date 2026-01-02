@@ -6,12 +6,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/l10n/l10n.dart';
-import 'package:shox/utils/firebase_options.dart';
-import 'package:shox/screens/intro_screen.dart';
-import 'package:shox/theme/theme_notifier.dart';
+import 'package:shox/core/utils/firebase_options.dart';
+import 'package:shox/common/screens/intro_screen.dart';
+import 'package:shox/theme/theme_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<Map<String, dynamic>> loadConfig() async {
@@ -21,6 +20,7 @@ Future<Map<String, dynamic>> loadConfig() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(ThemeController());
   final config = await loadConfig();
 
   await Supabase.initialize(
@@ -34,14 +34,7 @@ void main() async {
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   String? savedLocale = prefs.getString('language_code');
-  ThemeNotifier themeNotifier = await ThemeNotifier.loadThemeFromPreferences();
-
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => themeNotifier,
-      child: MyApp(savedLocale: savedLocale),
-    ),
-  );
+  runApp(MyApp(savedLocale: savedLocale));
 }
 
 class MyApp extends StatelessWidget {
@@ -70,12 +63,12 @@ class MyApp extends StatelessWidget {
               designSize: Size(constraints.maxWidth, constraints.maxHeight),
               splitScreenMode: true,
               minTextAdapt: true,
-              child: Consumer<ThemeNotifier>(
-                builder: (context, themeNotifier, child) {
+              builder: (context, child) => GetX<ThemeController>(
+                builder: (controller) {
                   Locale? initialLocale = _determineLocale();
                   return GetMaterialApp(
                     debugShowCheckedModeBanner: false,
-                    theme: themeNotifier.currentTheme,
+                    theme: controller.theme,
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
                       GlobalMaterialLocalizations.delegate,
