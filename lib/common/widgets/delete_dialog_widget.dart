@@ -88,8 +88,6 @@ class DeleteDialogWidget extends StatelessWidget {
                 Expanded(
                   child: ButtonWidget(
                     height: 48.h,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    textColor: Theme.of(context).colorScheme.secondary,
                     fontSize: AppFontSizes.normal,
                     isOutline: true,
                     onPressed: onCancelPressed,
@@ -102,8 +100,6 @@ class DeleteDialogWidget extends StatelessWidget {
                 Expanded(
                   child: ButtonWidget(
                     height: 48.h,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    textColor: Theme.of(context).colorScheme.primary,
                     fontSize: AppFontSizes.normal,
                     onPressed: onConfirmPressed,
                     text: confirmLabel ??

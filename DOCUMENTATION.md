@@ -552,6 +552,12 @@ Il tema attivo è gestito da `ThemeController` (GetX), selezionabile tra Sistema
 - I grafici a torta (Database) dimensionano canvas e raggio delle sezioni in proporzione alla larghezza reale della card (box quadrato), evitando sovrapposizioni tra torta, titolo e legenda
 - L'orientamento dell'app non è più bloccato in verticale (`android:screenOrientation="unspecified"` in `AndroidManifest.xml`), permettendo la rotazione su tablet
 
+**Pulsante condiviso (`ButtonWidget`, `lib/common/widgets/button_widget.dart`):**
+- Colori opzionali: di default sfondo `colorScheme.secondary` e testo `colorScheme.primary` (pieno) oppure testo/bordo `secondary` (`isOutline: true`); forma ed elevazione dai `elevatedButtonTheme`/`outlinedButtonTheme` del tema
+- `onPressed: null` → pulsante disabilitato (sfondo e testo attenuati)
+- `isLoading: true` → sostituisce l'etichetta con uno spinner mantenendo le dimensioni e blocca il tap (usato da login, signup e reset password al posto di un loader separato)
+- Altezza minima di 48dp (`ButtonWidget.minTouchTarget`) anche quando `height` scalato è inferiore
+
 ---
 
 ## 9. Navigazione

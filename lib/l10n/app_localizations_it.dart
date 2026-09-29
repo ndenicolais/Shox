@@ -1238,6 +1238,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Transizioni tra le schermate più fluide e uniformi.';
 
   @override
+  String get changelog_v4_1_0_bullet_30 =>
+      'Durante accesso, registrazione e reset password il pulsante mostra il caricamento al suo interno; il pulsante di scelta del genere resta disattivato finché non ne selezioni uno.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

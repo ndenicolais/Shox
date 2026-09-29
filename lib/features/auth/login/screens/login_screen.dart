@@ -10,7 +10,6 @@ import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/features/auth/login/controller/login_controller.dart';
 import 'package:shox/features/auth/login/widgets/login_form.dart';
 import 'package:shox/common/widgets/button_widget.dart';
-import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/core/utils/constants.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
@@ -139,17 +138,14 @@ class LoginScreenState extends State<LoginScreen> {
 
   Widget _buildLoginButton(LoginController controller) {
     return Obx(
-      () => controller.isLoading.value
-          ? LoaderWidget(width: 40.w, height: 40.h)
-          : ButtonWidget(
-              width: 280.w,
-              height: 60.h,
-              text: AppLocalizations.of(context)!.login_screen_text,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              textColor: Theme.of(context).colorScheme.primary,
-              fontSize: AppFontSizes.large,
-              onPressed: () => controller.login(context, _formKey),
-            ),
+      () => ButtonWidget(
+        isLoading: controller.isLoading.value,
+        width: 280.w,
+        height: 60.h,
+        text: AppLocalizations.of(context)!.login_screen_text,
+        fontSize: AppFontSizes.large,
+        onPressed: () => controller.login(context, _formKey),
+      ),
     );
   }
 

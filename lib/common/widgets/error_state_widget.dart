@@ -44,8 +44,6 @@ class ErrorStateWidget extends StatelessWidget {
                 width: 140.w,
                 height: 44.h,
                 text: AppLocalizations.of(context)!.common_retry,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                textColor: Theme.of(context).colorScheme.primary,
                 fontSize: AppFontSizes.normal,
                 onPressed: onRetry!,
               ),

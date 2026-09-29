@@ -408,6 +408,7 @@
   "changelog_v4_1_0_bullet_27": "Ziehe das Raster nach unten, um deine Sammlung zu aktualisieren.",
   "changelog_v4_1_0_bullet_28": "Beim Verlassen des Schuhformulars mit nicht gespeicherten Änderungen wird jetzt eine Bestätigung verlangt.",
   "changelog_v4_1_0_bullet_29": "Flüssigere, einheitliche Übergänge zwischen den Bildschirmen.",
+  "changelog_v4_1_0_bullet_30": "Bei Anmeldung, Registrierung und Passwort-Zurücksetzung zeigt die Schaltfläche den Ladevorgang jetzt direkt an; die Schaltfläche zur Geschlechtsauswahl bleibt deaktiviert, bis du eine Option wählst.",
   "dashboard_other": "Andere",
   "user_screen_account_settings": "Kontoeinstellungen",
   "user_screen_total_shoes": "Schuhe gesamt",

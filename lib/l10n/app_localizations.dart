@@ -2348,6 +2348,12 @@ abstract class AppLocalizations {
   /// **'Smoother, consistent transitions between screens.'**
   String get changelog_v4_1_0_bullet_29;
 
+  /// No description provided for @changelog_v4_1_0_bullet_30.
+  ///
+  /// In en, this message translates to:
+  /// **'During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.'**
+  String get changelog_v4_1_0_bullet_30;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

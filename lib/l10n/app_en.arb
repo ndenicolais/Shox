@@ -403,6 +403,7 @@
   "changelog_v4_1_0_bullet_27": "Pull down the grid to refresh your collection.",
   "changelog_v4_1_0_bullet_28": "Leaving the shoe form with unsaved changes now asks for confirmation.",
   "changelog_v4_1_0_bullet_29": "Smoother, consistent transitions between screens.",
+  "changelog_v4_1_0_bullet_30": "During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.",
   "dashboard_other": "Other",
   "user_screen_account_settings": "Account Settings",
   "user_screen_total_shoes": "Total Shoes",

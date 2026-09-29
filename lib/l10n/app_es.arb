@@ -408,6 +408,7 @@
   "changelog_v4_1_0_bullet_27": "Desliza la cuadrícula hacia abajo para actualizar tu colección.",
   "changelog_v4_1_0_bullet_28": "Al salir del formulario de un zapato con cambios sin guardar ahora se pide confirmación.",
   "changelog_v4_1_0_bullet_29": "Transiciones entre pantallas más fluidas y uniformes.",
+  "changelog_v4_1_0_bullet_30": "Durante el inicio de sesión, el registro y el restablecimiento de contraseña el botón muestra la carga en su interior; el botón de selección de género permanece desactivado hasta que elijas uno.",
   "dashboard_other": "Otro",
   "user_screen_account_settings": "Configuración de cuenta",
   "user_screen_total_shoes": "Total de zapatos",

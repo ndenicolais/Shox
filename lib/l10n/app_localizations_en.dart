@@ -1221,6 +1221,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Smoother, consistent transitions between screens.';
 
   @override
+  String get changelog_v4_1_0_bullet_30 =>
+      'During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

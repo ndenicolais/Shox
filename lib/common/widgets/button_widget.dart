@@ -1,16 +1,27 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shox/theme/app_radius.dart';
 
+/// App-wide text button, filled or outlined.
+///
+/// Colors default to the theme (`secondary` background with `primary` text
+/// when filled, `secondary` text and border when outlined); shape comes from
+/// the theme's button themes. A null [onPressed] renders the button disabled,
+/// [isLoading] swaps the label for a spinner while keeping the button size.
 class ButtonWidget extends StatelessWidget {
+  /// Material minimum touch target.
+  static const double minTouchTarget = 48;
+
   final double? width;
   final double? height;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final String text;
-  final Color textColor;
+  final Color? textColor;
   final double? fontSize;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isOutline;
+  final bool isLoading;
   final IconData? icon;
   final double? iconSize;
 
@@ -18,69 +29,88 @@ class ButtonWidget extends StatelessWidget {
     super.key,
     this.width,
     this.height,
-    required this.backgroundColor,
+    this.backgroundColor,
     required this.text,
-    required this.textColor,
+    this.textColor,
     this.fontSize,
     required this.onPressed,
     this.isOutline = false,
+    this.isLoading = false,
     this.icon,
     this.iconSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppRadius.large),
-    );
+    final colorScheme = Theme.of(context).colorScheme;
+    final Color foreground =
+        textColor ?? (isOutline ? colorScheme.secondary : colorScheme.primary);
+    final Color background = backgroundColor ?? colorScheme.secondary;
+    final VoidCallback? action = isLoading ? null : onPressed;
+    final bool isDisabled = onPressed == null;
+
     final label = TextStyle(
       fontFamily: 'CustomFont',
-      color: textColor,
+      color: isDisabled ? foreground.withValues(alpha: 0.6) : foreground,
       fontSize: fontSize,
     );
-    final content = Center(
-      child: icon != null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(icon, color: textColor, size: iconSize ?? 24.sp),
-                SizedBox(width: 8.w),
-                Text(text, style: label),
-              ],
+    final Widget content = Center(
+      child: isLoading
+          ? Semantics(
+              label: text,
+              child: SizedBox.square(
+                dimension: 20.r,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: foreground,
+                ),
+              ),
             )
-          : Text(text, style: label),
+          : icon != null
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(icon, color: foreground, size: iconSize ?? 24.sp),
+                    SizedBox(width: 8.w),
+                    Text(text, style: label),
+                  ],
+                )
+              : Text(text, style: label),
     );
 
-    if (isOutline) {
-      return SizedBox(
-        width: width,
-        height: height,
-        child: OutlinedButton(
-          onPressed: onPressed,
-          style: OutlinedButton.styleFrom(
-            foregroundColor: textColor,
-            side: BorderSide(color: textColor),
-            shape: shape,
-            backgroundColor: Colors.transparent,
-            padding: EdgeInsets.zero,
-          ),
-          child: content,
-        ),
-      );
-    }
+    final Widget button = isOutline
+        ? OutlinedButton(
+            onPressed: action,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: foreground,
+              side: BorderSide(
+                color: foreground.withValues(alpha: action == null ? 0.4 : 1),
+              ),
+              backgroundColor: Colors.transparent,
+              padding: EdgeInsets.zero,
+            ),
+            child: content,
+          )
+        : ElevatedButton(
+            onPressed: action,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: background,
+              foregroundColor: foreground,
+              // While loading keep the enabled look; otherwise fade it out.
+              disabledBackgroundColor:
+                  background.withValues(alpha: isLoading ? 1 : 0.4),
+              disabledForegroundColor: foreground,
+              padding: EdgeInsets.zero,
+            ),
+            child: content,
+          );
+
     return SizedBox(
       width: width,
-      height: height,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          foregroundColor: textColor,
-          elevation: 1,
-          shape: shape,
-          padding: EdgeInsets.zero,
-        ),
-        child: content,
+      height: height == null ? null : math.max(height!, minTouchTarget),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: minTouchTarget),
+        child: button,
       ),
     );
   }

@@ -1236,6 +1236,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Flüssigere, einheitliche Übergänge zwischen den Bildschirmen.';
 
   @override
+  String get changelog_v4_1_0_bullet_30 =>
+      'Bei Anmeldung, Registrierung und Passwort-Zurücksetzung zeigt die Schaltfläche den Ladevorgang jetzt direkt an; die Schaltfläche zur Geschlechtsauswahl bleibt deaktiviert, bis du eine Option wählst.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

@@ -67,8 +67,6 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       width: 280.w,
       height: 60.h,
       text: AppLocalizations.of(context)!.welcome_login,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      textColor: Theme.of(context).colorScheme.primary,
       fontSize: AppFontSizes.large,
       isOutline: false,
       onPressed: () {
@@ -82,8 +80,6 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       width: 280.w,
       height: 60.h,
       text: AppLocalizations.of(context)!.welcome_signup,
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      textColor: Theme.of(context).colorScheme.secondary,
       fontSize: AppFontSizes.large,
       isOutline: true,
       onPressed: () {

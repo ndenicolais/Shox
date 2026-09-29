@@ -182,8 +182,6 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
   Widget _buildSaveButton() {
     return ButtonWidget(
       text: AppLocalizations.of(context)!.gender_selection_button,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      textColor: Theme.of(context).colorScheme.primary,
       width: 180.w,
       height: 50.h,
       fontSize: AppFontSizes.large,
@@ -196,7 +194,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 userImage: _resolvedUserImage,
                 gender: _selectedGender!,
               )
-          : () {},
+          : null,
     );
   }
 }

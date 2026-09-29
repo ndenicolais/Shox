@@ -1247,6 +1247,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Transitions entre les écrans plus fluides et homogènes.';
 
   @override
+  String get changelog_v4_1_0_bullet_30 =>
+      'Pendant la connexion, l’inscription et la réinitialisation du mot de passe, le bouton affiche désormais le chargement en son sein ; le bouton de choix du genre reste désactivé tant que vous n’en sélectionnez pas un.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

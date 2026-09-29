@@ -1232,6 +1232,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Transiciones entre pantallas más fluidas y uniformes.';
 
   @override
+  String get changelog_v4_1_0_bullet_30 =>
+      'Durante el inicio de sesión, el registro y el restablecimiento de contraseña el botón muestra la carga en su interior; el botón de selección de género permanece desactivado hasta que elijas uno.';
+
+  @override
   String get dashboard_other => 'Otro';
 
   @override

@@ -406,6 +406,7 @@
   "changelog_v4_1_0_bullet_27": "Trascina verso il basso la griglia per aggiornare la collezione.",
   "changelog_v4_1_0_bullet_28": "Uscendo dal modulo di una scarpa con modifiche non salvate ora viene chiesta una conferma.",
   "changelog_v4_1_0_bullet_29": "Transizioni tra le schermate più fluide e uniformi.",
+  "changelog_v4_1_0_bullet_30": "Durante accesso, registrazione e reset password il pulsante mostra il caricamento al suo interno; il pulsante di scelta del genere resta disattivato finché non ne selezioni uno.",
   "dashboard_other": "Altro",
   "user_screen_account_settings": "Impostazioni Account",
   "user_screen_total_shoes": "Scarpe totali",

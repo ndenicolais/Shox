@@ -10,7 +10,6 @@ import 'package:shox/features/auth/login/controller/login_controller.dart';
 import 'package:shox/features/auth/signup/controller/signup_controller.dart';
 import 'package:shox/features/auth/signup/widgets/signup_form.dart';
 import 'package:shox/common/widgets/button_widget.dart';
-import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -74,17 +73,14 @@ class SignupScreenState extends State<SignupScreen> {
 
   Widget _buildButton(SignupController controller) {
     return Obx(
-      () => controller.isLoading.value
-          ? LoaderWidget(width: 40.w, height: 40.h)
-          : ButtonWidget(
-              width: 280.w,
-              height: 60.h,
-              text: AppLocalizations.of(context)!.signup_screen_text,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              textColor: Theme.of(context).colorScheme.primary,
-              fontSize: AppFontSizes.large,
-              onPressed: () => controller.register(context, _formKey),
-            ),
+      () => ButtonWidget(
+        isLoading: controller.isLoading.value,
+        width: 280.w,
+        height: 60.h,
+        text: AppLocalizations.of(context)!.signup_screen_text,
+        fontSize: AppFontSizes.large,
+        onPressed: () => controller.register(context, _formKey),
+      ),
     );
   }
 

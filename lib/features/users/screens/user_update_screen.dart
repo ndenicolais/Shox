@@ -308,8 +308,6 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
   Widget _buildSaveButton() {
     return ButtonWidget(
       text: AppLocalizations.of(context)!.user_updater_screen_save,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      textColor: Theme.of(context).colorScheme.primary,
       width: 120.w,
       height: 50.h,
       fontSize: AppFontSizes.regular,
