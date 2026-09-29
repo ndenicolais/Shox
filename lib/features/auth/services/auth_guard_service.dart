@@ -15,9 +15,14 @@ import 'package:shox/l10n/app_localizations.dart';
 class AuthGuardService extends GetxService {
   static AuthGuardService get to => Get.find();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final AuthService _authService = AuthService();
+  final FirebaseAuth _auth;
+  final AuthService _authService;
   final Logger _logger = Logger();
+
+  /// Dependencies default to the real instances; tests can pass fakes.
+  AuthGuardService({FirebaseAuth? auth, AuthService? authService})
+      : _auth = auth ?? FirebaseAuth.instance,
+        _authService = authService ?? AuthService();
   StreamSubscription<User?>? _subscription;
   bool _signedIn = false;
   bool _signOutExpected = false;
@@ -70,13 +75,15 @@ class AuthGuardService extends GetxService {
     _authService.clearSession();
     Get.offAllNamed(AppRoutes.welcome);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final context = Get.overlayContext;
-      if (context != null && context.mounted) {
-        showErrorToast(
-          context,
-          AppLocalizations.of(context)!.session_expired_message,
-        );
-      }
+      // The navigator's overlay context sits above its own Overlay, so the
+      // overlay is passed explicitly to the toast.
+      final overlay = Get.key.currentState?.overlay;
+      if (overlay == null || !overlay.mounted) return;
+      showErrorToast(
+        overlay.context,
+        AppLocalizations.of(overlay.context)!.session_expired_message,
+        overlay: overlay,
+      );
     });
   }
 }

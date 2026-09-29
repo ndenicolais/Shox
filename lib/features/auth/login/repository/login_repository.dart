@@ -7,11 +7,23 @@ import 'package:shox/core/utils/app_exceptions.dart';
 import 'package:shox/features/auth/services/auth_service.dart';
 
 class LoginRepository {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final AuthService _authService = AuthService();
+  final FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+  final AuthService _authService;
+  final GoogleSignIn _googleSignIn;
   final Logger _logger = Logger();
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  /// Dependencies default to the real Firebase/Google instances; tests can
+  /// pass fakes.
+  LoginRepository({
+    FirebaseAuth? auth,
+    FirebaseFirestore? firestore,
+    AuthService? authService,
+    GoogleSignIn? googleSignIn,
+  })  : _auth = auth ?? FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance,
+        _authService = authService ?? AuthService(),
+        _googleSignIn = googleSignIn ?? GoogleSignIn();
 
   Future<User?> loginWithEmailPassword(
     String email,

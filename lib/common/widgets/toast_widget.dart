@@ -95,10 +95,13 @@ void showToast({
   required Color backgroundColor,
   required Color borderColor,
   Duration autoCloseDuration = const Duration(milliseconds: 1500),
+  OverlayState? overlay,
 }) {
   _activeToastEntry?.remove();
 
-  final overlay = Overlay.of(context);
+  // An explicit overlay is needed when the only available context is not
+  // below an Overlay (e.g. the navigator's own context from a service).
+  overlay ??= Overlay.of(context);
   late final OverlayEntry overlayEntry;
   overlayEntry = OverlayEntry(
     builder: (context) => ToastWidget(
@@ -135,9 +138,14 @@ void showSuccessToast(BuildContext context, String title) {
   );
 }
 
-void showErrorToast(BuildContext context, String title) {
+void showErrorToast(
+  BuildContext context,
+  String title, {
+  OverlayState? overlay,
+}) {
   showToast(
     context: context,
+    overlay: overlay,
     title: title,
     titleColor: AppColors.toastDarkRed,
     icon: MingCuteIcons.mgc_warning_line,

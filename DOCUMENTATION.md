@@ -135,6 +135,8 @@ feature/
 └── widgets/          # Widget specifici della feature
 ```
 
+**Convenzione di naming dei widget:** ogni file ha il nome della sua classe in snake_case. I widget generici in `lib/common/widgets/` usano il suffisso `Widget` (`ButtonWidget`, `ToastWidget`, `ChangelogDialogWidget`…), che evita collisioni con le classi di Flutter (`AppBar`, `Dialog`…). I widget di una feature hanno nomi descrittivi senza suffisso (`LoginForm`, `FilterBar`, `FilterSheet`, `TopBar`, `DashboardMenuItem`, `ShoesPieChart`, `ColorChip`…), evitando nomi già usati da Flutter.
+
 ---
 
 ## 4. Modelli dati
@@ -657,6 +659,22 @@ dependencies:
   flutter_localizations:                   # Localizzazione Flutter
     sdk: flutter
 ```
+
+```yaml
+dev_dependencies:
+  flutter_lints: ^5.0.0                    # Regole di lint
+  flutter_launcher_icons: ^0.14.2          # Generazione icone launcher
+  change_app_package_name: ^1.4.0          # Rinomina package Android
+  intl_utils: ^2.8.7                       # Utility localizzazione
+  mocktail: ^1.0.5                         # Mock per i test (Firebase, Google Sign-In, controller)
+```
+
+**Test (`flutter test`):** 63 test in `test/`.
+- Logica pura: `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`
+- Con mock (`mocktail`): `AuthService` (ricerca utente su Firestore, sessione in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (mappatura errori email/password e Google Sign-In), `ShoesFormService` (aggiunta, modifica, sostituzione e rimozione foto, conservazione del preferito), `AuthGuardService` (widget test con navigazione GetX reale: redirect su sessione scaduta, sign-out volontario, route pubbliche)
+- Layout: widget condivisi a scala testo 1.3 (`test/common/widgets/text_scaling_test.dart`)
+
+`LoginRepository`, `AuthGuardService` e `AuthService` accettano le dipendenze (Firebase, Google Sign-In, Firestore) come parametri opzionali del costruttore, con le istanze reali come default, per poterle sostituire nei test.
 
 ---
 
