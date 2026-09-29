@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_background_remover/image_background_remover.dart';
+import 'package:shox/core/utils/mask_refinement.dart';
 
 // Dimensione massima lato lungo inviata al modello AI (ottimale per ONNX u2net)
 const int _maxInputDimension = 1024;
@@ -144,23 +146,44 @@ Uint8List _postProcessAlpha(_ProcessArgs args) {
     }
   }
 
-  // Step 5: Gaussian blur per smussare i bordi del ritaglio
+  // Step 5: erosione — la maschera del modello (320px) ingrandita "sborda" di
+  // qualche pixel e lascia un bordino dello sfondo attorno alla scarpa
+  final eroded = MaskRefinement.erode(
+    alpha,
+    w,
+    h,
+    MaskRefinement.erosionRadiusFor(math.max(w, h)),
+  );
+
+  // Step 6: Gaussian blur per smussare i bordi del ritaglio
   final alphaImg = img.Image(width: w, height: h, numChannels: 1);
   for (int y = 0; y < h; y++) {
     for (int x = 0; x < w; x++) {
-      alphaImg.setPixelR(x, y, alpha[y * w + x]);
+      alphaImg.setPixelR(x, y, eroded[y * w + x]);
     }
   }
   final smoothed = img.gaussianBlur(alphaImg, radius: 1);
-
-  // Step 6: ricomponi l'immagine finale
+  final feathered = Uint8List(w * h);
   for (int y = 0; y < h; y++) {
     for (int x = 0; x < w; x++) {
-      final a = smoothed.getPixel(x, y).r.toInt();
-      final p = image.getPixel(x, y);
-      image.setPixelRgba(x, y, p.r.toInt(), p.g.toInt(), p.b.toInt(), a);
+      feathered[y * w + x] = smoothed.getPixel(x, y).r.toInt();
     }
   }
 
-  return Uint8List.fromList(img.encodePng(image));
+  // Step 7: i pixel di bordo prendono il colore della scarpa invece di quello
+  // dello sfondo rimosso (niente alone chiaro/scuro)
+  final rgba = MaskRefinement.decontaminateEdges(args.rgba, feathered, w, h);
+
+  // Step 8: ricomponi l'immagine finale
+  for (int i = 0; i < w * h; i++) {
+    rgba[i * 4 + 3] = feathered[i];
+  }
+  final result = img.Image.fromBytes(
+    width: w,
+    height: h,
+    bytes: rgba.buffer,
+    numChannels: 4,
+  );
+
+  return Uint8List.fromList(img.encodePng(result));
 }

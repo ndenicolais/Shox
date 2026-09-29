@@ -1329,6 +1329,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Neuer Info-Bereich und eine aktualisierte Datenschutzerklärung, direkt in der App in allen Sprachen lesbar.';
 
   @override
+  String get changelog_v5_0_0_bullet_12 =>
+      'Genauere Hintergrundentfernung: kein Rand oder Schein mehr um den Schuh.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

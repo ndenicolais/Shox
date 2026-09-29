@@ -1341,6 +1341,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Nouvelle section Infos et politique de confidentialité mise à jour, lisible directement dans l’application dans toutes les langues.';
 
   @override
+  String get changelog_v5_0_0_bullet_12 =>
+      'Suppression de l’arrière-plan plus précise : plus de liseré ni de halo autour de la chaussure.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

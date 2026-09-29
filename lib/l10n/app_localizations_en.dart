@@ -1314,6 +1314,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'New Info section and an updated privacy policy, readable right in the app in every language.';
 
   @override
+  String get changelog_v5_0_0_bullet_12 =>
+      'More precise background removal: no more rim or halo around the shoe.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

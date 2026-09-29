@@ -2492,6 +2492,12 @@ abstract class AppLocalizations {
   /// **'New Info section and an updated privacy policy, readable right in the app in every language.'**
   String get changelog_v5_0_0_bullet_11;
 
+  /// No description provided for @changelog_v5_0_0_bullet_12.
+  ///
+  /// In en, this message translates to:
+  /// **'More precise background removal: no more rim or halo around the shoe.'**
+  String get changelog_v5_0_0_bullet_12;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

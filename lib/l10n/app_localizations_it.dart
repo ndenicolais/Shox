@@ -1332,6 +1332,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Nuova sezione Info e informativa privacy aggiornata, leggibile direttamente nell\'app in tutte le lingue.';
 
   @override
+  String get changelog_v5_0_0_bullet_12 =>
+      'Rimozione dello sfondo più precisa: niente più bordino o alone attorno alla scarpa.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

@@ -430,6 +430,7 @@
   "changelog_v5_0_0_bullet_9": "Corretti i grafici sovrapposti nella sezione database.",
   "changelog_v5_0_0_bullet_10": "Nuova finestra delle novità, che mostra cosa cambia dopo ogni aggiornamento.",
   "changelog_v5_0_0_bullet_11": "Nuova sezione Info e informativa privacy aggiornata, leggibile direttamente nell'app in tutte le lingue.",
+  "changelog_v5_0_0_bullet_12": "Rimozione dello sfondo più precisa: niente più bordino o alone attorno alla scarpa.",
   "dashboard_other": "Altro",
   "user_screen_account_settings": "Impostazioni Account",
   "user_screen_total_shoes": "Scarpe totali",

@@ -430,6 +430,7 @@
   "changelog_v5_0_0_bullet_9": "Correction des graphiques superposés dans la section base de données.",
   "changelog_v5_0_0_bullet_10": "Nouvelle fenêtre des nouveautés qui vous tient informé après chaque mise à jour.",
   "changelog_v5_0_0_bullet_11": "Nouvelle section Infos et politique de confidentialité mise à jour, lisible directement dans l’application dans toutes les langues.",
+  "changelog_v5_0_0_bullet_12": "Suppression de l’arrière-plan plus précise : plus de liseré ni de halo autour de la chaussure.",
   "dashboard_other": "Autre",
   "user_screen_account_settings": "Paramètres du compte",
   "user_screen_total_shoes": "Total de chaussures",

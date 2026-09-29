@@ -281,7 +281,7 @@ Form per l'inserimento di una nuova scarpa nella collezione, organizzato in sezi
 - **Selezione immagine:** da fotocamera o galleria (`image_picker`)
 - **Ritaglio immagine:** editor di ritaglio integrato con preset di proporzioni (`image_cropper`)
 - **Compressione automatica:** l'immagine viene compressa prima del caricamento (`flutter_image_compress`, qualità 70%)
-- **Rimozione sfondo:** opzione per rimuovere lo sfondo dell'immagine tramite modello ONNX locale (`image_background_remover`)
+- **Rimozione sfondo:** opzione per rimuovere lo sfondo dell'immagine tramite modello ONNX locale (`image_background_remover`). Pipeline in `core/utils/bg_remover.dart`: ridimensionamento a max 1024px, maschera del modello u2net (320px), rimozione del rumore e degli artefatti sopra la scarpa (profilo superiore mediato), **erosione** della maschera di 1–2px proporzionale all'immagine (`MaskRefinement.erode`, toglie il bordino di sfondo lasciato dalla maschera ingrandita), sfumatura dei bordi e **decontaminazione del colore** (`MaskRefinement.decontaminateEdges`: i pixel di bordo prendono il colore dell'interno della scarpa, niente alone). Le funzioni di `core/utils/mask_refinement.dart` sono pure e coperte da test
 - **Colore primario:** selettore colore principale della scarpa
 - **Colori aggiuntivi:** possibilità di aggiungere fino a N colori extra
 - **Campi obbligatori:** marca, taglia, categoria, tipo

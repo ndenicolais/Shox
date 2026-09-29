@@ -434,6 +434,7 @@
   "changelog_v5_0_0_bullet_9": "Fixed overlapping charts in the database section.",
   "changelog_v5_0_0_bullet_10": "New what's-new dialog that keeps you posted after every update.",
   "changelog_v5_0_0_bullet_11": "New Info section and an updated privacy policy, readable right in the app in every language.",
+  "changelog_v5_0_0_bullet_12": "More precise background removal: no more rim or halo around the shoe.",
   "dashboard_other": "Other",
   "user_screen_account_settings": "Account Settings",
   "user_screen_total_shoes": "Total Shoes",

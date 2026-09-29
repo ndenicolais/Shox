@@ -432,6 +432,7 @@
   "changelog_v5_0_0_bullet_9": "Überlappende Diagramme im Datenbankbereich behoben.",
   "changelog_v5_0_0_bullet_10": "Neues Neuigkeiten-Fenster, das dich nach jedem Update informiert.",
   "changelog_v5_0_0_bullet_11": "Neuer Info-Bereich und eine aktualisierte Datenschutzerklärung, direkt in der App in allen Sprachen lesbar.",
+  "changelog_v5_0_0_bullet_12": "Genauere Hintergrundentfernung: kein Rand oder Schein mehr um den Schuh.",
   "dashboard_other": "Andere",
   "user_screen_account_settings": "Kontoeinstellungen",
   "user_screen_total_shoes": "Schuhe gesamt",
