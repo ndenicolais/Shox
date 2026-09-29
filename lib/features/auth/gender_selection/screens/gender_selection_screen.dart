@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
+import 'package:shox/theme/app_radius.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:shox/features/auth/gender_selection/controller/gender_selection_controller.dart';
-import 'package:shox/theme/app_colors.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class GenderSelectionScreen extends StatefulWidget {
   final String? userId;
@@ -49,55 +48,43 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBarWidget(
-        title: AppLocalizations.of(context)!.gender_selection_screen_title,
-      ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBarWidget(title: l10n.gender_selection_screen_title),
       body: SafeArea(
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(AppSpacing.l.r),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!
-                        .gender_selection_screen_description,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'CustomFont',
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: AppFontSizes.medium,
-                    ),
+        child: ResponsiveCenterWidget(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  l10n.gender_selection_screen_description,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
-                  SizedBox(height: 48.h),
-                  _buildGenderOption(
-                    context,
-                    gender: UserModel.genderMale,
-                    label: AppLocalizations.of(context)!.gender_male,
-                    icon: MingCuteIcons.mgc_male_line,
-                  ),
-                  SizedBox(height: 20.h),
-                  _buildGenderOption(
-                    context,
-                    gender: UserModel.genderFemale,
-                    label: AppLocalizations.of(context)!.gender_female,
-                    icon: MingCuteIcons.mgc_female_line,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                _buildGenderOption(
+                  context,
+                  gender: UserModel.genderMale,
+                  label: l10n.gender_male,
+                  icon: MingCuteIcons.mgc_male_line,
+                ),
+                const SizedBox(height: AppSpacing.s),
+                _buildGenderOption(
+                  context,
+                  gender: UserModel.genderFemale,
+                  label: l10n.gender_female,
+                  icon: MingCuteIcons.mgc_female_line,
+                ),
+                const Spacer(),
+                _buildSaveButton(),
+              ],
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: EdgeInsets.all(AppSpacing.l.r),
-                child: _buildSaveButton(),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -109,72 +96,49 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
     required String label,
     required IconData icon,
   }) {
-    final isSelected = _selectedGender == gender;
+    final colors = Theme.of(context).colorScheme;
+    final bool isSelected = _selectedGender == gender;
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedGender = gender;
-        });
-      },
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(AppSpacing.l.r),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.surface,
-          border: Border.all(
-            color: Theme.of(context).colorScheme.secondary,
-            width: isSelected ? 3.w : 1.w,
-          ),
-          borderRadius: BorderRadius.circular(25.r),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.extraLarge),
+        side: BorderSide(
+          color: isSelected ? colors.primary : Colors.transparent,
+          width: 2,
         ),
-        child: Row(
-          children: [
-            Container(
-              width: 60.w,
-              height: 60.w,
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? Theme.of(context).colorScheme.surface
-                    : AppColors.champagne,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.secondary
-                      : Colors.transparent,
-                  width: 2.w,
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Semantics(
+        selected: isSelected,
+        child: InkWell(
+          onTap: () => setState(() => _selectedGender = gender),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.m),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 26,
+                  backgroundColor: colors.surface,
+                  child: Icon(icon, color: colors.onSurface, size: 26),
                 ),
-              ),
-              child: Icon(
-                icon,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.onSurface,
-                size: 32.sp,
-              ),
-            ),
-            SizedBox(width: 16.w),
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'CustomFont',
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.surface
-                      : Theme.of(context).colorScheme.secondary,
-                  fontSize: AppFontSizes.large,
+                const SizedBox(width: AppSpacing.m),
+                Expanded(
+                  child: Text(
+                    label,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
-              ),
+                AnimatedOpacity(
+                  opacity: isSelected ? 1 : 0,
+                  duration: const Duration(milliseconds: 150),
+                  child: Icon(
+                    MingCuteIcons.mgc_check_circle_fill,
+                    color: colors.primary,
+                  ),
+                ),
+              ],
             ),
-            if (isSelected)
-              Icon(
-                MingCuteIcons.mgc_check_circle_fill,
-                color: Theme.of(context).colorScheme.surface,
-                size: 32.sp,
-              ),
-          ],
+          ),
         ),
       ),
     );
@@ -183,9 +147,6 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
   Widget _buildSaveButton() {
     return ButtonWidget(
       text: AppLocalizations.of(context)!.gender_selection_button,
-      width: 180.w,
-      height: 50.h,
-      fontSize: AppFontSizes.large,
       onPressed: _selectedGender != null
           ? () => _controller.saveGenderAndProceed(
                 context: context,

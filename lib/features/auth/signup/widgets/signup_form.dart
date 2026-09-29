@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/core/utils/validator.dart';
@@ -31,7 +31,7 @@ class SignupForm extends StatelessWidget {
     return Form(
       key: formKey,
       child: Column(
-        spacing: 20.h,
+        spacing: AppSpacing.m,
         children: [
           TextFieldWidget(
             controller: nameController,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/textfield_widget.dart';
@@ -34,7 +34,7 @@ class LoginForm extends StatelessWidget {
     return Form(
       key: formKey,
       child: Column(
-        spacing: 20.h,
+        spacing: AppSpacing.m,
         children: [
           TextFieldWidget(
             controller: emailController,
@@ -64,7 +64,7 @@ class LoginForm extends StatelessWidget {
                     ? MingCuteIcons.mgc_eye_2_line
                     : MingCuteIcons.mgc_eye_close_line,
                 color: Theme.of(context).colorScheme.onSurface,
-                size: 18.sp,
+                size: 20,
               ),
               onPressed: togglePasswordVisibility,
             ),

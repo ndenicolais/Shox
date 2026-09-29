@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
 import 'package:shox/features/auth/reset_password/controller/reset_password_controller.dart';
 import 'package:shox/features/auth/reset_password/widgets/reset_password_form.dart';
 import 'package:shox/common/widgets/button_widget.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -24,68 +23,51 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBarWidget(
-        title: AppLocalizations.of(context)!.reset_password_screen_title,
-      ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBarWidget(title: l10n.reset_password_screen_title),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(AppSpacing.screen.r),
+        child: ResponsiveCenterWidget(
           child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 20.h,
-                children: [
-                  LogoWidget(
-                    width: 150.w,
-                    height: 150.h,
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Center(
+                  child: LogoWidget(
+                    width: 96,
+                    height: 96,
                     semanticLabel: 'Reset Password Logo',
                   ),
-                  SizedBox(height: 10.h),
-                  _buildTextDescription(),
-                  SizedBox(height: 10.h),
-                  ResetPasswordForm(
-                    context: context,
-                    formKey: _formKey,
-                    emailController: controller.emailController,
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                Text(
+                  l10n.reset_password_screen_description,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
-                  SizedBox(height: 30.h),
-                  _buildResetButton(controller),
-                ],
-              ),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                ResetPasswordForm(
+                  context: context,
+                  formKey: _formKey,
+                  emailController: controller.emailController,
+                ),
+                const SizedBox(height: AppSpacing.l),
+                Obx(
+                  () => ButtonWidget(
+                    isLoading: controller.isLoading.value,
+                    text: l10n.reset_password_screen_text,
+                    onPressed: () =>
+                        controller.resetPassword(context, _formKey),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildTextDescription() {
-    return SizedBox(
-      width: 300.w,
-      child: Text(
-        AppLocalizations.of(context)!.reset_password_screen_description,
-        style: TextStyle(
-          fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.secondary,
-          fontSize: AppFontSizes.medium,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
-  Widget _buildResetButton(ResetPasswordController controller) {
-    return Obx(
-      () => ButtonWidget(
-        isLoading: controller.isLoading.value,
-        width: 280.w,
-        height: 60.h,
-        text: AppLocalizations.of(context)!.reset_password_screen_text,
-        fontSize: AppFontSizes.large,
-        onPressed: () => controller.resetPassword(context, _formKey),
       ),
     );
   }
