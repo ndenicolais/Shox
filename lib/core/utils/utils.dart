@@ -28,7 +28,7 @@ Map<String, String> colorNames = {
   'FF757575': 'Dark Grey',
   'FFFF962E': 'Orange',
   'FFFFDAE3': 'Pink',
-  'FFFF2810': 'Red',
+  'FFCF2B19': 'Red',
   'FF760000': 'Bordeaux',
   'FFB37B4E': 'Camel',
   'FFD9D0B5': 'Beige',

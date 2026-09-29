@@ -1344,6 +1344,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'App più leggera: occupa circa la metà dello spazio rispetto alla versione precedente.';
 
   @override
+  String get changelog_v5_0_0_bullet_14 =>
+      'Il colore rosso ora viene riconosciuto correttamente nelle statistiche e nei dettagli (prima appariva come bianco).';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

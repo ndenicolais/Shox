@@ -433,6 +433,7 @@
   "changelog_v5_0_0_bullet_11": "Nuova sezione Info e informativa privacy aggiornata, leggibile direttamente nell'app in tutte le lingue.",
   "changelog_v5_0_0_bullet_12": "Rimozione dello sfondo più precisa: niente più bordino o alone attorno alla scarpa.",
   "changelog_v5_0_0_bullet_13": "App più leggera: occupa circa la metà dello spazio rispetto alla versione precedente.",
+  "changelog_v5_0_0_bullet_14": "Il colore rosso ora viene riconosciuto correttamente nelle statistiche e nei dettagli (prima appariva come bianco).",
   "dashboard_other": "Altro",
   "user_screen_account_settings": "Impostazioni Account",
   "user_screen_total_shoes": "Scarpe totali",

@@ -435,6 +435,7 @@
   "changelog_v5_0_0_bullet_11": "Nueva sección Info y política de privacidad actualizada, legible directamente en la app en todos los idiomas.",
   "changelog_v5_0_0_bullet_12": "Eliminación del fondo más precisa: sin borde ni halo alrededor del zapato.",
   "changelog_v5_0_0_bullet_13": "App más ligera: ocupa aproximadamente la mitad de espacio que la versión anterior.",
+  "changelog_v5_0_0_bullet_14": "El color rojo ahora se reconoce correctamente en las estadísticas y los detalles (antes aparecía como blanco).",
   "dashboard_other": "Otro",
   "user_screen_account_settings": "Configuración de cuenta",
   "user_screen_total_shoes": "Total de zapatos",

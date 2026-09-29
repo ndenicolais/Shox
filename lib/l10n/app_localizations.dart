@@ -2510,6 +2510,12 @@ abstract class AppLocalizations {
   /// **'A lighter app: it takes about half the space of the previous version.'**
   String get changelog_v5_0_0_bullet_13;
 
+  /// No description provided for @changelog_v5_0_0_bullet_14.
+  ///
+  /// In en, this message translates to:
+  /// **'Red is now recognized correctly in statistics and shoe details (it used to show up as white).'**
+  String get changelog_v5_0_0_bullet_14;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

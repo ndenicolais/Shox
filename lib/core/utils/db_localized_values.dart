@@ -23,7 +23,8 @@ class DbLocalizedValues {
         return AppLocalizations.of(context)!.color_orange;
       case 'FFDAE3':
         return AppLocalizations.of(context)!.color_pink;
-      case 'FF2810':
+      case 'CF2B19':
+      case 'FF2810': // legacy red, stored before 2025-02
         return AppLocalizations.of(context)!.color_red;
       case '760000':
         return AppLocalizations.of(context)!.color_bordeaux;

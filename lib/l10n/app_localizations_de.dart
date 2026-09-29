@@ -1341,6 +1341,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Schlankere App: Sie belegt etwa halb so viel Speicher wie die vorherige Version.';
 
   @override
+  String get changelog_v5_0_0_bullet_14 =>
+      'Die Farbe Rot wird in Statistiken und Details jetzt korrekt erkannt (zuvor wurde sie als Weiß angezeigt).';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

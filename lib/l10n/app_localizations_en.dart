@@ -1326,6 +1326,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'A lighter app: it takes about half the space of the previous version.';
 
   @override
+  String get changelog_v5_0_0_bullet_14 =>
+      'Red is now recognized correctly in statistics and shoe details (it used to show up as white).';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override
