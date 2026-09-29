@@ -1171,43 +1171,43 @@ class AppLocalizationsEs extends AppLocalizations {
   String get changelog_dialog_close => 'Cerrar';
 
   @override
-  String get changelog_v4_1_0_bullet_1 =>
+  String get changelog_v5_0_0_bullet_1 =>
       'Un aspecto totalmente nuevo en toda la app, con la cálida paleta original: pantalla principal con filtros rápidos por categoría, detalle y formulario de zapato rediseñados, nuevos perfil, estadísticas, ajustes y pantallas de acceso.';
 
   @override
-  String get changelog_v4_1_0_bullet_2 =>
+  String get changelog_v5_0_0_bullet_2 =>
       'Nuevo selector de tema Sistema / Claro / Oscuro que sigue al instante el cambio claro/oscuro del teléfono.';
 
   @override
-  String get changelog_v4_1_0_bullet_3 =>
+  String get changelog_v5_0_0_bullet_3 =>
       'Pantalla principal más fluida: vista previa de la cuadrícula al cargar, fundidos, desliza hacia abajo para actualizar y fotos que siempre llenan su casilla.';
 
   @override
-  String get changelog_v4_1_0_bullet_4 =>
+  String get changelog_v5_0_0_bullet_4 =>
       'Búsqueda también por tipo, categoría y notas; filtros más fiables, con un mensaje dedicado y un botón para borrarlos cuando no hay resultados.';
 
   @override
-  String get changelog_v4_1_0_bullet_5 =>
+  String get changelog_v5_0_0_bullet_5 =>
       'Formulario de zapato: confirmación antes de salir con cambios sin guardar; editar un zapato ya no lo quita de favoritos y la foto siempre es obligatoria.';
 
   @override
-  String get changelog_v4_1_0_bullet_6 =>
+  String get changelog_v5_0_0_bullet_6 =>
       'Inicio de sesión más fiable: mensajes de error claros con Google, pantalla Reintentar si la app no arranca y vuelta a la pantalla de bienvenida si la sesión caduca.';
 
   @override
-  String get changelog_v4_1_0_bullet_7 =>
+  String get changelog_v5_0_0_bullet_7 =>
       'Diseño adaptable para móviles y tablets con rotación libre, texto que sigue el tamaño de letra del teléfono hasta el 130 % y botones legibles por lectores de pantalla.';
 
   @override
-  String get changelog_v4_1_0_bullet_8 =>
+  String get changelog_v5_0_0_bullet_8 =>
       'La eliminación de la cuenta se ha movido a la pantalla Perfil.';
 
   @override
-  String get changelog_v4_1_0_bullet_9 =>
+  String get changelog_v5_0_0_bullet_9 =>
       'Corregidos los gráficos superpuestos en la sección de base de datos.';
 
   @override
-  String get changelog_v4_1_0_bullet_10 =>
+  String get changelog_v5_0_0_bullet_10 =>
       'Nueva ventana de novedades que te informa tras cada actualización.';
 
   @override

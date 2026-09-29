@@ -1177,43 +1177,43 @@ class AppLocalizationsIt extends AppLocalizations {
   String get changelog_dialog_close => 'Chiudi';
 
   @override
-  String get changelog_v4_1_0_bullet_1 =>
+  String get changelog_v5_0_0_bullet_1 =>
       'Nuova veste grafica per tutta l\'app, con la calda palette originale: home con filtri rapidi per categoria, schede scarpa e modulo di aggiunta ridisegnati, nuovi profilo, statistiche, impostazioni e schermate di accesso.';
 
   @override
-  String get changelog_v4_1_0_bullet_2 =>
+  String get changelog_v5_0_0_bullet_2 =>
       'Nuovo selettore di tema Sistema / Chiaro / Scuro, che segue subito il passaggio chiaro/scuro del telefono.';
 
   @override
-  String get changelog_v4_1_0_bullet_3 =>
+  String get changelog_v5_0_0_bullet_3 =>
       'Home più fluida: anteprima della griglia durante il caricamento, dissolvenze, trascina in basso per aggiornare e foto che riempiono sempre la casella.';
 
   @override
-  String get changelog_v4_1_0_bullet_4 =>
+  String get changelog_v5_0_0_bullet_4 =>
       'Ricerca anche per tipo, categoria e note; filtri più affidabili, con un messaggio dedicato e un pulsante per azzerarli quando non c\'è nessun risultato.';
 
   @override
-  String get changelog_v4_1_0_bullet_5 =>
+  String get changelog_v5_0_0_bullet_5 =>
       'Modulo scarpa: conferma prima di uscire con modifiche non salvate; modificare una scarpa non la toglie più dai preferiti e la foto è sempre obbligatoria.';
 
   @override
-  String get changelog_v4_1_0_bullet_6 =>
+  String get changelog_v5_0_0_bullet_6 =>
       'Accesso più affidabile: messaggi d\'errore chiari con Google, schermata Riprova se l\'app non si avvia e ritorno alla schermata di benvenuto se la sessione scade.';
 
   @override
-  String get changelog_v4_1_0_bullet_7 =>
+  String get changelog_v5_0_0_bullet_7 =>
       'Layout adattivo per smartphone e tablet con rotazione libera, testo che segue la dimensione dei caratteri del telefono fino al 130% e pulsanti leggibili dagli screen reader.';
 
   @override
-  String get changelog_v4_1_0_bullet_8 =>
+  String get changelog_v5_0_0_bullet_8 =>
       'Eliminazione dell\'account spostata nella schermata Profilo.';
 
   @override
-  String get changelog_v4_1_0_bullet_9 =>
+  String get changelog_v5_0_0_bullet_9 =>
       'Corretti i grafici sovrapposti nella sezione database.';
 
   @override
-  String get changelog_v4_1_0_bullet_10 =>
+  String get changelog_v5_0_0_bullet_10 =>
       'Nuova finestra delle novità, che mostra cosa cambia dopo ogni aggiornamento.';
 
   @override

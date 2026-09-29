@@ -1159,43 +1159,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changelog_dialog_close => 'Close';
 
   @override
-  String get changelog_v4_1_0_bullet_1 =>
+  String get changelog_v5_0_0_bullet_1 =>
       'A brand-new look across the whole app, keeping the original warm palette: home with quick category filters, redesigned shoe details and add form, new profile, statistics, settings and sign-in screens.';
 
   @override
-  String get changelog_v4_1_0_bullet_2 =>
+  String get changelog_v5_0_0_bullet_2 =>
       'New System / Light / Dark theme selector that follows your phone\'s light/dark switch right away.';
 
   @override
-  String get changelog_v4_1_0_bullet_3 =>
+  String get changelog_v5_0_0_bullet_3 =>
       'Smoother home screen: grid preview while loading, fade transitions, pull down to refresh and photos that always fill their tile.';
 
   @override
-  String get changelog_v4_1_0_bullet_4 =>
+  String get changelog_v5_0_0_bullet_4 =>
       'Search also by type, category and notes; more reliable filters, with a dedicated message and a clear button when nothing matches.';
 
   @override
-  String get changelog_v4_1_0_bullet_5 =>
+  String get changelog_v5_0_0_bullet_5 =>
       'Shoe form: confirmation before leaving with unsaved changes; editing a shoe no longer removes it from favorites and a photo is always required.';
 
   @override
-  String get changelog_v4_1_0_bullet_6 =>
+  String get changelog_v5_0_0_bullet_6 =>
       'More reliable sign-in: clear Google error messages, a Retry screen if the app fails to start and a return to the welcome screen when your session expires.';
 
   @override
-  String get changelog_v4_1_0_bullet_7 =>
+  String get changelog_v5_0_0_bullet_7 =>
       'Adaptive layout for phones and tablets with free rotation, text that follows your phone\'s font size up to 130% and buttons readable by screen readers.';
 
   @override
-  String get changelog_v4_1_0_bullet_8 =>
+  String get changelog_v5_0_0_bullet_8 =>
       'Account deletion moved to the Profile screen.';
 
   @override
-  String get changelog_v4_1_0_bullet_9 =>
+  String get changelog_v5_0_0_bullet_9 =>
       'Fixed overlapping charts in the database section.';
 
   @override
-  String get changelog_v4_1_0_bullet_10 =>
+  String get changelog_v5_0_0_bullet_10 =>
       'New what\'s-new dialog that keeps you posted after every update.';
 
   @override

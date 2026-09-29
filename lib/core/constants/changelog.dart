@@ -12,18 +12,18 @@ class ChangelogEntry {
 
 final List<ChangelogEntry> changelogEntries = [
   ChangelogEntry(
-    version: '4.1.0',
+    version: '5.0.0',
     bulletsBuilder: (l10n) => [
-      l10n.changelog_v4_1_0_bullet_1,
-      l10n.changelog_v4_1_0_bullet_2,
-      l10n.changelog_v4_1_0_bullet_3,
-      l10n.changelog_v4_1_0_bullet_4,
-      l10n.changelog_v4_1_0_bullet_5,
-      l10n.changelog_v4_1_0_bullet_6,
-      l10n.changelog_v4_1_0_bullet_7,
-      l10n.changelog_v4_1_0_bullet_8,
-      l10n.changelog_v4_1_0_bullet_9,
-      l10n.changelog_v4_1_0_bullet_10,
+      l10n.changelog_v5_0_0_bullet_1,
+      l10n.changelog_v5_0_0_bullet_2,
+      l10n.changelog_v5_0_0_bullet_3,
+      l10n.changelog_v5_0_0_bullet_4,
+      l10n.changelog_v5_0_0_bullet_5,
+      l10n.changelog_v5_0_0_bullet_6,
+      l10n.changelog_v5_0_0_bullet_7,
+      l10n.changelog_v5_0_0_bullet_8,
+      l10n.changelog_v5_0_0_bullet_9,
+      l10n.changelog_v5_0_0_bullet_10,
     ],
   ),
 ];

@@ -2246,65 +2246,65 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get changelog_dialog_close;
 
-  /// No description provided for @changelog_v4_1_0_bullet_1.
+  /// No description provided for @changelog_v5_0_0_bullet_1.
   ///
   /// In en, this message translates to:
   /// **'A brand-new look across the whole app, keeping the original warm palette: home with quick category filters, redesigned shoe details and add form, new profile, statistics, settings and sign-in screens.'**
-  String get changelog_v4_1_0_bullet_1;
+  String get changelog_v5_0_0_bullet_1;
 
-  /// No description provided for @changelog_v4_1_0_bullet_2.
+  /// No description provided for @changelog_v5_0_0_bullet_2.
   ///
   /// In en, this message translates to:
   /// **'New System / Light / Dark theme selector that follows your phone\'s light/dark switch right away.'**
-  String get changelog_v4_1_0_bullet_2;
+  String get changelog_v5_0_0_bullet_2;
 
-  /// No description provided for @changelog_v4_1_0_bullet_3.
+  /// No description provided for @changelog_v5_0_0_bullet_3.
   ///
   /// In en, this message translates to:
   /// **'Smoother home screen: grid preview while loading, fade transitions, pull down to refresh and photos that always fill their tile.'**
-  String get changelog_v4_1_0_bullet_3;
+  String get changelog_v5_0_0_bullet_3;
 
-  /// No description provided for @changelog_v4_1_0_bullet_4.
+  /// No description provided for @changelog_v5_0_0_bullet_4.
   ///
   /// In en, this message translates to:
   /// **'Search also by type, category and notes; more reliable filters, with a dedicated message and a clear button when nothing matches.'**
-  String get changelog_v4_1_0_bullet_4;
+  String get changelog_v5_0_0_bullet_4;
 
-  /// No description provided for @changelog_v4_1_0_bullet_5.
+  /// No description provided for @changelog_v5_0_0_bullet_5.
   ///
   /// In en, this message translates to:
   /// **'Shoe form: confirmation before leaving with unsaved changes; editing a shoe no longer removes it from favorites and a photo is always required.'**
-  String get changelog_v4_1_0_bullet_5;
+  String get changelog_v5_0_0_bullet_5;
 
-  /// No description provided for @changelog_v4_1_0_bullet_6.
+  /// No description provided for @changelog_v5_0_0_bullet_6.
   ///
   /// In en, this message translates to:
   /// **'More reliable sign-in: clear Google error messages, a Retry screen if the app fails to start and a return to the welcome screen when your session expires.'**
-  String get changelog_v4_1_0_bullet_6;
+  String get changelog_v5_0_0_bullet_6;
 
-  /// No description provided for @changelog_v4_1_0_bullet_7.
+  /// No description provided for @changelog_v5_0_0_bullet_7.
   ///
   /// In en, this message translates to:
   /// **'Adaptive layout for phones and tablets with free rotation, text that follows your phone\'s font size up to 130% and buttons readable by screen readers.'**
-  String get changelog_v4_1_0_bullet_7;
+  String get changelog_v5_0_0_bullet_7;
 
-  /// No description provided for @changelog_v4_1_0_bullet_8.
+  /// No description provided for @changelog_v5_0_0_bullet_8.
   ///
   /// In en, this message translates to:
   /// **'Account deletion moved to the Profile screen.'**
-  String get changelog_v4_1_0_bullet_8;
+  String get changelog_v5_0_0_bullet_8;
 
-  /// No description provided for @changelog_v4_1_0_bullet_9.
+  /// No description provided for @changelog_v5_0_0_bullet_9.
   ///
   /// In en, this message translates to:
   /// **'Fixed overlapping charts in the database section.'**
-  String get changelog_v4_1_0_bullet_9;
+  String get changelog_v5_0_0_bullet_9;
 
-  /// No description provided for @changelog_v4_1_0_bullet_10.
+  /// No description provided for @changelog_v5_0_0_bullet_10.
   ///
   /// In en, this message translates to:
   /// **'New what\'s-new dialog that keeps you posted after every update.'**
-  String get changelog_v4_1_0_bullet_10;
+  String get changelog_v5_0_0_bullet_10;
 
   /// No description provided for @dashboard_other.
   ///

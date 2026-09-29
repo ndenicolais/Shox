@@ -1174,43 +1174,43 @@ class AppLocalizationsDe extends AppLocalizations {
   String get changelog_dialog_close => 'Schließen';
 
   @override
-  String get changelog_v4_1_0_bullet_1 =>
+  String get changelog_v5_0_0_bullet_1 =>
       'Ein ganz neues Design für die gesamte App mit der ursprünglichen warmen Farbpalette: Startbildschirm mit Schnellfiltern nach Kategorie, überarbeitete Schuhdetails und Formular, neues Profil, neue Statistiken, Einstellungen und Anmeldebildschirme.';
 
   @override
-  String get changelog_v4_1_0_bullet_2 =>
+  String get changelog_v5_0_0_bullet_2 =>
       'Neue Design-Auswahl System / Hell / Dunkel, die dem Hell-/Dunkel-Wechsel des Telefons sofort folgt.';
 
   @override
-  String get changelog_v4_1_0_bullet_3 =>
+  String get changelog_v5_0_0_bullet_3 =>
       'Flüssigerer Startbildschirm: Rastervorschau beim Laden, Überblendungen, Nach-unten-Ziehen zum Aktualisieren und Fotos, die ihre Kachel immer ausfüllen.';
 
   @override
-  String get changelog_v4_1_0_bullet_4 =>
+  String get changelog_v5_0_0_bullet_4 =>
       'Suche auch nach Typ, Kategorie und Notizen; zuverlässigere Filter, mit eigenem Hinweis und einer Schaltfläche zum Zurücksetzen, wenn nichts passt.';
 
   @override
-  String get changelog_v4_1_0_bullet_5 =>
+  String get changelog_v5_0_0_bullet_5 =>
       'Schuhformular: Bestätigung vor dem Verlassen mit ungespeicherten Änderungen; das Bearbeiten eines Schuhs entfernt ihn nicht mehr aus den Favoriten, und ein Foto ist immer erforderlich.';
 
   @override
-  String get changelog_v4_1_0_bullet_6 =>
+  String get changelog_v5_0_0_bullet_6 =>
       'Zuverlässigere Anmeldung: klare Google-Fehlermeldungen, ein Wiederholen-Bildschirm, wenn die App nicht startet, und Rückkehr zum Startbildschirm, wenn die Sitzung abläuft.';
 
   @override
-  String get changelog_v4_1_0_bullet_7 =>
+  String get changelog_v5_0_0_bullet_7 =>
       'Anpassungsfähiges Layout für Smartphones und Tablets mit freier Drehung, Text, der der Schriftgröße des Telefons bis 130 % folgt, und Schaltflächen, die Screenreader vorlesen können.';
 
   @override
-  String get changelog_v4_1_0_bullet_8 =>
+  String get changelog_v5_0_0_bullet_8 =>
       'Die Kontolöschung befindet sich jetzt im Profil.';
 
   @override
-  String get changelog_v4_1_0_bullet_9 =>
+  String get changelog_v5_0_0_bullet_9 =>
       'Überlappende Diagramme im Datenbankbereich behoben.';
 
   @override
-  String get changelog_v4_1_0_bullet_10 =>
+  String get changelog_v5_0_0_bullet_10 =>
       'Neues Neuigkeiten-Fenster, das dich nach jedem Update informiert.';
 
   @override

@@ -1186,43 +1186,43 @@ class AppLocalizationsFr extends AppLocalizations {
   String get changelog_dialog_close => 'Fermer';
 
   @override
-  String get changelog_v4_1_0_bullet_1 =>
+  String get changelog_v5_0_0_bullet_1 =>
       'Un tout nouveau look pour toute l’application, avec la palette chaleureuse d’origine : accueil avec filtres rapides par catégorie, fiche et formulaire de chaussure repensés, nouveaux profil, statistiques, réglages et écrans de connexion.';
 
   @override
-  String get changelog_v4_1_0_bullet_2 =>
+  String get changelog_v5_0_0_bullet_2 =>
       'Nouveau sélecteur de thème Système / Clair / Sombre qui suit immédiatement le passage clair/sombre du téléphone.';
 
   @override
-  String get changelog_v4_1_0_bullet_3 =>
+  String get changelog_v5_0_0_bullet_3 =>
       'Accueil plus fluide : aperçu de la grille pendant le chargement, fondus, tirer vers le bas pour actualiser et photos qui remplissent toujours leur case.';
 
   @override
-  String get changelog_v4_1_0_bullet_4 =>
+  String get changelog_v5_0_0_bullet_4 =>
       'Recherche aussi par type, catégorie et notes ; filtres plus fiables, avec un message dédié et un bouton pour les réinitialiser quand rien ne correspond.';
 
   @override
-  String get changelog_v4_1_0_bullet_5 =>
+  String get changelog_v5_0_0_bullet_5 =>
       'Formulaire de chaussure : confirmation avant de quitter avec des modifications non enregistrées ; modifier une chaussure ne la retire plus des favoris et une photo est toujours requise.';
 
   @override
-  String get changelog_v4_1_0_bullet_6 =>
+  String get changelog_v5_0_0_bullet_6 =>
       'Connexion plus fiable : messages d’erreur Google clairs, écran Réessayer si l’application ne démarre pas et retour à l’écran d’accueil quand la session expire.';
 
   @override
-  String get changelog_v4_1_0_bullet_7 =>
+  String get changelog_v5_0_0_bullet_7 =>
       'Mise en page adaptée aux smartphones et tablettes avec rotation libre, texte qui suit la taille de police du téléphone jusqu’à 130 % et boutons lisibles par les lecteurs d’écran.';
 
   @override
-  String get changelog_v4_1_0_bullet_8 =>
+  String get changelog_v5_0_0_bullet_8 =>
       'La suppression du compte a été déplacée dans l’écran Profil.';
 
   @override
-  String get changelog_v4_1_0_bullet_9 =>
+  String get changelog_v5_0_0_bullet_9 =>
       'Correction des graphiques superposés dans la section base de données.';
 
   @override
-  String get changelog_v4_1_0_bullet_10 =>
+  String get changelog_v5_0_0_bullet_10 =>
       'Nouvelle fenêtre des nouveautés qui vous tient informé après chaque mise à jour.';
 
   @override

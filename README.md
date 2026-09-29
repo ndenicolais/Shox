@@ -97,7 +97,7 @@ flutter run
 
 ## Download
 
-[📥 Download dell'ultima release v4.1.0](https://github.com/ndenicolais/Shox/releases/download/v4.1.0/Shox_v4.1.0.apk)
+[📥 Download dell'ultima release v5.0.0](https://github.com/ndenicolais/Shox/releases/download/v5.0.0/Shox_v5.0.0.apk)
 
 ---
 
