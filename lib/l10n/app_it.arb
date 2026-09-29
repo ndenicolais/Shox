@@ -389,7 +389,7 @@
   "a11y_loading": "Caricamento in corso",
   "changelog_dialog_title": "Novità",
   "changelog_dialog_close": "Chiudi",
-  "changelog_v4_1_0_bullet_1": "Nuova veste grafica Material 3 con la calda palette originale: modulo scarpa a schede, selettore lingua, sezione info e colori più leggibili, anche in tema scuro.",
+  "changelog_v4_1_0_bullet_1": "Nuova veste grafica per tutta l'app, con la calda palette originale: home con filtri rapidi per categoria, schede scarpa e modulo di aggiunta ridisegnati, nuovi profilo, statistiche, impostazioni e schermate di accesso.",
   "changelog_v4_1_0_bullet_2": "Nuovo selettore di tema Sistema / Chiaro / Scuro, che segue subito il passaggio chiaro/scuro del telefono.",
   "changelog_v4_1_0_bullet_3": "Home più fluida: anteprima della griglia durante il caricamento, dissolvenze, trascina in basso per aggiornare e foto che riempiono sempre la casella.",
   "changelog_v4_1_0_bullet_4": "Ricerca anche per tipo, categoria e note; filtri più affidabili, con un messaggio dedicato e un pulsante per azzerarli quando non c'è nessun risultato.",

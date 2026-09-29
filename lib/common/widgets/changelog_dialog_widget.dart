@@ -47,10 +47,7 @@ class ChangelogDialogWidget extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(
             l10n.changelog_dialog_close,
-            style: TextStyle(
-              fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            style: Theme.of(context).textTheme.labelLarge,
           ),
         ),
       ],

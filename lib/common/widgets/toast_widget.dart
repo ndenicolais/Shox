@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/theme/app_radius.dart';
 
 class ToastWidget extends StatelessWidget {
@@ -60,11 +59,10 @@ class ToastWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    fontFamily: 'CustomFont',
-                    color: titleColor,
-                    fontSize: AppFontSizes.extraSmall,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: titleColor),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),

@@ -1175,7 +1175,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Neues Material-3-Design mit der ursprünglichen warmen Farbpalette: Schuhformular mit Karten, Sprachauswahl, Info-Bereich und besser lesbare Farben, auch im dunklen Design.';
+      'Ein ganz neues Design für die gesamte App mit der ursprünglichen warmen Farbpalette: Startbildschirm mit Schnellfiltern nach Kategorie, überarbeitete Schuhdetails und Formular, neues Profil, neue Statistiken, Einstellungen und Anmeldebildschirme.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>

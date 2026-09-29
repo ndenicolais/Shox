@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class EmptyStateWidget extends StatelessWidget {
   final String message;
@@ -34,11 +33,7 @@ class EmptyStateWidget extends StatelessWidget {
             SizedBox(height: 16.h),
             Text(
               message,
-              style: TextStyle(
-                fontFamily: 'CustomFont',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.mediumLarge,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
             if (actionLabel != null && onAction != null) ...[
@@ -51,10 +46,7 @@ class EmptyStateWidget extends StatelessWidget {
                 ),
                 child: Text(
                   actionLabel!,
-                  style: TextStyle(
-                    fontFamily: 'CustomFontBold',
-                    fontSize: AppFontSizes.medium,
-                  ),
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
             ],

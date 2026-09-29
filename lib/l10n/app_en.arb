@@ -389,7 +389,7 @@
   "a11y_loading": "Loading",
   "changelog_dialog_title": "What's New",
   "changelog_dialog_close": "Close",
-  "changelog_v4_1_0_bullet_1": "New Material 3 look with the original warm palette: card-based shoe form, language selector, info section and more readable colors, dark mode included.",
+  "changelog_v4_1_0_bullet_1": "A brand-new look across the whole app, keeping the original warm palette: home with quick category filters, redesigned shoe details and add form, new profile, statistics, settings and sign-in screens.",
   "changelog_v4_1_0_bullet_2": "New System / Light / Dark theme selector that follows your phone's light/dark switch right away.",
   "changelog_v4_1_0_bullet_3": "Smoother home screen: grid preview while loading, fade transitions, pull down to refresh and photos that always fill their tile.",
   "changelog_v4_1_0_bullet_4": "Search also by type, category and notes; more reliable filters, with a dedicated message and a clear button when nothing matches.",

@@ -389,7 +389,7 @@
   "a11y_loading": "Chargement",
   "changelog_dialog_title": "Nouveautés",
   "changelog_dialog_close": "Fermer",
-  "changelog_v4_1_0_bullet_1": "Nouveau look Material 3 avec la palette chaleureuse d’origine : formulaire de chaussure en cartes, sélecteur de langue, section d’infos et couleurs plus lisibles, thème sombre compris.",
+  "changelog_v4_1_0_bullet_1": "Un tout nouveau look pour toute l’application, avec la palette chaleureuse d’origine : accueil avec filtres rapides par catégorie, fiche et formulaire de chaussure repensés, nouveaux profil, statistiques, réglages et écrans de connexion.",
   "changelog_v4_1_0_bullet_2": "Nouveau sélecteur de thème Système / Clair / Sombre qui suit immédiatement le passage clair/sombre du téléphone.",
   "changelog_v4_1_0_bullet_3": "Accueil plus fluide : aperçu de la grille pendant le chargement, fondus, tirer vers le bas pour actualiser et photos qui remplissent toujours leur case.",
   "changelog_v4_1_0_bullet_4": "Recherche aussi par type, catégorie et notes ; filtres plus fiables, avec un message dédié et un bouton pour les réinitialiser quand rien ne correspond.",

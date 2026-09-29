@@ -1187,7 +1187,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Nouveau look Material 3 avec la palette chaleureuse d’origine : formulaire de chaussure en cartes, sélecteur de langue, section d’infos et couleurs plus lisibles, thème sombre compris.';
+      'Un tout nouveau look pour toute l’application, avec la palette chaleureuse d’origine : accueil avec filtres rapides par catégorie, fiche et formulaire de chaussure repensés, nouveaux profil, statistiques, réglages et écrans de connexion.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>

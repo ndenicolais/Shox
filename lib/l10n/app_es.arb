@@ -391,7 +391,7 @@
   "a11y_loading": "Cargando",
   "changelog_dialog_title": "Novedades",
   "changelog_dialog_close": "Cerrar",
-  "changelog_v4_1_0_bullet_1": "Nuevo aspecto Material 3 con la cálida paleta original: formulario de zapato con tarjetas, selector de idioma, sección de información y colores más legibles, también en tema oscuro.",
+  "changelog_v4_1_0_bullet_1": "Un aspecto totalmente nuevo en toda la app, con la cálida paleta original: pantalla principal con filtros rápidos por categoría, detalle y formulario de zapato rediseñados, nuevos perfil, estadísticas, ajustes y pantallas de acceso.",
   "changelog_v4_1_0_bullet_2": "Nuevo selector de tema Sistema / Claro / Oscuro que sigue al instante el cambio claro/oscuro del teléfono.",
   "changelog_v4_1_0_bullet_3": "Pantalla principal más fluida: vista previa de la cuadrícula al cargar, fundidos, desliza hacia abajo para actualizar y fotos que siempre llenan su casilla.",
   "changelog_v4_1_0_bullet_4": "Búsqueda también por tipo, categoría y notas; filtros más fiables, con un mensaje dedicado y un botón para borrarlos cuando no hay resultados.",

@@ -1172,7 +1172,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Nuevo aspecto Material 3 con la cálida paleta original: formulario de zapato con tarjetas, selector de idioma, sección de información y colores más legibles, también en tema oscuro.';
+      'Un aspecto totalmente nuevo en toda la app, con la cálida paleta original: pantalla principal con filtros rápidos por categoría, detalle y formulario de zapato rediseñados, nuevos perfil, estadísticas, ajustes y pantallas de acceso.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>

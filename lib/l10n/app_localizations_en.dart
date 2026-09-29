@@ -1160,7 +1160,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'New Material 3 look with the original warm palette: card-based shoe form, language selector, info section and more readable colors, dark mode included.';
+      'A brand-new look across the whole app, keeping the original warm palette: home with quick category filters, redesigned shoe details and add form, new profile, statistics, settings and sign-in screens.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>

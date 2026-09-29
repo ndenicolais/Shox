@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/button_widget.dart';
-import 'package:shox/theme/app_font_sizes.dart';
-import 'package:shox/theme/app_radius.dart';
 
+/// Confirmation dialog (delete, leave without saving...): warning icon,
+/// title, message and cancel / confirm buttons.
 class DeleteDialogWidget extends StatelessWidget {
   final String title;
   final String content;
@@ -29,91 +28,55 @@ class DeleteDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.dialog),
-      ),
-      contentPadding: EdgeInsets.zero,
+      contentPadding: const EdgeInsets.all(AppSpacing.xl),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.xl.h),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(AppRadius.dialog),
-                topRight: Radius.circular(AppRadius.dialog),
-              ),
-            ),
-            child: Column(
-              children: [
-                Icon(
-                  MingCuteIcons.mgc_alert_line,
-                  size: 48.sp,
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-                SizedBox(height: 12.h),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: 'CustomFontBold',
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: AppFontSizes.mediumLarge,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: theme.colorScheme.error.withValues(alpha: 0.1),
+            child: Icon(
+              MingCuteIcons.mgc_alert_line,
+              size: 28,
+              color: theme.colorScheme.error,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(AppSpacing.xl.r),
-            child: Text(
-              content,
-              style: TextStyle(
-                fontFamily: 'CustomFont',
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: AppFontSizes.normal,
-                height: 1.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
+          const SizedBox(height: AppSpacing.m),
+          Text(
+            title,
+            style: theme.textTheme.titleLarge,
+            textAlign: TextAlign.center,
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: AppSpacing.xl.r,
-              right: AppSpacing.xl.r,
-              bottom: AppSpacing.xl.r,
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            content,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ButtonWidget(
-                    height: 48.h,
-                    fontSize: AppFontSizes.normal,
-                    isOutline: true,
-                    onPressed: onCancelPressed,
-                    text: cancelLabel ??
-                        AppLocalizations.of(context)!
-                            .custom_delete_dialog_cancel,
-                  ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          Row(
+            children: [
+              Expanded(
+                child: ButtonWidget(
+                  isOutline: true,
+                  onPressed: onCancelPressed,
+                  text: cancelLabel ?? l10n.custom_delete_dialog_cancel,
                 ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: ButtonWidget(
-                    height: 48.h,
-                    fontSize: AppFontSizes.normal,
-                    onPressed: onConfirmPressed,
-                    text: confirmLabel ??
-                        AppLocalizations.of(context)!
-                            .custom_delete_dialog_confirm,
-                  ),
+              ),
+              const SizedBox(width: AppSpacing.s),
+              Expanded(
+                child: ButtonWidget(
+                  onPressed: onConfirmPressed,
+                  text: confirmLabel ?? l10n.custom_delete_dialog_confirm,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

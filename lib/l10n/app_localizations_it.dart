@@ -1178,7 +1178,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Nuova veste grafica Material 3 con la calda palette originale: modulo scarpa a schede, selettore lingua, sezione info e colori più leggibili, anche in tema scuro.';
+      'Nuova veste grafica per tutta l\'app, con la calda palette originale: home con filtri rapidi per categoria, schede scarpa e modulo di aggiunta ridisegnati, nuovi profilo, statistiche, impostazioni e schermate di accesso.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>

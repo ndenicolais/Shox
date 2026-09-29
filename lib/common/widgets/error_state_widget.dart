@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class ErrorStateWidget extends StatelessWidget {
   final String message;
@@ -31,20 +30,13 @@ class ErrorStateWidget extends StatelessWidget {
             SizedBox(height: 16.h),
             Text(
               message,
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: AppFontSizes.mediumLarge,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
               SizedBox(height: 16.h),
               ButtonWidget(
-                width: 140.w,
-                height: 44.h,
                 text: AppLocalizations.of(context)!.common_retry,
-                fontSize: AppFontSizes.normal,
                 onPressed: onRetry!,
               ),
             ],
