@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
 import 'package:shox/core/utils/app_exceptions.dart';
-import 'package:shox/core/utils/constants.dart';
+import 'package:shox/features/auth/services/auth_service.dart';
 import 'package:shox/features/users/models/user_model.dart';
 
 class SignupRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final AuthService _authService = AuthService();
   final Logger _logger = Logger();
 
   Future<User?> signUpWithEmailPassword(
@@ -18,12 +18,7 @@ class SignupRepository {
       userName: name,
     );
 
-    final emailCheck = await _firestore
-        .collection('users')
-        .where('userEmail', isEqualTo: newUser.userEmail)
-        .get();
-
-    if (emailCheck.docs.isNotEmpty) {
+    if (await _authService.findUserByEmail(newUser.userEmail) != null) {
       throw const AuthException('email_already_register');
     }
 
@@ -39,10 +34,7 @@ class SignupRepository {
         .doc(userCredential.user?.uid)
         .set(newUser.toFirestore());
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(AppConstants.prefsRememberMe, true);
-    await prefs.setString(
-        AppConstants.prefsUserId, userCredential.user?.uid ?? '');
+    await _authService.saveSession(userCredential.user?.uid);
 
     return userCredential.user;
   }

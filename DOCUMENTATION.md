@@ -209,6 +209,10 @@ Gestione completa del flusso di autenticazione tramite Firebase Auth.
 - **ResetPasswordScreen:** Invio email di reset password tramite Firebase Auth
 - **GenderSelectionScreen:** Selezione del genere (`male` / `female` / `other`) al primo accesso; determina le categorie di scarpe mostrate nell'app. Salvato nel documento utente su Firestore
 
+**Servizio condiviso:** `lib/features/auth/services/auth_service.dart` (`AuthService`) centralizza la logica comune ai repository di login, signup, reset password e utente:
+- `findUserByEmail(email)` — ricerca del documento utente su Firestore per `userEmail`
+- `saveSession(userId)` / `clearSession()` — salvataggio e rimozione della sessione locale (`remember_me`, `user_id` in `SharedPreferences`)
+
 ---
 
 ### 5.3 Home — Collezione scarpe

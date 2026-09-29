@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/core/utils/constants.dart';
+import 'package:shox/features/auth/services/auth_service.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
@@ -17,6 +17,7 @@ class UserRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseStorage _storage = FirebaseStorage.instance;
+  final AuthService _authService = AuthService();
 
   Future<String> loadUserName() async {
     final user = _auth.currentUser;
@@ -84,9 +85,7 @@ class UserRepository {
     try {
       await _auth.signOut();
       await googleSignOut();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.remove(AppConstants.prefsRememberMe);
-      await prefs.remove(AppConstants.prefsUserId);
+      await _authService.clearSession();
     } catch (e) {
       throw Exception('Error during logout.');
     }

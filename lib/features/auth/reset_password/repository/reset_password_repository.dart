@@ -1,18 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shox/core/utils/app_exceptions.dart';
+import 'package:shox/features/auth/services/auth_service.dart';
 
 class ResetPasswordRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final AuthService _authService = AuthService();
 
   Future<String> resetPassword(String email) async {
-    QuerySnapshot snapshot = await _firestore
-        .collection('users')
-        .where('userEmail', isEqualTo: email)
-        .get();
-
-    if (snapshot.docs.isEmpty) {
+    if (await _authService.findUserByEmail(email) == null) {
       throw const AuthException('email_not_found');
     }
 
