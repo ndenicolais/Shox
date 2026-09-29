@@ -22,14 +22,14 @@ class ColorChartData {
   ColorChartData(this.colorHex, this.count, this.color);
 }
 
-class PieChartWidget<T> extends StatefulWidget {
+class ShoesPieChart<T> extends StatefulWidget {
   final List<T> chartData;
   final String title;
   final String Function(T data) xValueMapper;
   final double Function(T data) yValueMapper;
   final Color Function(T data, int index)? pointColorMapper;
 
-  const PieChartWidget({
+  const ShoesPieChart({
     required this.chartData,
     required this.title,
     required this.xValueMapper,
@@ -39,10 +39,10 @@ class PieChartWidget<T> extends StatefulWidget {
   });
 
   @override
-  State<PieChartWidget<T>> createState() => _PieChartWidgetState<T>();
+  State<ShoesPieChart<T>> createState() => _ShoesPieChartState<T>();
 }
 
-class _PieChartWidgetState<T> extends State<PieChartWidget<T>> {
+class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
   int touchedIndex = -1;
   Set<Color> usedColors = {};
 

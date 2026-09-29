@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/common/widgets/changelog_dialog.dart';
+import 'package:shox/common/widgets/changelog_dialog_widget.dart';
 import 'package:shox/common/widgets/empty_state_widget.dart';
 import 'package:shox/common/widgets/error_state_widget.dart';
 import 'package:shox/core/constants/changelog.dart';
@@ -23,9 +23,9 @@ import 'package:shox/features/shoes/widgets/shoes_categories_mixin.dart';
 import 'package:shox/core/utils/utils.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/skeleton_widget.dart';
-import 'package:shox/features/home/widgets/top_bar_widget.dart';
-import 'package:shox/features/home/widgets/filter_bar_widget.dart';
-import 'package:shox/features/home/widgets/filter_widget.dart';
+import 'package:shox/features/home/widgets/top_bar.dart';
+import 'package:shox/features/home/widgets/filter_bar.dart';
+import 'package:shox/features/home/widgets/filter_sheet.dart';
 import 'package:shox/theme/app_breakpoints.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,9 +67,9 @@ class HomeScreenState extends State<HomeScreen>
                   vertical: AppSpacing.s.r, horizontal: AppSpacing.l.r),
               child: Column(
                 children: [
-                  TopBarWidget(userController: userController),
+                  TopBar(userController: userController),
                   SizedBox(height: 10.h),
-                  FilterBarWidget(
+                  FilterBar(
                     searchController: _searchController,
                     searchQuery: searchQuery,
                     onChanged: _onSearchChanged,
@@ -157,7 +157,7 @@ class HomeScreenState extends State<HomeScreen>
 
     await showDialog<void>(
       context: context,
-      builder: (context) => ChangelogDialog(entries: entriesToShow),
+      builder: (context) => ChangelogDialogWidget(entries: entriesToShow),
     );
   }
 
@@ -459,7 +459,7 @@ class HomeScreenState extends State<HomeScreen>
         String tempSelectedSeason = selectedSeason;
         return StatefulBuilder(
           builder: (context, setModalState) {
-            return FilterWidget(
+            return FilterSheet(
               selectedColor: tempSelectedColor,
               selectedColorExtra: tempSelectedColorExtra,
               selectedCategory: tempSelectedCategory,

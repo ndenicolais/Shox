@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
-import 'package:shox/features/shoes/widgets/color_chip_widget.dart';
+import 'package:shox/features/shoes/widgets/color_chip.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
 class ShoesColorsSection extends StatelessWidget {
@@ -45,7 +45,7 @@ class ShoesColorsSection extends StatelessWidget {
             final color = entry.value;
             final isPrimary = index == 0;
 
-            return ColorChipWidget(
+            return ColorChip(
               color: color,
               isPrimary: isPrimary,
               label: isPrimary

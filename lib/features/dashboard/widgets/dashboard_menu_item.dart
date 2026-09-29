@@ -4,7 +4,7 @@ import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
-class MenuItemWidget extends StatelessWidget {
+class DashboardMenuItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback? onTap;
@@ -14,7 +14,7 @@ class MenuItemWidget extends StatelessWidget {
   final bool? switchValue;
   final ValueChanged<bool>? onChanged;
 
-  const MenuItemWidget({
+  const DashboardMenuItem({
     required this.icon,
     required this.text,
     this.onTap,

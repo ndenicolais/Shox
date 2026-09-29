@@ -5,7 +5,7 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
-class FilterWidget extends StatelessWidget {
+class FilterSheet extends StatelessWidget {
   final Color? selectedColor;
   final Color? selectedColorExtra;
   final String? selectedCategory;
@@ -24,7 +24,7 @@ class FilterWidget extends StatelessWidget {
   final VoidCallback onApply;
   final List<Color> colorList;
 
-  const FilterWidget({
+  const FilterSheet({
     super.key,
     required this.selectedColor,
     required this.selectedColorExtra,

@@ -12,10 +12,10 @@ import 'package:shox/l10n/app_localizations.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class TopBarWidget extends StatelessWidget {
+class TopBar extends StatelessWidget {
   final UserController userController;
 
-  const TopBarWidget({super.key, required this.userController});
+  const TopBar({super.key, required this.userController});
 
   @override
   Widget build(BuildContext context) {

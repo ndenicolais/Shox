@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/l10n/app_localizations.dart';
 
-class FilterBarWidget extends StatelessWidget {
+class FilterBar extends StatelessWidget {
   final TextEditingController searchController;
   final String searchQuery;
   final ValueChanged<String> onChanged;
@@ -15,7 +15,7 @@ class FilterBarWidget extends StatelessWidget {
   final IconData currentIcon;
   final bool showOnlyFavorites;
 
-  const FilterBarWidget({
+  const FilterBar({
     super.key,
     required this.searchController,
     required this.searchQuery,

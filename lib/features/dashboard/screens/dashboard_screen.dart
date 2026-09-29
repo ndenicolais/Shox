@@ -9,13 +9,13 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
-import 'package:shox/common/widgets/changelog_dialog.dart';
+import 'package:shox/common/widgets/changelog_dialog_widget.dart';
 import 'package:shox/core/constants/changelog.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/constants.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
 import 'package:shox/features/dashboard/widgets/language_dropdown.dart';
-import 'package:shox/features/dashboard/widgets/menu_item_widget.dart';
+import 'package:shox/features/dashboard/widgets/dashboard_menu_item.dart';
 import 'package:shox/features/dashboard/widgets/theme_mode_selector.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
@@ -57,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             _buildSectionTitle(
                 context, AppLocalizations.of(context)!.dashboard_preferences),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_moon_line,
               text: AppLocalizations.of(context)!.dashboard_theme,
               trailing: const SizedBox.shrink(),
@@ -69,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   bottom: AppSpacing.xs.r),
               child: const ThemeModeSelector(),
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_world_2_line,
               text: AppLocalizations.of(context)!.settings_screen_language,
               trailing: const SizedBox.shrink(),
@@ -83,7 +83,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             _buildSectionTitle(
                 context, AppLocalizations.of(context)!.dashboard_account),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_user_3_line,
               text: AppLocalizations.of(context)!.dashboard_profile,
               onTap: () async {
@@ -96,14 +96,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 }
               },
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_chart_pie_2_line,
               text: AppLocalizations.of(context)!.user_screen_button_database,
               onTap: () {
                 Get.toNamed(AppRoutes.database);
               },
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_exit_line,
               text: AppLocalizations.of(context)!.dashboard_logout,
               onTap: () {
@@ -112,39 +112,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             _buildSectionTitle(
                 context, AppLocalizations.of(context)!.dashboard_information),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_information_line,
               text: AppLocalizations.of(context)!.settings_screen_info,
               onTap: () {
                 Get.toNamed(AppRoutes.info);
               },
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_safe_lock_line,
               text: AppLocalizations.of(context)!.settings_screen_policy,
               onTap: () {
                 Get.toNamed(AppRoutes.privacyPolicy);
               },
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_send_line,
               text: AppLocalizations.of(context)!.settings_screen_support,
               onTap: () {
                 Get.toNamed(AppRoutes.support);
               },
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_notification_line,
               text: AppLocalizations.of(context)!.dashboard_changelog,
               onTap: () {
                 showDialog<void>(
                   context: context,
                   builder: (context) =>
-                      ChangelogDialog(entries: changelogEntries),
+                      ChangelogDialogWidget(entries: changelogEntries),
                 );
               },
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_share_2_line,
               text: AppLocalizations.of(context)!.dashboard_share_app,
               onTap: () {
@@ -152,7 +152,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               },
               trailing: const SizedBox.shrink(),
             ),
-            MenuItemWidget(
+            DashboardMenuItem(
               icon: MingCuteIcons.mgc_information_line,
               text: AppLocalizations.of(context)!.dashboard_version,
               trailing: Text(

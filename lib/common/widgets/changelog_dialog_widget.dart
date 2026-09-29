@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shox/core/constants/changelog.dart';
 import 'package:shox/l10n/app_localizations.dart';
 
-class ChangelogDialog extends StatelessWidget {
+class ChangelogDialogWidget extends StatelessWidget {
   final List<ChangelogEntry> entries;
 
-  const ChangelogDialog({super.key, required this.entries});
+  const ChangelogDialogWidget({super.key, required this.entries});
 
   @override
   Widget build(BuildContext context) {

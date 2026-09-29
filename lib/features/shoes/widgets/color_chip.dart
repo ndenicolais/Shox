@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
-class ColorChipWidget extends StatelessWidget {
+class ColorChip extends StatelessWidget {
   final Color color;
   final bool isPrimary;
   final String label;
   final double? size;
   final VoidCallback? onTap;
 
-  const ColorChipWidget({
+  const ColorChip({
     super.key,
     required this.color,
     this.isPrimary = false,

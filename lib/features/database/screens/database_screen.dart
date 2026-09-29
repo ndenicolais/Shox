@@ -15,7 +15,7 @@ import 'package:shox/features/database/widgets/chart_colors.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
 import 'package:shox/core/utils/permission_helper.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
-import 'package:shox/features/database/widgets/pie_chart_widget.dart';
+import 'package:shox/features/database/widgets/shoes_pie_chart.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/theme/app_radius.dart';
@@ -401,39 +401,39 @@ class DatabaseScreenState extends State<DatabaseScreen> {
       },
     ).toList();
 
-    return ColorPieChartWidget(chartData);
+    return ColorPieChart(chartData);
   }
 
   Widget _buildBrandPieChart() {
     Map<String, double> chartData =
         _brandCounts.map((key, value) => MapEntry(key, value.toDouble()));
 
-    return BrandPieChartWidget(chartData);
+    return BrandPieChart(chartData);
   }
 
   Widget _buildCategoryPieChart() {
     Map<String, double> chartData =
         _categoryCounts.map((key, value) => MapEntry(key, value.toDouble()));
 
-    return CategoryPieChartWidget(chartData);
+    return CategoryPieChart(chartData);
   }
 
   Widget _buildTypePieChart() {
     Map<String, double> chartData =
         _typeCounts.map((key, value) => MapEntry(key, value.toDouble()));
 
-    return TypePieChartWidget(chartData);
+    return TypePieChart(chartData);
   }
 }
 
-class ColorPieChartWidget extends StatelessWidget {
+class ColorPieChart extends StatelessWidget {
   final List<ColorChartData> chartData;
 
-  const ColorPieChartWidget(this.chartData, {super.key});
+  const ColorPieChart(this.chartData, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PieChartWidget<ColorChartData>(
+    return ShoesPieChart<ColorChartData>(
       chartData: chartData,
       title: AppLocalizations.of(context)!.database_screen_colors,
       xValueMapper: (data) => data.colorHex,
@@ -443,10 +443,10 @@ class ColorPieChartWidget extends StatelessWidget {
   }
 }
 
-class BrandPieChartWidget extends StatelessWidget {
+class BrandPieChart extends StatelessWidget {
   final Map<String, double> chartData;
 
-  const BrandPieChartWidget(this.chartData, {super.key});
+  const BrandPieChart(this.chartData, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -463,7 +463,7 @@ class BrandPieChartWidget extends StatelessWidget {
       },
     ).toList();
 
-    return PieChartWidget<ChartData>(
+    return ShoesPieChart<ChartData>(
       chartData: data,
       title: AppLocalizations.of(context)!.database_screen_brands,
       xValueMapper: (data) => data.label,
@@ -473,10 +473,10 @@ class BrandPieChartWidget extends StatelessWidget {
   }
 }
 
-class CategoryPieChartWidget extends StatelessWidget {
+class CategoryPieChart extends StatelessWidget {
   final Map<String, double> chartData;
 
-  const CategoryPieChartWidget(this.chartData, {super.key});
+  const CategoryPieChart(this.chartData, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -493,7 +493,7 @@ class CategoryPieChartWidget extends StatelessWidget {
       },
     ).toList();
 
-    return PieChartWidget<ChartData>(
+    return ShoesPieChart<ChartData>(
       chartData: data,
       title: AppLocalizations.of(context)!.database_screen_categories,
       xValueMapper: (data) => data.label,
@@ -503,10 +503,10 @@ class CategoryPieChartWidget extends StatelessWidget {
   }
 }
 
-class TypePieChartWidget extends StatelessWidget {
+class TypePieChart extends StatelessWidget {
   final Map<String, double> chartData;
 
-  const TypePieChartWidget(this.chartData, {super.key});
+  const TypePieChart(this.chartData, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -523,7 +523,7 @@ class TypePieChartWidget extends StatelessWidget {
       },
     ).toList();
 
-    return PieChartWidget<ChartData>(
+    return ShoesPieChart<ChartData>(
       chartData: data,
       title: AppLocalizations.of(context)!.database_screen_types,
       xValueMapper: (data) => data.label,
