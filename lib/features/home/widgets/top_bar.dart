@@ -43,7 +43,9 @@ class TopBar extends StatelessWidget {
                   button: true,
                   label: AppLocalizations.of(context)!.a11y_profile,
                   child: _buildUserImage(
-                      context, userController.userProfileImage.value),
+                    context,
+                    userController.userProfileImage.value,
+                  ),
                 ),
               ),
             ),

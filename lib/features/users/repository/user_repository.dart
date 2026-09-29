@@ -194,7 +194,8 @@ class UserRepository {
         }
 
         _logger.i(
-            'All files successfully deleted from Firebase Storage folder: $userId/$folder');
+          'All files successfully deleted from Firebase Storage folder: $userId/$folder',
+        );
       } catch (e) {
         _logger.e('Error in deleting user folder from Firebase Storage: $e');
       }

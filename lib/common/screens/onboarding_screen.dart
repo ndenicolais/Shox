@@ -76,7 +76,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.xl.w, vertical: AppSpacing.xl.h),
+                horizontal: AppSpacing.xl.w,
+                vertical: AppSpacing.xl.h,
+              ),
               child: Column(
                 children: [
                   Expanded(
@@ -107,7 +109,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             SizedBox(height: 24.h),
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.m.w),
+                                horizontal: AppSpacing.m.w,
+                              ),
                               child: Text(
                                 item.description,
                                 textAlign: TextAlign.center,
@@ -131,7 +134,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           (i) => AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
                             margin: EdgeInsets.symmetric(
-                                horizontal: AppSpacing.xxs.w),
+                              horizontal: AppSpacing.xxs.w,
+                            ),
                             width: _currentIndex == i ? 20.w : 8.w,
                             height: 8.h,
                             decoration: BoxDecoration(

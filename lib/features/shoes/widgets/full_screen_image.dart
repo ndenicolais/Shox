@@ -129,8 +129,10 @@ class FullScreenImageState extends State<FullScreenImage> {
       }
     } catch (e) {
       if (context.mounted) {
-        showErrorToast(context,
-            "${AppLocalizations.of(context)!.full_screen_image_download_error_toast} $e");
+        showErrorToast(
+          context,
+          "${AppLocalizations.of(context)!.full_screen_image_download_error_toast} $e",
+        );
       }
     }
   }
@@ -141,13 +143,15 @@ class FullScreenImageState extends State<FullScreenImage> {
       if (response.statusCode == 200) {
         final tempDir = await getTemporaryDirectory();
         final file = await File(
-                '${tempDir.path}/shox_${timestamp}_${widget.imageUrl.split('/').last.substring(widget.imageUrl.split('/').last.length - 8)}')
-            .create();
+          '${tempDir.path}/shox_${timestamp}_${widget.imageUrl.split('/').last.substring(widget.imageUrl.split('/').last.length - 8)}',
+        ).create();
         file.writeAsBytesSync(response.bodyBytes);
 
         if (!mounted) return;
-        final shareResult = await Share.shareXFiles([XFile(file.path)],
-            text: AppLocalizations.of(context)!.full_screen_image_share_text);
+        final shareResult = await Share.shareXFiles(
+          [XFile(file.path)],
+          text: AppLocalizations.of(context)!.full_screen_image_share_text,
+        );
 
         if (mounted) {
           if (shareResult.status == ShareResultStatus.success) {
@@ -175,8 +179,10 @@ class FullScreenImageState extends State<FullScreenImage> {
       }
     } catch (e) {
       if (mounted) {
-        showErrorToast(context,
-            "${AppLocalizations.of(context)!.full_screen_image_share_error_toast} $e");
+        showErrorToast(
+          context,
+          "${AppLocalizations.of(context)!.full_screen_image_share_error_toast} $e",
+        );
       }
     }
   }

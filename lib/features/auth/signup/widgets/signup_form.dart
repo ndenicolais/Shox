@@ -53,26 +53,28 @@ class SignupForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             validator: (val) => val?.emailValidationError(context),
           ),
-          Obx(() => TextFieldWidget(
-                controller: passwordController,
-                labelText: AppLocalizations.of(context)!.validator_password,
-                hintText: AppLocalizations.of(context)!.validator_password_hint,
-                prefixIcon: MingCuteIcons.mgc_lock_line,
-                keyboardType: TextInputType.text,
-                textCapitalization: TextCapitalization.none,
-                textInputAction: TextInputAction.done,
-                validator: (val) => val?.passwordValidationError(context),
-                obscureText: !passwordVisible.value,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    passwordVisible.value
-                        ? MingCuteIcons.mgc_eye_2_line
-                        : MingCuteIcons.mgc_eye_close_line,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                  onPressed: togglePasswordVisibility,
+          Obx(
+            () => TextFieldWidget(
+              controller: passwordController,
+              labelText: AppLocalizations.of(context)!.validator_password,
+              hintText: AppLocalizations.of(context)!.validator_password_hint,
+              prefixIcon: MingCuteIcons.mgc_lock_line,
+              keyboardType: TextInputType.text,
+              textCapitalization: TextCapitalization.none,
+              textInputAction: TextInputAction.done,
+              validator: (val) => val?.passwordValidationError(context),
+              obscureText: !passwordVisible.value,
+              suffixIcon: IconButton(
+                icon: Icon(
+                  passwordVisible.value
+                      ? MingCuteIcons.mgc_eye_2_line
+                      : MingCuteIcons.mgc_eye_close_line,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
-              )),
+                onPressed: togglePasswordVisibility,
+              ),
+            ),
+          ),
         ],
       ),
     );

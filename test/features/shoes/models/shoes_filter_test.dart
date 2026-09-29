@@ -91,10 +91,12 @@ void main() {
       const translated = {'Running': 'Corsa', 'Casual': 'Casual'};
 
       expect(
-        brandsOf(const ShoesFilter(
-          searchQuery: 'corsa',
-          translatedTypeOptions: translated,
-        ).apply(list)),
+        brandsOf(
+          const ShoesFilter(
+            searchQuery: 'corsa',
+            translatedTypeOptions: translated,
+          ).apply(list),
+        ),
         ['Runner'],
       );
       expect(

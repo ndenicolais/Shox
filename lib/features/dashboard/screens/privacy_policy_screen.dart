@@ -55,7 +55,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          title: AppLocalizations.of(context)!.policy_screen_title),
+        title: AppLocalizations.of(context)!.policy_screen_title,
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(

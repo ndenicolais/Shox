@@ -49,14 +49,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          title: AppLocalizations.of(context)!.dashboard_screen_title),
+        title: AppLocalizations.of(context)!.dashboard_screen_title,
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
         child: ListView(
           children: [
             _buildSectionTitle(
-                context, AppLocalizations.of(context)!.dashboard_preferences),
+              context,
+              AppLocalizations.of(context)!.dashboard_preferences,
+            ),
             DashboardMenuItem(
               icon: MingCuteIcons.mgc_moon_line,
               text: AppLocalizations.of(context)!.dashboard_theme,
@@ -64,9 +67,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: AppSpacing.xs.r,
-                  right: AppSpacing.xs.r,
-                  bottom: AppSpacing.xs.r),
+                left: AppSpacing.xs.r,
+                right: AppSpacing.xs.r,
+                bottom: AppSpacing.xs.r,
+              ),
               child: const ThemeModeSelector(),
             ),
             DashboardMenuItem(
@@ -76,13 +80,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: AppSpacing.xs.r,
-                  right: AppSpacing.xs.r,
-                  bottom: AppSpacing.xs.r),
+                left: AppSpacing.xs.r,
+                right: AppSpacing.xs.r,
+                bottom: AppSpacing.xs.r,
+              ),
               child: const LanguageDropdown(),
             ),
             _buildSectionTitle(
-                context, AppLocalizations.of(context)!.dashboard_account),
+              context,
+              AppLocalizations.of(context)!.dashboard_account,
+            ),
             DashboardMenuItem(
               icon: MingCuteIcons.mgc_user_3_line,
               text: AppLocalizations.of(context)!.dashboard_profile,
@@ -92,7 +99,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _logger.i('Reloading user profile after update...');
                   await userController.loadUserProfile(currentUser!.uid);
                   _logger.i(
-                      'User profile reloaded. Name: ${userController.userName.value}');
+                    'User profile reloaded. Name: ${userController.userName.value}',
+                  );
                 }
               },
             ),
@@ -111,7 +119,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               },
             ),
             _buildSectionTitle(
-                context, AppLocalizations.of(context)!.dashboard_information),
+              context,
+              AppLocalizations.of(context)!.dashboard_information,
+            ),
             DashboardMenuItem(
               icon: MingCuteIcons.mgc_information_line,
               text: AppLocalizations.of(context)!.settings_screen_info,
@@ -173,7 +183,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.m.r, vertical: AppSpacing.xs.h),
+        horizontal: AppSpacing.m.r,
+        vertical: AppSpacing.xs.h,
+      ),
       child: Text(
         title,
         style: TextStyle(

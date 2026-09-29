@@ -52,7 +52,9 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
       margin: EdgeInsets.symmetric(horizontal: AppSpacing.xxs.w),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: AppSpacing.s.w, vertical: AppSpacing.m.h),
+          horizontal: AppSpacing.s.w,
+          vertical: AppSpacing.m.h,
+        ),
         child: Column(
           children: [
             Text(
@@ -103,7 +105,8 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
   List<PieChartSectionData> _generateSections(double side) {
     final sortedData = List<T>.from(widget.chartData);
     sortedData.sort(
-        (a, b) => widget.yValueMapper(b).compareTo(widget.yValueMapper(a)));
+      (a, b) => widget.yValueMapper(b).compareTo(widget.yValueMapper(a)),
+    );
 
     return sortedData.asMap().entries.map((entry) {
       final index = entry.key;
@@ -147,7 +150,8 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
   Widget _buildLegend(BuildContext context) {
     final sortedData = List<T>.from(widget.chartData);
     sortedData.sort(
-        (a, b) => widget.yValueMapper(b).compareTo(widget.yValueMapper(a)));
+      (a, b) => widget.yValueMapper(b).compareTo(widget.yValueMapper(a)),
+    );
 
     usedColors.clear();
 

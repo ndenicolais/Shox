@@ -64,7 +64,9 @@ class HomeScreenState extends State<HomeScreen>
             maxWidth: AppBreakpoints.maxGridWidth,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: AppSpacing.s.r, horizontal: AppSpacing.l.r),
+                vertical: AppSpacing.s.r,
+                horizontal: AppSpacing.l.r,
+              ),
               child: Column(
                 children: [
                   TopBar(userController: userController),
@@ -141,7 +143,9 @@ class HomeScreenState extends State<HomeScreen>
     if (lastSeen == currentVersion) return;
     if (lastSeen == null) {
       await prefs.setString(
-          AppConstants.prefsLastSeenChangelogVersion, currentVersion);
+        AppConstants.prefsLastSeenChangelogVersion,
+        currentVersion,
+      );
       return;
     }
 
@@ -152,7 +156,9 @@ class HomeScreenState extends State<HomeScreen>
         : changelogEntries.sublist(0, lastSeenIndex);
 
     await prefs.setString(
-        AppConstants.prefsLastSeenChangelogVersion, currentVersion);
+      AppConstants.prefsLastSeenChangelogVersion,
+      currentVersion,
+    );
     if (entriesToShow.isEmpty || !mounted) return;
 
     await showDialog<void>(

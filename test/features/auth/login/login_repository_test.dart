@@ -68,10 +68,12 @@ void main() {
 
     test('maps a wrong password to invalid_password', () async {
       givenRegisteredEmail('a@b.it');
-      when(() => auth.signInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          )).thenThrow(FirebaseAuthException(code: 'wrong-password'));
+      when(
+        () => auth.signInWithEmailAndPassword(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
 
       expect(
         repository.loginWithEmailPassword('a@b.it', 'bad', false),
@@ -85,10 +87,12 @@ void main() {
       final credential = MockCredential();
       when(() => user.uid).thenReturn('uid-1');
       when(() => credential.user).thenReturn(user);
-      when(() => auth.signInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          )).thenAnswer((_) async => credential);
+      when(
+        () => auth.signInWithEmailAndPassword(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenAnswer((_) async => credential);
       when(() => authService.saveSession(any())).thenAnswer((_) async {});
 
       await repository.loginWithEmailPassword('a@b.it', 'pwd', false);

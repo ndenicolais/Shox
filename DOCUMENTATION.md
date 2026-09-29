@@ -676,6 +676,8 @@ dev_dependencies:
 
 `LoginRepository`, `AuthGuardService` e `AuthService` accettano le dipendenze (Firebase, Google Sign-In, Firestore) come parametri opzionali del costruttore, con le istanze reali come default, per poterle sostituire nei test.
 
+**Lint (`analysis_options.yaml`):** oltre a `flutter_lints` sono attive `avoid_print`, `prefer_const_constructors`, `prefer_const_declarations`, `use_super_parameters` e `require_trailing_commas`; i file generati da `flutter gen-l10n` (`lib/l10n/app_localizations*.dart`) sono esclusi dall'analisi. Le segnalazioni correggibili si applicano con `dart fix --apply`.
+
 ---
 
 ## 12. Requisiti di sistema

@@ -67,5 +67,5 @@ final List<String> sizesList = [
   '46.5',
   '47',
   '47.5',
-  '48'
+  '48',
 ];

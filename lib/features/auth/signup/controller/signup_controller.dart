@@ -17,7 +17,9 @@ class SignupController extends GetxController {
   var isLoading = false.obs;
 
   Future<void> register(
-      BuildContext context, GlobalKey<FormState> formKey) async {
+    BuildContext context,
+    GlobalKey<FormState> formKey,
+  ) async {
     if (!formKey.currentState!.validate()) {
       return;
     }

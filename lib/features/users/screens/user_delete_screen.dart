@@ -34,7 +34,8 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          title: AppLocalizations.of(context)!.delete_account_screen_title),
+        title: AppLocalizations.of(context)!.delete_account_screen_title,
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Stack(
         children: [
@@ -64,7 +65,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
               _buildDeleteButton(context),
             ],
           ),
-          if (_isLoading) _buildDeleteLoading()
+          if (_isLoading) _buildDeleteLoading(),
         ],
       ),
     );
@@ -114,8 +115,10 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
       }
     } catch (e) {
       if (mounted) {
-        showErrorToast(context,
-            '${AppLocalizations.of(context)!.delete_account_screen_toast_error} $e');
+        showErrorToast(
+          context,
+          '${AppLocalizations.of(context)!.delete_account_screen_toast_error} $e',
+        );
       }
     }
   }
@@ -160,7 +163,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
               child: Text(
                 AppLocalizations.of(context)!
                     .delete_account_screen_backup_button,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'CustomFontBold',
                   color: AppColors.errorColor,
                 ),
@@ -325,7 +328,11 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(
-                AppSpacing.l.r, AppSpacing.l.r, AppSpacing.l.r, AppSpacing.s.r),
+              AppSpacing.l.r,
+              AppSpacing.l.r,
+              AppSpacing.l.r,
+              AppSpacing.s.r,
+            ),
             child: Row(
               spacing: 10.w,
               children: [
@@ -452,7 +459,11 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
         ),
       ),
       padding: EdgeInsets.fromLTRB(
-          AppSpacing.xl.r, AppSpacing.m.r, AppSpacing.xl.r, AppSpacing.xxl.r),
+        AppSpacing.xl.r,
+        AppSpacing.m.r,
+        AppSpacing.xl.r,
+        AppSpacing.xxl.r,
+      ),
       child: SizedBox(
         width: double.infinity,
         child: ButtonWidget(

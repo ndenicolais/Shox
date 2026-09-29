@@ -15,7 +15,8 @@ class SupportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          title: AppLocalizations.of(context)!.support_screen_title),
+        title: AppLocalizations.of(context)!.support_screen_title,
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SingleChildScrollView(

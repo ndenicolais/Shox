@@ -36,16 +36,18 @@ class ToastWidget extends StatelessWidget {
         color: Colors.transparent,
         child: Container(
           padding: EdgeInsets.symmetric(
-              horizontal: AppSpacing.s.w, vertical: AppSpacing.s.h),
+            horizontal: AppSpacing.s.w,
+            vertical: AppSpacing.s.h,
+          ),
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(AppRadius.pill),
             border: Border.all(color: borderColor, width: 1.w),
             boxShadow: [
-              BoxShadow(
-                color: const Color(0x33000000),
+              const BoxShadow(
+                color: Color(0x33000000),
                 blurRadius: 12,
-                offset: const Offset(0, 4),
+                offset: Offset(0, 4),
               ),
             ],
           ),

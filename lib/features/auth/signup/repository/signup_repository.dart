@@ -12,7 +12,11 @@ class SignupRepository {
   final Logger _logger = Logger();
 
   Future<User?> signUpWithEmailPassword(
-      UserModel user, String name, String email, String password) async {
+    UserModel user,
+    String name,
+    String email,
+    String password,
+  ) async {
     UserModel newUser = UserModel(
       userEmail: email,
       userName: name,

@@ -160,17 +160,18 @@ class FilterSheet extends StatelessWidget {
                 : null,
             items: ['All', ...translatedCategoryOptions.values].map((item) {
               return DropdownMenuItem<String>(
-                  value: item,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: AppSpacing.s.r),
-                    child: Text(
-                      item,
-                      style: TextStyle(
-                        fontFamily: 'CustomFont',
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                value: item,
+                child: Padding(
+                  padding: EdgeInsets.only(left: AppSpacing.s.r),
+                  child: Text(
+                    item,
+                    style: TextStyle(
+                      fontFamily: 'CustomFont',
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                  ));
+                  ),
+                ),
+              );
             }).toList(),
             icon: Icon(
               MingCuteIcons.mgc_down_line,
@@ -189,17 +190,18 @@ class FilterSheet extends StatelessWidget {
               initialValue: selectedType,
               items: _getAvailableTypeOptions().map((item) {
                 return DropdownMenuItem<String>(
-                    value: item,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: AppSpacing.s.r),
-                      child: Text(
-                        item,
-                        style: TextStyle(
-                          fontFamily: 'CustomFont',
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
+                  value: item,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: AppSpacing.s.r),
+                    child: Text(
+                      item,
+                      style: TextStyle(
+                        fontFamily: 'CustomFont',
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
-                    ));
+                    ),
+                  ),
+                );
               }).toList(),
               icon: Icon(
                 MingCuteIcons.mgc_down_line,
@@ -217,17 +219,18 @@ class FilterSheet extends StatelessWidget {
             initialValue: selectedSeason,
             items: ['All', ...translatedSeasonOptions.values].map((item) {
               return DropdownMenuItem<String>(
-                  value: item,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: AppSpacing.s.r),
-                    child: Text(
-                      item,
-                      style: TextStyle(
-                        fontFamily: 'CustomFont',
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                value: item,
+                child: Padding(
+                  padding: EdgeInsets.only(left: AppSpacing.s.r),
+                  child: Text(
+                    item,
+                    style: TextStyle(
+                      fontFamily: 'CustomFont',
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                  ));
+                  ),
+                ),
+              );
             }).toList(),
             icon: Icon(
               MingCuteIcons.mgc_down_line,
@@ -247,7 +250,8 @@ class FilterSheet extends StatelessWidget {
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.tertiary),
+                    Theme.of(context).colorScheme.tertiary,
+                  ),
                 ),
                 onPressed: onReset,
                 child: Text(
@@ -263,7 +267,8 @@ class FilterSheet extends StatelessWidget {
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.secondary),
+                    Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
                 onPressed: onApply,
                 child: Text(

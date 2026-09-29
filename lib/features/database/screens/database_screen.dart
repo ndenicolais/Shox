@@ -57,7 +57,9 @@ class DatabaseScreenState extends State<DatabaseScreen> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: AppSpacing.screen.r, vertical: AppSpacing.l.r),
+              horizontal: AppSpacing.screen.r,
+              vertical: AppSpacing.l.r,
+            ),
             child: _isLoading
                 ? LoaderWidget(width: 25.w, height: 25.h)
                 : _totalShoesCount == 0
@@ -134,7 +136,9 @@ class DatabaseScreenState extends State<DatabaseScreen> {
       });
       if (context.mounted) {
         showSuccessToast(
-            context, AppLocalizations.of(context)!.database_screen_pdf_confirm);
+          context,
+          AppLocalizations.of(context)!.database_screen_pdf_confirm,
+        );
       }
 
       await Future.delayed(const Duration(milliseconds: 1400));
@@ -142,7 +146,9 @@ class DatabaseScreenState extends State<DatabaseScreen> {
     } catch (e) {
       if (context.mounted) {
         showErrorToast(
-            context, AppLocalizations.of(context)!.database_screen_pdf_error);
+          context,
+          AppLocalizations.of(context)!.database_screen_pdf_error,
+        );
       }
     } finally {
       setState(() {

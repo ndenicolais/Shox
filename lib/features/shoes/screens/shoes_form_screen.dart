@@ -271,8 +271,10 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
       }
 
       if (mounted) {
-        showErrorToast(context,
-            '${AppLocalizations.of(context)!.shoes_form_screen_bg_remove_error}$e');
+        showErrorToast(
+          context,
+          '${AppLocalizations.of(context)!.shoes_form_screen_bg_remove_error}$e',
+        );
       }
     }
   }
@@ -362,8 +364,10 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
       }
     } catch (e) {
       if (mounted) {
-        showErrorToast(context,
-            '${AppLocalizations.of(context)!.shoes_adder_screen_toast_error}, $e');
+        showErrorToast(
+          context,
+          '${AppLocalizations.of(context)!.shoes_adder_screen_toast_error}, $e',
+        );
       }
     } finally {
       if (mounted) {
@@ -392,9 +396,10 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.only(
-                      left: AppSpacing.m.r,
-                      right: AppSpacing.m.r,
-                      bottom: 72.r),
+                    left: AppSpacing.m.r,
+                    right: AppSpacing.m.r,
+                    bottom: 72.r,
+                  ),
                   child: SingleChildScrollView(
                     child: Column(
                       spacing: 10.h,
@@ -507,9 +512,13 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
               backgroundColor: Theme.of(context).colorScheme.secondary,
               elevation: 12,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.w)),
-              child: Icon(MingCuteIcons.mgc_check_line,
-                  color: Theme.of(context).colorScheme.primary, size: 28.w),
+                borderRadius: BorderRadius.circular(32.w),
+              ),
+              child: Icon(
+                MingCuteIcons.mgc_check_line,
+                color: Theme.of(context).colorScheme.primary,
+                size: 28.w,
+              ),
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

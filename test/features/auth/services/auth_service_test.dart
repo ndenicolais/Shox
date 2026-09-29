@@ -35,9 +35,9 @@ void main() {
     snapshot = MockQuerySnapshot();
 
     when(() => firestore.collection('users')).thenReturn(collection);
-    when(() =>
-            collection.where('userEmail', isEqualTo: any(named: 'isEqualTo')))
-        .thenReturn(filtered);
+    when(
+      () => collection.where('userEmail', isEqualTo: any(named: 'isEqualTo')),
+    ).thenReturn(filtered);
     when(() => filtered.limit(1)).thenReturn(query);
     when(() => query.get()).thenAnswer((_) async => snapshot);
 

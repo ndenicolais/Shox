@@ -135,7 +135,7 @@ class UserScreenState extends State<UserScreen> {
       padding: EdgeInsets.fromLTRB(AppSpacing.l.r, 28.r, AppSpacing.l.r, 28.r),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary.withAlpha(25),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(AppRadius.extraLarge),
           bottomRight: Radius.circular(AppRadius.extraLarge),
         ),
@@ -144,19 +144,23 @@ class UserScreenState extends State<UserScreen> {
         children: [
           Center(child: _buildProfileImage(context)),
           SizedBox(height: 16.h),
-          Obx(() => Text(
-                userController.userName.value,
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
-              )),
+          Obx(
+            () => Text(
+              userController.userName.value,
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+          ),
           SizedBox(height: 4.h),
-          Obx(() => Text(
-                userController.userEmail.value,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                textAlign: TextAlign.center,
-              )),
+          Obx(
+            () => Text(
+              userController.userEmail.value,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
@@ -299,7 +303,11 @@ class UserScreenState extends State<UserScreen> {
   }
 
   Widget _buildStatItem(
-      BuildContext context, IconData icon, String label, String value) {
+    BuildContext context,
+    IconData icon,
+    String label,
+    String value,
+  ) {
     return Column(
       spacing: 6.h,
       children: [
@@ -341,10 +349,10 @@ class UserScreenState extends State<UserScreen> {
           shape: BoxShape.circle,
           color: Theme.of(context).colorScheme.primary,
           boxShadow: [
-            BoxShadow(
-              color: const Color(0x33000000),
+            const BoxShadow(
+              color: Color(0x33000000),
               blurRadius: 12,
-              offset: const Offset(0, 4),
+              offset: Offset(0, 4),
             ),
           ],
         ),

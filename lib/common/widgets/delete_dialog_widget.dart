@@ -44,7 +44,7 @@ class DeleteDialogWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: AppSpacing.xl.h),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(AppRadius.dialog),
                 topRight: Radius.circular(AppRadius.dialog),
               ),
@@ -84,9 +84,10 @@ class DeleteDialogWidget extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-                left: AppSpacing.xl.r,
-                right: AppSpacing.xl.r,
-                bottom: AppSpacing.xl.r),
+              left: AppSpacing.xl.r,
+              right: AppSpacing.xl.r,
+              bottom: AppSpacing.xl.r,
+            ),
             child: Row(
               children: [
                 Expanded(

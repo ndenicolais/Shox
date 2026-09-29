@@ -49,7 +49,8 @@ extension ExtString on String {
       return AppLocalizations.of(context)!.validator_password_required;
     }
     final passwordRegExp = RegExp(
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[+!@#\><*~]).{8,}$');
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[+!@#\><*~]).{8,}$',
+    );
     String message = '';
 
     if (!passwordRegExp.hasMatch(this)) {

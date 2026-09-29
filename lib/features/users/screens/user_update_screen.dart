@@ -45,7 +45,8 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          title: AppLocalizations.of(context)!.user_updater_screen_title),
+        title: AppLocalizations.of(context)!.user_updater_screen_title,
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: isLoading
           ? Center(child: LoaderWidget(width: 50.w, height: 50.h))
@@ -137,7 +138,7 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
             CropAspectRatioPreset.square,
             CropAspectRatioPreset.ratio3x2,
             CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio16x9
+            CropAspectRatioPreset.ratio16x9,
           ],
           lockAspectRatio: false,
           hideBottomControls: false,
@@ -209,7 +210,9 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
         if (userImage != null && userImage!.path != imagePath) {
           try {
             String newUrl = await _userController.addUserImage(
-                currentUser!.uid, userImage!);
+              currentUser!.uid,
+              userImage!,
+            );
             imagePath = newUrl;
           } catch (e) {
             _logger.e("Error during update of userImage: $e");

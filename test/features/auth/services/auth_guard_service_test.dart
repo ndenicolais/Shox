@@ -73,8 +73,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(Get.currentRoute, AppRoutes.welcome);
-    expect(find.text('Your session has expired. Please sign in again.'),
-        findsOneWidget);
+    expect(
+      find.text('Your session has expired. Please sign in again.'),
+      findsOneWidget,
+    );
     verify(() => authService.clearSession()).called(1);
     await tester.pump(const Duration(seconds: 2));
   });

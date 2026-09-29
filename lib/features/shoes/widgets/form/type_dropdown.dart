@@ -35,7 +35,9 @@ class TypeDropdown extends StatelessWidget {
         initialValue: selectedType.isNotEmpty ? selectedType : null,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
-              horizontal: AppSpacing.s.w, vertical: AppSpacing.xs.h),
+            horizontal: AppSpacing.s.w,
+            vertical: AppSpacing.xs.h,
+          ),
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,

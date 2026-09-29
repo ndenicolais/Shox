@@ -40,14 +40,16 @@ Future<void> _bootstrap() async {
   }
 
   _isBootstrapping = false;
-  runApp(MyApp(
-    // A different key forces a fresh navigator when switching from the error
-    // screen to the regular routes after a successful retry.
-    key: ValueKey(firebaseReady),
-    savedLocale: savedLocale,
-    firebaseReady: firebaseReady,
-    onRetry: _bootstrap,
-  ));
+  runApp(
+    MyApp(
+      // A different key forces a fresh navigator when switching from the error
+      // screen to the regular routes after a successful retry.
+      key: ValueKey(firebaseReady),
+      savedLocale: savedLocale,
+      firebaseReady: firebaseReady,
+      onRetry: _bootstrap,
+    ),
+  );
 }
 
 /// The saved language is optional: on failure the device locale is used.
@@ -69,8 +71,11 @@ Future<bool> _initFirebase() async {
     );
     return true;
   } catch (e, stackTrace) {
-    _logger.e('Firebase initialization failed',
-        error: e, stackTrace: stackTrace);
+    _logger.e(
+      'Firebase initialization failed',
+      error: e,
+      stackTrace: stackTrace,
+    );
     return false;
   }
 }

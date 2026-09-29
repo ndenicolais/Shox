@@ -60,11 +60,13 @@ void main() {
     Get.put<ShoesController>(controller);
     service = ShoesFormService();
     when(() => controller.addShoes(any(), any())).thenAnswer((_) async {});
-    when(() => controller.updateShoes(
-          any(),
-          newImage: any(named: 'newImage'),
-          removedImages: any(named: 'removedImages'),
-        )).thenAnswer((_) async {});
+    when(
+      () => controller.updateShoes(
+        any(),
+        newImage: any(named: 'newImage'),
+        removedImages: any(named: 'removedImages'),
+      ),
+    ).thenAnswer((_) async {});
   });
 
   tearDown(Get.reset);
@@ -94,11 +96,13 @@ void main() {
       () async {
     await service.save(formData(hasExistingImage: true), existing: existing);
 
-    final captured = verify(() => controller.updateShoes(
-          captureAny(),
-          newImage: captureAny(named: 'newImage'),
-          removedImages: captureAny(named: 'removedImages'),
-        )).captured;
+    final captured = verify(
+      () => controller.updateShoes(
+        captureAny(),
+        newImage: captureAny(named: 'newImage'),
+        removedImages: captureAny(named: 'removedImages'),
+      ),
+    ).captured;
     final model = captured[0] as ShoesModel;
     expect(model.imageUrl, existing.imageUrl);
     expect(model.isFavorite, isTrue);
@@ -111,11 +115,13 @@ void main() {
       () async {
     await service.save(formData(newImage: picked), existing: existing);
 
-    final captured = verify(() => controller.updateShoes(
-          any(),
-          newImage: captureAny(named: 'newImage'),
-          removedImages: captureAny(named: 'removedImages'),
-        )).captured;
+    final captured = verify(
+      () => controller.updateShoes(
+        any(),
+        newImage: captureAny(named: 'newImage'),
+        removedImages: captureAny(named: 'removedImages'),
+      ),
+    ).captured;
     expect(captured[0], same(picked));
     expect(captured[1], [existing.imageUrl]);
   });

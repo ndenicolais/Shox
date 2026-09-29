@@ -214,31 +214,73 @@ class AppTheme {
   static TextTheme _textTheme(Color bodyColor) {
     return TextTheme(
       displayLarge: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 57, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 57,
+        color: bodyColor,
+      ),
       displayMedium: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 45, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 45,
+        color: bodyColor,
+      ),
       displaySmall: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 36, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 36,
+        color: bodyColor,
+      ),
       headlineLarge: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 32, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 32,
+        color: bodyColor,
+      ),
       headlineMedium: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 28, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 28,
+        color: bodyColor,
+      ),
       headlineSmall: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 24, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 24,
+        color: bodyColor,
+      ),
       titleLarge: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 22, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 22,
+        color: bodyColor,
+      ),
       titleMedium: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 16, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 16,
+        color: bodyColor,
+      ),
       titleSmall: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 14, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 14,
+        color: bodyColor,
+      ),
       bodyLarge: TextStyle(
-          fontFamily: _fontFamily, fontSize: 16, color: bodyColor, height: 1.4),
+        fontFamily: _fontFamily,
+        fontSize: 16,
+        color: bodyColor,
+        height: 1.4,
+      ),
       bodyMedium: TextStyle(
-          fontFamily: _fontFamily, fontSize: 14, color: bodyColor, height: 1.4),
+        fontFamily: _fontFamily,
+        fontSize: 14,
+        color: bodyColor,
+        height: 1.4,
+      ),
       bodySmall: TextStyle(
-          fontFamily: _fontFamily, fontSize: 12, color: bodyColor, height: 1.4),
+        fontFamily: _fontFamily,
+        fontSize: 12,
+        color: bodyColor,
+        height: 1.4,
+      ),
       labelLarge: TextStyle(
-          fontFamily: _fontFamilyBold, fontSize: 14, color: bodyColor),
+        fontFamily: _fontFamilyBold,
+        fontSize: 14,
+        color: bodyColor,
+      ),
       labelMedium:
           TextStyle(fontFamily: _fontFamily, fontSize: 12, color: bodyColor),
       labelSmall:

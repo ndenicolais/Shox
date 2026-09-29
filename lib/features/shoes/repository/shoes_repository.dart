@@ -200,10 +200,12 @@ class ShoesRepository {
       QuerySnapshot querySnapshot = await shoesCollection.get();
 
       return querySnapshot.docs
-          .map((doc) => ShoesModel.fromFirestore(
-                doc.id,
-                doc.data() as Map<String, dynamic>,
-              ))
+          .map(
+            (doc) => ShoesModel.fromFirestore(
+              doc.id,
+              doc.data() as Map<String, dynamic>,
+            ),
+          )
           .toList();
     } catch (e) {
       _logger.e("Error getting all shoes: $e");
