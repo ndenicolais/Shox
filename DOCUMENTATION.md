@@ -84,7 +84,6 @@ L'app è completamente localizzata in 5 lingue (italiano, inglese, francese, spa
 | Permessi | [permission_handler](https://pub.dev/packages/permission_handler) `^11.3.1` |
 | Info dispositivo | [device_info_plus](https://pub.dev/packages/device_info_plus) `^11.2.0` |
 | Info app | [package_info_plus](https://pub.dev/packages/package_info_plus) `^9.0.0` |
-| WebView | [webview_flutter](https://pub.dev/packages/webview_flutter) `^4.8.0` |
 | Percorsi filesystem | [path_provider](https://pub.dev/packages/path_provider) `^2.1.4` |
 | HTTP | [http](https://pub.dev/packages/http) `^1.3.0` |
 | Log | [logger](https://pub.dev/packages/logger) `^2.5.0` |
@@ -303,6 +302,8 @@ Stessa schermata a sezioni della modalità aggiunta, precompilata con i dati del
 
 ---
 
+**Info e privacy:** `InfoScreen` mostra logo, nome, sottotitolo e versione (`PackageInfo`), "Cos'è Shox", quattro funzioni principali in card, i link utili (codice sorgente, sito, email, privacy, `showLicensePage` per le licenze open source) e i crediti (`AppConstants.developerName`). `PrivacyPolicyScreen` è nativa: 10 sezioni `policy_section_*` localizzate nelle 5 lingue, data di aggiornamento `AppConstants.privacyPolicyUpdatedAt`, link alla versione pubblica `PRIVACY.md` su GitHub (`AppConstants.uriPrivacyPolicy`, da indicare anche nel Play Store). Il testo di `PRIVACY.md` (italiano e inglese) va mantenuto allineato alle chiavi ARB. `webview_flutter` è stato rimosso perché non più usato.
+
 ### 5.7 Dashboard
 
 **Percorso:** `lib/features/dashboard/`
@@ -319,7 +320,7 @@ Schermata di configurazione e accesso alle funzionalità di account.
 | **Account** | Database | Accesso alle statistiche e alla gestione dati |
 | **Account** | Logout | Disconnessione dall'app |
 | **Informazioni** | Info | Informazioni sull'app e versione |
-| **Informazioni** | Privacy Policy | Visualizzazione della privacy policy (WebView) |
+| **Informazioni** | Privacy Policy | Informativa privacy nativa e localizzata (stesso testo di `PRIVACY.md`, link alla versione online) |
 | **Informazioni** | Supporto | Modulo di supporto / contatto (WebView) |
 | **Informazioni** | Changelog | Apre il dialog con lo storico delle novità per versione |
 
@@ -600,8 +601,8 @@ L'app usa il sistema di routing di **GetX** con route nominate.
 | `/shoes/update` | ShoesUpdaterScreen | Modifica scarpa |
 | `/dashboard` | DashboardScreen | Impostazioni e account |
 | `/database` | DatabaseScreen | Statistiche e gestione dati |
-| `/info` | InfoScreen | Informazioni sull'app |
-| `/privacy-policy` | PrivacyPolicyScreen | Privacy policy (WebView) |
+| `/info` | InfoScreen | Logo, versione, descrizione, funzioni principali, link (GitHub, sito, contatti, privacy, licenze open source) e crediti |
+| `/privacy-policy` | PrivacyPolicyScreen | Informativa privacy nativa (10 sezioni localizzate) |
 | `/support` | SupportScreen | Supporto (WebView) |
 | `/user` | UserScreen | Profilo utente con statistiche |
 | `/user/update` | UserUpdateScreen | Modifica profilo |
@@ -658,7 +659,6 @@ dependencies:
   url_launcher: ^6.3.0                     # Apertura URL
   share_plus: ^10.1.3                      # Condivisione file
   permission_handler: ^11.3.1              # Gestione permessi
-  webview_flutter: ^4.8.0                  # WebView
   pdf: ^3.11.0                             # Generazione PDF
   device_info_plus: ^11.2.0               # Info dispositivo
   file_picker: ^9.0.2                      # Selettore file

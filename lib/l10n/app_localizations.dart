@@ -1358,77 +1358,257 @@ abstract class AppLocalizations {
   /// **'Info'**
   String get info_screen_title;
 
-  /// No description provided for @info_screen_origin_text.
-  ///
-  /// In en, this message translates to:
-  /// **'ORIGIN'**
-  String get info_screen_origin_text;
-
-  /// No description provided for @info_screen_origin_description.
-  ///
-  /// In en, this message translates to:
-  /// **'The name of the app is a fusion between \'Shoes\' and \'Box\', to simulate the creation of a large box to store shoes.'**
-  String get info_screen_origin_description;
-
-  /// No description provided for @info_screen_description_text.
-  ///
-  /// In en, this message translates to:
-  /// **'DESCRIPTION'**
-  String get info_screen_description_text;
-
-  /// No description provided for @info_screen_description_description.
-  ///
-  /// In en, this message translates to:
-  /// **'This app allows you to create a personalized digital wardrobe exclusively for your shoes. Here, you can easily save, organize, and view all your shoes in one virtual place. Each pair of shoes can be cataloged with specific details such as brand, model, color, and occasion of use, making it easier to find exactly what you are looking for at any time. With your digital wardrobe, you will always have a complete view of your shoe collection at your fingertips, making it easier to choose the perfect pair for every occasion.'**
-  String get info_screen_description_description;
-
-  /// No description provided for @info_screen_credits_text.
-  ///
-  /// In en, this message translates to:
-  /// **'CREDITS'**
-  String get info_screen_credits_text;
-
-  /// No description provided for @info_screen_credits_a_text.
-  ///
-  /// In en, this message translates to:
-  /// **'Idea'**
-  String get info_screen_credits_a_text;
-
-  /// No description provided for @info_screen_credits_a_value.
-  ///
-  /// In en, this message translates to:
-  /// **'Nicola De Nicolais'**
-  String get info_screen_credits_a_value;
-
-  /// No description provided for @info_screen_credits_b_text.
-  ///
-  /// In en, this message translates to:
-  /// **'Development'**
-  String get info_screen_credits_b_text;
-
-  /// No description provided for @info_screen_credits_b_value.
-  ///
-  /// In en, this message translates to:
-  /// **'Nicola De Nicolais'**
-  String get info_screen_credits_b_value;
-
-  /// No description provided for @info_screen_credits_c_text.
-  ///
-  /// In en, this message translates to:
-  /// **'Design'**
-  String get info_screen_credits_c_text;
-
-  /// No description provided for @info_screen_credits_c_value.
-  ///
-  /// In en, this message translates to:
-  /// **'Nicola De Nicolais'**
-  String get info_screen_credits_c_value;
-
   /// No description provided for @policy_screen_title.
   ///
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get policy_screen_title;
+
+  /// No description provided for @info_screen_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String info_screen_version(String version);
+
+  /// No description provided for @info_screen_about_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What is Shox'**
+  String get info_screen_about_title;
+
+  /// No description provided for @info_screen_about_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Shox is your digital shoe wardrobe: photograph every pair, note brand, size, colors and season, and find what you are looking for right away. The name blends “Shoes” and “Box”, the box that holds your whole collection.'**
+  String get info_screen_about_text;
+
+  /// No description provided for @info_screen_features_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What you can do'**
+  String get info_screen_features_title;
+
+  /// No description provided for @info_screen_feature_collection_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Catalog'**
+  String get info_screen_feature_collection_title;
+
+  /// No description provided for @info_screen_feature_collection_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos with background removal, brand, size, category, colors and notes.'**
+  String get info_screen_feature_collection_text;
+
+  /// No description provided for @info_screen_feature_search_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Find'**
+  String get info_screen_feature_search_title;
+
+  /// No description provided for @info_screen_feature_search_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Search, quick category filters and favorites.'**
+  String get info_screen_feature_search_text;
+
+  /// No description provided for @info_screen_feature_stats_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyze'**
+  String get info_screen_feature_stats_title;
+
+  /// No description provided for @info_screen_feature_stats_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection statistics and PDF export.'**
+  String get info_screen_feature_stats_text;
+
+  /// No description provided for @info_screen_feature_backup_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get info_screen_feature_backup_title;
+
+  /// No description provided for @info_screen_feature_backup_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up and restore your collection as JSON.'**
+  String get info_screen_feature_backup_text;
+
+  /// No description provided for @info_screen_links_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Useful links'**
+  String get info_screen_links_title;
+
+  /// No description provided for @info_screen_link_source.
+  ///
+  /// In en, this message translates to:
+  /// **'Source code'**
+  String get info_screen_link_source;
+
+  /// No description provided for @info_screen_link_website.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer website'**
+  String get info_screen_link_website;
+
+  /// No description provided for @info_screen_link_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact the developer'**
+  String get info_screen_link_contact;
+
+  /// No description provided for @info_screen_link_licenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Open source licenses'**
+  String get info_screen_link_licenses;
+
+  /// No description provided for @info_screen_made_by.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed and developed by {name}'**
+  String info_screen_made_by(String name);
+
+  /// No description provided for @policy_screen_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: {date}'**
+  String policy_screen_updated(String date);
+
+  /// No description provided for @policy_screen_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'This policy explains which data Shox processes, why, and how you can manage it. Shox shows no ads, uses no analytics tools and does not sell or share your data.'**
+  String get policy_screen_intro;
+
+  /// No description provided for @policy_section_controller_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Data controller'**
+  String get policy_section_controller_title;
+
+  /// No description provided for @policy_section_controller_text.
+  ///
+  /// In en, this message translates to:
+  /// **'The controller is the app developer, {name}. For any privacy request you can write to {email}.'**
+  String policy_section_controller_text(String name, String email);
+
+  /// No description provided for @policy_section_data_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Data we collect'**
+  String get policy_section_data_title;
+
+  /// No description provided for @policy_section_data_text.
+  ///
+  /// In en, this message translates to:
+  /// **'• Account: email, name, profile photo (optional), gender, registration date. With Google sign-in we receive the name, email and profile photo of your Google account.\n• Collection: for each shoe its photo, brand, size, category, type, season, colors, notes, favorite flag and creation and update dates.\n• On your device: preferences such as language, theme, “remember me” and the screens you have already seen.'**
+  String get policy_section_data_text;
+
+  /// No description provided for @policy_section_use_title.
+  ///
+  /// In en, this message translates to:
+  /// **'How we use data'**
+  String get policy_section_use_title;
+
+  /// No description provided for @policy_section_use_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Data is used only to make the app work: sign you in, save and show your collection, compute statistics and generate the files you export. We do not use it for profiling or advertising.'**
+  String get policy_section_use_text;
+
+  /// No description provided for @policy_section_storage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Where it is stored'**
+  String get policy_section_storage_title;
+
+  /// No description provided for @policy_section_storage_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Account, collection and photos are stored on Google Firebase (Authentication, Cloud Firestore and Cloud Storage), a service by Google LLC that may process data outside the European Union with the safeguards set out in its terms. Your data is tied to your account and is not visible to other users.'**
+  String get policy_section_storage_text;
+
+  /// No description provided for @policy_section_device_title.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device processing'**
+  String get policy_section_device_title;
+
+  /// No description provided for @policy_section_device_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo background removal runs entirely on your phone: the photo is not sent to external services. The PDF and JSON files you export are saved on your device and shared only if you choose to.'**
+  String get policy_section_device_text;
+
+  /// No description provided for @policy_section_permissions_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions'**
+  String get policy_section_permissions_title;
+
+  /// No description provided for @policy_section_permissions_text.
+  ///
+  /// In en, this message translates to:
+  /// **'• Camera and photos: to take or pick shoe and profile pictures.\n• Storage: to save photos to the gallery and exported files.\n• Internet: to sync your account and collection.'**
+  String get policy_section_permissions_text;
+
+  /// No description provided for @policy_section_retention_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Retention and deletion'**
+  String get policy_section_retention_title;
+
+  /// No description provided for @policy_section_retention_text.
+  ///
+  /// In en, this message translates to:
+  /// **'We keep your data as long as your account exists. From Profile > Delete account you can delete the account, the whole collection and its photos at any time; you can export a copy first. Preferences on your device are removed when you uninstall the app.'**
+  String get policy_section_retention_text;
+
+  /// No description provided for @policy_section_rights_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your rights'**
+  String get policy_section_rights_title;
+
+  /// No description provided for @policy_section_rights_text.
+  ///
+  /// In en, this message translates to:
+  /// **'You can access and export your data (PDF and JSON), correct it by editing your profile and shoes, erase it by deleting your account, and ask for information by writing to the controller. You can also lodge a complaint with the data protection authority of your country.'**
+  String get policy_section_rights_text;
+
+  /// No description provided for @policy_section_children_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Children'**
+  String get policy_section_children_title;
+
+  /// No description provided for @policy_section_children_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Shox is not intended for children under 14 and does not knowingly collect their data.'**
+  String get policy_section_children_text;
+
+  /// No description provided for @policy_section_changes_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes'**
+  String get policy_section_changes_title;
+
+  /// No description provided for @policy_section_changes_text.
+  ///
+  /// In en, this message translates to:
+  /// **'If this policy changes, the new version will be available in the app and online, with its update date.'**
+  String get policy_section_changes_text;
+
+  /// No description provided for @policy_screen_online.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the online version'**
+  String get policy_screen_online;
 
   /// No description provided for @support_screen_title.
   ///
@@ -2305,6 +2485,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New what\'s-new dialog that keeps you posted after every update.'**
   String get changelog_v5_0_0_bullet_10;
+
+  /// No description provided for @changelog_v5_0_0_bullet_11.
+  ///
+  /// In en, this message translates to:
+  /// **'New Info section and an updated privacy policy, readable right in the app in every language.'**
+  String get changelog_v5_0_0_bullet_11;
 
   /// No description provided for @dashboard_other.
   ///

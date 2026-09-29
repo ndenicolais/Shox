@@ -694,42 +694,153 @@ class AppLocalizationsEn extends AppLocalizations {
   String get info_screen_title => 'Info';
 
   @override
-  String get info_screen_origin_text => 'ORIGIN';
-
-  @override
-  String get info_screen_origin_description =>
-      'The name of the app is a fusion between \'Shoes\' and \'Box\', to simulate the creation of a large box to store shoes.';
-
-  @override
-  String get info_screen_description_text => 'DESCRIPTION';
-
-  @override
-  String get info_screen_description_description =>
-      'This app allows you to create a personalized digital wardrobe exclusively for your shoes. Here, you can easily save, organize, and view all your shoes in one virtual place. Each pair of shoes can be cataloged with specific details such as brand, model, color, and occasion of use, making it easier to find exactly what you are looking for at any time. With your digital wardrobe, you will always have a complete view of your shoe collection at your fingertips, making it easier to choose the perfect pair for every occasion.';
-
-  @override
-  String get info_screen_credits_text => 'CREDITS';
-
-  @override
-  String get info_screen_credits_a_text => 'Idea';
-
-  @override
-  String get info_screen_credits_a_value => 'Nicola De Nicolais';
-
-  @override
-  String get info_screen_credits_b_text => 'Development';
-
-  @override
-  String get info_screen_credits_b_value => 'Nicola De Nicolais';
-
-  @override
-  String get info_screen_credits_c_text => 'Design';
-
-  @override
-  String get info_screen_credits_c_value => 'Nicola De Nicolais';
-
-  @override
   String get policy_screen_title => 'Privacy Policy';
+
+  @override
+  String info_screen_version(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get info_screen_about_title => 'What is Shox';
+
+  @override
+  String get info_screen_about_text =>
+      'Shox is your digital shoe wardrobe: photograph every pair, note brand, size, colors and season, and find what you are looking for right away. The name blends “Shoes” and “Box”, the box that holds your whole collection.';
+
+  @override
+  String get info_screen_features_title => 'What you can do';
+
+  @override
+  String get info_screen_feature_collection_title => 'Catalog';
+
+  @override
+  String get info_screen_feature_collection_text =>
+      'Photos with background removal, brand, size, category, colors and notes.';
+
+  @override
+  String get info_screen_feature_search_title => 'Find';
+
+  @override
+  String get info_screen_feature_search_text =>
+      'Search, quick category filters and favorites.';
+
+  @override
+  String get info_screen_feature_stats_title => 'Analyze';
+
+  @override
+  String get info_screen_feature_stats_text =>
+      'Collection statistics and PDF export.';
+
+  @override
+  String get info_screen_feature_backup_title => 'Keep';
+
+  @override
+  String get info_screen_feature_backup_text =>
+      'Back up and restore your collection as JSON.';
+
+  @override
+  String get info_screen_links_title => 'Useful links';
+
+  @override
+  String get info_screen_link_source => 'Source code';
+
+  @override
+  String get info_screen_link_website => 'Developer website';
+
+  @override
+  String get info_screen_link_contact => 'Contact the developer';
+
+  @override
+  String get info_screen_link_licenses => 'Open source licenses';
+
+  @override
+  String info_screen_made_by(String name) {
+    return 'Designed and developed by $name';
+  }
+
+  @override
+  String policy_screen_updated(String date) {
+    return 'Last updated: $date';
+  }
+
+  @override
+  String get policy_screen_intro =>
+      'This policy explains which data Shox processes, why, and how you can manage it. Shox shows no ads, uses no analytics tools and does not sell or share your data.';
+
+  @override
+  String get policy_section_controller_title => 'Data controller';
+
+  @override
+  String policy_section_controller_text(String name, String email) {
+    return 'The controller is the app developer, $name. For any privacy request you can write to $email.';
+  }
+
+  @override
+  String get policy_section_data_title => 'Data we collect';
+
+  @override
+  String get policy_section_data_text =>
+      '• Account: email, name, profile photo (optional), gender, registration date. With Google sign-in we receive the name, email and profile photo of your Google account.\n• Collection: for each shoe its photo, brand, size, category, type, season, colors, notes, favorite flag and creation and update dates.\n• On your device: preferences such as language, theme, “remember me” and the screens you have already seen.';
+
+  @override
+  String get policy_section_use_title => 'How we use data';
+
+  @override
+  String get policy_section_use_text =>
+      'Data is used only to make the app work: sign you in, save and show your collection, compute statistics and generate the files you export. We do not use it for profiling or advertising.';
+
+  @override
+  String get policy_section_storage_title => 'Where it is stored';
+
+  @override
+  String get policy_section_storage_text =>
+      'Account, collection and photos are stored on Google Firebase (Authentication, Cloud Firestore and Cloud Storage), a service by Google LLC that may process data outside the European Union with the safeguards set out in its terms. Your data is tied to your account and is not visible to other users.';
+
+  @override
+  String get policy_section_device_title => 'On-device processing';
+
+  @override
+  String get policy_section_device_text =>
+      'Photo background removal runs entirely on your phone: the photo is not sent to external services. The PDF and JSON files you export are saved on your device and shared only if you choose to.';
+
+  @override
+  String get policy_section_permissions_title => 'Permissions';
+
+  @override
+  String get policy_section_permissions_text =>
+      '• Camera and photos: to take or pick shoe and profile pictures.\n• Storage: to save photos to the gallery and exported files.\n• Internet: to sync your account and collection.';
+
+  @override
+  String get policy_section_retention_title => 'Retention and deletion';
+
+  @override
+  String get policy_section_retention_text =>
+      'We keep your data as long as your account exists. From Profile > Delete account you can delete the account, the whole collection and its photos at any time; you can export a copy first. Preferences on your device are removed when you uninstall the app.';
+
+  @override
+  String get policy_section_rights_title => 'Your rights';
+
+  @override
+  String get policy_section_rights_text =>
+      'You can access and export your data (PDF and JSON), correct it by editing your profile and shoes, erase it by deleting your account, and ask for information by writing to the controller. You can also lodge a complaint with the data protection authority of your country.';
+
+  @override
+  String get policy_section_children_title => 'Children';
+
+  @override
+  String get policy_section_children_text =>
+      'Shox is not intended for children under 14 and does not knowingly collect their data.';
+
+  @override
+  String get policy_section_changes_title => 'Changes';
+
+  @override
+  String get policy_section_changes_text =>
+      'If this policy changes, the new version will be available in the app and online, with its update date.';
+
+  @override
+  String get policy_screen_online => 'Read the online version';
 
   @override
   String get support_screen_title => 'Support';
@@ -1197,6 +1308,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_10 =>
       'New what\'s-new dialog that keeps you posted after every update.';
+
+  @override
+  String get changelog_v5_0_0_bullet_11 =>
+      'New Info section and an updated privacy policy, readable right in the app in every language.';
 
   @override
   String get dashboard_other => 'Other';

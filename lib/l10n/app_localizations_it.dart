@@ -709,42 +709,153 @@ class AppLocalizationsIt extends AppLocalizations {
   String get info_screen_title => 'Info';
 
   @override
-  String get info_screen_origin_text => 'ORIGINE';
-
-  @override
-  String get info_screen_origin_description =>
-      'Il nome dell\'app è una fusione tra \'Shoes\' e \'Box\', proprio per simulare la creazione di una grande scatola dove contenere le scarpe.';
-
-  @override
-  String get info_screen_description_text => 'DESCRIZIONE';
-
-  @override
-  String get info_screen_description_description =>
-      'Questa applicazione consente di creare un guardaroba digitale personalizzato, dedicato esclusivamente alle vostre scarpe. Qui, potrete facilmente salvare, organizzare e visualizzare tutte le vostre scarpe in un unico luogo virtuale. Ogni paio di scarpe potrà essere catalogato con dettagli specifici come marca, modello, colore, e occasione d\'uso, rendendo più semplice trovare esattamente quello che cercate in qualsiasi momento. Con il vostro guardaroba digitale, avrete sempre a portata di mano una visione completa della vostra collezione di scarpe, facilitando la scelta del paio perfetto per ogni occasione.';
-
-  @override
-  String get info_screen_credits_text => 'CREDITI';
-
-  @override
-  String get info_screen_credits_a_text => 'Ideazione';
-
-  @override
-  String get info_screen_credits_a_value => 'Nicola De Nicolais';
-
-  @override
-  String get info_screen_credits_b_text => 'Sviluppo';
-
-  @override
-  String get info_screen_credits_b_value => 'Nicola De Nicolais';
-
-  @override
-  String get info_screen_credits_c_text => 'Design';
-
-  @override
-  String get info_screen_credits_c_value => 'Nicola De Nicolais';
-
-  @override
   String get policy_screen_title => 'Privacy Policy';
+
+  @override
+  String info_screen_version(String version) {
+    return 'Versione $version';
+  }
+
+  @override
+  String get info_screen_about_title => 'Cos\'è Shox';
+
+  @override
+  String get info_screen_about_text =>
+      'Shox è il tuo guardaroba di scarpe digitale: fotografa ogni paio, annota marca, taglia, colori e stagione e ritrova subito quello che cerchi. Il nome unisce «Shoes» e «Box», la scatola che contiene tutta la tua collezione.';
+
+  @override
+  String get info_screen_features_title => 'Cosa puoi fare';
+
+  @override
+  String get info_screen_feature_collection_title => 'Cataloga';
+
+  @override
+  String get info_screen_feature_collection_text =>
+      'Foto con rimozione dello sfondo, marca, taglia, categoria, colori e note.';
+
+  @override
+  String get info_screen_feature_search_title => 'Ritrova';
+
+  @override
+  String get info_screen_feature_search_text =>
+      'Ricerca, filtri rapidi per categoria e preferiti.';
+
+  @override
+  String get info_screen_feature_stats_title => 'Analizza';
+
+  @override
+  String get info_screen_feature_stats_text =>
+      'Statistiche della collezione ed esportazione in PDF.';
+
+  @override
+  String get info_screen_feature_backup_title => 'Conserva';
+
+  @override
+  String get info_screen_feature_backup_text =>
+      'Backup e ripristino della collezione in formato JSON.';
+
+  @override
+  String get info_screen_links_title => 'Link utili';
+
+  @override
+  String get info_screen_link_source => 'Codice sorgente';
+
+  @override
+  String get info_screen_link_website => 'Sito dello sviluppatore';
+
+  @override
+  String get info_screen_link_contact => 'Contatta lo sviluppatore';
+
+  @override
+  String get info_screen_link_licenses => 'Licenze open source';
+
+  @override
+  String info_screen_made_by(String name) {
+    return 'Ideato e sviluppato da $name';
+  }
+
+  @override
+  String policy_screen_updated(String date) {
+    return 'Ultimo aggiornamento: $date';
+  }
+
+  @override
+  String get policy_screen_intro =>
+      'Questa informativa spiega quali dati tratta Shox, perché e come puoi gestirli. Shox non mostra pubblicità, non usa strumenti di analisi e non vende né cede i tuoi dati.';
+
+  @override
+  String get policy_section_controller_title => 'Titolare del trattamento';
+
+  @override
+  String policy_section_controller_text(String name, String email) {
+    return 'Il titolare è lo sviluppatore dell\'app, $name. Per qualsiasi richiesta sulla privacy puoi scrivere a $email.';
+  }
+
+  @override
+  String get policy_section_data_title => 'Dati che raccogliamo';
+
+  @override
+  String get policy_section_data_text =>
+      '• Account: email, nome, foto del profilo (facoltativa), genere, data di registrazione. Con l\'accesso Google riceviamo nome, email e foto del profilo del tuo account Google.\n• Collezione: per ogni scarpa foto, marca, taglia, categoria, tipo, stagione, colori, note, preferito e date di inserimento e modifica.\n• Sul dispositivo: preferenze come lingua, tema, «ricordami» e le schermate già viste.';
+
+  @override
+  String get policy_section_use_title => 'Come usiamo i dati';
+
+  @override
+  String get policy_section_use_text =>
+      'I dati servono solo a far funzionare l\'app: accedere al tuo account, salvare e mostrare la tua collezione, calcolare le statistiche e generare i file che esporti. Non li usiamo per profilazione o pubblicità.';
+
+  @override
+  String get policy_section_storage_title => 'Dove sono conservati';
+
+  @override
+  String get policy_section_storage_text =>
+      'Account, collezione e foto sono conservati su Google Firebase (Authentication, Cloud Firestore e Cloud Storage), un servizio di Google LLC che può trattare i dati anche fuori dall\'Unione Europea con le garanzie previste dalle sue condizioni. I dati sono collegati al tuo account e non sono visibili ad altri utenti.';
+
+  @override
+  String get policy_section_device_title => 'Elaborazione sul dispositivo';
+
+  @override
+  String get policy_section_device_text =>
+      'La rimozione dello sfondo delle foto avviene interamente sul tuo telefono: la foto non viene inviata a servizi esterni. I file PDF e JSON che esporti vengono salvati sul dispositivo e condivisi solo se lo scegli tu.';
+
+  @override
+  String get policy_section_permissions_title => 'Permessi';
+
+  @override
+  String get policy_section_permissions_text =>
+      '• Fotocamera e foto: per scattare o scegliere le immagini delle scarpe e del profilo.\n• Memoria: per salvare le foto in galleria e i file esportati.\n• Internet: per sincronizzare account e collezione.';
+
+  @override
+  String get policy_section_retention_title => 'Conservazione e cancellazione';
+
+  @override
+  String get policy_section_retention_text =>
+      'Conserviamo i dati finché il tuo account esiste. Da Profilo > Elimina account puoi cancellare in qualsiasi momento l\'account, tutta la collezione e le foto; prima puoi esportarne una copia. Le preferenze sul dispositivo vengono rimosse disinstallando l\'app.';
+
+  @override
+  String get policy_section_rights_title => 'I tuoi diritti';
+
+  @override
+  String get policy_section_rights_text =>
+      'Puoi accedere ai tuoi dati ed esportarli (PDF e JSON), correggerli modificando profilo e scarpe, cancellarli eliminando l\'account e chiedere informazioni scrivendo al titolare. Puoi anche presentare reclamo all\'autorità per la protezione dei dati del tuo paese.';
+
+  @override
+  String get policy_section_children_title => 'Minori';
+
+  @override
+  String get policy_section_children_text =>
+      'Shox non è rivolta a minori di 14 anni e non raccoglie consapevolmente i loro dati.';
+
+  @override
+  String get policy_section_changes_title => 'Modifiche';
+
+  @override
+  String get policy_section_changes_text =>
+      'Se questa informativa cambia, la nuova versione sarà disponibile nell\'app e online, con la data di aggiornamento.';
+
+  @override
+  String get policy_screen_online => 'Leggi la versione online';
 
   @override
   String get support_screen_title => 'Supporto';
@@ -1215,6 +1326,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_10 =>
       'Nuova finestra delle novità, che mostra cosa cambia dopo ogni aggiornamento.';
+
+  @override
+  String get changelog_v5_0_0_bullet_11 =>
+      'Nuova sezione Info e informativa privacy aggiornata, leggibile direttamente nell\'app in tutte le lingue.';
 
   @override
   String get dashboard_other => 'Altro';
