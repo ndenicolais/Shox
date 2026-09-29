@@ -2177,218 +2177,62 @@ abstract class AppLocalizations {
   /// No description provided for @changelog_v4_1_0_bullet_1.
   ///
   /// In en, this message translates to:
-  /// **'Redesigned the app with a modern Material 3 look, keeping the original warm color palette.'**
+  /// **'New Material 3 look with the original warm palette: card-based shoe form, language selector, info section and more readable colors, dark mode included.'**
   String get changelog_v4_1_0_bullet_1;
 
   /// No description provided for @changelog_v4_1_0_bullet_2.
   ///
   /// In en, this message translates to:
-  /// **'Added a true responsive layout that adapts to phones and tablets, with free screen rotation.'**
+  /// **'New System / Light / Dark theme selector that follows your phone\'s light/dark switch right away.'**
   String get changelog_v4_1_0_bullet_2;
 
   /// No description provided for @changelog_v4_1_0_bullet_3.
   ///
   /// In en, this message translates to:
-  /// **'New System / Light / Dark theme selector.'**
+  /// **'Smoother home screen: grid preview while loading, fade transitions, pull down to refresh and photos that always fill their tile.'**
   String get changelog_v4_1_0_bullet_3;
 
   /// No description provided for @changelog_v4_1_0_bullet_4.
   ///
   /// In en, this message translates to:
-  /// **'Moved account deletion to the Profile screen for easier access.'**
+  /// **'Search also by type, category and notes; more reliable filters, with a dedicated message and a clear button when nothing matches.'**
   String get changelog_v4_1_0_bullet_4;
 
   /// No description provided for @changelog_v4_1_0_bullet_5.
   ///
   /// In en, this message translates to:
-  /// **'Redesigned the language selector for a clearer, more consistent look.'**
+  /// **'Shoe form: confirmation before leaving with unsaved changes; editing a shoe no longer removes it from favorites and a photo is always required.'**
   String get changelog_v4_1_0_bullet_5;
 
   /// No description provided for @changelog_v4_1_0_bullet_6.
   ///
   /// In en, this message translates to:
-  /// **'Added this changelog dialog to keep you updated on what\'s new after each update.'**
+  /// **'More reliable sign-in: clear Google error messages, a Retry screen if the app fails to start and a return to the welcome screen when your session expires.'**
   String get changelog_v4_1_0_bullet_6;
 
   /// No description provided for @changelog_v4_1_0_bullet_7.
   ///
   /// In en, this message translates to:
-  /// **'Fixed text readability in dark mode for the theme selector and profile statistics.'**
+  /// **'Adaptive layout for phones and tablets with free rotation, text that follows your phone\'s font size up to 130% and buttons readable by screen readers.'**
   String get changelog_v4_1_0_bullet_7;
 
   /// No description provided for @changelog_v4_1_0_bullet_8.
   ///
   /// In en, this message translates to:
-  /// **'Fixed overlapping charts in the database section.'**
+  /// **'Account deletion moved to the Profile screen.'**
   String get changelog_v4_1_0_bullet_8;
 
   /// No description provided for @changelog_v4_1_0_bullet_9.
   ///
   /// In en, this message translates to:
-  /// **'Resized text, icons and images in the add/edit shoe form for a better fit on smartphones.'**
+  /// **'Fixed overlapping charts in the database section.'**
   String get changelog_v4_1_0_bullet_9;
 
   /// No description provided for @changelog_v4_1_0_bullet_10.
   ///
   /// In en, this message translates to:
-  /// **'Restructured the app\'s info section.'**
+  /// **'New what\'s-new dialog that keeps you posted after every update.'**
   String get changelog_v4_1_0_bullet_10;
-
-  /// No description provided for @changelog_v4_1_0_bullet_11.
-  ///
-  /// In en, this message translates to:
-  /// **'Redesigned the add/edit shoe form with a clearer, card-based, sectioned layout.'**
-  String get changelog_v4_1_0_bullet_11;
-
-  /// No description provided for @changelog_v4_1_0_bullet_12.
-  ///
-  /// In en, this message translates to:
-  /// **'Restyled the photo picker placeholder in the shoe form to match the new card look.'**
-  String get changelog_v4_1_0_bullet_12;
-
-  /// No description provided for @changelog_v4_1_0_bullet_13.
-  ///
-  /// In en, this message translates to:
-  /// **'The filter reset now clears every filter, including color, category and favorites.'**
-  String get changelog_v4_1_0_bullet_13;
-
-  /// No description provided for @changelog_v4_1_0_bullet_14.
-  ///
-  /// In en, this message translates to:
-  /// **'The filter icon is highlighted only when a filter is really applied.'**
-  String get changelog_v4_1_0_bullet_14;
-
-  /// No description provided for @changelog_v4_1_0_bullet_15.
-  ///
-  /// In en, this message translates to:
-  /// **'Fixed the \"All\" category filter, which emptied the grid instead of showing every shoe.'**
-  String get changelog_v4_1_0_bullet_15;
-
-  /// No description provided for @changelog_v4_1_0_bullet_16.
-  ///
-  /// In en, this message translates to:
-  /// **'When no shoe matches the filters you now get a dedicated message with a button to clear them.'**
-  String get changelog_v4_1_0_bullet_16;
-
-  /// No description provided for @changelog_v4_1_0_bullet_17.
-  ///
-  /// In en, this message translates to:
-  /// **'The add button no longer covers the last row of the grid.'**
-  String get changelog_v4_1_0_bullet_17;
-
-  /// No description provided for @changelog_v4_1_0_bullet_18.
-  ///
-  /// In en, this message translates to:
-  /// **'Icon-only buttons now have labels and tooltips, so they can be read by screen readers.'**
-  String get changelog_v4_1_0_bullet_18;
-
-  /// No description provided for @changelog_v4_1_0_bullet_19.
-  ///
-  /// In en, this message translates to:
-  /// **'Enlarged the touch area of the profile and settings buttons in the top bar.'**
-  String get changelog_v4_1_0_bullet_19;
-
-  /// No description provided for @changelog_v4_1_0_bullet_20.
-  ///
-  /// In en, this message translates to:
-  /// **'The shoes list is now filtered outside the screen rendering: smoother scrolling and no more reordering of the underlying data.'**
-  String get changelog_v4_1_0_bullet_20;
-
-  /// No description provided for @changelog_v4_1_0_bullet_21.
-  ///
-  /// In en, this message translates to:
-  /// **'The app version in the dashboard is loaded once instead of at every redraw.'**
-  String get changelog_v4_1_0_bullet_21;
-
-  /// No description provided for @changelog_v4_1_0_bullet_22.
-  ///
-  /// In en, this message translates to:
-  /// **'Google sign-in now shows an error message, for example when there is no connection, instead of doing nothing.'**
-  String get changelog_v4_1_0_bullet_22;
-
-  /// No description provided for @changelog_v4_1_0_bullet_23.
-  ///
-  /// In en, this message translates to:
-  /// **'If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.'**
-  String get changelog_v4_1_0_bullet_23;
-
-  /// No description provided for @changelog_v4_1_0_bullet_24.
-  ///
-  /// In en, this message translates to:
-  /// **'If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.'**
-  String get changelog_v4_1_0_bullet_24;
-
-  /// No description provided for @changelog_v4_1_0_bullet_25.
-  ///
-  /// In en, this message translates to:
-  /// **'The favorites heart now has a backdrop, so it stays visible on light photos.'**
-  String get changelog_v4_1_0_bullet_25;
-
-  /// No description provided for @changelog_v4_1_0_bullet_26.
-  ///
-  /// In en, this message translates to:
-  /// **'Search now also finds shoes by type, category and notes, and updates when you stop typing.'**
-  String get changelog_v4_1_0_bullet_26;
-
-  /// No description provided for @changelog_v4_1_0_bullet_27.
-  ///
-  /// In en, this message translates to:
-  /// **'Pull down the grid to refresh your collection.'**
-  String get changelog_v4_1_0_bullet_27;
-
-  /// No description provided for @changelog_v4_1_0_bullet_28.
-  ///
-  /// In en, this message translates to:
-  /// **'Leaving the shoe form with unsaved changes now asks for confirmation.'**
-  String get changelog_v4_1_0_bullet_28;
-
-  /// No description provided for @changelog_v4_1_0_bullet_29.
-  ///
-  /// In en, this message translates to:
-  /// **'Smoother, consistent transitions between screens.'**
-  String get changelog_v4_1_0_bullet_29;
-
-  /// No description provided for @changelog_v4_1_0_bullet_30.
-  ///
-  /// In en, this message translates to:
-  /// **'During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.'**
-  String get changelog_v4_1_0_bullet_30;
-
-  /// No description provided for @changelog_v4_1_0_bullet_31.
-  ///
-  /// In en, this message translates to:
-  /// **'With the System theme the app now follows the phone\'s light/dark switch right away, without restarting; status bar icons stay readable in dark mode too.'**
-  String get changelog_v4_1_0_bullet_31;
-
-  /// No description provided for @changelog_v4_1_0_bullet_32.
-  ///
-  /// In en, this message translates to:
-  /// **'More consistent, readable colors in system elements (menus, dialogs, switches and errors), dark mode included.'**
-  String get changelog_v4_1_0_bullet_32;
-
-  /// No description provided for @changelog_v4_1_0_bullet_33.
-  ///
-  /// In en, this message translates to:
-  /// **'Collection photos now always fill their tile and use less memory; on tablets the home screen is centered like the other screens.'**
-  String get changelog_v4_1_0_bullet_33;
-
-  /// No description provided for @changelog_v4_1_0_bullet_34.
-  ///
-  /// In en, this message translates to:
-  /// **'Editing a favorite shoe no longer removes it from favorites, and a shoe can no longer be saved after removing its photo without picking a new one.'**
-  String get changelog_v4_1_0_bullet_34;
-
-  /// No description provided for @changelog_v4_1_0_bullet_35.
-  ///
-  /// In en, this message translates to:
-  /// **'Text follows the phone\'s font size setting up to 130%, with no more clipped button labels.'**
-  String get changelog_v4_1_0_bullet_35;
-
-  /// No description provided for @changelog_v4_1_0_bullet_36.
-  ///
-  /// In en, this message translates to:
-  /// **'Smoother home screen: a grid preview replaces the logo while loading, and column, filter and state changes now fade smoothly.'**
-  String get changelog_v4_1_0_bullet_36;
 
   /// No description provided for @dashboard_other.
   ///

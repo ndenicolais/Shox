@@ -1123,147 +1123,43 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Rinnovata la grafica dell\'app in stile Material 3, mantenendo la palette di colori originale.';
+      'Nuova veste grafica Material 3 con la calda palette originale: modulo scarpa a schede, selettore lingua, sezione info e colori più leggibili, anche in tema scuro.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>
-      'Aggiunto un layout davvero responsive che si adatta a smartphone e tablet, con rotazione libera dello schermo.';
+      'Nuovo selettore di tema Sistema / Chiaro / Scuro, che segue subito il passaggio chiaro/scuro del telefono.';
 
   @override
   String get changelog_v4_1_0_bullet_3 =>
-      'Nuovo selettore del tema Sistema / Chiaro / Scuro.';
+      'Home più fluida: anteprima della griglia durante il caricamento, dissolvenze, trascina in basso per aggiornare e foto che riempiono sempre la casella.';
 
   @override
   String get changelog_v4_1_0_bullet_4 =>
-      'Spostata l\'eliminazione dell\'account nella pagina del profilo per un accesso più semplice.';
+      'Ricerca anche per tipo, categoria e note; filtri più affidabili, con un messaggio dedicato e un pulsante per azzerarli quando non c\'è nessun risultato.';
 
   @override
   String get changelog_v4_1_0_bullet_5 =>
-      'Rinnovato il selettore della lingua per un aspetto più chiaro e coerente.';
+      'Modulo scarpa: conferma prima di uscire con modifiche non salvate; modificare una scarpa non la toglie più dai preferiti e la foto è sempre obbligatoria.';
 
   @override
   String get changelog_v4_1_0_bullet_6 =>
-      'Aggiunto questo dialog delle novità per tenerti aggiornato dopo ogni aggiornamento.';
+      'Accesso più affidabile: messaggi d\'errore chiari con Google, schermata Riprova se l\'app non si avvia e ritorno alla schermata di benvenuto se la sessione scade.';
 
   @override
   String get changelog_v4_1_0_bullet_7 =>
-      'Corretta la leggibilità dei testi in modalità scura nel selettore del tema e nelle statistiche del profilo.';
+      'Layout adattivo per smartphone e tablet con rotazione libera, testo che segue la dimensione dei caratteri del telefono fino al 130% e pulsanti leggibili dagli screen reader.';
 
   @override
   String get changelog_v4_1_0_bullet_8 =>
-      'Risolta la sovrapposizione dei grafici nella sezione database.';
+      'Eliminazione dell\'account spostata nella schermata Profilo.';
 
   @override
   String get changelog_v4_1_0_bullet_9 =>
-      'Ridimensionati testi, icone e immagini nel form di aggiunta/modifica scarpa per una migliore visualizzazione su smartphone.';
+      'Corretti i grafici sovrapposti nella sezione database.';
 
   @override
   String get changelog_v4_1_0_bullet_10 =>
-      'Ristrutturata la sezione informazioni dell\'app.';
-
-  @override
-  String get changelog_v4_1_0_bullet_11 =>
-      'Rinnovato il form di aggiunta/modifica scarpa con un layout più chiaro, a schede e sezioni.';
-
-  @override
-  String get changelog_v4_1_0_bullet_12 =>
-      'Rinnovato il placeholder per la scelta della foto nel form scarpa, in linea con il nuovo stile a schede.';
-
-  @override
-  String get changelog_v4_1_0_bullet_13 =>
-      'Il reset dei filtri ora azzera tutti i filtri, compresi colore, categoria e preferiti.';
-
-  @override
-  String get changelog_v4_1_0_bullet_14 =>
-      'L\'icona dei filtri si accende solo quando un filtro è davvero applicato.';
-
-  @override
-  String get changelog_v4_1_0_bullet_15 =>
-      'Corretto il filtro categoria \"Tutte\", che svuotava la griglia invece di mostrare tutte le scarpe.';
-
-  @override
-  String get changelog_v4_1_0_bullet_16 =>
-      'Quando nessuna scarpa corrisponde ai filtri compare un messaggio dedicato con un pulsante per azzerarli.';
-
-  @override
-  String get changelog_v4_1_0_bullet_17 =>
-      'Il pulsante di aggiunta non copre più l\'ultima riga della griglia.';
-
-  @override
-  String get changelog_v4_1_0_bullet_18 =>
-      'I pulsanti con la sola icona ora hanno etichette e suggerimenti, leggibili dagli screen reader.';
-
-  @override
-  String get changelog_v4_1_0_bullet_19 =>
-      'Ingrandita l\'area di tocco dei pulsanti profilo e impostazioni nella barra superiore.';
-
-  @override
-  String get changelog_v4_1_0_bullet_20 =>
-      'La lista delle scarpe viene ora filtrata fuori dal disegno della schermata: scorrimento più fluido e nessun riordino dei dati sottostanti.';
-
-  @override
-  String get changelog_v4_1_0_bullet_21 =>
-      'La versione dell\'app nella dashboard viene caricata una volta sola invece che a ogni ridisegno.';
-
-  @override
-  String get changelog_v4_1_0_bullet_22 =>
-      'Il login con Google ora mostra un messaggio d\'errore, ad esempio in assenza di connessione, invece di non fare nulla.';
-
-  @override
-  String get changelog_v4_1_0_bullet_23 =>
-      'Se l\'avvio dell\'app non riesce, ora compare una schermata con il pulsante Riprova invece di un arresto improvviso.';
-
-  @override
-  String get changelog_v4_1_0_bullet_24 =>
-      'Se la sessione scade, l\'app ora torna alla schermata di benvenuto invece di chiudersi improvvisamente.';
-
-  @override
-  String get changelog_v4_1_0_bullet_25 =>
-      'Il cuore dei preferiti ha ora uno sfondo che lo rende visibile anche sulle foto chiare.';
-
-  @override
-  String get changelog_v4_1_0_bullet_26 =>
-      'La ricerca ora trova le scarpe anche per tipo, categoria e note, e si aggiorna quando smetti di scrivere.';
-
-  @override
-  String get changelog_v4_1_0_bullet_27 =>
-      'Trascina verso il basso la griglia per aggiornare la collezione.';
-
-  @override
-  String get changelog_v4_1_0_bullet_28 =>
-      'Uscendo dal modulo di una scarpa con modifiche non salvate ora viene chiesta una conferma.';
-
-  @override
-  String get changelog_v4_1_0_bullet_29 =>
-      'Transizioni tra le schermate più fluide e uniformi.';
-
-  @override
-  String get changelog_v4_1_0_bullet_30 =>
-      'Durante accesso, registrazione e reset password il pulsante mostra il caricamento al suo interno; il pulsante di scelta del genere resta disattivato finché non ne selezioni uno.';
-
-  @override
-  String get changelog_v4_1_0_bullet_31 =>
-      'Con il tema Sistema l\'app ora segue subito il passaggio chiaro/scuro del telefono, senza riavvio; le icone della barra di stato restano leggibili anche in tema scuro.';
-
-  @override
-  String get changelog_v4_1_0_bullet_32 =>
-      'Colori più coerenti e leggibili negli elementi di sistema (menu, finestre di dialogo, interruttori ed errori), anche in tema scuro.';
-
-  @override
-  String get changelog_v4_1_0_bullet_33 =>
-      'Le foto della collezione riempiono sempre la loro casella e occupano meno memoria; su tablet la home è centrata come le altre schermate.';
-
-  @override
-  String get changelog_v4_1_0_bullet_34 =>
-      'Modificare una scarpa preferita non la toglie più dai preferiti, e non è più possibile salvarla dopo averne rimosso la foto senza sceglierne una nuova.';
-
-  @override
-  String get changelog_v4_1_0_bullet_35 =>
-      'Il testo rispetta la dimensione dei caratteri impostata sul telefono fino al 130%, senza più etichette tagliate nei pulsanti.';
-
-  @override
-  String get changelog_v4_1_0_bullet_36 =>
-      'Home più fluida: durante il caricamento compare un\'anteprima della griglia al posto del logo, e cambi di colonne, filtri e stati avvengono con una dissolvenza.';
+      'Nuova finestra delle novità, che mostra cosa cambia dopo ogni aggiornamento.';
 
   @override
   String get dashboard_other => 'Altro';

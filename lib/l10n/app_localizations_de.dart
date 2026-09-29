@@ -1121,147 +1121,43 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Die App wurde grafisch im Material-3-Stil überarbeitet, die ursprüngliche warme Farbpalette bleibt erhalten.';
+      'Neues Material-3-Design mit der ursprünglichen warmen Farbpalette: Schuhformular mit Karten, Sprachauswahl, Info-Bereich und besser lesbare Farben, auch im dunklen Design.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>
-      'Ein echtes responsives Layout wurde hinzugefügt, das sich an Smartphones und Tablets anpasst, mit freier Bildschirmdrehung.';
+      'Neue Design-Auswahl System / Hell / Dunkel, die dem Hell-/Dunkel-Wechsel des Telefons sofort folgt.';
 
   @override
   String get changelog_v4_1_0_bullet_3 =>
-      'Neuer Design-Umschalter System / Hell / Dunkel.';
+      'Flüssigerer Startbildschirm: Rastervorschau beim Laden, Überblendungen, Nach-unten-Ziehen zum Aktualisieren und Fotos, die ihre Kachel immer ausfüllen.';
 
   @override
   String get changelog_v4_1_0_bullet_4 =>
-      'Das Löschen des Kontos wurde für einfacheren Zugriff in den Profilbereich verschoben.';
+      'Suche auch nach Typ, Kategorie und Notizen; zuverlässigere Filter, mit eigenem Hinweis und einer Schaltfläche zum Zurücksetzen, wenn nichts passt.';
 
   @override
   String get changelog_v4_1_0_bullet_5 =>
-      'Die Sprachauswahl wurde für ein klareres, einheitlicheres Erscheinungsbild überarbeitet.';
+      'Schuhformular: Bestätigung vor dem Verlassen mit ungespeicherten Änderungen; das Bearbeiten eines Schuhs entfernt ihn nicht mehr aus den Favoriten, und ein Foto ist immer erforderlich.';
 
   @override
   String get changelog_v4_1_0_bullet_6 =>
-      'Dieser Neuigkeiten-Dialog wurde hinzugefügt, damit du nach jedem Update auf dem Laufenden bleibst.';
+      'Zuverlässigere Anmeldung: klare Google-Fehlermeldungen, ein Wiederholen-Bildschirm, wenn die App nicht startet, und Rückkehr zum Startbildschirm, wenn die Sitzung abläuft.';
 
   @override
   String get changelog_v4_1_0_bullet_7 =>
-      'Lesbarkeit der Texte im Dunkelmodus im Theme-Wähler und in den Profilstatistiken behoben.';
+      'Anpassungsfähiges Layout für Smartphones und Tablets mit freier Drehung, Text, der der Schriftgröße des Telefons bis 130 % folgt, und Schaltflächen, die Screenreader vorlesen können.';
 
   @override
   String get changelog_v4_1_0_bullet_8 =>
-      'Überlappende Diagramme im Datenbankbereich behoben.';
+      'Die Kontolöschung befindet sich jetzt im Profil.';
 
   @override
   String get changelog_v4_1_0_bullet_9 =>
-      'Text-, Icon- und Bildgrößen im Formular zum Hinzufügen/Bearbeiten von Schuhen für Smartphones angepasst.';
+      'Überlappende Diagramme im Datenbankbereich behoben.';
 
   @override
   String get changelog_v4_1_0_bullet_10 =>
-      'Der Info-Bereich der App wurde überarbeitet.';
-
-  @override
-  String get changelog_v4_1_0_bullet_11 =>
-      'Das Formular zum Hinzufügen/Bearbeiten von Schuhen wurde mit einem klareren, kartenbasierten Layout in Abschnitten überarbeitet.';
-
-  @override
-  String get changelog_v4_1_0_bullet_12 =>
-      'Der Platzhalter für die Fotoauswahl im Schuhformular wurde an den neuen Kartenlook angepasst.';
-
-  @override
-  String get changelog_v4_1_0_bullet_13 =>
-      'Das Zurücksetzen der Filter löscht jetzt alle Filter, auch Farbe, Kategorie und Favoriten.';
-
-  @override
-  String get changelog_v4_1_0_bullet_14 =>
-      'Das Filtersymbol leuchtet nur noch, wenn wirklich ein Filter aktiv ist.';
-
-  @override
-  String get changelog_v4_1_0_bullet_15 =>
-      'Der Kategoriefilter \"Alle\" wurde korrigiert: Er leerte das Raster, statt alle Schuhe zu zeigen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_16 =>
-      'Wenn kein Schuh zu den Filtern passt, erscheint jetzt ein eigener Hinweis mit einer Schaltfläche zum Zurücksetzen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_17 =>
-      'Die Hinzufügen-Schaltfläche verdeckt die letzte Rasterzeile nicht mehr.';
-
-  @override
-  String get changelog_v4_1_0_bullet_18 =>
-      'Reine Symbol-Schaltflächen haben jetzt Beschriftungen und Kurzinfos und sind damit für Screenreader lesbar.';
-
-  @override
-  String get changelog_v4_1_0_bullet_19 =>
-      'Der Tippbereich der Profil- und Einstellungsschaltflächen in der oberen Leiste wurde vergrößert.';
-
-  @override
-  String get changelog_v4_1_0_bullet_20 =>
-      'Die Schuhliste wird jetzt außerhalb des Bildschirmaufbaus gefiltert: flüssigeres Scrollen und keine Umsortierung der zugrunde liegenden Daten mehr.';
-
-  @override
-  String get changelog_v4_1_0_bullet_21 =>
-      'Die App-Version im Dashboard wird einmal geladen statt bei jedem Neuzeichnen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_22 =>
-      'Die Google-Anmeldung zeigt jetzt eine Fehlermeldung an, zum Beispiel ohne Internetverbindung, statt nichts zu tun.';
-
-  @override
-  String get changelog_v4_1_0_bullet_23 =>
-      'Wenn die App nicht starten kann, erscheint jetzt ein Bildschirm mit einer Schaltfläche zum erneuten Versuchen statt eines plötzlichen Absturzes.';
-
-  @override
-  String get changelog_v4_1_0_bullet_24 =>
-      'Wenn die Sitzung abläuft, kehrt die App jetzt zum Startbildschirm zurück, statt sich unerwartet zu schließen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_25 =>
-      'Das Favoriten-Herz hat jetzt einen Hintergrund und bleibt auch auf hellen Fotos sichtbar.';
-
-  @override
-  String get changelog_v4_1_0_bullet_26 =>
-      'Die Suche findet Schuhe jetzt auch nach Typ, Kategorie und Notizen und aktualisiert sich, wenn du aufhörst zu tippen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_27 =>
-      'Ziehe das Raster nach unten, um deine Sammlung zu aktualisieren.';
-
-  @override
-  String get changelog_v4_1_0_bullet_28 =>
-      'Beim Verlassen des Schuhformulars mit nicht gespeicherten Änderungen wird jetzt eine Bestätigung verlangt.';
-
-  @override
-  String get changelog_v4_1_0_bullet_29 =>
-      'Flüssigere, einheitliche Übergänge zwischen den Bildschirmen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_30 =>
-      'Bei Anmeldung, Registrierung und Passwort-Zurücksetzung zeigt die Schaltfläche den Ladevorgang jetzt direkt an; die Schaltfläche zur Geschlechtsauswahl bleibt deaktiviert, bis du eine Option wählst.';
-
-  @override
-  String get changelog_v4_1_0_bullet_31 =>
-      'Mit dem System-Design folgt die App jetzt sofort dem Hell-/Dunkel-Wechsel des Telefons, ohne Neustart; die Symbole der Statusleiste bleiben auch im dunklen Design lesbar.';
-
-  @override
-  String get changelog_v4_1_0_bullet_32 =>
-      'Einheitlichere, besser lesbare Farben bei Systemelementen (Menüs, Dialoge, Schalter und Fehler), auch im dunklen Design.';
-
-  @override
-  String get changelog_v4_1_0_bullet_33 =>
-      'Die Fotos der Sammlung füllen jetzt immer ihre Kachel aus und brauchen weniger Speicher; auf Tablets ist der Startbildschirm wie die anderen Bildschirme zentriert.';
-
-  @override
-  String get changelog_v4_1_0_bullet_34 =>
-      'Das Bearbeiten eines Lieblingsschuhs entfernt ihn nicht mehr aus den Favoriten, und ein Schuh kann nicht mehr gespeichert werden, nachdem sein Foto entfernt wurde, ohne ein neues zu wählen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_35 =>
-      'Der Text folgt der Schriftgröße des Telefons bis 130 %, ohne abgeschnittene Beschriftungen in Schaltflächen.';
-
-  @override
-  String get changelog_v4_1_0_bullet_36 =>
-      'Flüssigerer Startbildschirm: Beim Laden erscheint eine Rastervorschau statt des Logos, und Wechsel von Spalten, Filtern und Zuständen werden sanft überblendet.';
+      'Neues Neuigkeiten-Fenster, das dich nach jedem Update informiert.';
 
   @override
   String get dashboard_other => 'Andere';

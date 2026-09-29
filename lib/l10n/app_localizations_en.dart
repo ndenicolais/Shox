@@ -1106,147 +1106,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Redesigned the app with a modern Material 3 look, keeping the original warm color palette.';
+      'New Material 3 look with the original warm palette: card-based shoe form, language selector, info section and more readable colors, dark mode included.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>
-      'Added a true responsive layout that adapts to phones and tablets, with free screen rotation.';
+      'New System / Light / Dark theme selector that follows your phone\'s light/dark switch right away.';
 
   @override
   String get changelog_v4_1_0_bullet_3 =>
-      'New System / Light / Dark theme selector.';
+      'Smoother home screen: grid preview while loading, fade transitions, pull down to refresh and photos that always fill their tile.';
 
   @override
   String get changelog_v4_1_0_bullet_4 =>
-      'Moved account deletion to the Profile screen for easier access.';
+      'Search also by type, category and notes; more reliable filters, with a dedicated message and a clear button when nothing matches.';
 
   @override
   String get changelog_v4_1_0_bullet_5 =>
-      'Redesigned the language selector for a clearer, more consistent look.';
+      'Shoe form: confirmation before leaving with unsaved changes; editing a shoe no longer removes it from favorites and a photo is always required.';
 
   @override
   String get changelog_v4_1_0_bullet_6 =>
-      'Added this changelog dialog to keep you updated on what\'s new after each update.';
+      'More reliable sign-in: clear Google error messages, a Retry screen if the app fails to start and a return to the welcome screen when your session expires.';
 
   @override
   String get changelog_v4_1_0_bullet_7 =>
-      'Fixed text readability in dark mode for the theme selector and profile statistics.';
+      'Adaptive layout for phones and tablets with free rotation, text that follows your phone\'s font size up to 130% and buttons readable by screen readers.';
 
   @override
   String get changelog_v4_1_0_bullet_8 =>
-      'Fixed overlapping charts in the database section.';
+      'Account deletion moved to the Profile screen.';
 
   @override
   String get changelog_v4_1_0_bullet_9 =>
-      'Resized text, icons and images in the add/edit shoe form for a better fit on smartphones.';
+      'Fixed overlapping charts in the database section.';
 
   @override
   String get changelog_v4_1_0_bullet_10 =>
-      'Restructured the app\'s info section.';
-
-  @override
-  String get changelog_v4_1_0_bullet_11 =>
-      'Redesigned the add/edit shoe form with a clearer, card-based, sectioned layout.';
-
-  @override
-  String get changelog_v4_1_0_bullet_12 =>
-      'Restyled the photo picker placeholder in the shoe form to match the new card look.';
-
-  @override
-  String get changelog_v4_1_0_bullet_13 =>
-      'The filter reset now clears every filter, including color, category and favorites.';
-
-  @override
-  String get changelog_v4_1_0_bullet_14 =>
-      'The filter icon is highlighted only when a filter is really applied.';
-
-  @override
-  String get changelog_v4_1_0_bullet_15 =>
-      'Fixed the \"All\" category filter, which emptied the grid instead of showing every shoe.';
-
-  @override
-  String get changelog_v4_1_0_bullet_16 =>
-      'When no shoe matches the filters you now get a dedicated message with a button to clear them.';
-
-  @override
-  String get changelog_v4_1_0_bullet_17 =>
-      'The add button no longer covers the last row of the grid.';
-
-  @override
-  String get changelog_v4_1_0_bullet_18 =>
-      'Icon-only buttons now have labels and tooltips, so they can be read by screen readers.';
-
-  @override
-  String get changelog_v4_1_0_bullet_19 =>
-      'Enlarged the touch area of the profile and settings buttons in the top bar.';
-
-  @override
-  String get changelog_v4_1_0_bullet_20 =>
-      'The shoes list is now filtered outside the screen rendering: smoother scrolling and no more reordering of the underlying data.';
-
-  @override
-  String get changelog_v4_1_0_bullet_21 =>
-      'The app version in the dashboard is loaded once instead of at every redraw.';
-
-  @override
-  String get changelog_v4_1_0_bullet_22 =>
-      'Google sign-in now shows an error message, for example when there is no connection, instead of doing nothing.';
-
-  @override
-  String get changelog_v4_1_0_bullet_23 =>
-      'If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.';
-
-  @override
-  String get changelog_v4_1_0_bullet_24 =>
-      'If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.';
-
-  @override
-  String get changelog_v4_1_0_bullet_25 =>
-      'The favorites heart now has a backdrop, so it stays visible on light photos.';
-
-  @override
-  String get changelog_v4_1_0_bullet_26 =>
-      'Search now also finds shoes by type, category and notes, and updates when you stop typing.';
-
-  @override
-  String get changelog_v4_1_0_bullet_27 =>
-      'Pull down the grid to refresh your collection.';
-
-  @override
-  String get changelog_v4_1_0_bullet_28 =>
-      'Leaving the shoe form with unsaved changes now asks for confirmation.';
-
-  @override
-  String get changelog_v4_1_0_bullet_29 =>
-      'Smoother, consistent transitions between screens.';
-
-  @override
-  String get changelog_v4_1_0_bullet_30 =>
-      'During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.';
-
-  @override
-  String get changelog_v4_1_0_bullet_31 =>
-      'With the System theme the app now follows the phone\'s light/dark switch right away, without restarting; status bar icons stay readable in dark mode too.';
-
-  @override
-  String get changelog_v4_1_0_bullet_32 =>
-      'More consistent, readable colors in system elements (menus, dialogs, switches and errors), dark mode included.';
-
-  @override
-  String get changelog_v4_1_0_bullet_33 =>
-      'Collection photos now always fill their tile and use less memory; on tablets the home screen is centered like the other screens.';
-
-  @override
-  String get changelog_v4_1_0_bullet_34 =>
-      'Editing a favorite shoe no longer removes it from favorites, and a shoe can no longer be saved after removing its photo without picking a new one.';
-
-  @override
-  String get changelog_v4_1_0_bullet_35 =>
-      'Text follows the phone\'s font size setting up to 130%, with no more clipped button labels.';
-
-  @override
-  String get changelog_v4_1_0_bullet_36 =>
-      'Smoother home screen: a grid preview replaces the logo while loading, and column, filter and state changes now fade smoothly.';
+      'New what\'s-new dialog that keeps you posted after every update.';
 
   @override
   String get dashboard_other => 'Other';

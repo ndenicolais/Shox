@@ -1132,147 +1132,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Modernisation du design de l\'application avec un style Material 3, en conservant la palette de couleurs d\'origine.';
+      'Nouveau look Material 3 avec la palette chaleureuse d’origine : formulaire de chaussure en cartes, sélecteur de langue, section d’infos et couleurs plus lisibles, thème sombre compris.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>
-      'Ajout d\'une mise en page vraiment responsive qui s\'adapte aux smartphones et tablettes, avec rotation libre de l\'écran.';
+      'Nouveau sélecteur de thème Système / Clair / Sombre qui suit immédiatement le passage clair/sombre du téléphone.';
 
   @override
   String get changelog_v4_1_0_bullet_3 =>
-      'Nouveau sélecteur de thème Système / Clair / Sombre.';
+      'Accueil plus fluide : aperçu de la grille pendant le chargement, fondus, tirer vers le bas pour actualiser et photos qui remplissent toujours leur case.';
 
   @override
   String get changelog_v4_1_0_bullet_4 =>
-      'Déplacement de la suppression du compte vers la page de profil pour un accès plus simple.';
+      'Recherche aussi par type, catégorie et notes ; filtres plus fiables, avec un message dédié et un bouton pour les réinitialiser quand rien ne correspond.';
 
   @override
   String get changelog_v4_1_0_bullet_5 =>
-      'Refonte du sélecteur de langue pour un aspect plus clair et cohérent.';
+      'Formulaire de chaussure : confirmation avant de quitter avec des modifications non enregistrées ; modifier une chaussure ne la retire plus des favoris et une photo est toujours requise.';
 
   @override
   String get changelog_v4_1_0_bullet_6 =>
-      'Ajout de cette fenêtre de nouveautés pour vous tenir informé après chaque mise à jour.';
+      'Connexion plus fiable : messages d’erreur Google clairs, écran Réessayer si l’application ne démarre pas et retour à l’écran d’accueil quand la session expire.';
 
   @override
   String get changelog_v4_1_0_bullet_7 =>
-      'Correction de la lisibilité des textes en mode sombre dans le sélecteur de thème et les statistiques du profil.';
+      'Mise en page adaptée aux smartphones et tablettes avec rotation libre, texte qui suit la taille de police du téléphone jusqu’à 130 % et boutons lisibles par les lecteurs d’écran.';
 
   @override
   String get changelog_v4_1_0_bullet_8 =>
-      'Correction du chevauchement des graphiques dans la section base de données.';
+      'La suppression du compte a été déplacée dans l’écran Profil.';
 
   @override
   String get changelog_v4_1_0_bullet_9 =>
-      'Redimensionnement des textes, icônes et images du formulaire d\'ajout/modification de chaussure pour un meilleur affichage sur smartphone.';
+      'Correction des graphiques superposés dans la section base de données.';
 
   @override
   String get changelog_v4_1_0_bullet_10 =>
-      'Restructuration de la section informations de l\'application.';
-
-  @override
-  String get changelog_v4_1_0_bullet_11 =>
-      'Refonte du formulaire d\'ajout/modification de chaussure avec une mise en page plus claire, en cartes et sections.';
-
-  @override
-  String get changelog_v4_1_0_bullet_12 =>
-      'Restylisation du sélecteur de photo dans le formulaire chaussure, en accord avec le nouveau style de cartes.';
-
-  @override
-  String get changelog_v4_1_0_bullet_13 =>
-      'La réinitialisation efface désormais tous les filtres, y compris couleur, catégorie et favoris.';
-
-  @override
-  String get changelog_v4_1_0_bullet_14 =>
-      'L’icône des filtres ne s’allume que lorsqu’un filtre est réellement appliqué.';
-
-  @override
-  String get changelog_v4_1_0_bullet_15 =>
-      'Correction du filtre de catégorie \"Toutes\", qui vidait la grille au lieu d’afficher toutes les chaussures.';
-
-  @override
-  String get changelog_v4_1_0_bullet_16 =>
-      'Lorsqu’aucune chaussure ne correspond aux filtres, un message dédié s’affiche avec un bouton pour les réinitialiser.';
-
-  @override
-  String get changelog_v4_1_0_bullet_17 =>
-      'Le bouton d’ajout ne masque plus la dernière ligne de la grille.';
-
-  @override
-  String get changelog_v4_1_0_bullet_18 =>
-      'Les boutons composés uniquement d’une icône ont désormais des libellés et des infobulles, lisibles par les lecteurs d’écran.';
-
-  @override
-  String get changelog_v4_1_0_bullet_19 =>
-      'Agrandissement de la zone tactile des boutons profil et paramètres dans la barre supérieure.';
-
-  @override
-  String get changelog_v4_1_0_bullet_20 =>
-      'La liste des chaussures est désormais filtrée en dehors du rendu de l’écran : défilement plus fluide et plus de réorganisation des données sous-jacentes.';
-
-  @override
-  String get changelog_v4_1_0_bullet_21 =>
-      'La version de l’application dans le tableau de bord est chargée une seule fois au lieu de l’être à chaque redessin.';
-
-  @override
-  String get changelog_v4_1_0_bullet_22 =>
-      'La connexion avec Google affiche désormais un message d’erreur, par exemple sans connexion internet, au lieu de ne rien faire.';
-
-  @override
-  String get changelog_v4_1_0_bullet_23 =>
-      'Si l’application ne parvient pas à démarrer, un écran avec un bouton Réessayer s’affiche désormais au lieu d’un arrêt brutal.';
-
-  @override
-  String get changelog_v4_1_0_bullet_24 =>
-      'Si la session expire, l’application revient désormais à l’écran d’accueil au lieu de se fermer brusquement.';
-
-  @override
-  String get changelog_v4_1_0_bullet_25 =>
-      'Le cœur des favoris a désormais un fond qui le rend visible même sur les photos claires.';
-
-  @override
-  String get changelog_v4_1_0_bullet_26 =>
-      'La recherche trouve désormais les chaussures aussi par type, catégorie et notes, et se met à jour quand vous arrêtez de taper.';
-
-  @override
-  String get changelog_v4_1_0_bullet_27 =>
-      'Tirez la grille vers le bas pour actualiser votre collection.';
-
-  @override
-  String get changelog_v4_1_0_bullet_28 =>
-      'Quitter le formulaire d’une chaussure avec des modifications non enregistrées demande désormais une confirmation.';
-
-  @override
-  String get changelog_v4_1_0_bullet_29 =>
-      'Transitions entre les écrans plus fluides et homogènes.';
-
-  @override
-  String get changelog_v4_1_0_bullet_30 =>
-      'Pendant la connexion, l’inscription et la réinitialisation du mot de passe, le bouton affiche désormais le chargement en son sein ; le bouton de choix du genre reste désactivé tant que vous n’en sélectionnez pas un.';
-
-  @override
-  String get changelog_v4_1_0_bullet_31 =>
-      'Avec le thème Système, l’application suit désormais immédiatement le passage clair/sombre du téléphone, sans redémarrage ; les icônes de la barre d’état restent lisibles en thème sombre.';
-
-  @override
-  String get changelog_v4_1_0_bullet_32 =>
-      'Couleurs plus cohérentes et lisibles pour les éléments système (menus, boîtes de dialogue, interrupteurs et erreurs), thème sombre compris.';
-
-  @override
-  String get changelog_v4_1_0_bullet_33 =>
-      'Les photos de la collection remplissent désormais toujours leur case et utilisent moins de mémoire ; sur tablette, l’accueil est centré comme les autres écrans.';
-
-  @override
-  String get changelog_v4_1_0_bullet_34 =>
-      'Modifier une chaussure favorite ne la retire plus des favoris, et il n’est plus possible d’enregistrer une chaussure après avoir supprimé sa photo sans en choisir une nouvelle.';
-
-  @override
-  String get changelog_v4_1_0_bullet_35 =>
-      'Le texte suit la taille de police du téléphone jusqu’à 130 %, sans libellés de boutons coupés.';
-
-  @override
-  String get changelog_v4_1_0_bullet_36 =>
-      'Accueil plus fluide : un aperçu de la grille remplace le logo pendant le chargement, et les changements de colonnes, de filtres et d’états se font en fondu.';
+      'Nouvelle fenêtre des nouveautés qui vous tient informé après chaque mise à jour.';
 
   @override
   String get dashboard_other => 'Autre';

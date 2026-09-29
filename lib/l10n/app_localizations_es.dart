@@ -1117,147 +1117,43 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get changelog_v4_1_0_bullet_1 =>
-      'Rediseño gráfico de la app con estilo Material 3, manteniendo la paleta de colores original.';
+      'Nuevo aspecto Material 3 con la cálida paleta original: formulario de zapato con tarjetas, selector de idioma, sección de información y colores más legibles, también en tema oscuro.';
 
   @override
   String get changelog_v4_1_0_bullet_2 =>
-      'Añadido un diseño realmente responsive que se adapta a móviles y tablets, con rotación libre de pantalla.';
+      'Nuevo selector de tema Sistema / Claro / Oscuro que sigue al instante el cambio claro/oscuro del teléfono.';
 
   @override
   String get changelog_v4_1_0_bullet_3 =>
-      'Nuevo selector de tema Sistema / Claro / Oscuro.';
+      'Pantalla principal más fluida: vista previa de la cuadrícula al cargar, fundidos, desliza hacia abajo para actualizar y fotos que siempre llenan su casilla.';
 
   @override
   String get changelog_v4_1_0_bullet_4 =>
-      'Se movió la eliminación de la cuenta a la pantalla de perfil para un acceso más sencillo.';
+      'Búsqueda también por tipo, categoría y notas; filtros más fiables, con un mensaje dedicado y un botón para borrarlos cuando no hay resultados.';
 
   @override
   String get changelog_v4_1_0_bullet_5 =>
-      'Rediseñado el selector de idioma para un aspecto más claro y coherente.';
+      'Formulario de zapato: confirmación antes de salir con cambios sin guardar; editar un zapato ya no lo quita de favoritos y la foto siempre es obligatoria.';
 
   @override
   String get changelog_v4_1_0_bullet_6 =>
-      'Añadido este diálogo de novedades para mantenerte informado después de cada actualización.';
+      'Inicio de sesión más fiable: mensajes de error claros con Google, pantalla Reintentar si la app no arranca y vuelta a la pantalla de bienvenida si la sesión caduca.';
 
   @override
   String get changelog_v4_1_0_bullet_7 =>
-      'Corregida la legibilidad de los textos en modo oscuro en el selector de tema y en las estadísticas del perfil.';
+      'Diseño adaptable para móviles y tablets con rotación libre, texto que sigue el tamaño de letra del teléfono hasta el 130 % y botones legibles por lectores de pantalla.';
 
   @override
   String get changelog_v4_1_0_bullet_8 =>
-      'Solucionada la superposición de los gráficos en la sección de base de datos.';
+      'La eliminación de la cuenta se ha movido a la pantalla Perfil.';
 
   @override
   String get changelog_v4_1_0_bullet_9 =>
-      'Ajustado el tamaño de textos, iconos e imágenes en el formulario de añadir/editar zapatilla para una mejor visualización en smartphones.';
+      'Corregidos los gráficos superpuestos en la sección de base de datos.';
 
   @override
   String get changelog_v4_1_0_bullet_10 =>
-      'Reestructurada la sección de información de la app.';
-
-  @override
-  String get changelog_v4_1_0_bullet_11 =>
-      'Rediseñado el formulario de añadir/editar zapato con un diseño más claro, en tarjetas y secciones.';
-
-  @override
-  String get changelog_v4_1_0_bullet_12 =>
-      'Renovado el marcador de posición para elegir foto en el formulario de zapatos, acorde al nuevo estilo de tarjetas.';
-
-  @override
-  String get changelog_v4_1_0_bullet_13 =>
-      'El restablecimiento de filtros ahora borra todos los filtros, incluidos color, categoría y favoritos.';
-
-  @override
-  String get changelog_v4_1_0_bullet_14 =>
-      'El icono de filtros se resalta solo cuando hay un filtro realmente aplicado.';
-
-  @override
-  String get changelog_v4_1_0_bullet_15 =>
-      'Corregido el filtro de categoría \"Todas\", que vaciaba la cuadrícula en lugar de mostrar todos los zapatos.';
-
-  @override
-  String get changelog_v4_1_0_bullet_16 =>
-      'Cuando ningún zapato coincide con los filtros aparece un mensaje dedicado con un botón para borrarlos.';
-
-  @override
-  String get changelog_v4_1_0_bullet_17 =>
-      'El botón de añadir ya no tapa la última fila de la cuadrícula.';
-
-  @override
-  String get changelog_v4_1_0_bullet_18 =>
-      'Los botones con solo icono ahora tienen etiquetas y descripciones, legibles por los lectores de pantalla.';
-
-  @override
-  String get changelog_v4_1_0_bullet_19 =>
-      'Ampliada el área táctil de los botones de perfil y ajustes en la barra superior.';
-
-  @override
-  String get changelog_v4_1_0_bullet_20 =>
-      'La lista de zapatos ahora se filtra fuera del dibujado de la pantalla: desplazamiento más fluido y sin reordenar los datos subyacentes.';
-
-  @override
-  String get changelog_v4_1_0_bullet_21 =>
-      'La versión de la app en el panel se carga una sola vez en lugar de en cada redibujado.';
-
-  @override
-  String get changelog_v4_1_0_bullet_22 =>
-      'El inicio de sesión con Google ahora muestra un mensaje de error, por ejemplo sin conexión, en lugar de no hacer nada.';
-
-  @override
-  String get changelog_v4_1_0_bullet_23 =>
-      'Si la app no consigue iniciarse, ahora aparece una pantalla con un botón Reintentar en lugar de un cierre repentino.';
-
-  @override
-  String get changelog_v4_1_0_bullet_24 =>
-      'Si la sesión caduca, la app ahora vuelve a la pantalla de bienvenida en lugar de cerrarse de repente.';
-
-  @override
-  String get changelog_v4_1_0_bullet_25 =>
-      'El corazón de favoritos ahora tiene un fondo que lo hace visible también en fotos claras.';
-
-  @override
-  String get changelog_v4_1_0_bullet_26 =>
-      'La búsqueda ahora encuentra zapatos también por tipo, categoría y notas, y se actualiza cuando dejas de escribir.';
-
-  @override
-  String get changelog_v4_1_0_bullet_27 =>
-      'Desliza la cuadrícula hacia abajo para actualizar tu colección.';
-
-  @override
-  String get changelog_v4_1_0_bullet_28 =>
-      'Al salir del formulario de un zapato con cambios sin guardar ahora se pide confirmación.';
-
-  @override
-  String get changelog_v4_1_0_bullet_29 =>
-      'Transiciones entre pantallas más fluidas y uniformes.';
-
-  @override
-  String get changelog_v4_1_0_bullet_30 =>
-      'Durante el inicio de sesión, el registro y el restablecimiento de contraseña el botón muestra la carga en su interior; el botón de selección de género permanece desactivado hasta que elijas uno.';
-
-  @override
-  String get changelog_v4_1_0_bullet_31 =>
-      'Con el tema Sistema la app ahora sigue al instante el cambio claro/oscuro del teléfono, sin reiniciar; los iconos de la barra de estado se leen bien también en tema oscuro.';
-
-  @override
-  String get changelog_v4_1_0_bullet_32 =>
-      'Colores más coherentes y legibles en los elementos del sistema (menús, diálogos, interruptores y errores), también en tema oscuro.';
-
-  @override
-  String get changelog_v4_1_0_bullet_33 =>
-      'Las fotos de la colección ahora llenan siempre su casilla y usan menos memoria; en tablet la pantalla principal está centrada como las demás.';
-
-  @override
-  String get changelog_v4_1_0_bullet_34 =>
-      'Editar un zapato favorito ya no lo quita de favoritos, y ya no se puede guardar un zapato tras quitar su foto sin elegir una nueva.';
-
-  @override
-  String get changelog_v4_1_0_bullet_35 =>
-      'El texto respeta el tamaño de letra del teléfono hasta el 130 %, sin etiquetas cortadas en los botones.';
-
-  @override
-  String get changelog_v4_1_0_bullet_36 =>
-      'Pantalla principal más fluida: durante la carga aparece una vista previa de la cuadrícula en lugar del logo, y los cambios de columnas, filtros y estados se muestran con un fundido.';
+      'Nueva ventana de novedades que te informa tras cada actualización.';
 
   @override
   String get dashboard_other => 'Otro';
