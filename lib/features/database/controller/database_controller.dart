@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:shox/features/database/models/database_results.dart';
 import 'package:shox/features/database/repository/database_repository.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 
@@ -149,16 +150,16 @@ class DatabaseController extends GetxController {
     }
   }
 
+  /// Key with the highest count, or null when [counts] is empty.
+  String? _mostFrequent(Map<String, int> counts) {
+    if (counts.isEmpty) return null;
+    return counts.entries.reduce((a, b) => b.value > a.value ? b : a).key;
+  }
+
   /// Get favorite brand (most used brand)
   Future<String?> getFavoriteBrand() async {
     try {
-      final brandCounts = await getShoesCountByBrand();
-      if (brandCounts.isEmpty) return null;
-
-      final sortedBrands = brandCounts.entries.toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
-
-      return sortedBrands.first.key;
+      return _mostFrequent(await getShoesCountByBrand());
     } catch (e) {
       _logger.e('Error getting favorite brand: $e');
       return null;
@@ -168,13 +169,7 @@ class DatabaseController extends GetxController {
   /// Get most used category
   Future<String?> getMostUsedCategory() async {
     try {
-      final categoryCounts = await getShoesCountByCategory();
-      if (categoryCounts.isEmpty) return null;
-
-      final sortedCategories = categoryCounts.entries.toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
-
-      return sortedCategories.first.key;
+      return _mostFrequent(await getShoesCountByCategory());
     } catch (e) {
       _logger.e('Error getting most used category: $e');
       return null;
@@ -184,13 +179,7 @@ class DatabaseController extends GetxController {
   /// Get most used type
   Future<String?> getMostUsedType() async {
     try {
-      final typeCounts = await getShoesCountByType();
-      if (typeCounts.isEmpty) return null;
-
-      final sortedTypes = typeCounts.entries.toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
-
-      return sortedTypes.first.key;
+      return _mostFrequent(await getShoesCountByType());
     } catch (e) {
       _logger.e('Error getting most used type: $e');
       return null;
@@ -226,13 +215,7 @@ class DatabaseController extends GetxController {
   /// Get most used color (as hex string)
   Future<String?> getMostUsedColor() async {
     try {
-      final colorCounts = await getShoesCountByColor();
-      if (colorCounts.isEmpty) return null;
-
-      final sortedColors = colorCounts.entries.toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
-
-      return sortedColors.first.key;
+      return _mostFrequent(await getShoesCountByColor());
     } catch (e) {
       _logger.e('Error getting most used color: $e');
       return null;
@@ -379,25 +362,3 @@ class DatabaseController extends GetxController {
 }
 
 // ==================== RESULT CLASSES ====================
-
-/// Result of an export operation
-class ExportResult {
-  final bool success;
-  final String message;
-  final String? filePath;
-
-  ExportResult({required this.success, required this.message, this.filePath});
-}
-
-/// Result of an import operation
-class ImportResult {
-  final bool success;
-  final String message;
-  final bool wasCancelled;
-
-  ImportResult({
-    required this.success,
-    required this.message,
-    this.wasCancelled = false,
-  });
-}

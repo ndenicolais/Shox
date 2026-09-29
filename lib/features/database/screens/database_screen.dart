@@ -1,19 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/info_tile_widget.dart';
+import 'package:shox/common/widgets/progress_overlay_widget.dart';
+import 'package:shox/features/database/widgets/database_charts.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/empty_state_widget.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/database/services/pdf_service.dart';
-import 'package:shox/features/database/widgets/chart_colors.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
 import 'package:shox/core/utils/permission_helper.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
@@ -82,9 +82,14 @@ class DatabaseScreenState extends State<DatabaseScreen> {
                         ),
             ),
           ),
-          if (_isPdfLoading) Positioned.fill(child: _buildPDFLoading(context)),
+          if (_isPdfLoading)
+            Positioned.fill(
+              child: ProgressOverlayWidget(progress: _downloadProgress),
+            ),
           if (_isJSONLoading)
-            Positioned.fill(child: _buildJSONLoading(context)),
+            Positioned.fill(
+              child: ProgressOverlayWidget(progress: _importProgress),
+            ),
         ],
       ),
     );
@@ -342,75 +347,6 @@ class DatabaseScreenState extends State<DatabaseScreen> {
     );
   }
 
-  Widget _buildPdfLoadingIndicator() {
-    return Container(
-      color: Colors.black.withValues(alpha: 0.5),
-      child: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              width: 100.w,
-              height: 100.h,
-              child: CircularProgressIndicator(
-                value: _downloadProgress,
-                strokeWidth: 4.w,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-            ),
-            Text(
-              '${(_downloadProgress * 100).toStringAsFixed(0)}%',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPDFLoading(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-      child: Center(child: _buildPdfLoadingIndicator()),
-    );
-  }
-
-  Widget _buildJSONLoading(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-      child: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              width: 100.w,
-              height: 100.h,
-              child: CircularProgressIndicator(
-                value: _importProgress,
-                strokeWidth: 4.w,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-            ),
-            Text(
-              '${(_importProgress * 100).toStringAsFixed(0)}%',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildColorPieChart() {
     List<ColorChartData> chartData = _colorCounts.entries.map(
       (entry) {
@@ -442,112 +378,5 @@ class DatabaseScreenState extends State<DatabaseScreen> {
         _typeCounts.map((key, value) => MapEntry(key, value.toDouble()));
 
     return TypePieChart(chartData);
-  }
-}
-
-class ColorPieChart extends StatelessWidget {
-  final List<ColorChartData> chartData;
-
-  const ColorPieChart(this.chartData, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ShoesPieChart<ColorChartData>(
-      chartData: chartData,
-      title: AppLocalizations.of(context)!.database_screen_colors,
-      xValueMapper: (data) => data.colorHex,
-      yValueMapper: (data) => data.count,
-      pointColorMapper: (data, _) => data.color,
-    );
-  }
-}
-
-class BrandPieChart extends StatelessWidget {
-  final Map<String, double> chartData;
-
-  const BrandPieChart(this.chartData, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<Color> shuffledColors = List.from(softColors)..shuffle();
-    List<ChartData> data = chartData.entries.toList().asMap().entries.map(
-      (entry) {
-        int index = entry.key;
-        var entryData = entry.value;
-        return ChartData(
-          entryData.key,
-          entryData.value,
-          color: shuffledColors[index % shuffledColors.length],
-        );
-      },
-    ).toList();
-
-    return ShoesPieChart<ChartData>(
-      chartData: data,
-      title: AppLocalizations.of(context)!.database_screen_brands,
-      xValueMapper: (data) => data.label,
-      yValueMapper: (data) => data.value,
-      pointColorMapper: (data, _) => data.color,
-    );
-  }
-}
-
-class CategoryPieChart extends StatelessWidget {
-  final Map<String, double> chartData;
-
-  const CategoryPieChart(this.chartData, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<Color> shuffledColors = List.from(softColors)..shuffle();
-    List<ChartData> data = chartData.entries.toList().asMap().entries.map(
-      (entry) {
-        int index = entry.key;
-        var entryData = entry.value;
-        return ChartData(
-          DbLocalizedValues.getCategoryName(context, entryData.key),
-          entryData.value,
-          color: shuffledColors[index % shuffledColors.length],
-        );
-      },
-    ).toList();
-
-    return ShoesPieChart<ChartData>(
-      chartData: data,
-      title: AppLocalizations.of(context)!.database_screen_categories,
-      xValueMapper: (data) => data.label,
-      yValueMapper: (data) => data.value,
-      pointColorMapper: (data, _) => data.color,
-    );
-  }
-}
-
-class TypePieChart extends StatelessWidget {
-  final Map<String, double> chartData;
-
-  const TypePieChart(this.chartData, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<Color> shuffledColors = List.from(softColors)..shuffle();
-    List<ChartData> data = chartData.entries.toList().asMap().entries.map(
-      (entry) {
-        int index = entry.key;
-        var entryData = entry.value;
-        return ChartData(
-          DbLocalizedValues.getTypeName(context, entryData.key),
-          entryData.value,
-          color: shuffledColors[index % shuffledColors.length],
-        );
-      },
-    ).toList();
-
-    return ShoesPieChart<ChartData>(
-      chartData: data,
-      title: AppLocalizations.of(context)!.database_screen_types,
-      xValueMapper: (data) => data.label,
-      yValueMapper: (data) => data.value,
-      pointColorMapper: (data, _) => data.color,
-    );
   }
 }

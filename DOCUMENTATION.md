@@ -137,6 +137,8 @@ feature/
 
 **Convenzione di naming dei widget:** ogni file ha il nome della sua classe in snake_case. I widget generici in `lib/common/widgets/` usano il suffisso `Widget` (`ButtonWidget`, `ToastWidget`, `ChangelogDialogWidget`…), che evita collisioni con le classi di Flutter (`AppBar`, `Dialog`…). I widget di una feature hanno nomi descrittivi senza suffisso (`LoginForm`, `FilterBar`, `FilterSheet`, `TopBar`, `DashboardMenuItem`, `ShoesPieChart`, `ColorChip`…), evitando nomi già usati da Flutter.
 
+**Widget estratti dalle schermate più grandi:** `ShoePhotoArea`, `BackgroundRemovalDialog` e `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (il pannello filtri gestisce da solo la selezione temporanea e restituisce il risultato), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); grafici del database in `database/widgets/database_charts.dart` e overlay di avanzamento condiviso `ProgressOverlayWidget`; sezioni e dialog di backup dell'eliminazione account in `users/widgets/delete_account_info.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; logica del dialog novità in `core/services/changelog_service.dart`.
+
 ---
 
 ## 4. Modelli dati
@@ -676,8 +678,8 @@ dev_dependencies:
   mocktail: ^1.0.5                         # Mock per i test (Firebase, Google Sign-In, controller)
 ```
 
-**Test (`flutter test`):** 85 test in `test/`.
-- Logica pura: `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`
+**Test (`flutter test`):** 94 test in `test/`.
+- Logica pura: `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (colonne e dimensioni della griglia), `ChangelogService` (quali novità mostrare dopo un aggiornamento)
 - Con mock (`mocktail`): `AuthService` (ricerca utente su Firestore, sessione in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (mappatura errori email/password e Google Sign-In), `ShoesFormService` (aggiunta, modifica, sostituzione e rimozione foto, conservazione del preferito), `AuthGuardService` (widget test con navigazione GetX reale: redirect su sessione scaduta, sign-out volontario, route pubbliche), controller `ShoesController` (aggiunta, modifica, eliminazione, import/export JSON con client HTTP finto), `DatabaseController` (conteggi e statistiche, collezione vuota, errori) e `UserController` (caricamento profilo e nome)
 - Layout: widget condivisi a scala testo 1.3 (`test/common/widgets/text_scaling_test.dart`)
 

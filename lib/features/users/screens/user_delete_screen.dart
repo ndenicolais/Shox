@@ -12,6 +12,7 @@ import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/permission_helper.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
+import 'package:shox/features/users/widgets/delete_account_info.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/common/widgets/delete_dialog_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
@@ -44,15 +45,15 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      _buildHeroSection(context),
+                      const DeleteAccountHeader(),
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: AppSpacing.xxl.r),
                         child: Column(
                           spacing: 16.h,
                           children: [
-                            _buildWhatHappensCard(context),
-                            _buildWarningBanner(context),
+                            const DeleteAccountConsequencesCard(),
+                            const DeleteAccountWarningBanner(),
                             SizedBox(height: 8.h),
                           ],
                         ),
@@ -74,7 +75,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
     try {
       if (currentUser != null) {
         // First, show backup dialog
-        bool? backupChoice = await _showBackupDialog(context);
+        bool? backupChoice = await showBackupChoiceDialog(context);
 
         if (backupChoice == null) {
           // User cancelled
@@ -120,37 +121,6 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
         );
       }
     }
-  }
-
-  Future<bool?> _showBackupDialog(BuildContext context) async {
-    return await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            AppLocalizations.of(context)!.delete_account_screen_backup_title,
-          ),
-          content: Text(
-            AppLocalizations.of(context)!.delete_account_screen_backup_text,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Get.back(result: false),
-              child: Text(
-                AppLocalizations.of(context)!.delete_account_screen_skip_backup,
-              ),
-            ),
-            FilledButton(
-              onPressed: () => Get.back(result: true),
-              child: Text(
-                AppLocalizations.of(context)!
-                    .delete_account_screen_backup_button,
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Future<void> _exportDatabase() async {
@@ -215,183 +185,6 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
           },
         ) ??
         false;
-  }
-
-  Widget _buildHeroSection(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 40.r),
-      child: Column(
-        spacing: 16.h,
-        children: [
-          Container(
-            width: 88.r,
-            height: 88.r,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.errorColor.withValues(alpha: 0.12),
-              border: Border.all(
-                color: AppColors.errorColor.withValues(alpha: 0.3),
-                width: 2,
-              ),
-            ),
-            child: Center(
-              child: Icon(
-                MingCuteIcons.mgc_delete_2_line,
-                size: 44.sp,
-                color: AppColors.errorColor,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl.r),
-            child: Text(
-              AppLocalizations.of(context)!.delete_account_screen_text_a,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl.r),
-            child: Text(
-              AppLocalizations.of(context)!.delete_account_screen_text_b,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWhatHappensCard(BuildContext context) {
-    final items = [
-      (
-        MingCuteIcons.mgc_user_3_line,
-        AppLocalizations.of(context)!.delete_account_screen_item_a
-      ),
-      (
-        MingCuteIcons.mgc_box_2_line,
-        AppLocalizations.of(context)!.delete_account_screen_item_b
-      ),
-      (
-        MingCuteIcons.mgc_photo_album_line,
-        AppLocalizations.of(context)!.delete_account_screen_item_c
-      ),
-    ];
-
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              AppSpacing.l.r,
-              AppSpacing.l.r,
-              AppSpacing.l.r,
-              AppSpacing.s.r,
-            ),
-            child: Row(
-              spacing: 10.w,
-              children: [
-                Icon(
-                  MingCuteIcons.mgc_information_line,
-                  color: Theme.of(context).colorScheme.onSurface,
-                  size: 20.sp,
-                ),
-                Text(
-                  AppLocalizations.of(context)!
-                      .delete_account_screen_what_happens,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 1,
-            color: Theme.of(context).colorScheme.outline,
-          ),
-          Padding(
-            padding: EdgeInsets.all(AppSpacing.l.r),
-            child: Column(
-              spacing: 14.h,
-              children: items
-                  .map((item) => _buildCheckItem(context, item.$1, item.$2))
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCheckItem(BuildContext context, IconData icon, String label) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 14.w,
-      children: [
-        Container(
-          width: 36.r,
-          height: 36.r,
-          decoration: BoxDecoration(
-            color: AppColors.errorColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          child: Center(
-            child: Icon(
-              icon,
-              size: 18.sp,
-              color: AppColors.errorColor,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(top: AppSpacing.xs.r),
-            child: Text(
-              label,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildWarningBanner(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(AppSpacing.m.r),
-      decoration: BoxDecoration(
-        color: AppColors.errorColor.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: AppColors.errorColor.withValues(alpha: 0.35),
-          width: 1.5,
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 12.w,
-        children: [
-          Icon(
-            MingCuteIcons.mgc_alert_line,
-            color: AppColors.errorColor,
-            size: 22.sp,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.delete_account_screen_text_c,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: AppColors.errorColor),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget _buildDeleteButton(BuildContext context) {

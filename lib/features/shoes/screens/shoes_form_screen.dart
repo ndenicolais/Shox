@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +10,6 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
-import 'package:shox/theme/app_radius.dart';
 import 'package:shox/common/widgets/delete_dialog_widget.dart';
 import 'package:shox/features/shoes/models/shoes_form_data.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
@@ -22,10 +20,10 @@ import 'package:shox/features/shoes/widgets/form/color_primary_selector.dart';
 import 'package:shox/features/shoes/widgets/form/extra_colors_selector.dart';
 import 'package:shox/features/shoes/widgets/form/notes_textfield.dart';
 import 'package:shox/features/shoes/widgets/form/season_selector.dart';
+import 'package:shox/features/shoes/widgets/form/shoe_photo_picker.dart';
 import 'package:shox/features/shoes/widgets/form/size_selector.dart';
 import 'package:shox/features/shoes/widgets/form/type_dropdown.dart';
 import 'package:shox/theme/app_colors.dart';
-import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/features/shoes/services/image_service.dart';
 import 'package:shox/features/shoes/services/shoes_form_service.dart';
@@ -192,133 +190,35 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext dialogContext) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: Center(
-            child: Container(
-              padding: EdgeInsets.all(35.w),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(25.r),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        Theme.of(context).colorScheme.secondary.withAlpha(51),
-                    blurRadius: 20,
-                    spreadRadius: 5,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(AppSpacing.l.w),
-                    decoration: BoxDecoration(
-                      color:
-                          Theme.of(context).colorScheme.secondary.withAlpha(30),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      MingCuteIcons.mgc_magic_2_fill,
-                      size: 40.sp,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  SizedBox(height: 25.h),
-                  LoaderWidget(width: 60.w, height: 60.h),
-                  SizedBox(height: 25.h),
-                  Text(
-                    AppLocalizations.of(context)!
-                        .shoes_form_screen_bg_remove_loading,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+      builder: (_) => const BackgroundRemovalDialog(),
     );
 
     try {
       final noBgBytes = await _imageService.removeBackground(_newImage!);
-
-      if (mounted) {
-        Navigator.pop(context);
-      }
-
+      if (!mounted) return;
+      Navigator.pop(context);
       setState(() {
         _imageNoBgBytes = noBgBytes;
         _bgRemoved = true;
         _isBgRemoving = false;
       });
-
-      if (mounted) {
-        showSuccessToast(
-          context,
-          AppLocalizations.of(context)!.shoes_form_screen_bg_remove_success,
-        );
-      }
+      showSuccessToast(
+        context,
+        AppLocalizations.of(context)!.shoes_form_screen_bg_remove_success,
+      );
     } catch (e) {
-      if (mounted) {
-        Navigator.pop(context);
-      }
-
-      if (mounted) {
-        showErrorToast(
-          context,
-          '${AppLocalizations.of(context)!.shoes_form_screen_bg_remove_error}$e',
-        );
-      }
+      if (!mounted) return;
+      Navigator.pop(context);
+      showErrorToast(
+        context,
+        '${AppLocalizations.of(context)!.shoes_form_screen_bg_remove_error}$e',
+      );
     }
   }
 
-  void _showImageSelector() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      builder: (BuildContext context) {
-        return SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              IconButton(
-                tooltip: AppLocalizations.of(context)!.a11y_take_photo,
-                iconSize: 32.sp,
-                icon: Icon(
-                  MingCuteIcons.mgc_camera_2_line,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  _handleImagePick(ImageSource.camera);
-                  Get.back();
-                },
-              ),
-              IconButton(
-                tooltip: AppLocalizations.of(context)!.a11y_pick_from_gallery,
-                iconSize: 32.sp,
-                icon: Icon(
-                  MingCuteIcons.mgc_photo_album_2_line,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  _handleImagePick(ImageSource.gallery);
-                  Get.back();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  Future<void> _showImageSelector() async {
+    final source = await showImageSourceSheet(context);
+    if (source != null) _handleImagePick(source);
   }
 
   ShoesFormData get _formData => ShoesFormData(
@@ -408,7 +308,18 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                             AppSpacing.l,
                           ),
                           children: [
-                            _buildPhotoArea(context),
+                            ShoePhotoArea(
+                              newImage: _newImage,
+                              noBackgroundBytes:
+                                  _bgRemoved ? _imageNoBgBytes : null,
+                              existingImageUrl: _existingImageUrl,
+                              canRemoveBackground: _newImage != null &&
+                                  !_bgRemoved &&
+                                  !_isBgRemoving,
+                              onTap: _showImageSelector,
+                              onRemove: _removeImage,
+                              onRemoveBackground: _handleBackgroundRemoval,
+                            ),
                             _buildSectionHeader(
                               l10n.shoes_form_screen_section_colors,
                             ),
@@ -528,93 +439,6 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
         bottom: AppSpacing.s,
       ),
       child: Text(title, style: Theme.of(context).textTheme.titleLarge),
-    );
-  }
-
-  /// Large photo area: empty state, the newly picked photo (optionally
-  /// without background) or the stored one; only one is ever shown.
-  Widget _buildPhotoArea(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final colors = Theme.of(context).colorScheme;
-
-    Widget? photo;
-    if (_newImage != null) {
-      photo = _bgRemoved && _imageNoBgBytes != null
-          ? Image.memory(_imageNoBgBytes!, fit: BoxFit.cover)
-          : Image.file(_newImage!, fit: BoxFit.cover);
-    } else if (_existingImageUrl != null && _existingImageUrl!.isNotEmpty) {
-      photo = Image.network(_existingImageUrl!, fit: BoxFit.cover);
-    }
-
-    final overlayButton = IconButton.styleFrom(
-      backgroundColor: colors.surface.withValues(alpha: 0.9),
-      foregroundColor: colors.onSurface,
-    );
-
-    return AspectRatio(
-      aspectRatio: 1.2,
-      child: Material(
-        color: colors.tertiaryFixed,
-        borderRadius: BorderRadius.circular(AppRadius.hero),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: _showImageSelector,
-          child: photo == null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 28,
-                      backgroundColor: colors.surface,
-                      child: Icon(
-                        MingCuteIcons.mgc_camera_2_line,
-                        color: colors.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.s),
-                    Text(
-                      l10n.shoes_form_screen_add_photo,
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                  ],
-                )
-              : Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    photo,
-                    Positioned(
-                      top: AppSpacing.s,
-                      right: AppSpacing.s,
-                      child: IconButton(
-                        tooltip: l10n.a11y_remove_image,
-                        style: overlayButton,
-                        onPressed: _removeImage,
-                        icon: const Icon(MingCuteIcons.mgc_close_line),
-                      ),
-                    ),
-                    if (_newImage != null && !_bgRemoved && !_isBgRemoving)
-                      Positioned(
-                        left: AppSpacing.s,
-                        bottom: AppSpacing.s,
-                        child: FilledButton.icon(
-                          style: FilledButton.styleFrom(
-                            backgroundColor:
-                                colors.surface.withValues(alpha: 0.9),
-                            foregroundColor: colors.onSurface,
-                            minimumSize: const Size(0, 44),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppSpacing.m,
-                            ),
-                          ),
-                          onPressed: _handleBackgroundRemoval,
-                          icon: const Icon(MingCuteIcons.mgc_eraser_line),
-                          label: Text(l10n.a11y_remove_background),
-                        ),
-                      ),
-                  ],
-                ),
-        ),
-      ),
     );
   }
 }
