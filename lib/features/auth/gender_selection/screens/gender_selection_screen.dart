@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
@@ -58,7 +59,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
           fit: StackFit.expand,
           children: [
             Padding(
-              padding: EdgeInsets.all(20.r),
+              padding: EdgeInsets.all(AppSpacing.l.r),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -92,7 +93,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(
-                padding: EdgeInsets.all(20.r),
+                padding: EdgeInsets.all(AppSpacing.l.r),
                 child: _buildSaveButton(),
               ),
             ),
@@ -118,7 +119,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
       },
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(AppSpacing.l.r),
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).colorScheme.secondary

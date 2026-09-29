@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
@@ -53,7 +54,8 @@ class MenuItemWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.tertiary,
                 )),
       onTap: onTap,
-      contentPadding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 0.r),
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: AppSpacing.xs.r, vertical: 0.r),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       hoverColor: Theme.of(context).colorScheme.secondary,
     );

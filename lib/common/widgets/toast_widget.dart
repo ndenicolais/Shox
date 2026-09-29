@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/app_font_sizes.dart';
@@ -34,7 +35,8 @@ class ToastWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.s.w, vertical: AppSpacing.s.h),
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(AppRadius.pill),

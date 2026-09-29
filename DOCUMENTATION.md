@@ -543,6 +543,8 @@ Il tema attivo è gestito da `ThemeController` (GetX), selezionabile tra Sistema
 | `confirmColor` | `#449777` | Successo, conferma |
 | `errorColor` | `#D80032` | Errori, eliminazione |
 
+**Spaziature (`AppSpacing`, `lib/theme/app_spacing.dart`):** scala unica per padding, margini e gap — `grid` 2, `xxs` 4, `xs` 8, `s` 12, `m` 16, `l` 20, `xl` 24, `xxl` 32, più `screen` 30 per il padding esterno delle pagine. Come `AppRadius` sono valori grezzi: ogni chiamata sceglie lo scaling ScreenUtil adatto all'asse (`AppSpacing.m.r`, `AppSpacing.xs.h`). I pochi valori fuori scala rimasti (es. 88 di spazio per il FAB, 72 in fondo al form) sono casi specifici voluti.
+
 **UI scaling:** Tutto il layout usa `flutter_screenutil` con design size `390×844` px (adattato dinamicamente alle dimensioni reali dello schermo sui tablet) per garantire la proporzionalità su schermi di diverse dimensioni.
 
 **Layout adattivo (responsive):** oltre allo scaling proporzionale, alcune schermate riorganizzano realmente il contenuto in base alla larghezza disponibile, tramite `LayoutBuilder`:

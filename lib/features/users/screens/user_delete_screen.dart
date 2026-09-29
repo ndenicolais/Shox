@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
@@ -45,7 +46,8 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
                     children: [
                       _buildHeroSection(context),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 32.r),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: AppSpacing.xxl.r),
                         child: Column(
                           spacing: 16.h,
                           children: [
@@ -261,7 +263,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.r),
+            padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl.r),
             child: Text(
               AppLocalizations.of(context)!.delete_account_screen_text_a,
               textAlign: TextAlign.center,
@@ -273,7 +275,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.r),
+            padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl.r),
             child: Text(
               AppLocalizations.of(context)!.delete_account_screen_text_b,
               textAlign: TextAlign.center,
@@ -322,7 +324,8 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(20.r, 20.r, 20.r, 12.r),
+            padding: EdgeInsets.fromLTRB(
+                AppSpacing.l.r, AppSpacing.l.r, AppSpacing.l.r, AppSpacing.s.r),
             child: Row(
               spacing: 10.w,
               children: [
@@ -349,7 +352,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
                 Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
           ),
           Padding(
-            padding: EdgeInsets.all(20.r),
+            padding: EdgeInsets.all(AppSpacing.l.r),
             child: Column(
               spacing: 14.h,
               children: items
@@ -384,7 +387,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(top: 8.r),
+            padding: EdgeInsets.only(top: AppSpacing.xs.r),
             child: Text(
               label,
               style: TextStyle(
@@ -402,7 +405,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
 
   Widget _buildWarningBanner(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(AppSpacing.m.r),
       decoration: BoxDecoration(
         color: AppColors.errorColor.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(16.r),
@@ -448,7 +451,8 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
           ),
         ),
       ),
-      padding: EdgeInsets.fromLTRB(24.r, 16.r, 24.r, 32.r),
+      padding: EdgeInsets.fromLTRB(
+          AppSpacing.xl.r, AppSpacing.m.r, AppSpacing.xl.r, AppSpacing.xxl.r),
       child: SizedBox(
         width: double.infinity,
         child: ButtonWidget(

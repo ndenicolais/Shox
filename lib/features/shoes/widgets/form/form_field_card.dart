@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
 class FormFieldCard extends StatelessWidget {
@@ -21,7 +22,7 @@ class FormFieldCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.zero,
       child: Padding(
-        padding: EdgeInsets.all(16.r),
+        padding: EdgeInsets.all(AppSpacing.m.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

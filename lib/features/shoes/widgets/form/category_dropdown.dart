@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/features/shoes/widgets/form/form_field_card.dart';
@@ -29,7 +30,8 @@ class CategoryDropdown extends StatelessWidget {
       child: DropdownButtonFormField<String>(
         initialValue: selectedCategory.isNotEmpty ? selectedCategory : null,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.s.w, vertical: AppSpacing.xs.h),
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,

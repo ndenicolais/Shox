@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
@@ -51,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           title: AppLocalizations.of(context)!.dashboard_screen_title),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.r),
+        padding: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
         child: ListView(
           children: [
             _buildSectionTitle(
@@ -62,7 +63,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: const SizedBox.shrink(),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8.r, right: 8.r, bottom: 8.r),
+              padding: EdgeInsets.only(
+                  left: AppSpacing.xs.r,
+                  right: AppSpacing.xs.r,
+                  bottom: AppSpacing.xs.r),
               child: const ThemeModeSelector(),
             ),
             MenuItemWidget(
@@ -71,7 +75,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: const SizedBox.shrink(),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8.r, right: 8.r, bottom: 8.r),
+              padding: EdgeInsets.only(
+                  left: AppSpacing.xs.r,
+                  right: AppSpacing.xs.r,
+                  bottom: AppSpacing.xs.r),
               child: const LanguageDropdown(),
             ),
             _buildSectionTitle(
@@ -165,7 +172,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.h),
+      padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.m.r, vertical: AppSpacing.xs.h),
       child: Text(
         title,
         style: TextStyle(

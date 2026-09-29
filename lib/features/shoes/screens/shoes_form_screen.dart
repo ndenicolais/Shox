@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
@@ -214,7 +215,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(20.w),
+                    padding: EdgeInsets.all(AppSpacing.l.w),
                     decoration: BoxDecoration(
                       color:
                           Theme.of(context).colorScheme.secondary.withAlpha(30),
@@ -435,8 +436,10 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
             children: [
               SafeArea(
                 child: Padding(
-                  padding:
-                      EdgeInsets.only(left: 16.r, right: 16.r, bottom: 72.r),
+                  padding: EdgeInsets.only(
+                      left: AppSpacing.m.r,
+                      right: AppSpacing.m.r,
+                      bottom: 72.r),
                   child: SingleChildScrollView(
                     child: Column(
                       spacing: 10.h,
@@ -562,7 +565,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
 
   Widget _buildSectionHeader(String title) {
     return Padding(
-      padding: EdgeInsets.only(top: 4.h),
+      padding: EdgeInsets.only(top: AppSpacing.xxs.h),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
@@ -598,7 +601,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(12.r),
+                    padding: EdgeInsets.all(AppSpacing.s.r),
                     decoration: BoxDecoration(
                       color:
                           Theme.of(context).colorScheme.secondary.withAlpha(30),

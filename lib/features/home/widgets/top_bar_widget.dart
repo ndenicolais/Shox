@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/core/routes/app_routes.dart';
@@ -22,7 +23,7 @@ class TopBarWidget extends StatelessWidget {
       final currentUser = FirebaseAuth.instance.currentUser;
 
       return Container(
-        padding: EdgeInsets.all(12.r),
+        padding: EdgeInsets.all(AppSpacing.s.r),
         decoration: BoxDecoration(
           color:
               Theme.of(context).colorScheme.secondary.withValues(alpha: 0.12),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
 
@@ -21,7 +22,7 @@ class _InfoScreenState extends State<InfoScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.r),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.screen.r),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +112,7 @@ class _InfoScreenState extends State<InfoScreen> {
     ColorScheme colorScheme,
   ) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 8.h),
+      padding: EdgeInsets.only(bottom: AppSpacing.xs.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

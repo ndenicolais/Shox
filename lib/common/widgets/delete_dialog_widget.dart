@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/theme/app_font_sizes.dart';
@@ -40,7 +41,7 @@ class DeleteDialogWidget extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 24.h),
+            padding: EdgeInsets.symmetric(vertical: AppSpacing.xl.h),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.only(
@@ -69,7 +70,7 @@ class DeleteDialogWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(24.r),
+            padding: EdgeInsets.all(AppSpacing.xl.r),
             child: Text(
               content,
               style: TextStyle(
@@ -82,7 +83,10 @@ class DeleteDialogWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 24.r, right: 24.r, bottom: 24.r),
+            padding: EdgeInsets.only(
+                left: AppSpacing.xl.r,
+                right: AppSpacing.xl.r,
+                bottom: AppSpacing.xl.r),
             child: Row(
               children: [
                 Expanded(

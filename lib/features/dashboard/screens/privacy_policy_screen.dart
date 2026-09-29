@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/core/utils/constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -58,7 +59,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(AppSpacing.s.r),
           child: Center(
             child: Column(
               children: [

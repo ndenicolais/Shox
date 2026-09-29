@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/core/utils/constants.dart';
@@ -19,7 +20,7 @@ class SupportScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20.r),
+            padding: EdgeInsets.all(AppSpacing.l.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -243,7 +244,7 @@ class ExpansionTileWidgetState extends State<ExpansionTileWidget> {
       },
       children: [
         Padding(
-          padding: EdgeInsets.all(12.r),
+          padding: EdgeInsets.all(AppSpacing.s.r),
           child: Text(
             widget.answer,
             style: TextStyle(

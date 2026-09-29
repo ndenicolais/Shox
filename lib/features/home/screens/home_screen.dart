@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/changelog_dialog.dart';
@@ -59,7 +60,8 @@ class HomeScreenState extends State<HomeScreen>
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 20.r),
+            padding: EdgeInsets.symmetric(
+                vertical: AppSpacing.s.r, horizontal: AppSpacing.l.r),
             child: Column(
               children: [
                 TopBarWidget(userController: userController),
@@ -297,8 +299,8 @@ class HomeScreenState extends State<HomeScreen>
             padding: EdgeInsets.only(bottom: 88.h),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: columns,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2,
+              crossAxisSpacing: AppSpacing.grid.r,
+              mainAxisSpacing: AppSpacing.grid.r,
             ),
             itemCount: filteredShoes.length,
             itemBuilder: (context, index) {

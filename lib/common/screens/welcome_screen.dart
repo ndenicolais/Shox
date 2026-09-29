@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
@@ -23,7 +24,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(30.r),
+            padding: EdgeInsets.all(AppSpacing.screen.r),
             child: Center(
               child: Column(
                 children: [

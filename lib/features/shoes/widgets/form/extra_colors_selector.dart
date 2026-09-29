@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/core/utils/utils.dart';
 import 'package:shox/features/shoes/widgets/form/form_field_card.dart';
@@ -32,7 +33,7 @@ class _ExtraColorsSelectorState extends State<ExtraColorsSelector> {
             ...colorList.map((color) {
               final isSelected = widget.selectedColors.contains(color);
               return Padding(
-                padding: EdgeInsets.only(right: 8.r),
+                padding: EdgeInsets.only(right: AppSpacing.xs.r),
                 child: GestureDetector(
                   onTap: () {
                     final updatedColors =

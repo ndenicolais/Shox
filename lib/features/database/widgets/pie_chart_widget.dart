@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/theme/app_radius.dart';
 
@@ -48,9 +49,10 @@ class _PieChartWidgetState<T> extends State<PieChartWidget<T>> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 4.w),
+      margin: EdgeInsets.symmetric(horizontal: AppSpacing.xxs.w),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.s.w, vertical: AppSpacing.m.h),
         child: Column(
           children: [
             Text(
@@ -170,7 +172,8 @@ class _PieChartWidgetState<T> extends State<PieChartWidget<T>> {
         }
 
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppSpacing.s.w, vertical: 6.h),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.tertiary.withAlpha(15),
             borderRadius: BorderRadius.circular(AppRadius.pill),

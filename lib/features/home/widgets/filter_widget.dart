@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:shox/theme/app_font_sizes.dart';
@@ -60,7 +61,7 @@ class FilterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(AppSpacing.m.r),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +75,7 @@ class FilterWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.r),
+            padding: EdgeInsets.symmetric(vertical: AppSpacing.xs.r),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -91,7 +92,7 @@ class FilterWidget extends StatelessWidget {
             child: Row(
               children: colorList.map((color) {
                 return Padding(
-                  padding: EdgeInsets.only(right: 8.r),
+                  padding: EdgeInsets.only(right: AppSpacing.xs.r),
                   child: GestureDetector(
                     onTap: () => onColorSelected(color),
                     child: Container(
@@ -114,7 +115,7 @@ class FilterWidget extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.r),
+            padding: EdgeInsets.symmetric(vertical: AppSpacing.xs.r),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -131,7 +132,7 @@ class FilterWidget extends StatelessWidget {
             child: Row(
               children: colorList.map((color) {
                 return Padding(
-                  padding: EdgeInsets.only(right: 8.r),
+                  padding: EdgeInsets.only(right: AppSpacing.xs.r),
                   child: GestureDetector(
                     onTap: () => onColorExtraSelected(color),
                     child: Container(
@@ -161,7 +162,7 @@ class FilterWidget extends StatelessWidget {
               return DropdownMenuItem<String>(
                   value: item,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10.r),
+                    padding: EdgeInsets.only(left: AppSpacing.s.r),
                     child: Text(
                       item,
                       style: TextStyle(
@@ -190,7 +191,7 @@ class FilterWidget extends StatelessWidget {
                 return DropdownMenuItem<String>(
                     value: item,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 10.r),
+                      padding: EdgeInsets.only(left: AppSpacing.s.r),
                       child: Text(
                         item,
                         style: TextStyle(
@@ -218,7 +219,7 @@ class FilterWidget extends StatelessWidget {
               return DropdownMenuItem<String>(
                   value: item,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10.r),
+                    padding: EdgeInsets.only(left: AppSpacing.s.r),
                     child: Text(
                       item,
                       style: TextStyle(

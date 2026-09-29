@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -52,7 +53,7 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
               fit: StackFit.expand,
               children: [
                 SingleChildScrollView(
-                  padding: EdgeInsets.all(30.r),
+                  padding: EdgeInsets.all(AppSpacing.screen.r),
                   child: Column(
                     spacing: 50.h,
                     children: [
@@ -64,7 +65,7 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                    padding: EdgeInsets.all(20.r),
+                    padding: EdgeInsets.all(AppSpacing.l.r),
                     child: _buildSaveButton(),
                   ),
                 ),

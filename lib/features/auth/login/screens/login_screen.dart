@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
@@ -47,7 +48,7 @@ class LoginScreenState extends State<LoginScreen> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(30.r),
+          padding: EdgeInsets.all(AppSpacing.screen.r),
           child: SingleChildScrollView(
             child: Center(
               child: Column(

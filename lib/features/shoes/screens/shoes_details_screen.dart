@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
@@ -353,7 +354,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
         ),
         Container(
           width: 260.w,
-          padding: EdgeInsets.all(16.r),
+          padding: EdgeInsets.all(AppSpacing.m.r),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary.withAlpha(60),
             borderRadius: BorderRadius.circular(12.r),

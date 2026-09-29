@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/core/utils/utils.dart';
 import 'package:shox/features/shoes/widgets/form/form_field_card.dart';
@@ -30,7 +31,7 @@ class ColorPrimarySelector extends StatelessWidget {
             ...colorList.map((color) {
               final isColorSelected = selectedColor == color && isSelected;
               return Padding(
-                padding: EdgeInsets.only(right: 8.r),
+                padding: EdgeInsets.only(right: AppSpacing.xs.r),
                 child: GestureDetector(
                   onTap: () => onColorSelected(color),
                   child: Container(

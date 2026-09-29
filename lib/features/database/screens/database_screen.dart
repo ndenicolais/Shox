@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
@@ -55,7 +56,8 @@ class DatabaseScreenState extends State<DatabaseScreen> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.r, vertical: 20.r),
+            padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.screen.r, vertical: AppSpacing.l.r),
             child: _isLoading
                 ? LoaderWidget(width: 25.w, height: 25.h)
                 : _totalShoesCount == 0

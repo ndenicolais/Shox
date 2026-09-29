@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
@@ -112,7 +113,7 @@ class UserScreenState extends State<UserScreen> {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SingleChildScrollView(
-          padding: EdgeInsets.only(bottom: 24.h),
+          padding: EdgeInsets.only(bottom: AppSpacing.xl.h),
           child: ResponsiveCenterWidget(
             child: Column(
               spacing: 20.h,
@@ -131,7 +132,7 @@ class UserScreenState extends State<UserScreen> {
   Widget _buildUserHeader(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(20.r, 28.r, 20.r, 28.r),
+      padding: EdgeInsets.fromLTRB(AppSpacing.l.r, 28.r, AppSpacing.l.r, 28.r),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary.withAlpha(25),
         borderRadius: BorderRadius.only(
@@ -163,9 +164,9 @@ class UserScreenState extends State<UserScreen> {
 
   Widget _buildStatsCard(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16.r),
+      margin: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
       child: Padding(
-        padding: EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(AppSpacing.l.r),
         child: Column(
           children: [
             Row(
@@ -303,7 +304,7 @@ class UserScreenState extends State<UserScreen> {
       spacing: 6.h,
       children: [
         Container(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(AppSpacing.s.r),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondary.withAlpha(25),
             shape: BoxShape.circle,
@@ -335,7 +336,7 @@ class UserScreenState extends State<UserScreen> {
   Widget _buildProfileImage(BuildContext context) {
     return Obx(
       () => Container(
-        padding: EdgeInsets.all(4.r),
+        padding: EdgeInsets.all(AppSpacing.xxs.r),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Theme.of(context).colorScheme.primary,
@@ -368,7 +369,7 @@ class UserScreenState extends State<UserScreen> {
 
   Widget _buildDeleteAccountButton(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16.r),
+      margin: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
       child: ListTile(
         leading: Icon(
           MingCuteIcons.mgc_delete_2_line,
