@@ -320,7 +320,6 @@ Schermata di configurazione e accesso alle funzionalità di account.
 | **Account** | Database | Accesso alle statistiche e alla gestione dati |
 | **Account** | Logout | Disconnessione dall'app |
 | **Informazioni** | Info | Informazioni sull'app e versione |
-| **Informazioni** | Privacy Policy | Informativa privacy nativa e localizzata (stesso testo di `PRIVACY.md`, link alla versione online) |
 | **Informazioni** | Supporto | Modulo di supporto / contatto (WebView) |
 | **Informazioni** | Changelog | Apre il dialog con lo storico delle novità per versione |
 

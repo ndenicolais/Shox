@@ -108,11 +108,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onTap: () => Get.toNamed(AppRoutes.info),
                 ),
                 DashboardMenuItem(
-                  icon: MingCuteIcons.mgc_safe_lock_line,
-                  text: l10n.settings_screen_policy,
-                  onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
-                ),
-                DashboardMenuItem(
                   icon: MingCuteIcons.mgc_send_line,
                   text: l10n.settings_screen_support,
                   onTap: () => Get.toNamed(AppRoutes.support),
