@@ -1,62 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
-import 'package:shox/features/shoes/widgets/color_chip.dart';
-import 'package:shox/theme/app_font_sizes.dart';
+import 'package:shox/l10n/app_localizations.dart';
+import 'package:shox/theme/app_spacing.dart';
 
+/// Detail card with the shoe's primary color (ringed) and extra colors.
 class ShoesColorsSection extends StatelessWidget {
   final ShoesModel shoes;
-  final VoidCallback? onColorTap;
 
-  const ShoesColorsSection({
-    super.key,
-    required this.shoes,
-    this.onColorTap,
-  });
+  const ShoesColorsSection({super.key, required this.shoes});
 
-  List<Color> get allColors {
-    final colors = <Color>[shoes.colorPrimary];
-    if (shoes.colorExtra != null && shoes.colorExtra!.isNotEmpty) {
-      colors.addAll(shoes.colorExtra!.map((colorInt) => Color(colorInt)));
-    }
-    return colors;
-  }
+  List<Color> get _allColors => [
+        shoes.colorPrimary,
+        ...?shoes.colorExtra?.map(Color.new),
+      ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          AppLocalizations.of(context)!.shoes_details_screen_field_color,
-          style: TextStyle(
-            fontFamily: 'CustomFontBold',
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: AppFontSizes.normal,
-          ),
-        ),
-        SizedBox(height: 10.h),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 15.w,
-          runSpacing: 15.h,
-          children: allColors.asMap().entries.map((entry) {
-            final index = entry.key;
-            final color = entry.value;
-            final isPrimary = index == 0;
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
-            return ColorChip(
-              color: color,
-              isPrimary: isPrimary,
-              label: isPrimary
-                  ? AppLocalizations.of(context)!
-                      .shoes_details_screen_field_color_primary
-                  : 'Extra $index',
-              onTap: onColorTap,
-            );
-          }).toList(),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.m,
+          vertical: AppSpacing.s,
         ),
-      ],
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                l10n.shoes_details_screen_field_color.toUpperCase(),
+                style: theme.textTheme.labelSmall,
+              ),
+            ),
+            Flexible(
+              flex: 3,
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                spacing: AppSpacing.xs,
+                runSpacing: AppSpacing.xs,
+                children: [
+                  for (final (index, color) in _allColors.indexed)
+                    Tooltip(
+                      message: index == 0
+                          ? l10n.shoes_details_screen_field_color_primary
+                          : '${l10n.extra_colors} $index',
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: color,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: index == 0
+                                ? theme.colorScheme.onSurface
+                                : theme.colorScheme.outline,
+                            width: index == 0 ? 2 : 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

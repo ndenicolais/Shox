@@ -1,29 +1,29 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shox/common/widgets/app_bar_widget.dart';
-import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/common/widgets/delete_dialog_widget.dart';
 import 'package:shox/common/widgets/empty_state_widget.dart';
 import 'package:shox/common/widgets/error_state_widget.dart';
-import 'package:shox/features/shoes/models/shoes_model.dart';
-import 'package:shox/core/utils/shoes_text_translations.dart';
-import 'package:shox/features/shoes/widgets/shoes_colors_section.dart';
-import 'package:shox/features/shoes/controller/shoes_controller.dart';
-import 'package:shox/theme/app_font_sizes.dart';
-import 'package:shox/common/widgets/delete_dialog_widget.dart';
-import 'package:shox/features/shoes/widgets/full_screen_image.dart';
+import 'package:shox/common/widgets/info_tile_widget.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
+import 'package:shox/common/widgets/skeleton_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
+import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/core/utils/shoes_text_translations.dart';
+import 'package:shox/features/shoes/controller/shoes_controller.dart';
+import 'package:shox/features/shoes/models/shoes_model.dart';
+import 'package:shox/features/shoes/widgets/full_screen_image.dart';
+import 'package:shox/features/shoes/widgets/shoes_colors_section.dart';
+import 'package:shox/l10n/app_localizations.dart';
+import 'package:shox/theme/app_radius.dart';
+import 'package:shox/theme/app_spacing.dart';
 
 class ShoesDetailsScreen extends StatefulWidget {
   final String? shoesId;
@@ -35,28 +35,18 @@ class ShoesDetailsScreen extends StatefulWidget {
 }
 
 class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
-  final User? currentUser = FirebaseAuth.instance.currentUser;
   final ShoesController _shoesController = Get.find<ShoesController>();
   final ScreenshotController _screenshotController = ScreenshotController();
   late String currentLanguageCode;
   bool isShoesDeleted = false;
   late final String _resolvedShoesId;
+  late final Stream<ShoesModel> _shoesStream;
 
   @override
   void initState() {
     super.initState();
     _resolvedShoesId = widget.shoesId ?? Get.arguments as String;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (isShoesDeleted) {
-      return LoaderWidget(
-        width: 50.w,
-        height: 50.h,
-      );
-    }
-    return _buildShoesStream(context);
+    _shoesStream = _shoesController.getShoesById(_resolvedShoesId);
   }
 
   @override
@@ -65,112 +55,114 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     currentLanguageCode = Localizations.localeOf(context).languageCode;
   }
 
-  Widget _buildShoesStream(BuildContext context) {
-    return StreamBuilder<ShoesModel>(
-      stream: _shoesController.getShoesById(_resolvedShoesId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoaderWidget(
-            width: 50.w,
-            height: 50.h,
-          );
-        }
-
-        if (snapshot.hasError) {
-          return ErrorStateWidget(
-            message:
-                AppLocalizations.of(context)!.shoes_details_screen_error_state,
-            onRetry: () => setState(() {}),
-          );
-        }
-
-        if (!snapshot.hasData) {
-          return EmptyStateWidget(
-            message:
-                AppLocalizations.of(context)!.shoes_details_screen_empty_state,
-            icon: MingCuteIcons.mgc_shoe_line,
-            iconColor: Theme.of(context).colorScheme.secondary,
-          );
-        }
-
-        final shoes = snapshot.data!;
-
-        return Scaffold(
-          appBar: AppBarWidget(
-            title: AppLocalizations.of(context)!.shoes_details_screen_title,
-            actions: [_buildPopupMenu(shoes)],
-          ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          body: Screenshot(
-            controller: _screenshotController,
-            child: Container(
-              color: Theme.of(context).colorScheme.surface,
-              child: _buildShoesDetails(shoes),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: isShoesDeleted
+          ? const Center(child: LoaderWidget(width: 50, height: 50))
+          : StreamBuilder<ShoesModel>(
+              stream: _shoesStream,
+              builder: (context, snapshot) {
+                final l10n = AppLocalizations.of(context)!;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: LoaderWidget(width: 50, height: 50),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return ErrorStateWidget(
+                    message: l10n.shoes_details_screen_error_state,
+                    onRetry: () => setState(() {}),
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return EmptyStateWidget(
+                    message: l10n.shoes_details_screen_empty_state,
+                    icon: MingCuteIcons.mgc_shoe_line,
+                    iconColor: Theme.of(context).colorScheme.secondary,
+                  );
+                }
+                return _buildContent(context, snapshot.data!);
+              },
             ),
-          ),
-        );
-      },
     );
   }
 
-  Widget _buildPopupMenu(ShoesModel shoes) {
-    return PopupMenuButton<String>(
-      color: Theme.of(context).colorScheme.surface,
-      icon: Icon(
-        MingCuteIcons.mgc_more_2_line,
-        color: Theme.of(context).colorScheme.secondary,
+  Widget _buildContent(BuildContext context, ShoesModel shoes) {
+    return SafeArea(
+      child: ResponsiveCenterWidget(
+        child: Column(
+          children: [
+            _buildTopBar(context, shoes),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.l,
+                  AppSpacing.xs,
+                  AppSpacing.l,
+                  AppSpacing.l,
+                ),
+                // Captured by "Share": photo and details, without buttons.
+                child: Screenshot(
+                  controller: _screenshotController,
+                  child: ColoredBox(
+                    color: Theme.of(context).colorScheme.surface,
+                    child: _buildDetails(context, shoes),
+                  ),
+                ),
+              ),
+            ),
+            _buildActions(context, shoes),
+          ],
+        ),
       ),
-      onSelected: (value) {
-        if (value == 'edit') {
-          Get.toNamed(AppRoutes.shoesUpdater, arguments: shoes);
-        } else if (value == 'delete') {
-          _deleteShoes(context, shoes);
-        } else if (value == 'share') {
-          _shareScreenshot(context);
-        }
-      },
-      itemBuilder: (BuildContext context) {
-        return [
-          _buildPopupMenuItem(
-            'edit',
-            MingCuteIcons.mgc_edit_2_line,
-            AppLocalizations.of(context)!.shoes_details_screen_menu_edit,
-          ),
-          _buildPopupMenuItem(
-            'share',
-            MingCuteIcons.mgc_share_3_line,
-            AppLocalizations.of(context)!.shoes_details_screen_menu_share,
-          ),
-          _buildPopupMenuItem(
-            'delete',
-            MingCuteIcons.mgc_delete_3_line,
-            AppLocalizations.of(context)!.shoes_details_screen_menu_delete,
-          ),
-        ];
-      },
     );
   }
 
-  PopupMenuItem<String> _buildPopupMenuItem(
-    String value,
-    IconData icon,
-    String text,
-  ) {
-    return PopupMenuItem<String>(
-      value: value,
+  Widget _buildTopBar(BuildContext context, ShoesModel shoes) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = Theme.of(context).colorScheme;
+    final circle = IconButton.styleFrom(
+      backgroundColor: colors.surfaceContainerLowest,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.l,
+        vertical: AppSpacing.xs,
+      ),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: Theme.of(context).colorScheme.secondary,
+          IconButton.filled(
+            tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+            style: circle.copyWith(
+              foregroundColor: WidgetStatePropertyAll(colors.onSurface),
+            ),
+            onPressed: () => Get.back(),
+            icon: const Icon(MingCuteIcons.mgc_left_line),
           ),
-          SizedBox(width: 10.w),
-          Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: AppFontSizes.small,
+          Expanded(
+            child: Text(
+              l10n.shoes_details_screen_title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          IconButton.filled(
+            tooltip: shoes.isFavorite
+                ? l10n.a11y_remove_from_favorites
+                : l10n.a11y_add_to_favorites,
+            style: circle.copyWith(
+              foregroundColor: WidgetStatePropertyAll(colors.secondary),
+            ),
+            onPressed: () => _shoesController.toggleFavoriteStatus(
+              shoes.id!,
+              !shoes.isFavorite,
+            ),
+            icon: Icon(
+              shoes.isFavorite
+                  ? MingCuteIcons.mgc_heart_fill
+                  : MingCuteIcons.mgc_heart_line,
             ),
           ),
         ],
@@ -178,98 +170,105 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  Widget _buildShoesDetails(ShoesModel shoes) {
-    return SingleChildScrollView(
-      child: Column(
-        spacing: 10.h,
-        children: [
-          _buildImageCard(context, shoes.imageUrl),
-          ShoesColorsSection(shoes: shoes),
-          _buildInfoTile(
-            icon: MingCuteIcons.mgc_tag_line,
-            label:
-                AppLocalizations.of(context)!.shoes_details_screen_field_brand,
-            value: shoes.brand,
+  Widget _buildDetails(BuildContext context, ShoesModel shoes) {
+    final l10n = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    final String category = ShoesTextTranslations.translateCategory(
+      shoes.category,
+      currentLanguageCode,
+    );
+    final String type =
+        ShoesTextTranslations.translateType(shoes.type, currentLanguageCode);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildPhoto(context, shoes.imageUrl),
+        const SizedBox(height: AppSpacing.l),
+        Text(shoes.brand, style: textTheme.headlineMedium),
+        const SizedBox(height: AppSpacing.xxs),
+        Text(
+          '$category · $type',
+          style: textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-          _buildInfoTile(
-            icon: MingCuteIcons.mgc_ruler_line,
-            label:
-                AppLocalizations.of(context)!.shoes_details_screen_field_size,
-            value: shoes.size,
-          ),
-          _buildInfoTile(
-            icon: MingCuteIcons.mgc_grid_line,
-            label: AppLocalizations.of(context)!
-                .shoes_details_screen_field_category,
-            value: ShoesTextTranslations.translateCategory(
-              shoes.category,
-              currentLanguageCode,
+        ),
+        const SizedBox(height: AppSpacing.m),
+        Row(
+          children: [
+            Expanded(
+              child: InfoTileWidget(
+                label: l10n.shoes_details_screen_field_size,
+                value: shoes.size,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.s),
+            Expanded(
+              child: InfoTileWidget(
+                label: l10n.shoes_details_screen_field_season,
+                value: ShoesTextTranslations.translateSeason(
+                  shoes.season ?? 'All',
+                  currentLanguageCode,
+                ),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.s),
+            Expanded(
+              child: InfoTileWidget(
+                label: l10n.shoes_details_screen_field_added,
+                value: DateFormat.yMMMd(currentLanguageCode)
+                    .format(shoes.dateAdded),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.s),
+        ShoesColorsSection(shoes: shoes),
+        if (shoes.notes != null && shoes.notes!.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.s),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.m),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.shoes_details_screen_field_note.toUpperCase(),
+                    style: textTheme.labelSmall,
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(shoes.notes!, style: textTheme.bodyMedium),
+                ],
+              ),
             ),
           ),
-          _buildInfoTile(
-            icon: MingCuteIcons.mgc_shoe_line,
-            label:
-                AppLocalizations.of(context)!.shoes_details_screen_field_type,
-            value: ShoesTextTranslations.translateType(
-              shoes.type,
-              currentLanguageCode,
-            ),
-          ),
-          _buildInfoTile(
-            icon: MingCuteIcons.mgc_cloud_line,
-            label:
-                AppLocalizations.of(context)!.shoes_details_screen_field_season,
-            value: ShoesTextTranslations.translateSeason(
-              shoes.season!,
-              currentLanguageCode,
-            ),
-          ),
-          if (shoes.notes != null && shoes.notes!.isNotEmpty)
-            _buildNotesContent(context, shoes.notes!),
-          SizedBox(height: 20.h),
         ],
-      ),
+      ],
     );
   }
 
-  Widget _buildImageCard(BuildContext context, String imageUrl) {
-    final double imageWidth = ScreenUtil().screenWidth > 600 ? 480.w : 280.w;
-    final double imageHeight = ScreenUtil().screenWidth > 600 ? 480.h : 280.h;
-
+  Widget _buildPhoto(BuildContext context, String imageUrl) {
     return Semantics(
       button: true,
       label: AppLocalizations.of(context)!.a11y_open_image,
       child: GestureDetector(
-        onTap: () {
-          Get.to(
-            () => FullScreenImage(imageUrl: imageUrl),
-            transition: Transition.fadeIn,
-            duration: const Duration(milliseconds: 500),
-          );
-        },
-        child: Hero(
-          tag: 'shoes-$_resolvedShoesId',
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(50.r)),
-            child: Card(
-              color: Theme.of(context).colorScheme.surface,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-              elevation: 0,
-              clipBehavior: Clip.antiAlias,
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                width: imageWidth,
-                height: imageHeight,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  color: Theme.of(context).colorScheme.surface,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
+        onTap: () => Get.to(
+          () => FullScreenImage(imageUrl: imageUrl),
+          transition: Transition.fadeIn,
+          duration: const Duration(milliseconds: 500),
+        ),
+        child: AspectRatio(
+          aspectRatio: 1.2,
+          child: Hero(
+            tag: 'shoes-$_resolvedShoesId',
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(AppRadius.hero),
+              child: ColoredBox(
+                color: Theme.of(context).colorScheme.tertiaryFixed,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const SkeletonWidget(),
                 ),
               ),
             ),
@@ -279,101 +278,55 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
     );
   }
 
-  Widget _buildInfoTile({
-    required IconData icon,
-    required String label,
-    required String value,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      spacing: 4.h,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 16.sp,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            SizedBox(width: 4.w),
-            Text(
-              label.toUpperCase(),
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.small,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ],
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'CustomFont',
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: AppFontSizes.regular,
-            fontWeight: FontWeight.w500,
-          ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+  /// Edit (primary), share and delete, pinned under the content.
+  Widget _buildActions(BuildContext context, ShoesModel shoes) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = Theme.of(context).colorScheme;
+    final outlinedCircle = OutlinedButton.styleFrom(
+      minimumSize: const Size(52, 52),
+      fixedSize: const Size(52, 52),
+      padding: EdgeInsets.zero,
+      shape: const CircleBorder(),
     );
-  }
 
-  Widget _buildNotesContent(BuildContext context, String notes) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      spacing: 6.h,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              MingCuteIcons.mgc_document_line,
-              size: 16.sp,
-              color: Theme.of(context).colorScheme.secondary,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.l,
+        AppSpacing.xs,
+        AppSpacing.l,
+        AppSpacing.m,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: FilledButton(
+              onPressed: () =>
+                  Get.toNamed(AppRoutes.shoesUpdater, arguments: shoes),
+              child: Text(l10n.shoes_details_screen_menu_edit),
             ),
-            SizedBox(width: 4.w),
-            Text(
-              AppLocalizations.of(context)!
-                  .shoes_details_screen_field_note
-                  .toUpperCase(),
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.small,
-                letterSpacing: 0.5,
+          ),
+          const SizedBox(width: AppSpacing.s),
+          Tooltip(
+            message: l10n.shoes_details_screen_menu_share,
+            child: OutlinedButton(
+              style: outlinedCircle,
+              onPressed: () => _shareScreenshot(context),
+              child: const Icon(MingCuteIcons.mgc_share_2_line),
+            ),
+          ),
+          const SizedBox(width: AppSpacing.s),
+          Tooltip(
+            message: l10n.shoes_details_screen_menu_delete,
+            child: OutlinedButton(
+              style: outlinedCircle.copyWith(
+                foregroundColor: WidgetStatePropertyAll(colors.error),
               ),
-            ),
-          ],
-        ),
-        Container(
-          width: 260.w,
-          padding: EdgeInsets.all(AppSpacing.m.r),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withAlpha(60),
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.secondary.withAlpha(60),
+              onPressed: () => _deleteShoes(context, shoes),
+              child: const Icon(MingCuteIcons.mgc_delete_2_line),
             ),
           ),
-          child: Text(
-            notes,
-            style: TextStyle(
-              fontFamily: 'CustomFont',
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: AppFontSizes.small,
-              fontWeight: FontWeight.w400,
-              height: 1.6,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

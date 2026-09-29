@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/core/utils/shoes_text_translations.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/features/shoes/widgets/form/form_field_card.dart';
+import 'package:shox/theme/app_spacing.dart';
 
 class SeasonSelector extends StatelessWidget {
   final String? selectedSeason;
@@ -20,60 +19,30 @@ class SeasonSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return FormFieldCard(
       icon: MingCuteIcons.mgc_cloud_line,
       label: AppLocalizations.of(context)!.shoes_adder_screen_field_season,
       child: SizedBox(
-        height: 60.h,
+        height: 72,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
-          itemCount: translatedSeasonOptions.keys.length,
-          separatorBuilder: (_, __) => SizedBox(width: 14.w),
+          itemCount: translatedSeasonOptions.length,
+          separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.s),
           itemBuilder: (context, index) {
             final seasonKey = translatedSeasonOptions.keys.elementAt(index);
             final seasonLabel = translatedSeasonOptions[seasonKey]!;
-            final isSelected = seasonKey == selectedSeason;
-            final icon = ShoesTextTranslations.seasonIcons[seasonKey];
-
-            return GestureDetector(
-              onTap: () => onSeasonSelected(seasonKey),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 40.w,
-                    height: 40.w,
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? Theme.of(context).colorScheme.secondary
-                          : Theme.of(context).cardColor,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.secondary,
-                        width: isSelected ? 2 : 1,
-                      ),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        icon,
-                        color: isSelected
-                            ? Theme.of(context).colorScheme.surface
-                            : Theme.of(context).colorScheme.secondary,
-                        size: 20.sp,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    seasonLabel,
-                    style: TextStyle(
-                      fontFamily: 'CustomFontBold',
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: AppFontSizes.extraSmall,
-                    ),
-                  ),
-                ],
-              ),
+            return Column(
+              children: [
+                OptionCircle(
+                  icon: ShoesTextTranslations.seasonIcons[seasonKey],
+                  semanticsLabel: seasonLabel,
+                  selected: seasonKey == selectedSeason,
+                  onTap: () => onSeasonSelected(seasonKey),
+                ),
+                const SizedBox(height: AppSpacing.xxs),
+                Text(seasonLabel, style: textTheme.bodySmall),
+              ],
             );
           },
         ),

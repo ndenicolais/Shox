@@ -18,41 +18,9 @@ class NotesTextField extends StatelessWidget {
       label: AppLocalizations.of(context)!.shoes_adder_screen_field_note,
       child: TextFormField(
         controller: controller,
-        decoration: InputDecoration(
-          border: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-              width: 2,
-            ),
-          ),
-          errorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error,
-            ),
-          ),
-          focusedErrorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error,
-              width: 2,
-            ),
-          ),
-        ),
-        style: TextStyle(
-          fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.next,
+        minLines: 3,
+        maxLines: 6,
+        keyboardType: TextInputType.multiline,
         textCapitalization: TextCapitalization.sentences,
       ),
     );

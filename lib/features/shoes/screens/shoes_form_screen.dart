@@ -9,6 +9,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/button_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
+import 'package:shox/theme/app_radius.dart';
 import 'package:shox/common/widgets/delete_dialog_widget.dart';
 import 'package:shox/features/shoes/models/shoes_form_data.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
@@ -22,7 +25,6 @@ import 'package:shox/features/shoes/widgets/form/season_selector.dart';
 import 'package:shox/features/shoes/widgets/form/size_selector.dart';
 import 'package:shox/features/shoes/widgets/form/type_dropdown.dart';
 import 'package:shox/theme/app_colors.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/features/shoes/services/image_service.dart';
@@ -380,6 +382,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: _handlePop,
@@ -390,138 +393,129 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
             title: _screenTitle,
             onBackPressed: () => Navigator.of(context).maybePop(),
           ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
           body: Stack(
             children: [
               SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: AppSpacing.m.r,
-                    right: AppSpacing.m.r,
-                    bottom: 72.r,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      spacing: 10.h,
-                      children: [
-                        _buildSectionHeader(
-                          AppLocalizations.of(context)!
-                              .shoes_form_screen_section_photo,
+                child: ResponsiveCenterWidget(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView(
+                          padding: const EdgeInsets.fromLTRB(
+                            AppSpacing.l,
+                            AppSpacing.xs,
+                            AppSpacing.l,
+                            AppSpacing.l,
+                          ),
+                          children: [
+                            _buildPhotoArea(context),
+                            _buildSectionHeader(
+                              l10n.shoes_form_screen_section_colors,
+                            ),
+                            ColorPrimarySelector(
+                              selectedColor: _colorPrimary,
+                              isSelected: _colorPrimarySelected,
+                              onColorSelected: (Color color) {
+                                setState(() {
+                                  _colorPrimary = color;
+                                  _colorPrimarySelected = true;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: AppSpacing.s),
+                            ExtraColorsSelector(
+                              selectedColors: _extraColors,
+                              onColorsChanged: (List<Color> colors) {
+                                setState(() => _extraColors = colors);
+                              },
+                            ),
+                            _buildSectionHeader(
+                              l10n.shoes_form_screen_section_details,
+                            ),
+                            BrandTextField(controller: _brandController),
+                            const SizedBox(height: AppSpacing.s),
+                            SizeSelector(
+                              selectedSize: _sizeController.text.isNotEmpty
+                                  ? _sizeController.text
+                                  : null,
+                              onSizeSelected: (value) {
+                                setState(() => _sizeController.text = value);
+                              },
+                            ),
+                            const SizedBox(height: AppSpacing.s),
+                            CategoryDropdown(
+                              selectedCategory: _selectedCategory,
+                              categoryController: _categoryController,
+                              typeController: _typeController,
+                              translatedCategoryOptions:
+                                  translatedCategoryOptions,
+                              onCategoryChanged: (value) {
+                                setState(() {
+                                  _selectedCategory = value;
+                                  _categoryController.text = value;
+                                  _selectedType = '';
+                                  _typeController.text = '';
+                                });
+                              },
+                            ),
+                            const SizedBox(height: AppSpacing.s),
+                            TypeDropdown(
+                              selectedCategory: _selectedCategory,
+                              selectedType: _selectedType,
+                              typeController: _typeController,
+                              categoryToTypes: categoryToTypes,
+                              translatedTypeOptions: translatedTypeOptions,
+                              onTypeChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                  _typeController.text = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: AppSpacing.s),
+                            SeasonSelector(
+                              selectedSeason: _selectedSeason,
+                              translatedSeasonOptions: translatedSeasonOptions,
+                              onSeasonSelected: (value) {
+                                setState(() {
+                                  _selectedSeason = value;
+                                  _seasonController.text = value;
+                                });
+                              },
+                            ),
+                            _buildSectionHeader(
+                              l10n.shoes_form_screen_section_notes,
+                            ),
+                            NotesTextField(controller: _notesController),
+                          ],
                         ),
-                        _buildImageSelector(),
-                        _buildSectionHeader(
-                          AppLocalizations.of(context)!
-                              .shoes_form_screen_section_colors,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          AppSpacing.l,
+                          AppSpacing.xs,
+                          AppSpacing.l,
+                          AppSpacing.m,
                         ),
-                        ColorPrimarySelector(
-                          selectedColor: _colorPrimary,
-                          isSelected: _colorPrimarySelected,
-                          onColorSelected: (Color color) {
-                            setState(() {
-                              _colorPrimary = color;
-                              _colorPrimarySelected = true;
-                            });
-                          },
+                        child: ButtonWidget(
+                          width: double.infinity,
+                          text: l10n.shoes_form_screen_save,
+                          icon: MingCuteIcons.mgc_check_line,
+                          isLoading: _isSaveLoading,
+                          onPressed: _saveForm,
                         ),
-                        ExtraColorsSelector(
-                          selectedColors: _extraColors,
-                          onColorsChanged: (List<Color> colors) {
-                            setState(() {
-                              _extraColors = colors;
-                            });
-                          },
-                        ),
-                        _buildSectionHeader(
-                          AppLocalizations.of(context)!
-                              .shoes_form_screen_section_details,
-                        ),
-                        BrandTextField(controller: _brandController),
-                        SizeSelector(
-                          selectedSize: _sizeController.text.isNotEmpty
-                              ? _sizeController.text
-                              : null,
-                          onSizeSelected: (value) {
-                            setState(() {
-                              _sizeController.text = value;
-                            });
-                          },
-                        ),
-                        CategoryDropdown(
-                          selectedCategory: _selectedCategory,
-                          categoryController: _categoryController,
-                          typeController: _typeController,
-                          translatedCategoryOptions: translatedCategoryOptions,
-                          onCategoryChanged: (value) {
-                            setState(() {
-                              _selectedCategory = value;
-                              _categoryController.text = value;
-                              _selectedType = '';
-                              _typeController.text = '';
-                            });
-                          },
-                        ),
-                        TypeDropdown(
-                          selectedCategory: _selectedCategory,
-                          selectedType: _selectedType,
-                          typeController: _typeController,
-                          categoryToTypes: categoryToTypes,
-                          translatedTypeOptions: translatedTypeOptions,
-                          onTypeChanged: (value) {
-                            setState(() {
-                              _selectedType = value;
-                              _typeController.text = value;
-                            });
-                          },
-                        ),
-                        SeasonSelector(
-                          selectedSeason: _selectedSeason,
-                          translatedSeasonOptions: translatedSeasonOptions,
-                          onSeasonSelected: (value) {
-                            setState(() {
-                              _selectedSeason = value;
-                              _seasonController.text = value;
-                            });
-                          },
-                        ),
-                        _buildSectionHeader(
-                          AppLocalizations.of(context)!
-                              .shoes_form_screen_section_notes,
-                        ),
-                        NotesTextField(controller: _notesController),
-                        SizedBox(height: 10.h),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
               if (_isSaveLoading)
-                Container(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.75),
-                  child: LoaderWidget(width: 50.w, height: 50.h),
+                const ModalBarrier(
+                  dismissible: false,
+                  color: Colors.transparent,
                 ),
             ],
           ),
-          floatingActionButton: Padding(
-            padding: EdgeInsets.only(bottom: 10.sp),
-            child: FloatingActionButton(
-              tooltip: AppLocalizations.of(context)!.a11y_save_shoe,
-              onPressed: _saveForm,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              elevation: 12,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32.w),
-              ),
-              child: Icon(
-                MingCuteIcons.mgc_check_line,
-                color: Theme.of(context).colorScheme.surface,
-                size: 28.w,
-              ),
-            ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         ),
       ),
     );
@@ -529,178 +523,98 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
 
   Widget _buildSectionHeader(String title) {
     return Padding(
-      padding: EdgeInsets.only(top: AppSpacing.xxs.h),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-        ),
+      padding: const EdgeInsets.only(
+        top: AppSpacing.xl,
+        bottom: AppSpacing.s,
       ),
+      child: Text(title, style: Theme.of(context).textTheme.titleLarge),
     );
   }
 
-  Widget _buildImageSelector() {
-    return Column(
-      children: [
-        if (_newImage == null && _existingImageUrl == null)
-          GestureDetector(
-            onTap: _showImageSelector,
-            child: Container(
-              width: 140.w,
-              height: 140.h,
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(15.r),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.secondary,
-                  width: 1.5.w,
-                  style: BorderStyle.solid,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(AppSpacing.s.r),
-                    decoration: BoxDecoration(
-                      color:
-                          Theme.of(context).colorScheme.secondary.withAlpha(30),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      MingCuteIcons.mgc_add_line,
-                      color: Theme.of(context).colorScheme.secondary,
-                      size: 28.sp,
-                    ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Text(
-                    AppLocalizations.of(context)!.shoes_form_screen_add_photo,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'CustomFontBold',
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: AppFontSizes.small,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        if (_newImage != null)
-          Stack(
-            children: [
-              Card(
-                color: Theme.of(context).colorScheme.surface,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-                elevation: 0,
-                clipBehavior: Clip.antiAlias,
-                child: GestureDetector(
-                  onTap: _showImageSelector,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                    child: _bgRemoved && _imageNoBgBytes != null
-                        ? Image.memory(
-                            _imageNoBgBytes!,
-                            width: 140.w,
-                            height: 140.h,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            _newImage!,
-                            width: 140.w,
-                            height: 140.h,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 0.r,
-                bottom: 0.r,
-                child: CircleAvatar(
-                  radius: 20.r,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: IconButton(
-                    tooltip: AppLocalizations.of(context)!.a11y_remove_image,
-                    onPressed: _removeImage,
-                    icon: Icon(
-                      MingCuteIcons.mgc_close_line,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      size: 20.sp,
-                    ),
-                  ),
-                ),
-              ),
-              if (_newImage != null && !_bgRemoved && !_isBgRemoving)
-                Positioned(
-                  left: 0.r,
-                  bottom: 0.r,
-                  child: CircleAvatar(
-                    radius: 20.r,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    child: IconButton(
-                      tooltip:
-                          AppLocalizations.of(context)!.a11y_remove_background,
-                      onPressed: _handleBackgroundRemoval,
-                      icon: Icon(
-                        MingCuteIcons.mgc_eraser_line,
-                        color: Theme.of(context).colorScheme.onSurface,
-                        size: 20.sp,
+  /// Large photo area: empty state, the newly picked photo (optionally
+  /// without background) or the stored one; only one is ever shown.
+  Widget _buildPhotoArea(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = Theme.of(context).colorScheme;
+
+    Widget? photo;
+    if (_newImage != null) {
+      photo = _bgRemoved && _imageNoBgBytes != null
+          ? Image.memory(_imageNoBgBytes!, fit: BoxFit.cover)
+          : Image.file(_newImage!, fit: BoxFit.cover);
+    } else if (_existingImageUrl != null && _existingImageUrl!.isNotEmpty) {
+      photo = Image.network(_existingImageUrl!, fit: BoxFit.cover);
+    }
+
+    final overlayButton = IconButton.styleFrom(
+      backgroundColor: colors.surface.withValues(alpha: 0.9),
+      foregroundColor: colors.onSurface,
+    );
+
+    return AspectRatio(
+      aspectRatio: 1.2,
+      child: Material(
+        color: colors.tertiaryFixed,
+        borderRadius: BorderRadius.circular(AppRadius.hero),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: _showImageSelector,
+          child: photo == null
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 28,
+                      backgroundColor: colors.surface,
+                      child: Icon(
+                        MingCuteIcons.mgc_camera_2_line,
+                        color: colors.onSurface,
                       ),
                     ),
-                  ),
-                ),
-            ],
-          ),
-        if (_existingImageUrl != null && _existingImageUrl!.isNotEmpty)
-          Stack(
-            children: [
-              Card(
-                color: Theme.of(context).colorScheme.surface,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-                elevation: 0,
-                clipBehavior: Clip.antiAlias,
-                child: GestureDetector(
-                  onTap: _showImageSelector,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                    child: Image.network(
-                      _existingImageUrl!,
-                      width: 140.w,
-                      height: 140.h,
-                      fit: BoxFit.cover,
+                    const SizedBox(height: AppSpacing.s),
+                    Text(
+                      l10n.shoes_form_screen_add_photo,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 0.r,
-                bottom: 0.r,
-                child: CircleAvatar(
-                  radius: 25.r,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: IconButton(
-                    tooltip: AppLocalizations.of(context)!.a11y_remove_image,
-                    onPressed: _removeImage,
-                    icon: Icon(
-                      MingCuteIcons.mgc_close_line,
-                      color: Theme.of(context).colorScheme.onSurface,
+                  ],
+                )
+              : Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    photo,
+                    Positioned(
+                      top: AppSpacing.s,
+                      right: AppSpacing.s,
+                      child: IconButton(
+                        tooltip: l10n.a11y_remove_image,
+                        style: overlayButton,
+                        onPressed: _removeImage,
+                        icon: const Icon(MingCuteIcons.mgc_close_line),
+                      ),
                     ),
-                  ),
+                    if (_newImage != null && !_bgRemoved && !_isBgRemoving)
+                      Positioned(
+                        left: AppSpacing.s,
+                        bottom: AppSpacing.s,
+                        child: FilledButton.icon(
+                          style: FilledButton.styleFrom(
+                            backgroundColor:
+                                colors.surface.withValues(alpha: 0.9),
+                            foregroundColor: colors.onSurface,
+                            minimumSize: const Size(0, 44),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.m,
+                            ),
+                          ),
+                          onPressed: _handleBackgroundRemoval,
+                          icon: const Icon(MingCuteIcons.mgc_eraser_line),
+                          label: Text(l10n.a11y_remove_background),
+                        ),
+                      ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-      ],
+        ),
+      ),
     );
   }
 }

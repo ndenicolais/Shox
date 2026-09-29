@@ -13,52 +13,20 @@ class BrandTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return FormFieldCard(
       icon: MingCuteIcons.mgc_tag_line,
-      label: AppLocalizations.of(context)!.shoes_adder_screen_field_brand,
+      label: l10n.shoes_adder_screen_field_brand,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          hintText:
-              AppLocalizations.of(context)!.shoes_adder_screen_field_brand,
-          border: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-              width: 2,
-            ),
-          ),
-          errorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error,
-            ),
-          ),
-          focusedErrorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error,
-              width: 2,
-            ),
-          ),
-        ),
-        style: TextStyle(
-          fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.secondary,
+          hintText: l10n.shoes_adder_screen_field_brand,
         ),
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         textCapitalization: TextCapitalization.sentences,
-        validator: (val) => val!.isEmpty
-            ? AppLocalizations.of(context)!.shoes_adder_screen_toast_error_brand
-            : null,
+        validator: (val) =>
+            val!.isEmpty ? l10n.shoes_adder_screen_toast_error_brand : null,
       ),
     );
   }
