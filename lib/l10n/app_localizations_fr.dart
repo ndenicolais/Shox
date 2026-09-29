@@ -110,6 +110,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le mot de passe saisi ne correspond à aucun compte';
 
   @override
+  String get startup_error_message =>
+      'Impossible de démarrer l’application. Vérifiez votre connexion internet et réessayez.';
+
+  @override
   String get login_toast_error_network =>
       'Impossible de joindre Google. Vérifiez votre connexion internet et réessayez.';
 
@@ -1195,6 +1199,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_22 =>
       'La connexion avec Google affiche désormais un message d’erreur, par exemple sans connexion internet, au lieu de ne rien faire.';
+
+  @override
+  String get changelog_v4_1_0_bullet_23 =>
+      'Si l’application ne parvient pas à démarrer, un écran avec un bouton Réessayer s’affiche désormais au lieu d’un arrêt brutal.';
 
   @override
   String get dashboard_other => 'Autre';

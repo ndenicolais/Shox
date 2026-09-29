@@ -109,6 +109,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The password entered does not match any account';
 
   @override
+  String get startup_error_message =>
+      'Unable to start the app. Check your internet connection and try again.';
+
+  @override
   String get login_toast_error_network =>
       'Unable to reach Google. Check your internet connection and try again.';
 
@@ -1170,6 +1174,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_22 =>
       'Google sign-in now shows an error message, for example when there is no connection, instead of doing nothing.';
+
+  @override
+  String get changelog_v4_1_0_bullet_23 =>
+      'If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.';
 
   @override
   String get dashboard_other => 'Other';

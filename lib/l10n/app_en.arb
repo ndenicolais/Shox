@@ -36,6 +36,7 @@
   "login_toast_success": "Login successful!",
   "login_toast_error_email_not_found": "The email entered does not match any account",
   "login_toast_error_invalid_password": "The password entered does not match any account",
+  "startup_error_message": "Unable to start the app. Check your internet connection and try again.",
   "login_toast_error_network": "Unable to reach Google. Check your internet connection and try again.",
   "login_toast_error_generic": "Error during login:",
 
@@ -390,6 +391,7 @@
   "changelog_v4_1_0_bullet_20": "The shoes list is now filtered outside the screen rendering: smoother scrolling and no more reordering of the underlying data.",
   "changelog_v4_1_0_bullet_21": "The app version in the dashboard is loaded once instead of at every redraw.",
   "changelog_v4_1_0_bullet_22": "Google sign-in now shows an error message, for example when there is no connection, instead of doing nothing.",
+  "changelog_v4_1_0_bullet_23": "If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.",
   "dashboard_other": "Other",
   "user_screen_account_settings": "Account Settings",
   "user_screen_total_shoes": "Total Shoes",

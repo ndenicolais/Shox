@@ -36,6 +36,7 @@
   "login_toast_success": "Erfolgreich angemeldet!",
   "login_toast_error_email_not_found": "Die eingegebene E-Mail entspricht keinem Konto",
   "login_toast_error_invalid_password": "Das eingegebene Passwort entspricht keinem Konto",
+  "startup_error_message": "Die App konnte nicht gestartet werden. Prüfe deine Internetverbindung und versuche es erneut.",
   "login_toast_error_network": "Google ist nicht erreichbar. Prüfe deine Internetverbindung und versuche es erneut.",
   "login_toast_error_generic": "Fehler bei der Anmeldung:",
 
@@ -395,6 +396,7 @@
   "changelog_v4_1_0_bullet_20": "Die Schuhliste wird jetzt außerhalb des Bildschirmaufbaus gefiltert: flüssigeres Scrollen und keine Umsortierung der zugrunde liegenden Daten mehr.",
   "changelog_v4_1_0_bullet_21": "Die App-Version im Dashboard wird einmal geladen statt bei jedem Neuzeichnen.",
   "changelog_v4_1_0_bullet_22": "Die Google-Anmeldung zeigt jetzt eine Fehlermeldung an, zum Beispiel ohne Internetverbindung, statt nichts zu tun.",
+  "changelog_v4_1_0_bullet_23": "Wenn die App nicht starten kann, erscheint jetzt ein Bildschirm mit einer Schaltfläche zum erneuten Versuchen statt eines plötzlichen Absturzes.",
   "dashboard_other": "Andere",
   "user_screen_account_settings": "Kontoeinstellungen",
   "user_screen_total_shoes": "Schuhe gesamt",

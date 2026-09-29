@@ -110,6 +110,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das eingegebene Passwort entspricht keinem Konto';
 
   @override
+  String get startup_error_message =>
+      'Die App konnte nicht gestartet werden. Prüfe deine Internetverbindung und versuche es erneut.';
+
+  @override
   String get login_toast_error_network =>
       'Google ist nicht erreichbar. Prüfe deine Internetverbindung und versuche es erneut.';
 
@@ -1185,6 +1189,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_22 =>
       'Die Google-Anmeldung zeigt jetzt eine Fehlermeldung an, zum Beispiel ohne Internetverbindung, statt nichts zu tun.';
+
+  @override
+  String get changelog_v4_1_0_bullet_23 =>
+      'Wenn die App nicht starten kann, erscheint jetzt ein Bildschirm mit einer Schaltfläche zum erneuten Versuchen statt eines plötzlichen Absturzes.';
 
   @override
   String get dashboard_other => 'Andere';

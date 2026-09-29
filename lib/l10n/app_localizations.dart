@@ -290,6 +290,12 @@ abstract class AppLocalizations {
   /// **'The password entered does not match any account'**
   String get login_toast_error_invalid_password;
 
+  /// No description provided for @startup_error_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to start the app. Check your internet connection and try again.'**
+  String get startup_error_message;
+
   /// No description provided for @login_toast_error_network.
   ///
   /// In en, this message translates to:
@@ -2269,6 +2275,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google sign-in now shows an error message, for example when there is no connection, instead of doing nothing.'**
   String get changelog_v4_1_0_bullet_22;
+
+  /// No description provided for @changelog_v4_1_0_bullet_23.
+  ///
+  /// In en, this message translates to:
+  /// **'If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.'**
+  String get changelog_v4_1_0_bullet_23;
 
   /// No description provided for @dashboard_other.
   ///

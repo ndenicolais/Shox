@@ -102,7 +102,7 @@ shox/
 │   ├── fonts/                      # Font Montserrat (regular + bold) + ShoxIcons
 │   └── images/                     # Logo app, sorgenti icona launcher e altre immagini statiche
 ├── lib/
-│   ├── main.dart                   # Entry point: inizializza Firebase, tema, locale
+│   ├── main.dart                   # Entry point: inizializza Firebase (con schermata di errore e retry), tema, locale
 │   ├── common/
 │   │   ├── screens/                # Schermate comuni (intro, onboarding, welcome)
 │   │   └── widgets/                # Widget riutilizzabili globali
@@ -193,6 +193,7 @@ Flusso iniziale di accesso all'app.
 - **IntroScreen:** Schermata di splash/caricamento; verifica se l'utente è già autenticato e reindirizza alla schermata appropriata (`home` se autenticato, altrimenti `onboarding` o `welcome`)
 - **OnboardingScreen:** Sequenza di schermate introduttive che presentano le funzionalità principali dell'app (mostrata solo al primo avvio)
 - **WelcomeScreen:** Schermata di benvenuto con accesso rapido a login e registrazione
+- **StartupErrorScreen:** Mostrata al posto dell'app se `Firebase.initializeApp` fallisce all'avvio; il pulsante "Riprova" ripete l'inizializzazione (`_bootstrap()` in `main.dart`). Un errore nella lettura di `SharedPreferences` non blocca l'avvio: viene usata la lingua del dispositivo
 
 ---
 

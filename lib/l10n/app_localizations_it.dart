@@ -110,6 +110,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'La password inserita non corrisponde ad alcun account';
 
   @override
+  String get startup_error_message =>
+      'Impossibile avviare l\'app. Controlla la connessione a internet e riprova.';
+
+  @override
   String get login_toast_error_network =>
       'Impossibile contattare Google. Controlla la connessione a internet e riprova.';
 
@@ -1187,6 +1191,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_22 =>
       'Il login con Google ora mostra un messaggio d\'errore, ad esempio in assenza di connessione, invece di non fare nulla.';
+
+  @override
+  String get changelog_v4_1_0_bullet_23 =>
+      'Se l\'avvio dell\'app non riesce, ora compare una schermata con il pulsante Riprova invece di un arresto improvviso.';
 
   @override
   String get dashboard_other => 'Altro';
