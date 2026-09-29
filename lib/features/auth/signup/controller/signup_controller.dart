@@ -16,10 +16,10 @@ class SignupController extends GetxController {
   var passwordVisible = false.obs;
   var isLoading = false.obs;
 
-  Future<void> register(
-    BuildContext context,
-    GlobalKey<FormState> formKey,
-  ) async {
+  /// Owned here so the screen can be a stateless [GetView].
+  final formKey = GlobalKey<FormState>();
+
+  Future<void> register(BuildContext context) async {
     if (!formKey.currentState!.validate()) {
       return;
     }

@@ -9,6 +9,8 @@ import 'package:shox/features/auth/login/repository/login_repository.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
 
 class LoginController extends GetxController {
+  /// Owned here so the screen can be a stateless [GetView].
+  final formKey = GlobalKey<FormState>();
   final LoginRepository _loginRepository = LoginRepository();
   final UserController _userController = Get.find<UserController>();
   var emailController = TextEditingController();
@@ -24,7 +26,7 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  Future<void> login(BuildContext context, GlobalKey<FormState> formKey) async {
+  Future<void> login(BuildContext context) async {
     if (!formKey.currentState!.validate()) {
       return;
     }

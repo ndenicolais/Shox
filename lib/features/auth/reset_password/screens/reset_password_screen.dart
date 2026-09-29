@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:shox/l10n/app_localizations.dart';
-import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
-import 'package:shox/common/widgets/responsive_center_widget.dart';
+import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/features/auth/reset_password/controller/reset_password_controller.dart';
 import 'package:shox/features/auth/reset_password/widgets/reset_password_form.dart';
-import 'package:shox/common/widgets/button_widget.dart';
+import 'package:shox/l10n/app_localizations.dart';
+import 'package:shox/theme/app_spacing.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
+class ResetPasswordScreen extends GetView<ResetPasswordController> {
   const ResetPasswordScreen({super.key});
-
-  @override
-  ResetPasswordScreenState createState() => ResetPasswordScreenState();
-}
-
-class ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  final ResetPasswordController controller =
-      Get.find<ResetPasswordController>();
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +43,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 const SizedBox(height: AppSpacing.xl),
                 ResetPasswordForm(
                   context: context,
-                  formKey: _formKey,
+                  formKey: controller.formKey,
                   emailController: controller.emailController,
                 ),
                 const SizedBox(height: AppSpacing.l),
@@ -60,8 +51,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   () => ButtonWidget(
                     isLoading: controller.isLoading.value,
                     text: l10n.reset_password_screen_text,
-                    onPressed: () =>
-                        controller.resetPassword(context, _formKey),
+                    onPressed: () => controller.resetPassword(context),
                   ),
                 ),
               ],

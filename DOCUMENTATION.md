@@ -138,6 +138,8 @@ feature/
 
 **Widget estratti dalle schermate più grandi:** `ShoePhotoArea`, `BackgroundRemovalDialog` e `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (il pannello filtri gestisce da solo la selezione temporanea e restituisce il risultato), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); grafici del database in `database/widgets/database_charts.dart` e overlay di avanzamento condiviso `ProgressOverlayWidget`; sezioni e dialog di backup dell'eliminazione account in `users/widgets/delete_account_info.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; logica del dialog novità in `core/services/changelog_service.dart`.
 
+**`GetView<T>`:** le schermate senza stato proprio estendono `GetView` e leggono il controller della binding tramite `controller`: login, registrazione e reset password (la `GlobalKey<FormState>` vive nel controller) e scelta del genere (`GenderSelectionController.selectedGender` è un `RxnString`). Le altre restano `StatefulWidget` perché hanno stato locale reale (stream, animazioni, dati della form scarpa, statistiche caricate, versione dell'app). Poiché le chiavi dei form stanno nei controller, i collegamenti fra login e registrazione usano `Get.offNamed`: le due schermate non si impilano mai (due form con la stessa `GlobalKey` andrebbero in errore).
+
 ---
 
 ## 4. Modelli dati

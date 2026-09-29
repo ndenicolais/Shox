@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:shox/l10n/app_localizations.dart';
-import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
-import 'package:shox/common/widgets/responsive_center_widget.dart';
-import 'package:shox/features/auth/widgets/auth_switch_prompt.dart';
-import 'package:shox/features/auth/widgets/google_sign_in_section.dart';
+import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/features/auth/login/controller/login_controller.dart';
 import 'package:shox/features/auth/signup/controller/signup_controller.dart';
 import 'package:shox/features/auth/signup/widgets/signup_form.dart';
-import 'package:shox/common/widgets/button_widget.dart';
+import 'package:shox/features/auth/widgets/auth_switch_prompt.dart';
+import 'package:shox/features/auth/widgets/google_sign_in_section.dart';
+import 'package:shox/l10n/app_localizations.dart';
+import 'package:shox/theme/app_spacing.dart';
 
-class SignupScreen extends StatefulWidget {
+class SignupScreen extends GetView<SignupController> {
   const SignupScreen({super.key});
 
-  @override
-  SignupScreenState createState() => SignupScreenState();
-}
-
-class SignupScreenState extends State<SignupScreen> {
-  final SignupController _signupController = Get.find<SignupController>();
-  final LoginController _loginController = Get.find<LoginController>();
-  final _formKey = GlobalKey<FormState>();
+  /// Google sign-in is shared with the login screen.
+  LoginController get _loginController => Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +41,22 @@ class SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: AppSpacing.xl),
                 SignupForm(
                   context: context,
-                  formKey: _formKey,
-                  nameController: _signupController.nameController,
-                  emailController: _signupController.emailController,
-                  passwordController: _signupController.passwordController,
-                  passwordVisible: _signupController.passwordVisible,
+                  formKey: controller.formKey,
+                  nameController: controller.nameController,
+                  emailController: controller.emailController,
+                  passwordController: controller.passwordController,
+                  passwordVisible: controller.passwordVisible,
                   togglePasswordVisibility: () {
-                    _signupController.passwordVisible.value =
-                        !_signupController.passwordVisible.value;
+                    controller.passwordVisible.value =
+                        !controller.passwordVisible.value;
                   },
                 ),
                 const SizedBox(height: AppSpacing.l),
                 Obx(
                   () => ButtonWidget(
-                    isLoading: _signupController.isLoading.value,
+                    isLoading: controller.isLoading.value,
                     text: l10n.signup_screen_text,
-                    onPressed: () =>
-                        _signupController.register(context, _formKey),
+                    onPressed: () => controller.register(context),
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
@@ -78,7 +71,8 @@ class SignupScreenState extends State<SignupScreen> {
                 AuthSwitchPrompt(
                   question: l10n.signup_screen_account,
                   action: l10n.signup_screen_login,
-                  onPressed: () => Get.toNamed(AppRoutes.login),
+                  // Replaces this screen, so login and signup never stack.
+                  onPressed: () => Get.offNamed(AppRoutes.login),
                 ),
               ],
             ),

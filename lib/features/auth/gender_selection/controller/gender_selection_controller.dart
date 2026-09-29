@@ -10,6 +10,9 @@ class GenderSelectionController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final Logger _logger = Logger();
 
+  /// Gender picked on the screen; null until the user chooses one.
+  final selectedGender = RxnString();
+
   Future<void> saveGenderAndProceed({
     required BuildContext context,
     required String userId,

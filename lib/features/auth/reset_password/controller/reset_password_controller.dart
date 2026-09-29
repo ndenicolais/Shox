@@ -11,10 +11,10 @@ class ResetPasswordController extends GetxController {
   final emailController = TextEditingController();
   var isLoading = false.obs;
 
-  Future<void> resetPassword(
-    BuildContext context,
-    GlobalKey<FormState> formKey,
-  ) async {
+  /// Owned here so the screen can be a stateless [GetView].
+  final formKey = GlobalKey<FormState>();
+
+  Future<void> resetPassword(BuildContext context) async {
     if (!formKey.currentState!.validate()) {
       return;
     }
