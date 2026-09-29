@@ -290,6 +290,12 @@ abstract class AppLocalizations {
   /// **'The password entered does not match any account'**
   String get login_toast_error_invalid_password;
 
+  /// No description provided for @session_expired_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please sign in again.'**
+  String get session_expired_message;
+
   /// No description provided for @startup_error_message.
   ///
   /// In en, this message translates to:
@@ -2281,6 +2287,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.'**
   String get changelog_v4_1_0_bullet_23;
+
+  /// No description provided for @changelog_v4_1_0_bullet_24.
+  ///
+  /// In en, this message translates to:
+  /// **'If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.'**
+  String get changelog_v4_1_0_bullet_24;
 
   /// No description provided for @dashboard_other.
   ///

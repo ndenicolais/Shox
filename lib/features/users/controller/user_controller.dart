@@ -4,6 +4,7 @@ import 'package:shox/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/features/auth/services/auth_guard_service.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:shox/features/users/repository/user_repository.dart';
 
@@ -60,6 +61,7 @@ class UserController extends GetxController {
   }
 
   Future<void> logout(BuildContext context) async {
+    AuthGuardService.to.expectSignOut();
     await _userRepository.logout();
     if (context.mounted) {
       showSuccessToast(
@@ -71,10 +73,12 @@ class UserController extends GetxController {
   }
 
   Future<void> googleSignOut() async {
+    AuthGuardService.to.expectSignOut();
     await _userRepository.googleSignOut();
   }
 
   Future<void> deleteAccount() async {
+    AuthGuardService.to.expectSignOut();
     await _userRepository.deleteAccount();
   }
 

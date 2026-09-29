@@ -110,6 +110,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'La contraseña introducida no corresponde a ninguna cuenta';
 
   @override
+  String get session_expired_message =>
+      'Tu sesión ha caducado. Inicia sesión de nuevo.';
+
+  @override
   String get startup_error_message =>
       'No se puede iniciar la app. Comprueba tu conexión a internet e inténtalo de nuevo.';
 
@@ -1189,6 +1193,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_23 =>
       'Si la app no consigue iniciarse, ahora aparece una pantalla con un botón Reintentar en lugar de un cierre repentino.';
+
+  @override
+  String get changelog_v4_1_0_bullet_24 =>
+      'Si la sesión caduca, la app ahora vuelve a la pantalla de bienvenida en lugar de cerrarse de repente.';
 
   @override
   String get dashboard_other => 'Otro';

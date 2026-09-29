@@ -110,6 +110,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das eingegebene Passwort entspricht keinem Konto';
 
   @override
+  String get session_expired_message =>
+      'Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.';
+
+  @override
   String get startup_error_message =>
       'Die App konnte nicht gestartet werden. Prüfe deine Internetverbindung und versuche es erneut.';
 
@@ -1193,6 +1197,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_23 =>
       'Wenn die App nicht starten kann, erscheint jetzt ein Bildschirm mit einer Schaltfläche zum erneuten Versuchen statt eines plötzlichen Absturzes.';
+
+  @override
+  String get changelog_v4_1_0_bullet_24 =>
+      'Wenn die Sitzung abläuft, kehrt die App jetzt zum Startbildschirm zurück, statt sich unerwartet zu schließen.';
 
   @override
   String get dashboard_other => 'Andere';

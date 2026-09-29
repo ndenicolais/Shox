@@ -213,6 +213,11 @@ Gestione completa del flusso di autenticazione tramite Firebase Auth.
 - `findUserByEmail(email)` — ricerca del documento utente su Firestore per `userEmail`
 - `saveSession(userId)` / `clearSession()` — salvataggio e rimozione della sessione locale (`remember_me`, `user_id` in `SharedPreferences`)
 
+**Protezione della sessione:**
+- `AuthGuardService` (`lib/features/auth/services/auth_guard_service.dart`, `GetxService` permanente registrato in `main.dart`) ascolta `authStateChanges()`: se la sessione cade in modo inatteso su una route protetta, pulisce la sessione locale e reindirizza a `/welcome` con un toast. Logout ed eliminazione account chiamano prima `expectSignOut()` per non essere scambiati per una sessione scaduta
+- `AuthMiddleware` (`lib/core/routes/auth_middleware.dart`) è applicato a tutte le route che richiedono un utente (home, scarpe, dashboard, database, utente, gender selection) e reindirizza a `/welcome` se `currentUser` è null
+- `IntroScreen`, con "ricordami" attivo, attende il primo evento di `authStateChanges()` prima di aprire la home: se l'utente Firebase non c'è più, pulisce la sessione e va a `/welcome`
+
 ---
 
 ### 5.3 Home — Collezione scarpe

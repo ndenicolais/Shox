@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:shox/common/widgets/logo_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/constants.dart';
+import 'package:shox/features/auth/services/auth_service.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -68,6 +70,15 @@ class IntroScreenState extends State<IntroScreen>
       return;
     }
     if (rememberMe) {
+      // Firebase restores the signed-in user asynchronously: wait for the
+      // first auth event instead of reading `currentUser` right away.
+      final firebaseUser = await FirebaseAuth.instance.authStateChanges().first;
+      if (firebaseUser == null) {
+        _logger.w('Sessione Firebase scaduta, navigo a WelcomeScreen');
+        await AuthService().clearSession();
+        Get.offNamed(AppRoutes.welcome);
+        return;
+      }
       if (userId != null) {
         try {
           await _loadUserData(userId);

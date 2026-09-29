@@ -11,6 +11,7 @@ import 'package:shox/common/screens/startup_error_screen.dart';
 import 'package:shox/core/routes/app_pages.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/firebase_options.dart';
+import 'package:shox/features/auth/services/auth_guard_service.dart';
 import 'package:shox/theme/theme_controller.dart';
 
 final Logger _logger = Logger();
@@ -31,6 +32,9 @@ Future<void> _bootstrap() async {
 
   final String? savedLocale = await _loadSavedLocale();
   final bool firebaseReady = await _initFirebase();
+  if (firebaseReady && !Get.isRegistered<AuthGuardService>()) {
+    Get.put(AuthGuardService(), permanent: true);
+  }
 
   _isBootstrapping = false;
   runApp(MyApp(

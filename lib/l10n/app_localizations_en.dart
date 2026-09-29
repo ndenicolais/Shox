@@ -109,6 +109,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The password entered does not match any account';
 
   @override
+  String get session_expired_message =>
+      'Your session has expired. Please sign in again.';
+
+  @override
   String get startup_error_message =>
       'Unable to start the app. Check your internet connection and try again.';
 
@@ -1178,6 +1182,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_23 =>
       'If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.';
+
+  @override
+  String get changelog_v4_1_0_bullet_24 =>
+      'If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.';
 
   @override
   String get dashboard_other => 'Other';

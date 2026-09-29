@@ -110,6 +110,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le mot de passe saisi ne correspond à aucun compte';
 
   @override
+  String get session_expired_message =>
+      'Votre session a expiré. Veuillez vous reconnecter.';
+
+  @override
   String get startup_error_message =>
       'Impossible de démarrer l’application. Vérifiez votre connexion internet et réessayez.';
 
@@ -1203,6 +1207,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_23 =>
       'Si l’application ne parvient pas à démarrer, un écran avec un bouton Réessayer s’affiche désormais au lieu d’un arrêt brutal.';
+
+  @override
+  String get changelog_v4_1_0_bullet_24 =>
+      'Si la session expire, l’application revient désormais à l’écran d’accueil au lieu de se fermer brusquement.';
 
   @override
   String get dashboard_other => 'Autre';

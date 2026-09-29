@@ -110,6 +110,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'La password inserita non corrisponde ad alcun account';
 
   @override
+  String get session_expired_message =>
+      'La sessione è scaduta. Accedi di nuovo.';
+
+  @override
   String get startup_error_message =>
       'Impossibile avviare l\'app. Controlla la connessione a internet e riprova.';
 
@@ -1195,6 +1199,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_23 =>
       'Se l\'avvio dell\'app non riesce, ora compare una schermata con il pulsante Riprova invece di un arresto improvviso.';
+
+  @override
+  String get changelog_v4_1_0_bullet_24 =>
+      'Se la sessione scade, l\'app ora torna alla schermata di benvenuto invece di chiudersi improvvisamente.';
 
   @override
   String get dashboard_other => 'Altro';

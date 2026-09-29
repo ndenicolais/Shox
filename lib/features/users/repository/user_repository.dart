@@ -109,6 +109,7 @@ class UserRepository {
         await user.delete();
         await _auth.signOut();
         await _googleSignIn.signOut();
+        await _authService.clearSession();
       } catch (e) {
         throw Exception("Error while deleting: $e");
       }
