@@ -2384,6 +2384,12 @@ abstract class AppLocalizations {
   /// **'Text follows the phone\'s font size setting up to 130%, with no more clipped button labels.'**
   String get changelog_v4_1_0_bullet_35;
 
+  /// No description provided for @changelog_v4_1_0_bullet_36.
+  ///
+  /// In en, this message translates to:
+  /// **'Smoother home screen: a grid preview replaces the logo while loading, and column, filter and state changes now fade smoothly.'**
+  String get changelog_v4_1_0_bullet_36;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

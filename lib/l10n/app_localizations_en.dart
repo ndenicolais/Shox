@@ -1245,6 +1245,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Text follows the phone\'s font size setting up to 130%, with no more clipped button labels.';
 
   @override
+  String get changelog_v4_1_0_bullet_36 =>
+      'Smoother home screen: a grid preview replaces the logo while loading, and column, filter and state changes now fade smoothly.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

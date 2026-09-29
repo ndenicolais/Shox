@@ -1260,6 +1260,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Der Text folgt der Schriftgröße des Telefons bis 130 %, ohne abgeschnittene Beschriftungen in Schaltflächen.';
 
   @override
+  String get changelog_v4_1_0_bullet_36 =>
+      'Flüssigerer Startbildschirm: Beim Laden erscheint eine Rastervorschau statt des Logos, und Wechsel von Spalten, Filtern und Zuständen werden sanft überblendet.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

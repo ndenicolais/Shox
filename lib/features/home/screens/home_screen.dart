@@ -21,8 +21,8 @@ import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/controller/shoes_controller.dart';
 import 'package:shox/features/shoes/widgets/shoes_categories_mixin.dart';
 import 'package:shox/core/utils/utils.dart';
-import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
+import 'package:shox/common/widgets/skeleton_widget.dart';
 import 'package:shox/features/home/widgets/top_bar_widget.dart';
 import 'package:shox/features/home/widgets/filter_bar_widget.dart';
 import 'package:shox/features/home/widgets/filter_widget.dart';
@@ -238,15 +238,36 @@ class HomeScreenState extends State<HomeScreen>
     _searchController.clear();
   }
 
+  static const Duration _contentSwitchDuration = Duration(milliseconds: 250);
+
+  /// Changes whenever the visible grid layout or result set changes, so the
+  /// grid cross-fades on column toggles and filter changes, but not on
+  /// ordinary stream updates such as toggling a favorite.
+  String get _gridViewKey => [
+        currentGridColumns,
+        searchQuery,
+        showOnlyFavorites,
+        selectedColor?.toARGB32(),
+        selectedColorExtra?.toARGB32(),
+        selectedCategory,
+        selectedType,
+        selectedSeason,
+      ].join('|');
+
   Widget _buildMainContent(BuildContext context) {
     return Expanded(
       child: StreamBuilder<List<ShoesModel>>(
         stream: _shoesListStream,
         builder: (context, snapshot) {
+          final Widget content;
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return LoaderWidget(width: 50.w, height: 50.h);
+            content = KeyedSubtree(
+              key: const ValueKey('loading'),
+              child: _buildGridSkeleton(context),
+            );
           } else if (snapshot.hasError) {
-            return ErrorStateWidget(
+            content = ErrorStateWidget(
+              key: const ValueKey('error'),
               message: AppLocalizations.of(context)!.home_screen_error_state,
               onRetry: () => setState(() {
                 _shoesListStream =
@@ -254,13 +275,58 @@ class HomeScreenState extends State<HomeScreen>
               }),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return EmptyStateWidget(
+            content = EmptyStateWidget(
+              key: const ValueKey('empty'),
               message: AppLocalizations.of(context)!.home_screen_empty_state,
               icon: MingCuteIcons.mgc_shoe_line,
               iconColor: Theme.of(context).colorScheme.secondary,
             );
+          } else {
+            content = _buildShoesGrid(context, snapshot.data!);
           }
-          return _buildShoesGrid(context, snapshot.data!);
+          return AnimatedSwitcher(
+            duration: _contentSwitchDuration,
+            child: content,
+          );
+        },
+      ),
+    );
+  }
+
+  int get _baseColumns => currentGridColumns == GridColumns.gOne
+      ? 1
+      : currentGridColumns == GridColumns.gTwo
+          ? 2
+          : 3;
+
+  /// Columns actually shown for [maxWidth]: the user's choice, raised on
+  /// wide screens (tablets, landscape).
+  int _columnsFor(double maxWidth) => currentGridColumns == GridColumns.gOne
+      ? 1
+      : AppBreakpoints.gridColumnsForWidth(maxWidth, minColumns: _baseColumns)
+          .clamp(_baseColumns, 4);
+
+  /// Placeholder grid with the same columns and cell shape as the real one.
+  Widget _buildGridSkeleton(BuildContext context) {
+    return Semantics(
+      label: AppLocalizations.of(context)!.a11y_loading,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final int columns = _columnsFor(constraints.maxWidth);
+          final double spacing = AppSpacing.grid.r;
+          return GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: columns,
+              crossAxisSpacing: spacing,
+              mainAxisSpacing: spacing,
+              childAspectRatio: _gridTileAspectRatio,
+            ),
+            itemCount: columns * 4,
+            itemBuilder: (context, index) => SkeletonWidget(
+              borderRadius: BorderRadius.all(Radius.circular(20.r)),
+            ),
+          );
         },
       ),
     );
@@ -271,6 +337,7 @@ class HomeScreenState extends State<HomeScreen>
 
     if (filteredShoes.isEmpty) {
       return EmptyStateWidget(
+        key: const ValueKey('no-results'),
         message: AppLocalizations.of(context)!.home_screen_no_results_state,
         icon: MingCuteIcons.mgc_search_2_line,
         iconColor: Theme.of(context).colorScheme.secondary,
@@ -279,20 +346,10 @@ class HomeScreenState extends State<HomeScreen>
       );
     }
 
-    final int baseColumns = currentGridColumns == GridColumns.gOne
-        ? 1
-        : currentGridColumns == GridColumns.gTwo
-            ? 2
-            : 3;
-
     return LayoutBuilder(
+      key: ValueKey('grid|$_gridViewKey'),
       builder: (context, constraints) {
-        final int columns = currentGridColumns == GridColumns.gOne
-            ? 1
-            : AppBreakpoints.gridColumnsForWidth(
-                constraints.maxWidth,
-                minColumns: baseColumns,
-              ).clamp(baseColumns, 4);
+        final int columns = _columnsFor(constraints.maxWidth);
         final double spacing = AppSpacing.grid.r;
         final double cellWidth =
             (constraints.maxWidth - spacing * (columns - 1)) / columns;
@@ -341,7 +398,7 @@ class HomeScreenState extends State<HomeScreen>
         height: double.infinity,
         memCacheWidth: cacheWidth,
         fit: BoxFit.cover,
-        placeholder: (context, url) => LoaderWidget(width: 25.w, height: 25.h),
+        placeholder: (context, url) => const SkeletonWidget(),
         errorWidget: (context, url, error) => Icon(
           MingCuteIcons.mgc_close_line,
           color: Theme.of(context).colorScheme.secondary,

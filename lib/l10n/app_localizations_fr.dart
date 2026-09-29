@@ -1271,6 +1271,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le texte suit la taille de police du téléphone jusqu’à 130 %, sans libellés de boutons coupés.';
 
   @override
+  String get changelog_v4_1_0_bullet_36 =>
+      'Accueil plus fluide : un aperçu de la grille remplace le logo pendant le chargement, et les changements de colonnes, de filtres et d’états se font en fondu.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

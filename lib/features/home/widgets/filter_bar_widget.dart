@@ -66,11 +66,11 @@ class FilterBarWidget extends StatelessWidget {
         ),
         IconButton(
           tooltip: AppLocalizations.of(context)!.a11y_filters,
-          icon: Icon(
+          icon: _animatedIcon(
             filtersActive
                 ? MingCuteIcons.mgc_filter_fill
                 : MingCuteIcons.mgc_filter_line,
-            color: filtersActive
+            filtersActive
                 ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).colorScheme.tertiary,
           ),
@@ -78,9 +78,9 @@ class FilterBarWidget extends StatelessWidget {
         ),
         IconButton(
           tooltip: AppLocalizations.of(context)!.a11y_toggle_grid,
-          icon: Icon(
+          icon: _animatedIcon(
             currentIcon,
-            color: Theme.of(context).colorScheme.tertiary,
+            Theme.of(context).colorScheme.tertiary,
           ),
           onPressed: onToggleGrid,
         ),
@@ -88,17 +88,27 @@ class FilterBarWidget extends StatelessWidget {
           tooltip: showOnlyFavorites
               ? AppLocalizations.of(context)!.a11y_show_all_shoes
               : AppLocalizations.of(context)!.a11y_show_only_favorites,
-          icon: Icon(
+          icon: _animatedIcon(
             showOnlyFavorites
                 ? MingCuteIcons.mgc_heart_fill
                 : MingCuteIcons.mgc_heart_line,
-            color: showOnlyFavorites
+            showOnlyFavorites
                 ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).colorScheme.tertiary,
           ),
           onPressed: onToggleFavorites,
         ),
       ],
+    );
+  }
+
+  /// Icon that scales in when it changes (grid layout, active state...).
+  Widget _animatedIcon(IconData icon, Color color) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      transitionBuilder: (child, animation) =>
+          ScaleTransition(scale: animation, child: child),
+      child: Icon(icon, key: ValueKey(icon), color: color),
     );
   }
 }

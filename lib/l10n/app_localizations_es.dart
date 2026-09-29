@@ -1256,6 +1256,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'El texto respeta el tamaño de letra del teléfono hasta el 130 %, sin etiquetas cortadas en los botones.';
 
   @override
+  String get changelog_v4_1_0_bullet_36 =>
+      'Pantalla principal más fluida: durante la carga aparece una vista previa de la cuadrícula en lugar del logo, y los cambios de columnas, filtros y estados se muestran con un fundido.';
+
+  @override
   String get dashboard_other => 'Otro';
 
   @override

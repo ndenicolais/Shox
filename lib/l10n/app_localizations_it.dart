@@ -1262,6 +1262,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Il testo rispetta la dimensione dei caratteri impostata sul telefono fino al 130%, senza più etichette tagliate nei pulsanti.';
 
   @override
+  String get changelog_v4_1_0_bullet_36 =>
+      'Home più fluida: durante il caricamento compare un\'anteprima della griglia al posto del logo, e cambi di colonne, filtri e stati avvengono con una dissolvenza.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

@@ -412,6 +412,7 @@
   "changelog_v4_1_0_bullet_33": "Les photos de la collection remplissent désormais toujours leur case et utilisent moins de mémoire ; sur tablette, l’accueil est centré comme les autres écrans.",
   "changelog_v4_1_0_bullet_34": "Modifier une chaussure favorite ne la retire plus des favoris, et il n’est plus possible d’enregistrer une chaussure après avoir supprimé sa photo sans en choisir une nouvelle.",
   "changelog_v4_1_0_bullet_35": "Le texte suit la taille de police du téléphone jusqu’à 130 %, sans libellés de boutons coupés.",
+  "changelog_v4_1_0_bullet_36": "Accueil plus fluide : un aperçu de la grille remplace le logo pendant le chargement, et les changements de colonnes, de filtres et d’états se font en fondu.",
   "dashboard_other": "Autre",
   "user_screen_account_settings": "Paramètres du compte",
   "user_screen_total_shoes": "Total de chaussures",
