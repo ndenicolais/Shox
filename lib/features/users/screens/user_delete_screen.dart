@@ -15,7 +15,6 @@ import 'package:shox/features/users/controller/user_controller.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/common/widgets/delete_dialog_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class UserDeleteScreen extends StatefulWidget {
   const UserDeleteScreen({super.key});
@@ -128,45 +127,24 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text(
             AppLocalizations.of(context)!.delete_account_screen_backup_title,
-            style: TextStyle(
-              fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: AppFontSizes.mediumLarge,
-            ),
           ),
           content: Text(
             AppLocalizations.of(context)!.delete_account_screen_backup_text,
-            style: TextStyle(
-              fontFamily: 'CustomFont',
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: AppFontSizes.normal,
-              height: 1.5,
-            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Get.back(result: false),
               child: Text(
                 AppLocalizations.of(context)!.delete_account_screen_skip_backup,
-                style: TextStyle(
-                  fontFamily: 'CustomFont',
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.w500,
-                ),
               ),
             ),
-            TextButton(
+            FilledButton(
               onPressed: () => Get.back(result: true),
               child: Text(
                 AppLocalizations.of(context)!
                     .delete_account_screen_backup_button,
-                style: const TextStyle(
-                  fontFamily: 'CustomFontBold',
-                  color: AppColors.errorColor,
-                ),
               ),
             ),
           ],
@@ -270,11 +248,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
             child: Text(
               AppLocalizations.of(context)!.delete_account_screen_text_a,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.mediumLarge,
-              ),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           Padding(
@@ -282,15 +256,9 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
             child: Text(
               AppLocalizations.of(context)!.delete_account_screen_text_b,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'CustomFont',
-                color: Theme.of(context)
-                    .colorScheme
-                    .tertiary
-                    .withValues(alpha: 0.8),
-                fontSize: AppFontSizes.small,
-                height: 1.6,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
             ),
           ),
         ],
@@ -314,15 +282,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
       ),
     ];
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color:
-              Theme.of(context).colorScheme.secondary.withValues(alpha: 0.15),
-        ),
-      ),
+    return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -338,25 +298,20 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
               children: [
                 Icon(
                   MingCuteIcons.mgc_information_line,
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.onSurface,
                   size: 20.sp,
                 ),
                 Text(
                   AppLocalizations.of(context)!
                       .delete_account_screen_what_happens,
-                  style: TextStyle(
-                    fontFamily: 'CustomFontBold',
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: AppFontSizes.normal,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             ),
           ),
           Divider(
             height: 1,
-            color:
-                Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+            color: Theme.of(context).colorScheme.outline,
           ),
           Padding(
             padding: EdgeInsets.all(AppSpacing.l.r),
@@ -397,12 +352,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
             padding: EdgeInsets.only(top: AppSpacing.xs.r),
             child: Text(
               label,
-              style: TextStyle(
-                fontFamily: 'CustomFont',
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: AppFontSizes.small,
-                height: 1.5,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),
@@ -433,13 +383,10 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
           Expanded(
             child: Text(
               AppLocalizations.of(context)!.delete_account_screen_text_c,
-              style: TextStyle(
-                fontFamily: 'CustomFont',
-                color: AppColors.errorColor,
-                fontSize: AppFontSizes.small,
-                height: 1.5,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: AppColors.errorColor),
             ),
           ),
         ],
@@ -453,8 +400,7 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
         color: Theme.of(context).colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color:
-                Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+            color: Theme.of(context).colorScheme.outline,
           ),
         ),
       ),
@@ -470,11 +416,9 @@ class UserDeleteScreenState extends State<UserDeleteScreen> {
           backgroundColor: AppColors.errorColor,
           text:
               AppLocalizations.of(context)!.delete_account_screen_delete_button,
-          textColor: Theme.of(context).colorScheme.surface,
-          height: 56.h,
-          fontSize: AppFontSizes.regular,
+          textColor: Colors.white,
           icon: MingCuteIcons.mgc_delete_2_line,
-          iconSize: 20.sp,
+          iconSize: 20,
           onPressed: _deleteAccount,
         ),
       ),

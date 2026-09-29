@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/info_tile_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
@@ -111,12 +111,11 @@ class UserScreenState extends State<UserScreen> {
                 ]
               : null,
         ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
-          padding: EdgeInsets.only(bottom: AppSpacing.xl.h),
+          padding: const EdgeInsets.only(bottom: AppSpacing.xl),
           child: ResponsiveCenterWidget(
             child: Column(
-              spacing: 20.h,
+              spacing: AppSpacing.l,
               children: [
                 _buildUserHeader(context),
                 _buildStatsCard(context),
@@ -130,34 +129,27 @@ class UserScreenState extends State<UserScreen> {
   }
 
   Widget _buildUserHeader(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.fromLTRB(AppSpacing.l.r, 28.r, AppSpacing.l.r, 28.r),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withAlpha(25),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(AppRadius.extraLarge),
-          bottomRight: Radius.circular(AppRadius.extraLarge),
-        ),
-      ),
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
       child: Column(
         children: [
-          Center(child: _buildProfileImage(context)),
-          SizedBox(height: 16.h),
+          _buildProfileImage(context),
+          const SizedBox(height: AppSpacing.m),
           Obx(
             () => Text(
               userController.userName.value,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(height: 4.h),
+          const SizedBox(height: AppSpacing.xxs),
           Obx(
             () => Text(
               userController.userEmail.value,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+              style: textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -166,232 +158,109 @@ class UserScreenState extends State<UserScreen> {
     );
   }
 
+  /// Two-column grid of profile statistics.
   Widget _buildStatsCard(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
-      child: Padding(
-        padding: EdgeInsets.all(AppSpacing.l.r),
-        child: Column(
-          children: [
+    final l10n = AppLocalizations.of(context)!;
+    String stat(String? value) => _isLoadingStats ? '…' : (value ?? '-');
+    final tiles = [
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_calendar_line,
+        label: l10n.user_screen_member_since,
+        value: _getMemberSince(),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_box_2_line,
+        label: l10n.user_screen_total_shoes,
+        value: stat('$_totalShoes'),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_time_line,
+        label: l10n.user_screen_last_added,
+        value: stat(_lastAddedDate),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_heart_line,
+        label: l10n.user_screen_favorites_count,
+        value: stat('$_favoritesCount'),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_tag_line,
+        label: l10n.user_screen_favorite_brand,
+        value: stat(_favoriteBrand),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_palette_line,
+        label: l10n.user_screen_most_used_color,
+        value: stat(_mostUsedColor),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_grid_line,
+        label: l10n.user_screen_most_used_category,
+        value: stat(_mostUsedCategory),
+      ),
+      InfoTileWidget(
+        icon: MingCuteIcons.mgc_shoe_line,
+        label: l10n.user_screen_most_used_type,
+        value: stat(_mostUsedType),
+      ),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
+      child: Column(
+        children: [
+          for (var i = 0; i < tiles.length; i += 2) ...[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_calendar_line,
-                    AppLocalizations.of(context)!.user_screen_member_since,
-                    _getMemberSince(),
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 40.h,
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-                ),
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_box_2_line,
-                    AppLocalizations.of(context)!.user_screen_total_shoes,
-                    _isLoadingStats ? '...' : '$_totalShoes',
-                  ),
-                ),
+                Expanded(child: tiles[i]),
+                const SizedBox(width: AppSpacing.s),
+                Expanded(child: tiles[i + 1]),
               ],
             ),
-            SizedBox(height: 16.h),
-            Divider(
-              color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-              thickness: 1,
-            ),
-            SizedBox(height: 16.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_time_line,
-                    AppLocalizations.of(context)!.user_screen_last_added,
-                    _isLoadingStats ? '...' : (_lastAddedDate ?? '-'),
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 40.h,
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-                ),
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_heart_line,
-                    AppLocalizations.of(context)!.user_screen_favorites_count,
-                    _isLoadingStats ? '...' : '$_favoritesCount',
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.h),
-            Divider(
-              color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-              thickness: 1,
-            ),
-            SizedBox(height: 16.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_tag_line,
-                    AppLocalizations.of(context)!.user_screen_favorite_brand,
-                    _isLoadingStats ? '...' : (_favoriteBrand ?? '-'),
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 40.h,
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-                ),
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_palette_line,
-                    AppLocalizations.of(context)!.user_screen_most_used_color,
-                    _isLoadingStats ? '...' : (_mostUsedColor ?? '-'),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.h),
-            Divider(
-              color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-              thickness: 1,
-            ),
-            SizedBox(height: 16.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_grid_line,
-                    AppLocalizations.of(context)!
-                        .user_screen_most_used_category,
-                    _isLoadingStats ? '...' : (_mostUsedCategory ?? '-'),
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 40.h,
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
-                ),
-                Expanded(
-                  child: _buildStatItem(
-                    context,
-                    MingCuteIcons.mgc_shoe_line,
-                    AppLocalizations.of(context)!.user_screen_most_used_type,
-                    _isLoadingStats ? '...' : (_mostUsedType ?? '-'),
-                  ),
-                ),
-              ],
-            ),
+            if (i + 2 < tiles.length) const SizedBox(height: AppSpacing.s),
           ],
-        ),
+        ],
       ),
     );
   }
 
-  Widget _buildStatItem(
-    BuildContext context,
-    IconData icon,
-    String label,
-    String value,
-  ) {
-    return Column(
-      spacing: 6.h,
-      children: [
-        Container(
-          padding: EdgeInsets.all(AppSpacing.s.r),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary.withAlpha(25),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            icon,
-            color: Theme.of(context).colorScheme.secondary,
-            size: 22.sp,
-          ),
-        ),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-          textAlign: TextAlign.center,
-        ),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-
   Widget _buildProfileImage(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Obx(
-      () => Container(
-        padding: EdgeInsets.all(AppSpacing.xxs.r),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Theme.of(context).colorScheme.surface,
-          boxShadow: [
-            const BoxShadow(
-              color: Color(0x33000000),
-              blurRadius: 12,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: CircleAvatar(
-          radius: 56.r,
-          backgroundColor:
-              Theme.of(context).colorScheme.secondary.withAlpha(25),
-          backgroundImage: userController.userProfileImage.value.isNotEmpty
-              ? NetworkImage(userController.userProfileImage.value)
-              : null,
-          child: userController.userProfileImage.value.isEmpty
-              ? Image.asset(
-                  'assets/images/img_profile.png',
-                  width: 112.w,
-                  height: 112.h,
-                )
-              : null,
-        ),
+      () => CircleAvatar(
+        radius: 48,
+        backgroundColor: colors.tertiaryFixed,
+        backgroundImage: userController.userProfileImage.value.isNotEmpty
+            ? NetworkImage(userController.userProfileImage.value)
+            : null,
+        child: userController.userProfileImage.value.isEmpty
+            ? Image.asset(
+                'assets/images/img_profile.png',
+                width: 96,
+                height: 96,
+              )
+            : null,
       ),
     );
   }
 
   Widget _buildDeleteAccountButton(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
-      child: ListTile(
-        leading: Icon(
-          MingCuteIcons.mgc_delete_2_line,
-          color: Theme.of(context).colorScheme.error,
-        ),
-        title: Text(
-          AppLocalizations.of(context)!.user_screen_button_delete,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.error,
+    final colors = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
+      child: Card(
+        child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.large),
           ),
+          leading: Icon(MingCuteIcons.mgc_delete_2_line, color: colors.error),
+          title: Text(
+            AppLocalizations.of(context)!.user_screen_button_delete,
+            style: TextStyle(color: colors.error),
+          ),
+          trailing: Icon(MingCuteIcons.mgc_right_line, color: colors.error),
+          onTap: () => Get.toNamed(AppRoutes.userDelete),
         ),
-        onTap: () {
-          Get.toNamed(AppRoutes.userDelete);
-        },
       ),
     );
   }

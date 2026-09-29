@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/info_tile_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/empty_state_widget.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
@@ -17,7 +19,6 @@ import 'package:shox/core/utils/permission_helper.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/features/database/widgets/shoes_pie_chart.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/theme/app_radius.dart';
 
 class DatabaseScreen extends StatefulWidget {
@@ -52,36 +53,34 @@ class DatabaseScreenState extends State<DatabaseScreen> {
           _buildPopupMenu(context),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppSpacing.screen.r,
-              vertical: AppSpacing.l.r,
-            ),
-            child: _isLoading
-                ? LoaderWidget(width: 25.w, height: 25.h)
-                : _totalShoesCount == 0
-                    ? EmptyStateWidget(
-                        message:
-                            AppLocalizations.of(context)!.database_screen_empty,
-                        icon: MingCuteIcons.mgc_package_line,
-                        iconColor: Theme.of(context).colorScheme.secondary,
-                      )
-                    : SingleChildScrollView(
-                        child: Center(
-                          child: Column(
-                            spacing: 10.h,
-                            children: <Widget>[
-                              _buildColorPieChart(),
-                              _buildBrandPieChart(),
-                              _buildCategoryPieChart(),
-                              _buildTypePieChart(),
-                            ],
-                          ),
+          SafeArea(
+            child: ResponsiveCenterWidget(
+              child: _isLoading
+                  ? const Center(child: LoaderWidget(width: 50, height: 50))
+                  : _totalShoesCount == 0
+                      ? EmptyStateWidget(
+                          message: AppLocalizations.of(context)!
+                              .database_screen_empty,
+                          icon: MingCuteIcons.mgc_package_line,
+                          iconColor: Theme.of(context).colorScheme.secondary,
+                        )
+                      : ListView(
+                          padding: const EdgeInsets.all(AppSpacing.l),
+                          children: [
+                            _buildSummary(context),
+                            const SizedBox(height: AppSpacing.m),
+                            _buildColorPieChart(),
+                            const SizedBox(height: AppSpacing.s),
+                            _buildBrandPieChart(),
+                            const SizedBox(height: AppSpacing.s),
+                            _buildCategoryPieChart(),
+                            const SizedBox(height: AppSpacing.s),
+                            _buildTypePieChart(),
+                          ],
                         ),
-                      ),
+            ),
           ),
           if (_isPdfLoading) Positioned.fill(child: _buildPDFLoading(context)),
           if (_isJSONLoading)
@@ -253,16 +252,42 @@ class DatabaseScreenState extends State<DatabaseScreen> {
     }
   }
 
+  /// Totals shown above the charts.
+  Widget _buildSummary(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Row(
+      children: [
+        Expanded(
+          child: InfoTileWidget(
+            label: l10n.user_screen_total_shoes,
+            value: '$_totalShoesCount',
+          ),
+        ),
+        const SizedBox(width: AppSpacing.s),
+        Expanded(
+          child: InfoTileWidget(
+            label: l10n.database_screen_brands,
+            value: '${_brandCounts.length}',
+          ),
+        ),
+        const SizedBox(width: AppSpacing.s),
+        Expanded(
+          child: InfoTileWidget(
+            label: l10n.database_screen_categories,
+            value: '${_categoryCounts.length}',
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildPopupMenu(BuildContext context) {
     return PopupMenuButton<String>(
-      color: Theme.of(context).colorScheme.surface,
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.medium),
+        borderRadius: BorderRadius.circular(AppRadius.large),
       ),
-      icon: Icon(
-        MingCuteIcons.mgc_more_2_line,
-        color: Theme.of(context).colorScheme.secondary,
-      ),
+      icon: const Icon(MingCuteIcons.mgc_more_2_line),
       onSelected: (String result) {
         switch (result) {
           case 'pdf':
@@ -309,19 +334,9 @@ class DatabaseScreenState extends State<DatabaseScreen> {
       value: value,
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          SizedBox(width: 10.w),
-          Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: AppFontSizes.small,
-            ),
-          ),
+          Icon(icon, color: Theme.of(context).colorScheme.onSurface),
+          const SizedBox(width: AppSpacing.s),
+          Text(text, style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),
     );
@@ -347,11 +362,10 @@ class DatabaseScreenState extends State<DatabaseScreen> {
             ),
             Text(
               '${(_downloadProgress * 100).toStringAsFixed(0)}%',
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.medium,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
             ),
           ],
         ),
@@ -386,11 +400,10 @@ class DatabaseScreenState extends State<DatabaseScreen> {
             ),
             Text(
               '${(_importProgress * 100).toStringAsFixed(0)}%',
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.medium,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
             ),
           ],
         ),

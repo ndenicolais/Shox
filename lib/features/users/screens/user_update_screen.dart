@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
 import 'package:shox/core/utils/permission_helper.dart';
@@ -20,7 +21,6 @@ import 'package:shox/common/widgets/textfield_widget.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class UserUpdateScreen extends StatefulWidget {
   const UserUpdateScreen({super.key});
@@ -47,30 +47,37 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.user_updater_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
       body: isLoading
-          ? Center(child: LoaderWidget(width: 50.w, height: 50.h))
-          : Stack(
-              fit: StackFit.expand,
-              children: [
-                SingleChildScrollView(
-                  padding: EdgeInsets.all(AppSpacing.screen.r),
-                  child: Column(
-                    spacing: 50.h,
-                    children: [
-                      _buildProfileImageSection(),
-                      _buildNameField(_nameController),
-                    ],
-                  ),
+          ? const Center(child: LoaderWidget(width: 50, height: 50))
+          : SafeArea(
+              child: ResponsiveCenterWidget(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(AppSpacing.l),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: AppSpacing.m),
+                            _buildProfileImageSection(),
+                            const SizedBox(height: AppSpacing.xxl),
+                            _buildNameField(_nameController),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        AppSpacing.l,
+                        AppSpacing.xs,
+                        AppSpacing.l,
+                        AppSpacing.m,
+                      ),
+                      child: _buildSaveButton(),
+                    ),
+                  ],
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: EdgeInsets.all(AppSpacing.l.r),
-                    child: _buildSaveButton(),
-                  ),
-                ),
-              ],
+              ),
             ),
     );
   }
@@ -240,21 +247,14 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
         Positioned(
           bottom: 0,
           right: 0,
-          child: ClipOval(
-            child: Container(
-              color: Theme.of(context).colorScheme.secondary,
-              child: IconButton(
-                tooltip:
-                    AppLocalizations.of(context)!.a11y_change_profile_photo,
-                icon: Icon(
-                  userImage == null || userImage!.path.isEmpty
-                      ? MingCuteIcons.mgc_camera_2_line
-                      : MingCuteIcons.mgc_edit_2_line,
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-                onPressed: _pickImage,
-              ),
+          child: IconButton.filled(
+            tooltip: AppLocalizations.of(context)!.a11y_change_profile_photo,
+            icon: Icon(
+              userImage == null || userImage!.path.isEmpty
+                  ? MingCuteIcons.mgc_camera_2_line
+                  : MingCuteIcons.mgc_edit_2_line,
             ),
+            onPressed: _pickImage,
           ),
         ),
       ],
@@ -311,12 +311,10 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
 
   Widget _buildSaveButton() {
     return ButtonWidget(
+      width: double.infinity,
       text: AppLocalizations.of(context)!.user_updater_screen_save,
-      width: 120.w,
-      height: 50.h,
-      fontSize: AppFontSizes.regular,
-      icon: MingCuteIcons.mgc_save_2_line,
-      iconSize: 18.sp,
+      icon: MingCuteIcons.mgc_check_line,
+      iconSize: 20,
       onPressed: _saveData,
     );
   }

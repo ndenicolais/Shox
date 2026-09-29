@@ -49,47 +49,41 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: AppSpacing.xxs.w),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.s.w,
-          vertical: AppSpacing.m.h,
-        ),
+        padding: const EdgeInsets.all(AppSpacing.m),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-              textAlign: TextAlign.center,
-            ),
+            Text(widget.title, style: Theme.of(context).textTheme.titleLarge),
             LayoutBuilder(
               builder: (context, constraints) {
                 final double side = constraints.maxWidth.clamp(240.0, 340.0);
-                return SizedBox(
-                  width: side,
-                  height: side,
-                  child: PieChart(
-                    PieChartData(
-                      pieTouchData: PieTouchData(
-                        touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                          setState(() {
-                            if (!event.isInterestedForInteractions ||
-                                pieTouchResponse == null ||
-                                pieTouchResponse.touchedSection == null) {
-                              touchedIndex = -1;
-                              return;
-                            }
-                            touchedIndex = pieTouchResponse
-                                .touchedSection!.touchedSectionIndex;
-                          });
-                        },
+                return Center(
+                  child: SizedBox(
+                    width: side,
+                    height: side,
+                    child: PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(
+                          touchCallback:
+                              (FlTouchEvent event, pieTouchResponse) {
+                            setState(() {
+                              if (!event.isInterestedForInteractions ||
+                                  pieTouchResponse == null ||
+                                  pieTouchResponse.touchedSection == null) {
+                                touchedIndex = -1;
+                                return;
+                              }
+                              touchedIndex = pieTouchResponse
+                                  .touchedSection!.touchedSectionIndex;
+                            });
+                          },
+                        ),
+                        borderData: FlBorderData(show: false),
+                        sectionsSpace: 1,
+                        centerSpaceRadius: side * 0.05,
+                        sections: _generateSections(side),
                       ),
-                      borderData: FlBorderData(show: false),
-                      sectionsSpace: 1,
-                      centerSpaceRadius: side * 0.05,
-                      sections: _generateSections(side),
                     ),
                   ),
                 );
@@ -132,7 +126,8 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
         title: '${value.toInt()}',
         radius: radius,
         titleStyle: TextStyle(
-          fontFamily: 'CustomFontBold',
+          fontFamily: 'Montserrat',
+          fontWeight: FontWeight.w700,
           fontSize: fontSize,
           color: Colors.white,
           shadows: [
@@ -179,7 +174,7 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
           padding:
               EdgeInsets.symmetric(horizontal: AppSpacing.s.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSurface.withAlpha(15),
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(AppRadius.pill),
           ),
           child: Row(
