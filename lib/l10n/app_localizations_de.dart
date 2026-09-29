@@ -966,6 +966,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get full_screen_image_share_error_toast => 'Fehler';
 
   @override
+  String get shoes_form_screen_unsaved_title => 'Nicht gespeicherte Änderungen';
+
+  @override
+  String get shoes_form_screen_unsaved_text =>
+      'Wenn du jetzt gehst, gehen die Änderungen an diesem Schuh verloren.';
+
+  @override
+  String get shoes_form_screen_unsaved_stay => 'Bleiben';
+
+  @override
+  String get shoes_form_screen_unsaved_leave => 'Verlassen';
+
+  @override
   String get custom_delete_dialog_confirm => 'Löschen';
 
   @override
@@ -1201,6 +1214,26 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_24 =>
       'Wenn die Sitzung abläuft, kehrt die App jetzt zum Startbildschirm zurück, statt sich unerwartet zu schließen.';
+
+  @override
+  String get changelog_v4_1_0_bullet_25 =>
+      'Das Favoriten-Herz hat jetzt einen Hintergrund und bleibt auch auf hellen Fotos sichtbar.';
+
+  @override
+  String get changelog_v4_1_0_bullet_26 =>
+      'Die Suche findet Schuhe jetzt auch nach Typ, Kategorie und Notizen und aktualisiert sich, wenn du aufhörst zu tippen.';
+
+  @override
+  String get changelog_v4_1_0_bullet_27 =>
+      'Ziehe das Raster nach unten, um deine Sammlung zu aktualisieren.';
+
+  @override
+  String get changelog_v4_1_0_bullet_28 =>
+      'Beim Verlassen des Schuhformulars mit nicht gespeicherten Änderungen wird jetzt eine Bestätigung verlangt.';
+
+  @override
+  String get changelog_v4_1_0_bullet_29 =>
+      'Flüssigere, einheitliche Übergänge zwischen den Bildschirmen.';
 
   @override
   String get dashboard_other => 'Andere';

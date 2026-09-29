@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/common/widgets/delete_dialog_widget.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/widgets/shoes_categories_mixin.dart';
 import 'package:shox/features/shoes/widgets/form/brand_textfield.dart';
@@ -66,11 +67,55 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
       ? AppLocalizations.of(context)!.shoes_updater_screen_title
       : AppLocalizations.of(context)!.shoes_adder_screen_title;
 
+  /// Snapshot of the form right after loading, used to detect unsaved edits.
+  late final String _initialFormSignature;
+
   @override
   void initState() {
     super.initState();
     _loadInitialData();
+    _initialFormSignature = _formSignature();
     loadUserGender(currentUser?.uid);
+  }
+
+  String _formSignature() => [
+        _brandController.text,
+        _sizeController.text,
+        _notesController.text,
+        _selectedCategory,
+        _selectedType,
+        _selectedSeason,
+        _colorPrimarySelected,
+        _colorPrimary.toARGB32(),
+        _extraColors.map((c) => c.toARGB32()).join(','),
+        _newImage?.path,
+        _imageRemoved,
+        _bgRemoved,
+      ].join('|');
+
+  bool get _hasUnsavedChanges => _formSignature() != _initialFormSignature;
+
+  /// Asks for confirmation before leaving the form with unsaved edits.
+  Future<void> _handlePop(bool didPop, Object? result) async {
+    if (didPop) return;
+    if (_isSaveLoading) return;
+    if (!_hasUnsavedChanges) {
+      Get.back();
+      return;
+    }
+    final l10n = AppLocalizations.of(context)!;
+    final leave = await showDialog<bool>(
+      context: context,
+      builder: (context) => DeleteDialogWidget(
+        title: l10n.shoes_form_screen_unsaved_title,
+        content: l10n.shoes_form_screen_unsaved_text,
+        cancelLabel: l10n.shoes_form_screen_unsaved_stay,
+        confirmLabel: l10n.shoes_form_screen_unsaved_leave,
+        onCancelPressed: () => Navigator.of(context).pop(false),
+        onConfirmPressed: () => Navigator.of(context).pop(true),
+      ),
+    );
+    if (leave == true && mounted) Get.back();
   }
 
   void _loadInitialData() {
@@ -375,134 +420,142 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Scaffold(
-        appBar: AppBarWidget(title: _screenTitle),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        body: Stack(
-          children: [
-            SafeArea(
-              child: Padding(
-                padding: EdgeInsets.only(left: 16.r, right: 16.r, bottom: 72.r),
-                child: SingleChildScrollView(
-                  child: Column(
-                    spacing: 10.h,
-                    children: [
-                      _buildSectionHeader(
-                        AppLocalizations.of(context)!
-                            .shoes_form_screen_section_photo,
-                      ),
-                      _buildImageSelector(),
-                      _buildSectionHeader(
-                        AppLocalizations.of(context)!
-                            .shoes_form_screen_section_colors,
-                      ),
-                      ColorPrimarySelector(
-                        selectedColor: _colorPrimary,
-                        isSelected: _colorPrimarySelected,
-                        onColorSelected: (Color color) {
-                          setState(() {
-                            _colorPrimary = color;
-                            _colorPrimarySelected = true;
-                          });
-                        },
-                      ),
-                      ExtraColorsSelector(
-                        selectedColors: _extraColors,
-                        onColorsChanged: (List<Color> colors) {
-                          setState(() {
-                            _extraColors = colors;
-                          });
-                        },
-                      ),
-                      _buildSectionHeader(
-                        AppLocalizations.of(context)!
-                            .shoes_form_screen_section_details,
-                      ),
-                      BrandTextField(controller: _brandController),
-                      SizeSelector(
-                        selectedSize: _sizeController.text.isNotEmpty
-                            ? _sizeController.text
-                            : null,
-                        onSizeSelected: (value) {
-                          setState(() {
-                            _sizeController.text = value;
-                          });
-                        },
-                      ),
-                      CategoryDropdown(
-                        selectedCategory: _selectedCategory,
-                        categoryController: _categoryController,
-                        typeController: _typeController,
-                        translatedCategoryOptions: translatedCategoryOptions,
-                        onCategoryChanged: (value) {
-                          setState(() {
-                            _selectedCategory = value;
-                            _categoryController.text = value;
-                            _selectedType = '';
-                            _typeController.text = '';
-                          });
-                        },
-                      ),
-                      TypeDropdown(
-                        selectedCategory: _selectedCategory,
-                        selectedType: _selectedType,
-                        typeController: _typeController,
-                        categoryToTypes: categoryToTypes,
-                        translatedTypeOptions: translatedTypeOptions,
-                        onTypeChanged: (value) {
-                          setState(() {
-                            _selectedType = value;
-                            _typeController.text = value;
-                          });
-                        },
-                      ),
-                      SeasonSelector(
-                        selectedSeason: _selectedSeason,
-                        translatedSeasonOptions: translatedSeasonOptions,
-                        onSeasonSelected: (value) {
-                          setState(() {
-                            _selectedSeason = value;
-                            _seasonController.text = value;
-                          });
-                        },
-                      ),
-                      _buildSectionHeader(
-                        AppLocalizations.of(context)!
-                            .shoes_form_screen_section_notes,
-                      ),
-                      NotesTextField(controller: _notesController),
-                      SizedBox(height: 10.h),
-                    ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: _handlePop,
+      child: Form(
+        key: _formKey,
+        child: Scaffold(
+          appBar: AppBarWidget(
+            title: _screenTitle,
+            onBackPressed: () => Navigator.of(context).maybePop(),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          body: Stack(
+            children: [
+              SafeArea(
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(left: 16.r, right: 16.r, bottom: 72.r),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      spacing: 10.h,
+                      children: [
+                        _buildSectionHeader(
+                          AppLocalizations.of(context)!
+                              .shoes_form_screen_section_photo,
+                        ),
+                        _buildImageSelector(),
+                        _buildSectionHeader(
+                          AppLocalizations.of(context)!
+                              .shoes_form_screen_section_colors,
+                        ),
+                        ColorPrimarySelector(
+                          selectedColor: _colorPrimary,
+                          isSelected: _colorPrimarySelected,
+                          onColorSelected: (Color color) {
+                            setState(() {
+                              _colorPrimary = color;
+                              _colorPrimarySelected = true;
+                            });
+                          },
+                        ),
+                        ExtraColorsSelector(
+                          selectedColors: _extraColors,
+                          onColorsChanged: (List<Color> colors) {
+                            setState(() {
+                              _extraColors = colors;
+                            });
+                          },
+                        ),
+                        _buildSectionHeader(
+                          AppLocalizations.of(context)!
+                              .shoes_form_screen_section_details,
+                        ),
+                        BrandTextField(controller: _brandController),
+                        SizeSelector(
+                          selectedSize: _sizeController.text.isNotEmpty
+                              ? _sizeController.text
+                              : null,
+                          onSizeSelected: (value) {
+                            setState(() {
+                              _sizeController.text = value;
+                            });
+                          },
+                        ),
+                        CategoryDropdown(
+                          selectedCategory: _selectedCategory,
+                          categoryController: _categoryController,
+                          typeController: _typeController,
+                          translatedCategoryOptions: translatedCategoryOptions,
+                          onCategoryChanged: (value) {
+                            setState(() {
+                              _selectedCategory = value;
+                              _categoryController.text = value;
+                              _selectedType = '';
+                              _typeController.text = '';
+                            });
+                          },
+                        ),
+                        TypeDropdown(
+                          selectedCategory: _selectedCategory,
+                          selectedType: _selectedType,
+                          typeController: _typeController,
+                          categoryToTypes: categoryToTypes,
+                          translatedTypeOptions: translatedTypeOptions,
+                          onTypeChanged: (value) {
+                            setState(() {
+                              _selectedType = value;
+                              _typeController.text = value;
+                            });
+                          },
+                        ),
+                        SeasonSelector(
+                          selectedSeason: _selectedSeason,
+                          translatedSeasonOptions: translatedSeasonOptions,
+                          onSeasonSelected: (value) {
+                            setState(() {
+                              _selectedSeason = value;
+                              _seasonController.text = value;
+                            });
+                          },
+                        ),
+                        _buildSectionHeader(
+                          AppLocalizations.of(context)!
+                              .shoes_form_screen_section_notes,
+                        ),
+                        NotesTextField(controller: _notesController),
+                        SizedBox(height: 10.h),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            if (_isSaveLoading)
-              Container(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withValues(alpha: 0.75),
-                child: LoaderWidget(width: 50.w, height: 50.h),
-              ),
-          ],
-        ),
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(bottom: 10.sp),
-          child: FloatingActionButton(
-            tooltip: AppLocalizations.of(context)!.a11y_save_shoe,
-            onPressed: _saveForm,
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            elevation: 12,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32.w)),
-            child: Icon(MingCuteIcons.mgc_check_line,
-                color: Theme.of(context).colorScheme.primary, size: 28.w),
+              if (_isSaveLoading)
+                Container(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.75),
+                  child: LoaderWidget(width: 50.w, height: 50.h),
+                ),
+            ],
           ),
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(bottom: 10.sp),
+            child: FloatingActionButton(
+              tooltip: AppLocalizations.of(context)!.a11y_save_shoe,
+              onPressed: _saveForm,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              elevation: 12,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.w)),
+              child: Icon(MingCuteIcons.mgc_check_line,
+                  color: Theme.of(context).colorScheme.primary, size: 28.w),
+            ),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }

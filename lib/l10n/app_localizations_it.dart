@@ -968,6 +968,19 @@ class AppLocalizationsIt extends AppLocalizations {
   String get full_screen_image_share_error_toast => 'Errore';
 
   @override
+  String get shoes_form_screen_unsaved_title => 'Modifiche non salvate';
+
+  @override
+  String get shoes_form_screen_unsaved_text =>
+      'Se esci ora perderai le modifiche fatte a questa scarpa.';
+
+  @override
+  String get shoes_form_screen_unsaved_stay => 'Resta';
+
+  @override
+  String get shoes_form_screen_unsaved_leave => 'Esci';
+
+  @override
   String get custom_delete_dialog_confirm => 'Elimina';
 
   @override
@@ -1203,6 +1216,26 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_24 =>
       'Se la sessione scade, l\'app ora torna alla schermata di benvenuto invece di chiudersi improvvisamente.';
+
+  @override
+  String get changelog_v4_1_0_bullet_25 =>
+      'Il cuore dei preferiti ha ora uno sfondo che lo rende visibile anche sulle foto chiare.';
+
+  @override
+  String get changelog_v4_1_0_bullet_26 =>
+      'La ricerca ora trova le scarpe anche per tipo, categoria e note, e si aggiorna quando smetti di scrivere.';
+
+  @override
+  String get changelog_v4_1_0_bullet_27 =>
+      'Trascina verso il basso la griglia per aggiornare la collezione.';
+
+  @override
+  String get changelog_v4_1_0_bullet_28 =>
+      'Uscendo dal modulo di una scarpa con modifiche non salvate ora viene chiesta una conferma.';
+
+  @override
+  String get changelog_v4_1_0_bullet_29 =>
+      'Transizioni tra le schermate più fluide e uniformi.';
 
   @override
   String get dashboard_other => 'Altro';

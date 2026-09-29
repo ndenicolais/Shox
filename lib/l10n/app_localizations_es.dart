@@ -962,6 +962,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get full_screen_image_share_error_toast => 'Error';
 
   @override
+  String get shoes_form_screen_unsaved_title => 'Cambios sin guardar';
+
+  @override
+  String get shoes_form_screen_unsaved_text =>
+      'Si sales ahora, perderás los cambios hechos en este zapato.';
+
+  @override
+  String get shoes_form_screen_unsaved_stay => 'Quedarse';
+
+  @override
+  String get shoes_form_screen_unsaved_leave => 'Salir';
+
+  @override
   String get custom_delete_dialog_confirm => 'Eliminar';
 
   @override
@@ -1197,6 +1210,26 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_24 =>
       'Si la sesión caduca, la app ahora vuelve a la pantalla de bienvenida en lugar de cerrarse de repente.';
+
+  @override
+  String get changelog_v4_1_0_bullet_25 =>
+      'El corazón de favoritos ahora tiene un fondo que lo hace visible también en fotos claras.';
+
+  @override
+  String get changelog_v4_1_0_bullet_26 =>
+      'La búsqueda ahora encuentra zapatos también por tipo, categoría y notas, y se actualiza cuando dejas de escribir.';
+
+  @override
+  String get changelog_v4_1_0_bullet_27 =>
+      'Desliza la cuadrícula hacia abajo para actualizar tu colección.';
+
+  @override
+  String get changelog_v4_1_0_bullet_28 =>
+      'Al salir del formulario de un zapato con cambios sin guardar ahora se pide confirmación.';
+
+  @override
+  String get changelog_v4_1_0_bullet_29 =>
+      'Transiciones entre pantallas más fluidas y uniformes.';
 
   @override
   String get dashboard_other => 'Otro';

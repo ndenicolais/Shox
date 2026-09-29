@@ -326,6 +326,10 @@
   "full_screen_image_share_download_error_toast": "Bild konnte nicht zum Teilen heruntergeladen werden.",
   "full_screen_image_share_error_toast": "Fehler",
 
+  "shoes_form_screen_unsaved_title": "Nicht gespeicherte Änderungen",
+  "shoes_form_screen_unsaved_text": "Wenn du jetzt gehst, gehen die Änderungen an diesem Schuh verloren.",
+  "shoes_form_screen_unsaved_stay": "Bleiben",
+  "shoes_form_screen_unsaved_leave": "Verlassen",
   "custom_delete_dialog_confirm": "Löschen",
   "custom_delete_dialog_cancel": "Abbrechen",
 
@@ -399,6 +403,11 @@
   "changelog_v4_1_0_bullet_22": "Die Google-Anmeldung zeigt jetzt eine Fehlermeldung an, zum Beispiel ohne Internetverbindung, statt nichts zu tun.",
   "changelog_v4_1_0_bullet_23": "Wenn die App nicht starten kann, erscheint jetzt ein Bildschirm mit einer Schaltfläche zum erneuten Versuchen statt eines plötzlichen Absturzes.",
   "changelog_v4_1_0_bullet_24": "Wenn die Sitzung abläuft, kehrt die App jetzt zum Startbildschirm zurück, statt sich unerwartet zu schließen.",
+  "changelog_v4_1_0_bullet_25": "Das Favoriten-Herz hat jetzt einen Hintergrund und bleibt auch auf hellen Fotos sichtbar.",
+  "changelog_v4_1_0_bullet_26": "Die Suche findet Schuhe jetzt auch nach Typ, Kategorie und Notizen und aktualisiert sich, wenn du aufhörst zu tippen.",
+  "changelog_v4_1_0_bullet_27": "Ziehe das Raster nach unten, um deine Sammlung zu aktualisieren.",
+  "changelog_v4_1_0_bullet_28": "Beim Verlassen des Schuhformulars mit nicht gespeicherten Änderungen wird jetzt eine Bestätigung verlangt.",
+  "changelog_v4_1_0_bullet_29": "Flüssigere, einheitliche Übergänge zwischen den Bildschirmen.",
   "dashboard_other": "Andere",
   "user_screen_account_settings": "Kontoeinstellungen",
   "user_screen_total_shoes": "Schuhe gesamt",

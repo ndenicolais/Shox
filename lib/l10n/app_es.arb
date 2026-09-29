@@ -326,6 +326,10 @@
   "full_screen_image_share_download_error_toast": "No se pudo descargar la imagen para compartir.",
   "full_screen_image_share_error_toast": "Error",
 
+  "shoes_form_screen_unsaved_title": "Cambios sin guardar",
+  "shoes_form_screen_unsaved_text": "Si sales ahora, perderás los cambios hechos en este zapato.",
+  "shoes_form_screen_unsaved_stay": "Quedarse",
+  "shoes_form_screen_unsaved_leave": "Salir",
   "custom_delete_dialog_confirm": "Eliminar",
   "custom_delete_dialog_cancel": "Cancelar",
 
@@ -399,6 +403,11 @@
   "changelog_v4_1_0_bullet_22": "El inicio de sesión con Google ahora muestra un mensaje de error, por ejemplo sin conexión, en lugar de no hacer nada.",
   "changelog_v4_1_0_bullet_23": "Si la app no consigue iniciarse, ahora aparece una pantalla con un botón Reintentar en lugar de un cierre repentino.",
   "changelog_v4_1_0_bullet_24": "Si la sesión caduca, la app ahora vuelve a la pantalla de bienvenida en lugar de cerrarse de repente.",
+  "changelog_v4_1_0_bullet_25": "El corazón de favoritos ahora tiene un fondo que lo hace visible también en fotos claras.",
+  "changelog_v4_1_0_bullet_26": "La búsqueda ahora encuentra zapatos también por tipo, categoría y notas, y se actualiza cuando dejas de escribir.",
+  "changelog_v4_1_0_bullet_27": "Desliza la cuadrícula hacia abajo para actualizar tu colección.",
+  "changelog_v4_1_0_bullet_28": "Al salir del formulario de un zapato con cambios sin guardar ahora se pide confirmación.",
+  "changelog_v4_1_0_bullet_29": "Transiciones entre pantallas más fluidas y uniformes.",
   "dashboard_other": "Otro",
   "user_screen_account_settings": "Configuración de cuenta",
   "user_screen_total_shoes": "Total de zapatos",

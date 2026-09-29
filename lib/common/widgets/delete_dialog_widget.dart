@@ -12,12 +12,18 @@ class DeleteDialogWidget extends StatelessWidget {
   final VoidCallback onCancelPressed;
   final VoidCallback onConfirmPressed;
 
+  /// Overrides the default "Cancel" / "Delete" button labels.
+  final String? cancelLabel;
+  final String? confirmLabel;
+
   const DeleteDialogWidget({
     super.key,
     required this.title,
     required this.content,
     required this.onCancelPressed,
     required this.onConfirmPressed,
+    this.cancelLabel,
+    this.confirmLabel,
   });
 
   @override
@@ -87,8 +93,9 @@ class DeleteDialogWidget extends StatelessWidget {
                     fontSize: AppFontSizes.normal,
                     isOutline: true,
                     onPressed: onCancelPressed,
-                    text: AppLocalizations.of(context)!
-                        .custom_delete_dialog_cancel,
+                    text: cancelLabel ??
+                        AppLocalizations.of(context)!
+                            .custom_delete_dialog_cancel,
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -99,8 +106,9 @@ class DeleteDialogWidget extends StatelessWidget {
                     textColor: Theme.of(context).colorScheme.primary,
                     fontSize: AppFontSizes.normal,
                     onPressed: onConfirmPressed,
-                    text: AppLocalizations.of(context)!
-                        .custom_delete_dialog_confirm,
+                    text: confirmLabel ??
+                        AppLocalizations.of(context)!
+                            .custom_delete_dialog_confirm,
                   ),
                 ),
               ],

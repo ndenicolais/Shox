@@ -951,6 +951,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get full_screen_image_share_error_toast => 'Error';
 
   @override
+  String get shoes_form_screen_unsaved_title => 'Unsaved changes';
+
+  @override
+  String get shoes_form_screen_unsaved_text =>
+      'If you leave now, the changes to this shoe will be lost.';
+
+  @override
+  String get shoes_form_screen_unsaved_stay => 'Stay';
+
+  @override
+  String get shoes_form_screen_unsaved_leave => 'Leave';
+
+  @override
   String get custom_delete_dialog_confirm => 'Delete';
 
   @override
@@ -1186,6 +1199,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_24 =>
       'If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.';
+
+  @override
+  String get changelog_v4_1_0_bullet_25 =>
+      'The favorites heart now has a backdrop, so it stays visible on light photos.';
+
+  @override
+  String get changelog_v4_1_0_bullet_26 =>
+      'Search now also finds shoes by type, category and notes, and updates when you stop typing.';
+
+  @override
+  String get changelog_v4_1_0_bullet_27 =>
+      'Pull down the grid to refresh your collection.';
+
+  @override
+  String get changelog_v4_1_0_bullet_28 =>
+      'Leaving the shoe form with unsaved changes now asks for confirmation.';
+
+  @override
+  String get changelog_v4_1_0_bullet_29 =>
+      'Smoother, consistent transitions between screens.';
 
   @override
   String get dashboard_other => 'Other';

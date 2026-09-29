@@ -11,6 +11,7 @@ ShoesModel shoe({
   String category = 'Sneakers',
   String type = 'Running',
   String season = 'Summer',
+  String? notes,
   bool isFavorite = false,
   DateTime? dateAdded,
 }) {
@@ -24,6 +25,7 @@ ShoesModel shoe({
     category: category,
     type: type,
     season: season,
+    notes: notes,
     isFavorite: isFavorite,
     dateAdded: dateAdded ?? DateTime(2026, 1, 1),
   );
@@ -67,6 +69,52 @@ void main() {
       final result = const ShoesFilter(searchQuery: 'adi').apply(list);
 
       expect(brandsOf(result), ['Adidas']);
+    });
+
+    test('search matches notes', () {
+      final list = [
+        shoe(id: '1', brand: 'A', notes: 'Regalo di compleanno'),
+        shoe(id: '2', brand: 'B', notes: 'Da risuolare'),
+        shoe(id: '3', brand: 'C'),
+      ];
+
+      final result = const ShoesFilter(searchQuery: 'REGALO').apply(list);
+
+      expect(brandsOf(result), ['A']);
+    });
+
+    test('search matches the type, stored or translated', () {
+      final list = [
+        shoe(id: '1', brand: 'Runner', type: 'Running'),
+        shoe(id: '2', brand: 'Casual', type: 'Casual'),
+      ];
+      const translated = {'Running': 'Corsa', 'Casual': 'Casual'};
+
+      expect(
+        brandsOf(const ShoesFilter(
+          searchQuery: 'corsa',
+          translatedTypeOptions: translated,
+        ).apply(list)),
+        ['Runner'],
+      );
+      expect(
+        brandsOf(const ShoesFilter(searchQuery: 'running').apply(list)),
+        ['Runner'],
+      );
+    });
+
+    test('search matches the translated category', () {
+      final list = [
+        shoe(id: '1', brand: 'Boot', category: 'Boots'),
+        shoe(id: '2', brand: 'Sneaker', category: 'Sneakers'),
+      ];
+
+      final result = const ShoesFilter(
+        searchQuery: 'stival',
+        translatedCategoryOptions: {'Boots': 'Stivali', 'Sneakers': 'Sneakers'},
+      ).apply(list);
+
+      expect(brandsOf(result), ['Boot']);
     });
 
     test('keeps only favorites when onlyFavorites is set', () {

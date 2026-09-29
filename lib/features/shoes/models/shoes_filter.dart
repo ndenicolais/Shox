@@ -22,6 +22,10 @@ class ShoesFilter {
   /// value shown in the dropdown, while the model stores the untranslated one.
   final Map<String, String> translatedTypeOptions;
 
+  /// Translated labels for the shoe categories, used only by the search so
+  /// that users can type the category name in their own language.
+  final Map<String, String> translatedCategoryOptions;
+
   const ShoesFilter({
     this.searchQuery = '',
     this.onlyFavorites = false,
@@ -31,6 +35,7 @@ class ShoesFilter {
     this.type = all,
     this.season = all,
     this.translatedTypeOptions = const {},
+    this.translatedCategoryOptions = const {},
   });
 
   /// True when at least one filter actually narrows the list.
@@ -53,11 +58,23 @@ class ShoesFilter {
     return result;
   }
 
+  /// Case-insensitive match of [searchQuery] against brand, notes, type and
+  /// category (both the stored value and its translated label).
+  bool _matchesSearch(ShoesModel shoes) {
+    final query = searchQuery.toLowerCase();
+    final fields = [
+      shoes.brand,
+      shoes.notes,
+      shoes.type,
+      translatedTypeOptions[shoes.type],
+      shoes.category,
+      translatedCategoryOptions[shoes.category],
+    ];
+    return fields.any((field) => field?.toLowerCase().contains(query) ?? false);
+  }
+
   bool _matches(ShoesModel shoes) {
-    if (searchQuery.isNotEmpty &&
-        !shoes.brand.toLowerCase().contains(searchQuery.toLowerCase())) {
-      return false;
-    }
+    if (searchQuery.isNotEmpty && !_matchesSearch(shoes)) return false;
     if (onlyFavorites && !shoes.isFavorite) return false;
     if (colorPrimary != null && shoes.colorPrimary != colorPrimary) {
       return false;

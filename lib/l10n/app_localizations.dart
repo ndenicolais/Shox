@@ -1868,6 +1868,30 @@ abstract class AppLocalizations {
   /// **'Error'**
   String get full_screen_image_share_error_toast;
 
+  /// No description provided for @shoes_form_screen_unsaved_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsaved changes'**
+  String get shoes_form_screen_unsaved_title;
+
+  /// No description provided for @shoes_form_screen_unsaved_text.
+  ///
+  /// In en, this message translates to:
+  /// **'If you leave now, the changes to this shoe will be lost.'**
+  String get shoes_form_screen_unsaved_text;
+
+  /// No description provided for @shoes_form_screen_unsaved_stay.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay'**
+  String get shoes_form_screen_unsaved_stay;
+
+  /// No description provided for @shoes_form_screen_unsaved_leave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get shoes_form_screen_unsaved_leave;
+
   /// No description provided for @custom_delete_dialog_confirm.
   ///
   /// In en, this message translates to:
@@ -2293,6 +2317,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.'**
   String get changelog_v4_1_0_bullet_24;
+
+  /// No description provided for @changelog_v4_1_0_bullet_25.
+  ///
+  /// In en, this message translates to:
+  /// **'The favorites heart now has a backdrop, so it stays visible on light photos.'**
+  String get changelog_v4_1_0_bullet_25;
+
+  /// No description provided for @changelog_v4_1_0_bullet_26.
+  ///
+  /// In en, this message translates to:
+  /// **'Search now also finds shoes by type, category and notes, and updates when you stop typing.'**
+  String get changelog_v4_1_0_bullet_26;
+
+  /// No description provided for @changelog_v4_1_0_bullet_27.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull down the grid to refresh your collection.'**
+  String get changelog_v4_1_0_bullet_27;
+
+  /// No description provided for @changelog_v4_1_0_bullet_28.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaving the shoe form with unsaved changes now asks for confirmation.'**
+  String get changelog_v4_1_0_bullet_28;
+
+  /// No description provided for @changelog_v4_1_0_bullet_29.
+  ///
+  /// In en, this message translates to:
+  /// **'Smoother, consistent transitions between screens.'**
+  String get changelog_v4_1_0_bullet_29;
 
   /// No description provided for @dashboard_other.
   ///

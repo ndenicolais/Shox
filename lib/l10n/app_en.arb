@@ -321,6 +321,10 @@
   "full_screen_image_share_download_error_toast": "Failed to download image for sharing.",
   "full_screen_image_share_error_toast": "Error",
 
+  "shoes_form_screen_unsaved_title": "Unsaved changes",
+  "shoes_form_screen_unsaved_text": "If you leave now, the changes to this shoe will be lost.",
+  "shoes_form_screen_unsaved_stay": "Stay",
+  "shoes_form_screen_unsaved_leave": "Leave",
   "custom_delete_dialog_confirm": "Delete",
   "custom_delete_dialog_cancel": "Cancel",
 
@@ -394,6 +398,11 @@
   "changelog_v4_1_0_bullet_22": "Google sign-in now shows an error message, for example when there is no connection, instead of doing nothing.",
   "changelog_v4_1_0_bullet_23": "If the app fails to start, a screen with a Retry button is now shown instead of a sudden crash.",
   "changelog_v4_1_0_bullet_24": "If your session expires, the app now returns to the welcome screen instead of closing unexpectedly.",
+  "changelog_v4_1_0_bullet_25": "The favorites heart now has a backdrop, so it stays visible on light photos.",
+  "changelog_v4_1_0_bullet_26": "Search now also finds shoes by type, category and notes, and updates when you stop typing.",
+  "changelog_v4_1_0_bullet_27": "Pull down the grid to refresh your collection.",
+  "changelog_v4_1_0_bullet_28": "Leaving the shoe form with unsaved changes now asks for confirmation.",
+  "changelog_v4_1_0_bullet_29": "Smoother, consistent transitions between screens.",
   "dashboard_other": "Other",
   "user_screen_account_settings": "Account Settings",
   "user_screen_total_shoes": "Total Shoes",

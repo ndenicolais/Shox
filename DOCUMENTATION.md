@@ -107,7 +107,7 @@ shox/
 │   │   ├── screens/                # Schermate comuni (intro, onboarding, welcome)
 │   │   └── widgets/                # Widget riutilizzabili globali
 │   ├── core/
-│   │   ├── routes/                 # Definizione route GetX (AppRoutes, AppPages)
+│   │   ├── routes/                 # Definizione route GetX (AppRoutes, AppPages, AuthMiddleware); transizione di default `rightToLeftWithFade` (300ms) impostata su GetMaterialApp
 │   │   └── utils/                  # Utility, costanti, helper, bg_remover
 │   ├── features/
 │   │   ├── auth/                   # Autenticazione (login, signup, reset password, gender selection)
@@ -229,14 +229,15 @@ Schermata principale che mostra l'intera collezione di scarpe dell'utente.
 **Funzionalità:**
 - **Stream real-time** da Firestore: la lista si aggiorna automaticamente a ogni modifica
 - **Griglia configurabile e adattiva:** 1, 2 o 3 colonne selezionabili tramite toggle rapido, con numero di colonne che aumenta automaticamente in base alla larghezza reale dello schermo (tablet/landscape)
-- **Ricerca testuale** per marca
+- **Ricerca testuale** su marca, tipo, categoria (anche nel nome tradotto) e note, con debounce di 300ms: la griglia si rifiltra solo quando si smette di scrivere
+- **Pull-to-refresh:** trascinando la griglia verso il basso (`RefreshIndicator`) lo stream Firestore viene ri-sottoscritto
 - **Filtri attivi:**
   - Categoria (dipende dal genere utente)
   - Tipo (dipende dalla categoria selezionata)
   - Stagione
   - Colore primario
   - Colore aggiuntivo
-- **Preferiti:** toggle rapido per visualizzare solo le scarpe contrassegnate come preferite
+- **Preferiti:** toggle rapido per visualizzare solo le scarpe contrassegnate come preferite; il cuore sulle card ha uno sfondo semitrasparente per restare leggibile sulle foto chiare
 - **Indicatore filtri:** l'icona dei filtri è evidenziata tramite il getter calcolato `_filtersActive`, derivato dal contenuto effettivo dei filtri (colore, colore extra, categoria, tipo, stagione, preferiti); la ricerca testuale è esclusa perché dispone del proprio pulsante di pulizia
 - **Reset filtri:** `_resetFilters()` azzera tutti i filtri, la ricerca e il toggle preferiti; è condiviso fra il pulsante di pulizia della barra di ricerca e l'azione dello stato "nessun risultato"
 - **Stato vuoto:** messaggio informativo se la collezione è vuota
@@ -280,6 +281,7 @@ Form per l'inserimento di una nuova scarpa nella collezione, organizzato in sezi
 - **Campi obbligatori:** marca, taglia, categoria, tipo
 - **Campi opzionali:** stagione, note
 - **Salvataggio:** la scarpa viene prima salvata su Firestore, poi l'immagine viene caricata su Firebase Storage e l'URL aggiornato nel documento
+- **Modifiche non salvate:** `PopScope` intercetta il tasto indietro (sistema e app bar); se i campi differiscono dallo stato iniziale viene chiesta conferma con `DeleteDialogWidget` (etichette personalizzate "Resta" / "Esci")
 
 ---
 
@@ -427,7 +429,7 @@ Gestisce tutte le operazioni sulle immagini prima del caricamento.
 
 Value object immutabile che descrive i filtri applicati alla lista scarpe. Logica pura: nessun `BuildContext`, nessun accesso a Firestore, nessun effetto collaterale sulla lista di partenza.
 
-- **`apply(List<ShoesModel>)`:** restituisce una **nuova** lista, ordinata dal più recente, con le sole scarpe che soddisfano tutti i filtri (ricerca per marca, preferiti, colore primario, colore extra, categoria, tipo, stagione)
+- **`apply(List<ShoesModel>)`:** restituisce una **nuova** lista, ordinata dal più recente, con le sole scarpe che soddisfano tutti i filtri (ricerca su marca/tipo/categoria/note, preferiti, colore primario, colore extra, categoria, tipo, stagione)
 - **`isActive`:** true quando almeno un filtro restringe davvero la lista; la ricerca testuale è esclusa perché ha il proprio pulsante di pulizia
 - La costante `ShoesFilter.all` (`'All'`) è il sentinella usato dai dropdown per "nessun filtro su questo campo"
 

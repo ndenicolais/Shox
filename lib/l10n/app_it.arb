@@ -324,6 +324,10 @@
   "full_screen_image_share_download_error_toast": "Download dell'immagine per la condivisione non riuscito.",
   "full_screen_image_share_error_toast": "Errore",
 
+  "shoes_form_screen_unsaved_title": "Modifiche non salvate",
+  "shoes_form_screen_unsaved_text": "Se esci ora perderai le modifiche fatte a questa scarpa.",
+  "shoes_form_screen_unsaved_stay": "Resta",
+  "shoes_form_screen_unsaved_leave": "Esci",
   "custom_delete_dialog_confirm": "Elimina",
   "custom_delete_dialog_cancel": "Annulla",
 
@@ -397,6 +401,11 @@
   "changelog_v4_1_0_bullet_22": "Il login con Google ora mostra un messaggio d'errore, ad esempio in assenza di connessione, invece di non fare nulla.",
   "changelog_v4_1_0_bullet_23": "Se l'avvio dell'app non riesce, ora compare una schermata con il pulsante Riprova invece di un arresto improvviso.",
   "changelog_v4_1_0_bullet_24": "Se la sessione scade, l'app ora torna alla schermata di benvenuto invece di chiudersi improvvisamente.",
+  "changelog_v4_1_0_bullet_25": "Il cuore dei preferiti ha ora uno sfondo che lo rende visibile anche sulle foto chiare.",
+  "changelog_v4_1_0_bullet_26": "La ricerca ora trova le scarpe anche per tipo, categoria e note, e si aggiorna quando smetti di scrivere.",
+  "changelog_v4_1_0_bullet_27": "Trascina verso il basso la griglia per aggiornare la collezione.",
+  "changelog_v4_1_0_bullet_28": "Uscendo dal modulo di una scarpa con modifiche non salvate ora viene chiesta una conferma.",
+  "changelog_v4_1_0_bullet_29": "Transizioni tra le schermate più fluide e uniformi.",
   "dashboard_other": "Altro",
   "user_screen_account_settings": "Impostazioni Account",
   "user_screen_total_shoes": "Scarpe totali",

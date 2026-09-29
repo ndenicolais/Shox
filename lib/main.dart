@@ -130,6 +130,9 @@ class MyApp extends StatelessWidget {
             home: firebaseReady ? null : StartupErrorScreen(onRetry: onRetry),
             initialRoute: firebaseReady ? AppRoutes.intro : null,
             getPages: firebaseReady ? AppPages.pages : null,
+            // One consistent page transition for every route.
+            defaultTransition: Transition.rightToLeftWithFade,
+            transitionDuration: const Duration(milliseconds: 300),
           );
         },
       ),

@@ -976,6 +976,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get full_screen_image_share_error_toast => 'Erreur';
 
   @override
+  String get shoes_form_screen_unsaved_title =>
+      'Modifications non enregistrées';
+
+  @override
+  String get shoes_form_screen_unsaved_text =>
+      'Si vous quittez maintenant, les modifications apportées à cette chaussure seront perdues.';
+
+  @override
+  String get shoes_form_screen_unsaved_stay => 'Rester';
+
+  @override
+  String get shoes_form_screen_unsaved_leave => 'Quitter';
+
+  @override
   String get custom_delete_dialog_confirm => 'Supprimer';
 
   @override
@@ -1211,6 +1225,26 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v4_1_0_bullet_24 =>
       'Si la session expire, l’application revient désormais à l’écran d’accueil au lieu de se fermer brusquement.';
+
+  @override
+  String get changelog_v4_1_0_bullet_25 =>
+      'Le cœur des favoris a désormais un fond qui le rend visible même sur les photos claires.';
+
+  @override
+  String get changelog_v4_1_0_bullet_26 =>
+      'La recherche trouve désormais les chaussures aussi par type, catégorie et notes, et se met à jour quand vous arrêtez de taper.';
+
+  @override
+  String get changelog_v4_1_0_bullet_27 =>
+      'Tirez la grille vers le bas pour actualiser votre collection.';
+
+  @override
+  String get changelog_v4_1_0_bullet_28 =>
+      'Quitter le formulaire d’une chaussure avec des modifications non enregistrées demande désormais une confirmation.';
+
+  @override
+  String get changelog_v4_1_0_bullet_29 =>
+      'Transitions entre les écrans plus fluides et homogènes.';
 
   @override
   String get dashboard_other => 'Autre';

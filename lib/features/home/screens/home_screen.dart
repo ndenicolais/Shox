@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,8 @@ class HomeScreenState extends State<HomeScreen>
   GridColumns currentGridColumns = GridColumns.gTwo;
   bool showOnlyFavorites = false;
   final TextEditingController _searchController = TextEditingController();
+  static const Duration _searchDebounceDuration = Duration(milliseconds: 300);
+  Timer? _searchDebounce;
   String searchQuery = "";
   Color? selectedColor;
   Color? selectedColorExtra;
@@ -63,11 +67,7 @@ class HomeScreenState extends State<HomeScreen>
                 FilterBarWidget(
                   searchController: _searchController,
                   searchQuery: searchQuery,
-                  onChanged: (value) {
-                    setState(() {
-                      searchQuery = value.trim();
-                    });
-                  },
+                  onChanged: _onSearchChanged,
                   onReset: () {
                     setState(() {
                       _resetFilters();
@@ -157,8 +157,33 @@ class HomeScreenState extends State<HomeScreen>
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     _searchController.dispose();
     super.dispose();
+  }
+
+  /// Filters the grid only once the user pauses typing, instead of at every
+  /// keystroke.
+  void _onSearchChanged(String value) {
+    _searchDebounce?.cancel();
+    _searchDebounce = Timer(_searchDebounceDuration, () {
+      if (!mounted) return;
+      setState(() => searchQuery = value.trim());
+    });
+  }
+
+  /// Re-subscribes to the shoes stream and completes once fresh data arrives.
+  Future<void> _refreshShoes() async {
+    final stream = _shoesController.getShoesList(currentUser!.uid);
+    setState(() => _shoesListStream = stream);
+    // Let the StreamBuilder subscribe first, so it cannot miss the first
+    // snapshot of the (broadcast) Firestore stream.
+    await WidgetsBinding.instance.endOfFrame;
+    try {
+      await stream.first.timeout(const Duration(seconds: 10));
+    } catch (_) {
+      // Errors and timeouts are surfaced by the StreamBuilder itself.
+    }
   }
 
   @override
@@ -192,9 +217,11 @@ class HomeScreenState extends State<HomeScreen>
         type: selectedType,
         season: selectedSeason,
         translatedTypeOptions: translatedTypeOptions,
+        translatedCategoryOptions: translatedCategoryOptions,
       );
 
   void _resetFilters() {
+    _searchDebounce?.cancel();
     searchQuery = '';
     selectedColor = null;
     selectedColorExtra = null;
@@ -261,18 +288,24 @@ class HomeScreenState extends State<HomeScreen>
                 minColumns: baseColumns,
               ).clamp(baseColumns, 4);
 
-        return GridView.builder(
-          padding: EdgeInsets.only(bottom: 88.h),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: columns,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2,
+        return RefreshIndicator(
+          onRefresh: _refreshShoes,
+          color: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          child: GridView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.only(bottom: 88.h),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: columns,
+              crossAxisSpacing: 2,
+              mainAxisSpacing: 2,
+            ),
+            itemCount: filteredShoes.length,
+            itemBuilder: (context, index) {
+              ShoesModel shoe = filteredShoes[index];
+              return _buildShoesCard(context, shoe);
+            },
           ),
-          itemCount: filteredShoes.length,
-          itemBuilder: (context, index) {
-            ShoesModel shoe = filteredShoes[index];
-            return _buildShoesCard(context, shoe);
-          },
         );
       },
     );
@@ -433,6 +466,11 @@ class HomeScreenState extends State<HomeScreen>
       tooltip: shoe.isFavorite
           ? AppLocalizations.of(context)!.a11y_remove_from_favorites
           : AppLocalizations.of(context)!.a11y_add_to_favorites,
+      // Semi-transparent backdrop keeps the heart readable on light photos.
+      style: IconButton.styleFrom(
+        backgroundColor:
+            Theme.of(context).colorScheme.primary.withValues(alpha: 0.75),
+      ),
       icon: Icon(
         shoe.isFavorite
             ? MingCuteIcons.mgc_heart_fill
