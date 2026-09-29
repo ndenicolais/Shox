@@ -410,6 +410,7 @@
   "changelog_v4_1_0_bullet_31": "Avec le thème Système, l’application suit désormais immédiatement le passage clair/sombre du téléphone, sans redémarrage ; les icônes de la barre d’état restent lisibles en thème sombre.",
   "changelog_v4_1_0_bullet_32": "Couleurs plus cohérentes et lisibles pour les éléments système (menus, boîtes de dialogue, interrupteurs et erreurs), thème sombre compris.",
   "changelog_v4_1_0_bullet_33": "Les photos de la collection remplissent désormais toujours leur case et utilisent moins de mémoire ; sur tablette, l’accueil est centré comme les autres écrans.",
+  "changelog_v4_1_0_bullet_34": "Modifier une chaussure favorite ne la retire plus des favoris, et il n’est plus possible d’enregistrer une chaussure après avoir supprimé sa photo sans en choisir une nouvelle.",
   "dashboard_other": "Autre",
   "user_screen_account_settings": "Paramètres du compte",
   "user_screen_total_shoes": "Total de chaussures",

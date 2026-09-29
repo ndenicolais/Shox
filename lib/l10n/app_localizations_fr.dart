@@ -1263,6 +1263,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les photos de la collection remplissent désormais toujours leur case et utilisent moins de mémoire ; sur tablette, l’accueil est centré comme les autres écrans.';
 
   @override
+  String get changelog_v4_1_0_bullet_34 =>
+      'Modifier une chaussure favorite ne la retire plus des favoris, et il n’est plus possible d’enregistrer une chaussure après avoir supprimé sa photo sans en choisir une nouvelle.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

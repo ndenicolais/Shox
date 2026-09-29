@@ -412,6 +412,7 @@
   "changelog_v4_1_0_bullet_31": "Con el tema Sistema la app ahora sigue al instante el cambio claro/oscuro del teléfono, sin reiniciar; los iconos de la barra de estado se leen bien también en tema oscuro.",
   "changelog_v4_1_0_bullet_32": "Colores más coherentes y legibles en los elementos del sistema (menús, diálogos, interruptores y errores), también en tema oscuro.",
   "changelog_v4_1_0_bullet_33": "Las fotos de la colección ahora llenan siempre su casilla y usan menos memoria; en tablet la pantalla principal está centrada como las demás.",
+  "changelog_v4_1_0_bullet_34": "Editar un zapato favorito ya no lo quita de favoritos, y ya no se puede guardar un zapato tras quitar su foto sin elegir una nueva.",
   "dashboard_other": "Otro",
   "user_screen_account_settings": "Configuración de cuenta",
   "user_screen_total_shoes": "Total de zapatos",

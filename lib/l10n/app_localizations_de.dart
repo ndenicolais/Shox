@@ -1252,6 +1252,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Die Fotos der Sammlung füllen jetzt immer ihre Kachel aus und brauchen weniger Speicher; auf Tablets ist der Startbildschirm wie die anderen Bildschirme zentriert.';
 
   @override
+  String get changelog_v4_1_0_bullet_34 =>
+      'Das Bearbeiten eines Lieblingsschuhs entfernt ihn nicht mehr aus den Favoriten, und ein Schuh kann nicht mehr gespeichert werden, nachdem sein Foto entfernt wurde, ohne ein neues zu wählen.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

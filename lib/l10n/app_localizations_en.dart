@@ -1237,6 +1237,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Collection photos now always fill their tile and use less memory; on tablets the home screen is centered like the other screens.';
 
   @override
+  String get changelog_v4_1_0_bullet_34 =>
+      'Editing a favorite shoe no longer removes it from favorites, and a shoe can no longer be saved after removing its photo without picking a new one.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

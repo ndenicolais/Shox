@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/delete_dialog_widget.dart';
+import 'package:shox/features/shoes/models/shoes_form_data.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/widgets/shoes_categories_mixin.dart';
 import 'package:shox/features/shoes/widgets/form/brand_textfield.dart';
@@ -25,8 +26,7 @@ import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/features/shoes/services/image_service.dart';
-import 'package:shox/features/shoes/services/shoes_save_service.dart';
-import 'package:shox/features/shoes/services/shoes_update_service.dart';
+import 'package:shox/features/shoes/services/shoes_form_service.dart';
 
 class ShoesFormScreen extends StatefulWidget {
   final ShoesModel? shoes; // null = ADD mode, not null = EDIT mode
@@ -42,8 +42,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final _formKey = GlobalKey<FormState>();
   final _imageService = ImageService();
-  final _shoesSaveService = ShoesSaveService();
-  final _shoesUpdateService = ShoesUpdateService();
+  final _shoesFormService = ShoesFormService();
   final TextEditingController _brandController = TextEditingController();
   final TextEditingController _sizeController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
@@ -318,92 +317,48 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
     );
   }
 
+  ShoesFormData get _formData => ShoesFormData(
+        brand: _brandController.text,
+        size: _sizeController.text,
+        category: _selectedCategory,
+        type: _selectedType,
+        season: _selectedSeason,
+        notes: _notesController.text,
+        colorPrimary: _colorPrimary,
+        colorPrimarySelected: _colorPrimarySelected,
+        extraColors: _extraColors,
+        newImage: _newImage,
+        imageNoBgBytes: _imageNoBgBytes,
+        hasExistingImage: _existingImageUrl != null,
+      );
+
   void _saveForm() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final l10n = AppLocalizations.of(context)!;
+    final data = _formData;
+    switch (data.validate()) {
+      case ShoesFormError.missingImage:
+        showErrorToast(context, l10n.shoes_adder_screen_toast_error_image);
+        return;
+      case ShoesFormError.missingColor:
+        showErrorToast(context, l10n.shoes_adder_screen_toast_error_color);
+        return;
+      case null:
+        break;
+    }
+
+    setState(() => _isSaveLoading = true);
     try {
-      if (_formKey.currentState!.validate()) {
-        if (!_isEditMode && _newImage == null) {
-          if (mounted) {
-            showErrorToast(
-              context,
-              AppLocalizations.of(context)!
-                  .shoes_adder_screen_toast_error_image,
-            );
-          }
-          return;
-        }
-
-        if (_isEditMode &&
-            _newImage == null &&
-            _existingImageUrl == null &&
-            !_imageRemoved) {
-          if (mounted) {
-            showErrorToast(
-              context,
-              AppLocalizations.of(context)!
-                  .shoes_adder_screen_toast_error_image,
-            );
-          }
-          return;
-        }
-
-        if (!_colorPrimarySelected) {
-          if (mounted) {
-            showErrorToast(
-              context,
-              AppLocalizations.of(context)!
-                  .shoes_adder_screen_toast_error_color,
-            );
-          }
-          return;
-        }
-
-        setState(() {
-          _isSaveLoading = true;
-        });
-
-        if (_isEditMode) {
-          await _shoesUpdateService.updateShoes(
-            context: context,
-            existingShoes: widget.shoes!,
-            newImageFile: _newImage,
-            imageNoBgBytes: _imageNoBgBytes,
-            colorPrimary: _colorPrimary,
-            extraColors: _extraColors,
-            brand: _brandController.text,
-            size: _sizeController.text,
-            category: _selectedCategory,
-            type: _selectedType,
-            season: _selectedSeason,
-            notes: _notesController.text,
-            imageRemoved: _imageRemoved,
-          );
-        } else {
-          await _shoesSaveService.saveShoes(
-            context: context,
-            imageFile: _newImage!,
-            imageNoBgBytes: _imageNoBgBytes,
-            colorPrimary: _colorPrimary,
-            extraColors: _extraColors,
-            brand: _brandController.text,
-            size: _sizeController.text,
-            category: _selectedCategory,
-            type: _selectedType,
-            season: _selectedSeason,
-            notes: _notesController.text,
-          );
-        }
-
-        if (mounted) {
-          showSuccessToast(
-            context,
-            _isEditMode
-                ? AppLocalizations.of(context)!
-                    .shoes_updater_screen_toast_success
-                : AppLocalizations.of(context)!
-                    .shoes_adder_screen_toast_success,
-          );
-          Get.back();
-        }
+      await _shoesFormService.save(data, existing: widget.shoes);
+      if (mounted) {
+        showSuccessToast(
+          context,
+          _isEditMode
+              ? l10n.shoes_updater_screen_toast_success
+              : l10n.shoes_adder_screen_toast_success,
+        );
+        Get.back();
       }
     } catch (e) {
       if (mounted) {

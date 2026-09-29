@@ -1254,6 +1254,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Le foto della collezione riempiono sempre la loro casella e occupano meno memoria; su tablet la home è centrata come le altre schermate.';
 
   @override
+  String get changelog_v4_1_0_bullet_34 =>
+      'Modificare una scarpa preferita non la toglie più dai preferiti, e non è più possibile salvarla dopo averne rimosso la foto senza sceglierne una nuova.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

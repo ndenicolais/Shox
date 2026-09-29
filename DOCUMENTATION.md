@@ -25,7 +25,7 @@
 6. [Controller (State Management)](#6-controller-state-management)
 7. [Servizi](#7-servizi)
    - [ImageService](#71-imageservice)
-   - [ShoesSaveService e ShoesUpdateService](#72-shoessaveservice-e-shoesupdateservice)
+   - [ShoesFormData e ShoesFormService](#74-shoesformdata-e-shoesformservice)
    - [PdfService](#73-pdfservice)
    - [Export e Import JSON](#74-export-e-import-json)
 8. [Tema e stile](#8-tema-e-stile)
@@ -449,15 +449,18 @@ Mixin su `State` che raccoglie lo stato condiviso fra le schermate che mostrano 
 
 ---
 
-### 7.4 ShoesSaveService e ShoesUpdateService
+### 7.4 ShoesFormData e ShoesFormService
 
-**Percorso:** `lib/features/shoes/services/`
+**Percorsi:** `lib/features/shoes/models/shoes_form_data.dart`, `lib/features/shoes/services/shoes_form_service.dart`
 
-Servizi di orchestrazione per il salvataggio e aggiornamento delle scarpe.
+Salvataggio della form di aggiunta/modifica scarpa, fuori dalla UI.
 
-- **`ShoesSaveService.saveShoes(...)`:** Prepara il `ShoesModel`, gestisce l'eventuale immagine senza sfondo (salvataggio file temporaneo), e delega al `ShoesController` il caricamento su Firestore + Firebase Storage
-- **`ShoesUpdateService.updateShoes(...)`:** Gestisce la logica di aggiornamento con eventuale sostituzione dell'immagine, eliminazione della vecchia, e aggiornamento del documento Firestore
-
+- **`ShoesFormData`** (value object immutabile, logica pura): fotografia dei campi della form.
+  - `validate()` restituisce il primo errore bloccante (`ShoesFormError.missingImage` / `missingColor`) o `null`: la foto è obbligatoria sia in aggiunta sia in modifica (se quella salvata viene rimossa ne serve una nuova)
+  - `toShoesModel(imageUrl:, existing:)` costruisce il `ShoesModel` normalizzando i campi (marca senza spazi, stagione vuota → `All`, note vuote → `null`) e, in modifica, conserva id, preferito e data di aggiunta
+  - Coperto da test in `test/features/shoes/models/shoes_form_data_test.dart`
+- **`ShoesFormService.save(data, existing:)`**: prepara l'eventuale immagine senza sfondo (file PNG temporaneo) e delega a `ShoesController.addShoes` o `updateShoes`; in modifica elimina da Storage la foto precedente solo se l'utente l'ha rimossa
+- `ShoesFormScreen._saveForm()` si limita all'orchestrazione: validatori dei campi, `ShoesFormData.validate()` → toast, salvataggio, navigazione
 ---
 
 ### 7.5 PdfService

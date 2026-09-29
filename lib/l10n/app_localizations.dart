@@ -2372,6 +2372,12 @@ abstract class AppLocalizations {
   /// **'Collection photos now always fill their tile and use less memory; on tablets the home screen is centered like the other screens.'**
   String get changelog_v4_1_0_bullet_33;
 
+  /// No description provided for @changelog_v4_1_0_bullet_34.
+  ///
+  /// In en, this message translates to:
+  /// **'Editing a favorite shoe no longer removes it from favorites, and a shoe can no longer be saved after removing its photo without picking a new one.'**
+  String get changelog_v4_1_0_bullet_34;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

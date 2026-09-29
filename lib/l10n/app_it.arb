@@ -410,6 +410,7 @@
   "changelog_v4_1_0_bullet_31": "Con il tema Sistema l'app ora segue subito il passaggio chiaro/scuro del telefono, senza riavvio; le icone della barra di stato restano leggibili anche in tema scuro.",
   "changelog_v4_1_0_bullet_32": "Colori più coerenti e leggibili negli elementi di sistema (menu, finestre di dialogo, interruttori ed errori), anche in tema scuro.",
   "changelog_v4_1_0_bullet_33": "Le foto della collezione riempiono sempre la loro casella e occupano meno memoria; su tablet la home è centrata come le altre schermate.",
+  "changelog_v4_1_0_bullet_34": "Modificare una scarpa preferita non la toglie più dai preferiti, e non è più possibile salvarla dopo averne rimosso la foto senza sceglierne una nuova.",
   "dashboard_other": "Altro",
   "user_screen_account_settings": "Impostazioni Account",
   "user_screen_total_shoes": "Scarpe totali",

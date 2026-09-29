@@ -1248,6 +1248,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Las fotos de la colección ahora llenan siempre su casilla y usan menos memoria; en tablet la pantalla principal está centrada como las demás.';
 
   @override
+  String get changelog_v4_1_0_bullet_34 =>
+      'Editar un zapato favorito ya no lo quita de favoritos, y ya no se puede guardar un zapato tras quitar su foto sin elegir una nueva.';
+
+  @override
   String get dashboard_other => 'Otro';
 
   @override

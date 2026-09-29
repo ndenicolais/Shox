@@ -412,6 +412,7 @@
   "changelog_v4_1_0_bullet_31": "Mit dem System-Design folgt die App jetzt sofort dem Hell-/Dunkel-Wechsel des Telefons, ohne Neustart; die Symbole der Statusleiste bleiben auch im dunklen Design lesbar.",
   "changelog_v4_1_0_bullet_32": "Einheitlichere, besser lesbare Farben bei Systemelementen (Menüs, Dialoge, Schalter und Fehler), auch im dunklen Design.",
   "changelog_v4_1_0_bullet_33": "Die Fotos der Sammlung füllen jetzt immer ihre Kachel aus und brauchen weniger Speicher; auf Tablets ist der Startbildschirm wie die anderen Bildschirme zentriert.",
+  "changelog_v4_1_0_bullet_34": "Das Bearbeiten eines Lieblingsschuhs entfernt ihn nicht mehr aus den Favoriten, und ein Schuh kann nicht mehr gespeichert werden, nachdem sein Foto entfernt wurde, ohne ein neues zu wählen.",
   "dashboard_other": "Andere",
   "user_screen_account_settings": "Kontoeinstellungen",
   "user_screen_total_shoes": "Schuhe gesamt",
