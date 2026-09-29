@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
-import 'package:shox/theme/app_font_sizes.dart';
+import 'package:shox/theme/app_radius.dart';
+import 'package:shox/theme/app_spacing.dart';
 
+/// Settings row: icon in a soft square, label and a trailing widget
+/// (chevron by default, or a switch when [switchValue] is given).
 class DashboardMenuItem extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -28,36 +29,33 @@ class DashboardMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return ListTile(
-      dense: true,
-      leading: Icon(
-        icon,
-        color: Theme.of(context).colorScheme.secondary,
+      onTap: onTap,
+      contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.m),
+      leading: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: colors.surface,
+          borderRadius: BorderRadius.circular(AppRadius.medium),
+        ),
+        child: Icon(icon, size: 20, color: iconColor ?? colors.onSurface),
       ),
       title: Text(
         text,
-        style: TextStyle(
-          fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.onSurface,
-          fontSize: AppFontSizes.small,
-        ),
+        style: textColor != null ? TextStyle(color: textColor) : null,
       ),
       trailing: trailing ??
           (switchValue != null && onChanged != null
-              ? Switch(
-                  value: switchValue!,
-                  onChanged: onChanged,
-                  activeThumbColor: Theme.of(context).colorScheme.onSurface,
-                )
-              : Icon(
-                  MingCuteIcons.mgc_right_line,
-                  color: Theme.of(context).colorScheme.onSurface,
-                )),
-      onTap: onTap,
-      contentPadding:
-          EdgeInsets.symmetric(horizontal: AppSpacing.xs.r, vertical: 0.r),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-      hoverColor: Theme.of(context).colorScheme.secondary,
+              ? Switch(value: switchValue!, onChanged: onChanged)
+              : onTap != null
+                  ? Icon(
+                      MingCuteIcons.mgc_right_line,
+                      color: colors.onSurfaceVariant,
+                    )
+                  : null),
     );
   }
 }

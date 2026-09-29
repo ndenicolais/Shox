@@ -175,6 +175,16 @@ class AppTheme {
             textTheme.labelMedium?.copyWith(color: colorScheme.onPrimary),
         padding: const EdgeInsets.symmetric(horizontal: 8),
       ),
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: SegmentedButton.styleFrom(
+          selectedBackgroundColor: colorScheme.primary,
+          selectedForegroundColor: colorScheme.onPrimary,
+          foregroundColor: colorScheme.onSurface,
+          side: BorderSide(color: colorScheme.outline),
+          textStyle: textTheme.labelMedium,
+          minimumSize: const Size(0, 44),
+        ),
+      ),
       dialogTheme: DialogThemeData(
         backgroundColor: colorScheme.surface,
         surfaceTintColor: Colors.transparent,
