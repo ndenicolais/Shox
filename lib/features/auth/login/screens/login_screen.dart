@@ -45,7 +45,7 @@ class LoginScreenState extends State<LoginScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.login_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(AppSpacing.screen.r),
@@ -104,10 +104,10 @@ class LoginScreenState extends State<LoginScreen> {
           () => Checkbox(
             value: controller.rememberMe.value,
             onChanged: (value) => controller.rememberMe.value = value!,
-            checkColor: Theme.of(context).colorScheme.primary,
+            checkColor: Theme.of(context).colorScheme.surface,
             activeColor: Theme.of(context).colorScheme.secondary,
             shape: const CircleBorder(),
-            side: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+            side: BorderSide(color: Theme.of(context).colorScheme.onSurface),
           ),
         ),
         Text(
@@ -128,7 +128,7 @@ class LoginScreenState extends State<LoginScreen> {
         text: AppLocalizations.of(context)!.login_screen_password,
         style: TextStyle(
           fontFamily: 'CustomFontBold',
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: AppFontSizes.extraSmall,
         ),
         recognizer: TapGestureRecognizer()
@@ -157,7 +157,7 @@ class LoginScreenState extends State<LoginScreen> {
           AppLocalizations.of(context)!.auth_or_continue_with,
           style: TextStyle(
             fontFamily: 'CustomFont',
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: AppFontSizes.normal,
           ),
         ),
@@ -195,7 +195,7 @@ class LoginScreenState extends State<LoginScreen> {
             text: AppLocalizations.of(context)!.login_screen_signup,
             style: TextStyle(
               fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.small,
             ),
             recognizer: TapGestureRecognizer()

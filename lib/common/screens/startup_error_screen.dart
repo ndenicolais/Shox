@@ -12,7 +12,7 @@ class StartupErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: ErrorStateWidget(
           message: AppLocalizations.of(context)!.startup_error_message,

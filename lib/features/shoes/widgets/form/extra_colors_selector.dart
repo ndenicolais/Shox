@@ -53,7 +53,7 @@ class _ExtraColorsSelectorState extends State<ExtraColorsSelector> {
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: isSelected
-                            ? Theme.of(context).colorScheme.tertiary
+                            ? Theme.of(context).colorScheme.onSurface
                             : Theme.of(context).cardColor,
                         width: isSelected ? 2 : 1,
                       ),
@@ -62,7 +62,7 @@ class _ExtraColorsSelectorState extends State<ExtraColorsSelector> {
                         ? Icon(
                             MingCuteIcons.mgc_check_line,
                             size: 20.sp,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.surface,
                           )
                         : null,
                   ),

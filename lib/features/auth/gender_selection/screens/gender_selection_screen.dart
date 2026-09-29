@@ -53,7 +53,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.gender_selection_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
@@ -69,7 +69,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'CustomFont',
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: AppFontSizes.medium,
                     ),
                   ),
@@ -123,7 +123,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.primary,
+              : Theme.of(context).colorScheme.surface,
           border: Border.all(
             color: Theme.of(context).colorScheme.secondary,
             width: isSelected ? 3.w : 1.w,
@@ -137,7 +137,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
               height: 60.w,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? Theme.of(context).colorScheme.primary
+                    ? Theme.of(context).colorScheme.surface
                     : AppColors.champagne,
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -151,7 +151,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 icon,
                 color: isSelected
                     ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.tertiary,
+                    : Theme.of(context).colorScheme.onSurface,
                 size: 32.sp,
               ),
             ),
@@ -162,7 +162,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 style: TextStyle(
                   fontFamily: 'CustomFont',
                   color: isSelected
-                      ? Theme.of(context).colorScheme.primary
+                      ? Theme.of(context).colorScheme.surface
                       : Theme.of(context).colorScheme.secondary,
                   fontSize: AppFontSizes.large,
                 ),
@@ -171,7 +171,7 @@ class GenderSelectionScreenState extends State<GenderSelectionScreen> {
             if (isSelected)
               Icon(
                 MingCuteIcons.mgc_check_circle_fill,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 size: 32.sp,
               ),
           ],

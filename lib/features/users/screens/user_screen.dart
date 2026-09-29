@@ -111,7 +111,7 @@ class UserScreenState extends State<UserScreen> {
                 ]
               : null,
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
           padding: EdgeInsets.only(bottom: AppSpacing.xl.h),
           child: ResponsiveCenterWidget(
@@ -156,7 +156,7 @@ class UserScreenState extends State<UserScreen> {
             () => Text(
               userController.userEmail.value,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -187,7 +187,7 @@ class UserScreenState extends State<UserScreen> {
                 Container(
                   width: 1,
                   height: 40.h,
-                  color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
                 ),
                 Expanded(
                   child: _buildStatItem(
@@ -201,7 +201,7 @@ class UserScreenState extends State<UserScreen> {
             ),
             SizedBox(height: 16.h),
             Divider(
-              color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
               thickness: 1,
             ),
             SizedBox(height: 16.h),
@@ -219,7 +219,7 @@ class UserScreenState extends State<UserScreen> {
                 Container(
                   width: 1,
                   height: 40.h,
-                  color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
                 ),
                 Expanded(
                   child: _buildStatItem(
@@ -233,7 +233,7 @@ class UserScreenState extends State<UserScreen> {
             ),
             SizedBox(height: 16.h),
             Divider(
-              color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
               thickness: 1,
             ),
             SizedBox(height: 16.h),
@@ -251,7 +251,7 @@ class UserScreenState extends State<UserScreen> {
                 Container(
                   width: 1,
                   height: 40.h,
-                  color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
                 ),
                 Expanded(
                   child: _buildStatItem(
@@ -265,7 +265,7 @@ class UserScreenState extends State<UserScreen> {
             ),
             SizedBox(height: 16.h),
             Divider(
-              color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
               thickness: 1,
             ),
             SizedBox(height: 16.h),
@@ -284,7 +284,7 @@ class UserScreenState extends State<UserScreen> {
                 Container(
                   width: 1,
                   height: 40.h,
-                  color: Theme.of(context).colorScheme.tertiary.withAlpha(25),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(25),
                 ),
                 Expanded(
                   child: _buildStatItem(
@@ -326,7 +326,7 @@ class UserScreenState extends State<UserScreen> {
         Text(
           label,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
           textAlign: TextAlign.center,
         ),
@@ -347,7 +347,7 @@ class UserScreenState extends State<UserScreen> {
         padding: EdgeInsets.all(AppSpacing.xxs.r),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.surface,
           boxShadow: [
             const BoxShadow(
               color: Color(0x33000000),

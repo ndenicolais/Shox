@@ -51,7 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.dashboard_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppSpacing.m.r),
         child: ListView(
@@ -169,7 +169,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 'v $_appVersion',
                 style: TextStyle(
                   fontFamily: 'CustomFont',
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: AppFontSizes.small,
                 ),
               ),
@@ -190,7 +190,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title,
         style: TextStyle(
           fontFamily: 'CustomFontBold',
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: AppFontSizes.small,
           letterSpacing: 1.2,
         ),

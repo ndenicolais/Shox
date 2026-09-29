@@ -42,20 +42,20 @@ class FilterBar extends StatelessWidget {
               fontFamily: 'CustomFont',
               color: Theme.of(context).colorScheme.secondary,
             ),
-            cursorColor: Theme.of(context).colorScheme.tertiary,
+            cursorColor: Theme.of(context).colorScheme.onSurface,
             onChanged: onChanged,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 MingCuteIcons.mgc_search_2_line,
                 size: 18.sp,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               suffixIcon: searchController.text.isNotEmpty
                   ? IconButton(
                       tooltip: AppLocalizations.of(context)!.a11y_clear_search,
                       icon: Icon(
                         Icons.clear,
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                       onPressed: onReset,
                     )
@@ -72,7 +72,7 @@ class FilterBar extends StatelessWidget {
                 : MingCuteIcons.mgc_filter_line,
             filtersActive
                 ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.tertiary,
+                : Theme.of(context).colorScheme.onSurface,
           ),
           onPressed: onFilter,
         ),
@@ -80,7 +80,7 @@ class FilterBar extends StatelessWidget {
           tooltip: AppLocalizations.of(context)!.a11y_toggle_grid,
           icon: _animatedIcon(
             currentIcon,
-            Theme.of(context).colorScheme.tertiary,
+            Theme.of(context).colorScheme.onSurface,
           ),
           onPressed: onToggleGrid,
         ),
@@ -94,7 +94,7 @@ class FilterBar extends StatelessWidget {
                 : MingCuteIcons.mgc_heart_line,
             showOnlyFavorites
                 ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.tertiary,
+                : Theme.of(context).colorScheme.onSurface,
           ),
           onPressed: onToggleFavorites,
         ),

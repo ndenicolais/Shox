@@ -33,7 +33,7 @@ class ColorChip extends StatelessWidget {
               shape: BoxShape.circle,
               border: isPrimary
                   ? Border.all(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onSurface,
                       width: 1,
                     )
                   : null,
@@ -44,7 +44,7 @@ class ColorChip extends StatelessWidget {
             label,
             style: TextStyle(
               fontFamily: 'CustomFont',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.regular,
               fontWeight: FontWeight.w500,
             ),

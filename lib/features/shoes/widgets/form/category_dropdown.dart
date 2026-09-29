@@ -46,7 +46,7 @@ class CategoryDropdown extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'CustomFont',
             color:
-                Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.6),
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
             fontSize: AppFontSizes.small,
           ),
         ),
@@ -57,7 +57,7 @@ class CategoryDropdown extends StatelessWidget {
         dropdownColor: Theme.of(context).cardColor,
         style: TextStyle(
           fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: AppFontSizes.small,
         ),
         onChanged: (newValue) {

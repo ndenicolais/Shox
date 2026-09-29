@@ -23,17 +23,22 @@ class AppTheme {
 
   static ThemeData lightTheme() {
     return _baseTheme(
-      // App roles: primary = page background, secondary = accent,
-      // tertiary = main text. The on* colors must contrast with their role.
+      // Semantic roles: surface = page background, onSurface = main text,
+      // secondary = warm accent, primary = main actions (filled buttons,
+      // selected chips), surfaceContainerLowest = raised cards.
       colorScheme: const ColorScheme.light(
-        primary: AppColors.whiteSmoke,
-        onPrimary: AppColors.darkGray,
+        primary: AppColors.darkGray,
+        onPrimary: AppColors.whiteSmoke,
         secondary: AppColors.darkPeach,
-        onSecondary: AppColors.whiteSmoke,
-        tertiary: AppColors.darkGray,
-        onTertiary: AppColors.whiteSmoke,
+        onSecondary: AppColors.darkGray,
+        tertiary: AppColors.champagne,
+        onTertiary: AppColors.darkGray,
         surface: AppColors.whiteSmoke,
         onSurface: AppColors.darkGray,
+        onSurfaceVariant: AppColors.mutedText,
+        surfaceContainerLowest: AppColors.cardLight,
+        outline: AppColors.outline,
+        outlineVariant: AppColors.outline,
         error: AppColors.errorColor,
         onError: AppColors.whiteSmoke,
         tertiaryFixed: AppColors.valspar,
@@ -50,14 +55,18 @@ class AppTheme {
   static ThemeData darkTheme() {
     return _baseTheme(
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.darkGray,
-        onPrimary: AppColors.champagne,
+        primary: AppColors.champagne,
+        onPrimary: AppColors.darkGray,
         secondary: AppColors.champagne,
         onSecondary: AppColors.darkGray,
-        tertiary: AppColors.darkSalamon,
+        tertiary: AppColors.darkPeach,
         onTertiary: AppColors.darkGray,
         surface: AppColors.darkGray,
-        onSurface: AppColors.champagne,
+        onSurface: AppColors.darkSalamon,
+        onSurfaceVariant: AppColors.mutedTextDark,
+        surfaceContainerLowest: AppColors.valsparDark,
+        outline: AppColors.outlineDark,
+        outlineVariant: AppColors.outlineDark,
         error: AppColors.errorColor,
         onError: AppColors.whiteSmoke,
         tertiaryFixed: AppColors.darkPeach,
@@ -88,11 +97,11 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: colorScheme.primary,
+      scaffoldBackgroundColor: colorScheme.surface,
       splashFactory: InkSparkle.splashFactory,
       textTheme: textTheme,
       appBarTheme: AppBarTheme(
-        backgroundColor: colorScheme.primary,
+        backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.secondary,
         elevation: 0,
         scrolledUnderElevation: 3,
@@ -148,7 +157,7 @@ class AppTheme {
         ),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: colorScheme.primary,
+        backgroundColor: colorScheme.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 4,
         shadowColor: shadowColor,

@@ -21,7 +21,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(AppSpacing.screen.r),

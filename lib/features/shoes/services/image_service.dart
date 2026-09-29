@@ -27,7 +27,7 @@ class ImageService {
           toolbarTitle:
               AppLocalizations.of(context)!.shoes_adder_screen_crop_image_title,
           toolbarColor: Theme.of(context).colorScheme.secondary,
-          toolbarWidgetColor: Theme.of(context).colorScheme.primary,
+          toolbarWidgetColor: Theme.of(context).colorScheme.surface,
           activeControlsWidgetColor: Theme.of(context).colorScheme.secondary,
           initAspectRatio: CropAspectRatioPreset.original,
           aspectRatioPresets: [

@@ -58,7 +58,7 @@ class TopBar extends StatelessWidget {
                     '${AppLocalizations.of(context)!.home_screen_welcome_text}, ${userController.userName.value}',
                     style: TextStyle(
                       fontFamily: 'CustomFontBold',
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: AppFontSizes.medium,
                     ),
                     maxLines: 1,
@@ -69,7 +69,7 @@ class TopBar extends StatelessWidget {
                     currentUser?.email ?? '',
                     style: TextStyle(
                       fontFamily: 'CustomFont',
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: AppFontSizes.small,
                     ),
                     maxLines: 1,
@@ -106,11 +106,11 @@ class TopBar extends StatelessWidget {
             fit: BoxFit.cover,
             placeholder: (context, url) => CircularProgressIndicator(
               strokeWidth: 2,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             errorWidget: (context, url, error) => Icon(
               MingCuteIcons.mgc_user_3_fill,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               size: 28.sp,
             ),
           );
@@ -123,7 +123,7 @@ class TopBar extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) {
               return Icon(
                 MingCuteIcons.mgc_user_3_fill,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onSurface,
                 size: 28.sp,
               );
             },
@@ -140,12 +140,12 @@ class TopBar extends StatelessWidget {
       return ClipOval(child: _buildImage(imagePath));
     } else {
       return CircleAvatar(
-        backgroundColor: Theme.of(context).colorScheme.tertiary.withAlpha(30),
+        backgroundColor: Theme.of(context).colorScheme.onSurface.withAlpha(30),
         radius: 25.r,
         child: Icon(
           MingCuteIcons.mgc_user_3_fill,
           size: 28.sp,
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
       );
     }

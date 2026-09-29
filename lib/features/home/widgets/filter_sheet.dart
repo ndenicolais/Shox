@@ -70,7 +70,7 @@ class FilterSheet extends StatelessWidget {
             AppLocalizations.of(context)!.home_screen_filter_title,
             style: TextStyle(
               fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.medium,
             ),
           ),
@@ -82,7 +82,7 @@ class FilterSheet extends StatelessWidget {
                 AppLocalizations.of(context)!.home_screen_filter_color_primary,
                 style: TextStyle(
                   fontFamily: 'CustomFont',
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ),
@@ -103,7 +103,7 @@ class FilterSheet extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50.r),
                         border: Border.all(
                           color: selectedColor == color
-                              ? Theme.of(context).colorScheme.tertiary
+                              ? Theme.of(context).colorScheme.onSurface
                               : Colors.transparent,
                         ),
                       ),
@@ -122,7 +122,7 @@ class FilterSheet extends StatelessWidget {
                 AppLocalizations.of(context)!.extra_colors,
                 style: TextStyle(
                   fontFamily: 'CustomFont',
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ),
@@ -143,7 +143,7 @@ class FilterSheet extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50.r),
                         border: Border.all(
                           color: selectedColorExtra == color
-                              ? Theme.of(context).colorScheme.tertiary
+                              ? Theme.of(context).colorScheme.onSurface
                               : Colors.transparent,
                         ),
                       ),
@@ -175,9 +175,9 @@ class FilterSheet extends StatelessWidget {
             }).toList(),
             icon: Icon(
               MingCuteIcons.mgc_down_line,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
-            dropdownColor: Theme.of(context).colorScheme.primary,
+            dropdownColor: Theme.of(context).colorScheme.surface,
             decoration: InputDecoration(
               labelText:
                   AppLocalizations.of(context)!.home_screen_filter_category,
@@ -205,9 +205,9 @@ class FilterSheet extends StatelessWidget {
               }).toList(),
               icon: Icon(
                 MingCuteIcons.mgc_down_line,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
-              dropdownColor: Theme.of(context).colorScheme.primary,
+              dropdownColor: Theme.of(context).colorScheme.surface,
               decoration: InputDecoration(
                 labelText:
                     AppLocalizations.of(context)!.home_screen_filter_type,
@@ -234,9 +234,9 @@ class FilterSheet extends StatelessWidget {
             }).toList(),
             icon: Icon(
               MingCuteIcons.mgc_down_line,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
-            dropdownColor: Theme.of(context).colorScheme.primary,
+            dropdownColor: Theme.of(context).colorScheme.surface,
             decoration: InputDecoration(
               labelText:
                   AppLocalizations.of(context)!.home_screen_filter_season,
@@ -250,7 +250,7 @@ class FilterSheet extends StatelessWidget {
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all<Color>(
-                    Theme.of(context).colorScheme.tertiary,
+                    Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 onPressed: onReset,
@@ -258,7 +258,7 @@ class FilterSheet extends StatelessWidget {
                   AppLocalizations.of(context)!.home_screen_filter_reset,
                   style: TextStyle(
                     fontFamily: 'CustomFont',
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surface,
                     fontSize: AppFontSizes.normal,
                   ),
                 ),
@@ -275,7 +275,7 @@ class FilterSheet extends StatelessWidget {
                   AppLocalizations.of(context)!.home_screen_filter_apply,
                   style: TextStyle(
                     fontFamily: 'CustomFont',
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surface,
                     fontSize: AppFontSizes.normal,
                   ),
                 ),

@@ -69,7 +69,7 @@ class SignupForm extends StatelessWidget {
                   passwordVisible.value
                       ? MingCuteIcons.mgc_eye_2_line
                       : MingCuteIcons.mgc_eye_close_line,
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
                 onPressed: togglePasswordVisibility,
               ),

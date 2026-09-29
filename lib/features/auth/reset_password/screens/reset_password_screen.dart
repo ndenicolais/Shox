@@ -28,7 +28,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.reset_password_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(AppSpacing.screen.r),

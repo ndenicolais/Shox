@@ -60,7 +60,7 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
             Text(
               widget.title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -179,7 +179,7 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
           padding:
               EdgeInsets.symmetric(horizontal: AppSpacing.s.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.tertiary.withAlpha(15),
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(15),
             borderRadius: BorderRadius.circular(AppRadius.pill),
           ),
           child: Row(
@@ -198,7 +198,7 @@ class _ShoesPieChartState<T> extends State<ShoesPieChart<T>> {
                 child: Text(
                   '$label (${value.toInt()})',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                   overflow: TextOverflow.ellipsis,
                 ),

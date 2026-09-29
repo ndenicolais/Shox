@@ -58,7 +58,7 @@ class HomeScreenState extends State<HomeScreen>
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
           child: ResponsiveCenterWidget(
             maxWidth: AppBreakpoints.maxGridWidth,
@@ -113,7 +113,7 @@ class HomeScreenState extends State<HomeScreen>
             ),
             child: Icon(
               MingCuteIcons.mgc_add_line,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               size: 28.w,
             ),
           ),
@@ -362,7 +362,7 @@ class HomeScreenState extends State<HomeScreen>
 
         return RefreshIndicator(
           onRefresh: _refreshShoes,
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.surface,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           child: GridView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -453,7 +453,7 @@ class HomeScreenState extends State<HomeScreen>
   void _showFilterDialog() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
@@ -550,7 +550,7 @@ class HomeScreenState extends State<HomeScreen>
       // Semi-transparent backdrop keeps the heart readable on light photos.
       style: IconButton.styleFrom(
         backgroundColor:
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.75),
+            Theme.of(context).colorScheme.surface.withValues(alpha: 0.75),
       ),
       icon: Icon(
         shoe.isFavorite

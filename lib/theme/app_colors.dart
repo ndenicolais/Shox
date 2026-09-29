@@ -16,6 +16,13 @@ class AppColors {
   static const Color toastLightRed = Color(0xFFFFEBEA);
   static const Color toastDarkRed = Color(0xFFD80032);
 
+  // Redesign (direction A): muted text, hairline outlines, raised cards
+  static const Color mutedText = Color(0xFF6B6158);
+  static const Color mutedTextDark = Color(0xFFCDBFAF);
+  static const Color outline = Color(0xFFD9CBB8);
+  static const Color outlineDark = Color(0xFF6A5F52);
+  static const Color cardLight = Color(0xFFFFFFFF);
+
   // Semantic aliases
   static const Color background = whiteSmoke;
   static const Color backgroundDark = darkGray;

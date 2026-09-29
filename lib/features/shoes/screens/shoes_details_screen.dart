@@ -100,11 +100,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
             title: AppLocalizations.of(context)!.shoes_details_screen_title,
             actions: [_buildPopupMenu(shoes)],
           ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           body: Screenshot(
             controller: _screenshotController,
             child: Container(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               child: _buildShoesDetails(shoes),
             ),
           ),
@@ -115,7 +115,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
 
   Widget _buildPopupMenu(ShoesModel shoes) {
     return PopupMenuButton<String>(
-      color: Theme.of(context).colorScheme.primary,
+      color: Theme.of(context).colorScheme.surface,
       icon: Icon(
         MingCuteIcons.mgc_more_2_line,
         color: Theme.of(context).colorScheme.secondary,
@@ -252,7 +252,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(50.r)),
             child: Card(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.r),
               ),
@@ -313,7 +313,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           value,
           style: TextStyle(
             fontFamily: 'CustomFont',
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: AppFontSizes.regular,
             fontWeight: FontWeight.w500,
           ),
@@ -356,7 +356,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
           width: 260.w,
           padding: EdgeInsets.all(AppSpacing.m.r),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withAlpha(60),
+            color: Theme.of(context).colorScheme.surface.withAlpha(60),
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
               color: Theme.of(context).colorScheme.secondary.withAlpha(60),
@@ -366,7 +366,7 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
             notes,
             style: TextStyle(
               fontFamily: 'CustomFont',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.small,
               fontWeight: FontWeight.w400,
               height: 1.6,

@@ -30,7 +30,7 @@ class FullScreenImageState extends State<FullScreenImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: const AppBarWidget(title: ''),
       body: Stack(
         children: [
@@ -42,7 +42,7 @@ class FullScreenImageState extends State<FullScreenImage> {
               loadingBuilder: (context, event) =>
                   LoaderWidget(width: 50.w, height: 50.h),
               backgroundDecoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
               ),
             ),
           ),

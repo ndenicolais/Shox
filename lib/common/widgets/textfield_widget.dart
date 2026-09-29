@@ -40,7 +40,7 @@ class TextFieldWidget extends StatelessWidget {
         prefixIcon: Icon(
           prefixIcon,
           size: 18.sp,
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         suffixIcon: suffixIcon,
       ),

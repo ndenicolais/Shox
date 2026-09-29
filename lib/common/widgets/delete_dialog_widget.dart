@@ -30,7 +30,7 @@ class DeleteDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.dialog),
@@ -54,14 +54,14 @@ class DeleteDialogWidget extends StatelessWidget {
                 Icon(
                   MingCuteIcons.mgc_alert_line,
                   size: 48.sp,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 SizedBox(height: 12.h),
                 Text(
                   title,
                   style: TextStyle(
                     fontFamily: 'CustomFontBold',
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surface,
                     fontSize: AppFontSizes.mediumLarge,
                   ),
                   textAlign: TextAlign.center,
@@ -75,7 +75,7 @@ class DeleteDialogWidget extends StatelessWidget {
               content,
               style: TextStyle(
                 fontFamily: 'CustomFont',
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: AppFontSizes.normal,
                 height: 1.5,
               ),

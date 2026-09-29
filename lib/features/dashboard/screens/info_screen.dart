@@ -19,7 +19,7 @@ class _InfoScreenState extends State<InfoScreen> {
 
     return Scaffold(
       appBar: AppBarWidget(title: localizations.info_screen_title),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSpacing.screen.r),
@@ -66,7 +66,7 @@ class _InfoScreenState extends State<InfoScreen> {
         SizedBox(height: 10.h),
         Text(
           description,
-          style: textTheme.bodySmall?.copyWith(color: colorScheme.tertiary),
+          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
         ),
       ],
     );
@@ -118,11 +118,11 @@ class _InfoScreenState extends State<InfoScreen> {
         children: [
           Text(
             label,
-            style: textTheme.bodyMedium?.copyWith(color: colorScheme.tertiary),
+            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
           ),
           Text(
             value,
-            style: textTheme.bodySmall?.copyWith(color: colorScheme.tertiary),
+            style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
           ),
         ],
       ),

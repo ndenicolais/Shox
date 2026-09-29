@@ -29,13 +29,13 @@ class FormFieldCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: colorScheme.tertiary, size: 20.sp),
+                Icon(icon, color: colorScheme.onSurface, size: 20.sp),
                 SizedBox(width: 4.w),
                 Text(
                   label.toUpperCase(),
                   style: TextStyle(
                     fontFamily: 'CustomFontBold',
-                    color: colorScheme.tertiary,
+                    color: colorScheme.onSurface,
                     fontSize: AppFontSizes.small,
                     letterSpacing: 0.5,
                   ),

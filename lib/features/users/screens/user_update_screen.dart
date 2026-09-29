@@ -47,7 +47,7 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.user_updater_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: isLoading
           ? Center(child: LoaderWidget(width: 50.w, height: 50.h))
           : Stack(
@@ -130,7 +130,7 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
           toolbarTitle: AppLocalizations.of(context)!
               .user_updater_screen_crop_image_title,
           toolbarColor: Theme.of(context).colorScheme.secondary,
-          toolbarWidgetColor: Theme.of(context).colorScheme.primary,
+          toolbarWidgetColor: Theme.of(context).colorScheme.surface,
           activeControlsWidgetColor: Theme.of(context).colorScheme.secondary,
           initAspectRatio: CropAspectRatioPreset.original,
           aspectRatioPresets: [
@@ -250,7 +250,7 @@ class UserUpdateScreenState extends State<UserUpdateScreen> {
                   userImage == null || userImage!.path.isEmpty
                       ? MingCuteIcons.mgc_camera_2_line
                       : MingCuteIcons.mgc_edit_2_line,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 onPressed: _pickImage,
               ),

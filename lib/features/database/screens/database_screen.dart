@@ -52,7 +52,7 @@ class DatabaseScreenState extends State<DatabaseScreen> {
           _buildPopupMenu(context),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
         children: [
           Padding(
@@ -255,7 +255,7 @@ class DatabaseScreenState extends State<DatabaseScreen> {
 
   Widget _buildPopupMenu(BuildContext context) {
     return PopupMenuButton<String>(
-      color: Theme.of(context).colorScheme.primary,
+      color: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.medium),
       ),
@@ -361,14 +361,14 @@ class DatabaseScreenState extends State<DatabaseScreen> {
 
   Widget _buildPDFLoading(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.5),
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
       child: Center(child: _buildPdfLoadingIndicator()),
     );
   }
 
   Widget _buildJSONLoading(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.5),
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
       child: Center(
         child: Stack(
           alignment: Alignment.center,

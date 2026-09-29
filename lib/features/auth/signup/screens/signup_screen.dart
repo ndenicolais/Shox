@@ -31,7 +31,7 @@ class SignupScreenState extends State<SignupScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.signup_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(AppSpacing.screen.r),
@@ -92,7 +92,7 @@ class SignupScreenState extends State<SignupScreen> {
           AppLocalizations.of(context)!.auth_or_continue_with,
           style: TextStyle(
             fontFamily: 'CustomFont',
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: AppFontSizes.normal,
           ),
         ),
@@ -126,7 +126,7 @@ class SignupScreenState extends State<SignupScreen> {
             text: AppLocalizations.of(context)!.signup_screen_login,
             style: TextStyle(
               fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.small,
             ),
             recognizer: TapGestureRecognizer()

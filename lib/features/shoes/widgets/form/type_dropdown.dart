@@ -68,7 +68,7 @@ class TypeDropdown extends StatelessWidget {
         dropdownColor: Theme.of(context).cardColor,
         style: TextStyle(
           fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: AppFontSizes.small,
         ),
         onChanged: isEnabled

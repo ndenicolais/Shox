@@ -198,7 +198,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
             child: Container(
               padding: EdgeInsets.all(35.w),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(25.r),
                 boxShadow: [
                   BoxShadow(
@@ -282,7 +282,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
   void _showImageSelector() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       builder: (BuildContext context) {
         return SafeArea(
           child: Row(
@@ -390,7 +390,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
             title: _screenTitle,
             onBackPressed: () => Navigator.of(context).maybePop(),
           ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           body: Stack(
             children: [
               SafeArea(
@@ -516,7 +516,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
               ),
               child: Icon(
                 MingCuteIcons.mgc_check_line,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 size: 28.w,
               ),
             ),
@@ -595,7 +595,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
           Stack(
             children: [
               Card(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.r),
                 ),
@@ -632,7 +632,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                     onPressed: _removeImage,
                     icon: Icon(
                       MingCuteIcons.mgc_close_line,
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onSurface,
                       size: 20.sp,
                     ),
                   ),
@@ -651,7 +651,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                       onPressed: _handleBackgroundRemoval,
                       icon: Icon(
                         MingCuteIcons.mgc_eraser_line,
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: Theme.of(context).colorScheme.onSurface,
                         size: 20.sp,
                       ),
                     ),
@@ -663,7 +663,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
           Stack(
             children: [
               Card(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.r),
                 ),
@@ -693,7 +693,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                     onPressed: _removeImage,
                     icon: Icon(
                       MingCuteIcons.mgc_close_line,
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ),

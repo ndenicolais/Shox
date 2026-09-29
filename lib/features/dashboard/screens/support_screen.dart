@@ -17,7 +17,7 @@ class SupportScreen extends StatelessWidget {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.support_screen_title,
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -96,7 +96,7 @@ class SupportScreen extends StatelessWidget {
             description,
             style: TextStyle(
               fontFamily: 'CustomFont',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.small,
             ),
           ),
@@ -105,7 +105,7 @@ class SupportScreen extends StatelessWidget {
             contactInfo,
             style: TextStyle(
               fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: AppFontSizes.normal,
             ),
           ),
@@ -141,7 +141,7 @@ class SupportScreen extends StatelessWidget {
           AppLocalizations.of(context)!.support_screen_faq_decription,
           style: TextStyle(
             fontFamily: 'CustomFont',
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: AppFontSizes.small,
           ),
         ),
@@ -227,7 +227,7 @@ class ExpansionTileWidgetState extends State<ExpansionTileWidget> {
         widget.title,
         style: TextStyle(
           fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: AppFontSizes.normal,
         ),
       ),
@@ -235,7 +235,7 @@ class ExpansionTileWidgetState extends State<ExpansionTileWidget> {
         isExpanded ? widget.iconOpened : widget.iconClosed,
         color: isExpanded
             ? Theme.of(context).colorScheme.secondary
-            : Theme.of(context).colorScheme.tertiary,
+            : Theme.of(context).colorScheme.onSurface,
         size: 24.sp,
       ),
       onExpansionChanged: (bool expanded) {

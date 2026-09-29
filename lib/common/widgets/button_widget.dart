@@ -45,7 +45,7 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final Color foreground =
-        textColor ?? (isOutline ? colorScheme.secondary : colorScheme.primary);
+        textColor ?? (isOutline ? colorScheme.secondary : colorScheme.surface);
     final Color background = backgroundColor ?? colorScheme.secondary;
     final VoidCallback? action = isLoading ? null : onPressed;
     final bool isDisabled = onPressed == null;

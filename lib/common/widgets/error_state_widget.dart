@@ -26,14 +26,14 @@ class ErrorStateWidget extends StatelessWidget {
             Icon(
               MingCuteIcons.mgc_alert_line,
               size: 80.sp,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             SizedBox(height: 16.h),
             Text(
               message,
               style: TextStyle(
                 fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: AppFontSizes.mediumLarge,
               ),
               textAlign: TextAlign.center,

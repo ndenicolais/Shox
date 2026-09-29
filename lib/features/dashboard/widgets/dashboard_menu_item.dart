@@ -38,7 +38,7 @@ class DashboardMenuItem extends StatelessWidget {
         text,
         style: TextStyle(
           fontFamily: 'CustomFont',
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: AppFontSizes.small,
         ),
       ),
@@ -47,11 +47,11 @@ class DashboardMenuItem extends StatelessWidget {
               ? Switch(
                   value: switchValue!,
                   onChanged: onChanged,
-                  activeThumbColor: Theme.of(context).colorScheme.tertiary,
+                  activeThumbColor: Theme.of(context).colorScheme.onSurface,
                 )
               : Icon(
                   MingCuteIcons.mgc_right_line,
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Theme.of(context).colorScheme.onSurface,
                 )),
       onTap: onTap,
       contentPadding:

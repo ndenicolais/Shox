@@ -57,7 +57,7 @@ class SeasonSelector extends StatelessWidget {
                       child: Icon(
                         icon,
                         color: isSelected
-                            ? Theme.of(context).colorScheme.primary
+                            ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.secondary,
                         size: 20.sp,
                       ),

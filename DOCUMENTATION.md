@@ -548,8 +548,11 @@ Il tema attivo è gestito da `ThemeController` (GetX), selezionabile tra Sistema
 | `valsparDark` | `#463E30` | Superfici (card) in tema scuro |
 | `confirmColor` | `#449777` | Successo, conferma |
 | `errorColor` | `#D80032` | Errori, eliminazione |
+| `mutedText` / `mutedTextDark` | `#6B6158` / `#CDBFAF` | Testo secondario (`onSurfaceVariant`) |
+| `outline` / `outlineDark` | `#D9CBB8` / `#6A5F52` | Bordi sottili, chip non selezionati |
+| `cardLight` | `#FFFFFF` | Card rialzate in tema chiaro (`surfaceContainerLowest`) |
 
-**Ruoli del `ColorScheme`:** l'app usa `primary` come sfondo pagina, `secondary` come accento e `tertiary` come testo principale (ruoli referenziati direttamente nelle schermate). I colori `on*` sono sempre in contrasto con il rispettivo ruolo, `surface` coincide con lo sfondo (whiteSmoke / darkGray) ed `error` è `errorColor`, così i widget Material standard (menu, dialog, date picker, selezione testo) ereditano colori corretti. `progressIndicatorTheme` e `switchTheme` puntano all'accento, perché di default userebbero `primary` (lo sfondo).
+**Ruoli del `ColorScheme` (semantici):** `surface` = sfondo pagina, `onSurface` = testo principale, `onSurfaceVariant` = testo secondario, `secondary` = accento caldo (pesca / champagne), `primary` = azioni principali (pulsanti pieni, chip selezionati: darkGray in chiaro, champagne in scuro), `surfaceContainerLowest` = card rialzate, `outline` = bordi sottili, `error` = `errorColor`. Le schermate referenziano solo questi ruoli; `progressIndicatorTheme` e `switchTheme` usano l'accento.
 
 **Spaziature (`AppSpacing`, `lib/theme/app_spacing.dart`):** scala unica per padding, margini e gap — `grid` 2, `xxs` 4, `xs` 8, `s` 12, `m` 16, `l` 20, `xl` 24, `xxl` 32, più `screen` 30 per il padding esterno delle pagine. Come `AppRadius` sono valori grezzi: ogni chiamata sceglie lo scaling ScreenUtil adatto all'asse (`AppSpacing.m.r`, `AppSpacing.xs.h`). I pochi valori fuori scala rimasti (es. 88 di spazio per il FAB, 72 in fondo al form) sono casi specifici voluti.
 

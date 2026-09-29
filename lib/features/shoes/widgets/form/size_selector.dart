@@ -55,7 +55,7 @@ class SizeSelector extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'CustomFontBold',
                           color: isSelected
-                              ? Theme.of(context).colorScheme.primary
+                              ? Theme.of(context).colorScheme.surface
                               : Theme.of(context).colorScheme.secondary,
                           fontSize: AppFontSizes.small,
                         ),
