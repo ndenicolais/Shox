@@ -1244,6 +1244,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Colores más coherentes y legibles en los elementos del sistema (menús, diálogos, interruptores y errores), también en tema oscuro.';
 
   @override
+  String get changelog_v4_1_0_bullet_33 =>
+      'Las fotos de la colección ahora llenan siempre su casilla y usan menos memoria; en tablet la pantalla principal está centrada como las demás.';
+
+  @override
   String get dashboard_other => 'Otro';
 
   @override

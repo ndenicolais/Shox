@@ -1259,6 +1259,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Couleurs plus cohérentes et lisibles pour les éléments système (menus, boîtes de dialogue, interrupteurs et erreurs), thème sombre compris.';
 
   @override
+  String get changelog_v4_1_0_bullet_33 =>
+      'Les photos de la collection remplissent désormais toujours leur case et utilisent moins de mémoire ; sur tablette, l’accueil est centré comme les autres écrans.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

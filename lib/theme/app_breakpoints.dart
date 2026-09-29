@@ -5,6 +5,9 @@ class AppBreakpoints {
   static const double desktop = 900;
   static const double maxContentWidth = 720;
 
+  /// Wider cap for photo grids, so large tablets can still reach 4 columns.
+  static const double maxGridWidth = 1080;
+
   static bool isTablet(BuildContext context) =>
       MediaQuery.sizeOf(context).shortestSide >= tablet;
 

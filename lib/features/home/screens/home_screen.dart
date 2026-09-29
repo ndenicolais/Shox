@@ -22,6 +22,7 @@ import 'package:shox/features/shoes/controller/shoes_controller.dart';
 import 'package:shox/features/shoes/widgets/shoes_categories_mixin.dart';
 import 'package:shox/core/utils/utils.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/features/home/widgets/top_bar_widget.dart';
 import 'package:shox/features/home/widgets/filter_bar_widget.dart';
 import 'package:shox/features/home/widgets/filter_widget.dart';
@@ -59,37 +60,40 @@ class HomeScreenState extends State<HomeScreen>
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: AppSpacing.s.r, horizontal: AppSpacing.l.r),
-            child: Column(
-              children: [
-                TopBarWidget(userController: userController),
-                SizedBox(height: 10.h),
-                FilterBarWidget(
-                  searchController: _searchController,
-                  searchQuery: searchQuery,
-                  onChanged: _onSearchChanged,
-                  onReset: () {
-                    setState(() {
-                      _resetFilters();
-                    });
-                  },
-                  onFilter: _showFilterDialog,
-                  onToggleGrid: toggleGrid,
-                  onToggleFavorites: () {
-                    setState(() {
-                      showOnlyFavorites = !showOnlyFavorites;
-                    });
-                  },
-                  filtersActive: _filter.isActive,
-                  currentIcon: currentIcon,
-                  showOnlyFavorites: showOnlyFavorites,
-                ),
-                SizedBox(height: 20.h),
-                _buildMainContent(context),
-                SizedBox(height: 10.h),
-              ],
+          child: ResponsiveCenterWidget(
+            maxWidth: AppBreakpoints.maxGridWidth,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: AppSpacing.s.r, horizontal: AppSpacing.l.r),
+              child: Column(
+                children: [
+                  TopBarWidget(userController: userController),
+                  SizedBox(height: 10.h),
+                  FilterBarWidget(
+                    searchController: _searchController,
+                    searchQuery: searchQuery,
+                    onChanged: _onSearchChanged,
+                    onReset: () {
+                      setState(() {
+                        _resetFilters();
+                      });
+                    },
+                    onFilter: _showFilterDialog,
+                    onToggleGrid: toggleGrid,
+                    onToggleFavorites: () {
+                      setState(() {
+                        showOnlyFavorites = !showOnlyFavorites;
+                      });
+                    },
+                    filtersActive: _filter.isActive,
+                    currentIcon: currentIcon,
+                    showOnlyFavorites: showOnlyFavorites,
+                  ),
+                  SizedBox(height: 20.h),
+                  _buildMainContent(context),
+                  SizedBox(height: 10.h),
+                ],
+              ),
             ),
           ),
         ),
@@ -289,6 +293,9 @@ class HomeScreenState extends State<HomeScreen>
                 constraints.maxWidth,
                 minColumns: baseColumns,
               ).clamp(baseColumns, 4);
+        final double spacing = AppSpacing.grid.r;
+        final double cellWidth =
+            (constraints.maxWidth - spacing * (columns - 1)) / columns;
 
         return RefreshIndicator(
           onRefresh: _refreshShoes,
@@ -299,13 +306,14 @@ class HomeScreenState extends State<HomeScreen>
             padding: EdgeInsets.only(bottom: 88.h),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: columns,
-              crossAxisSpacing: AppSpacing.grid.r,
-              mainAxisSpacing: AppSpacing.grid.r,
+              crossAxisSpacing: spacing,
+              mainAxisSpacing: spacing,
+              childAspectRatio: _gridTileAspectRatio,
             ),
             itemCount: filteredShoes.length,
             itemBuilder: (context, index) {
               ShoesModel shoe = filteredShoes[index];
-              return _buildShoesCard(context, shoe);
+              return _buildShoesCard(context, shoe, cellWidth);
             },
           ),
         );
@@ -313,23 +321,25 @@ class HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildImage(BuildContext context, String imageUrl) {
-    double imageWidth;
-    double imageHeight;
+  /// Grid cells are square in every column layout.
+  static const double _gridTileAspectRatio = 1;
 
-    if (currentGridColumns == GridColumns.gOne) {
-      imageWidth = ScreenUtil().screenWidth;
-      imageHeight = 800.h;
-    } else {
-      imageWidth = ScreenUtil().screenWidth > 600 ? 600.w : 300.w;
-      imageHeight = ScreenUtil().screenWidth > 600 ? 1200.h : 200.h;
-    }
+  /// Fills its grid cell; [cellWidth] only sizes the decoded bitmap, so
+  /// thumbnails are not decoded at the full photo resolution.
+  Widget _buildImage(
+    BuildContext context,
+    String imageUrl,
+    double cellWidth,
+  ) {
+    final int cacheWidth =
+        (cellWidth * MediaQuery.devicePixelRatioOf(context)).round();
 
     if (imageUrl.startsWith('http')) {
       return CachedNetworkImage(
         imageUrl: imageUrl,
-        width: imageWidth,
-        height: imageHeight,
+        width: double.infinity,
+        height: double.infinity,
+        memCacheWidth: cacheWidth,
         fit: BoxFit.cover,
         placeholder: (context, url) => LoaderWidget(width: 25.w, height: 25.h),
         errorWidget: (context, url, error) => Icon(
@@ -340,25 +350,31 @@ class HomeScreenState extends State<HomeScreen>
     } else {
       return Image.asset(
         imageUrl,
-        width: imageWidth,
-        height: imageHeight,
+        width: double.infinity,
+        height: double.infinity,
+        cacheWidth: cacheWidth,
         fit: BoxFit.cover,
       );
     }
   }
 
-  Widget _buildShoesCard(BuildContext context, ShoesModel shoes) {
+  Widget _buildShoesCard(
+    BuildContext context,
+    ShoesModel shoes,
+    double cellWidth,
+  ) {
     return GestureDetector(
       onTap: () {
         Get.toNamed(AppRoutes.shoesDetails, arguments: shoes.id!);
       },
       child: Stack(
+        fit: StackFit.expand,
         children: [
           Hero(
             tag: 'shoes-${shoes.id}',
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(20.r)),
-              child: _buildImage(context, shoes.imageUrl),
+              child: _buildImage(context, shoes.imageUrl, cellWidth),
             ),
           ),
           Positioned(

@@ -1233,6 +1233,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'More consistent, readable colors in system elements (menus, dialogs, switches and errors), dark mode included.';
 
   @override
+  String get changelog_v4_1_0_bullet_33 =>
+      'Collection photos now always fill their tile and use less memory; on tablets the home screen is centered like the other screens.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

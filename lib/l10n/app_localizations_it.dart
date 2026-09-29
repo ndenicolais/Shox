@@ -1250,6 +1250,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Colori più coerenti e leggibili negli elementi di sistema (menu, finestre di dialogo, interruttori ed errori), anche in tema scuro.';
 
   @override
+  String get changelog_v4_1_0_bullet_33 =>
+      'Le foto della collezione riempiono sempre la loro casella e occupano meno memoria; su tablet la home è centrata come le altre schermate.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

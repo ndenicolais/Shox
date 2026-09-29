@@ -228,7 +228,7 @@ Schermata principale che mostra l'intera collezione di scarpe dell'utente.
 
 **Funzionalità:**
 - **Stream real-time** da Firestore: la lista si aggiorna automaticamente a ogni modifica
-- **Griglia configurabile e adattiva:** 1, 2 o 3 colonne selezionabili tramite toggle rapido, con numero di colonne che aumenta automaticamente in base alla larghezza reale dello schermo (tablet/landscape)
+- **Griglia configurabile e adattiva:** 1, 2 o 3 colonne selezionabili tramite toggle rapido, con numero di colonne che aumenta automaticamente in base alla larghezza reale dello schermo (tablet/landscape). Le celle sono quadrate (`childAspectRatio` esplicito), l'immagine riempie sempre la cella ed è decodificata alla larghezza reale della cella (`memCacheWidth`/`cacheWidth`), non alla risoluzione originale. Su tablet il contenuto è centrato con `ResponsiveCenterWidget` e larghezza massima `AppBreakpoints.maxGridWidth` (1080), così restano raggiungibili le 4 colonne
 - **Ricerca testuale** su marca, tipo, categoria (anche nel nome tradotto) e note, con debounce di 300ms: la griglia si rifiltra solo quando si smette di scrivere
 - **Pull-to-refresh:** trascinando la griglia verso il basso (`RefreshIndicator`) lo stream Firestore viene ri-sottoscritto
 - **Filtri attivi:**
@@ -551,7 +551,7 @@ Il tema attivo è gestito da `ThemeController` (GetX), selezionabile tra Sistema
 
 **Layout adattivo (responsive):** oltre allo scaling proporzionale, alcune schermate riorganizzano realmente il contenuto in base alla larghezza disponibile, tramite `LayoutBuilder`:
 - `AppBreakpoints` (`lib/theme/app_breakpoints.dart`) — soglie centralizzate (tablet ≥ 600px, desktop ≥ 900px) e calcolo del numero di colonne in base alla larghezza reale
-- `ResponsiveCenterWidget` (`lib/common/widgets/responsive_center_widget.dart`) — vincola il contenuto a una larghezza massima e lo centra, evitando che form/liste si stirino edge-to-edge su tablet grandi (usato nella schermata Profilo)
+- `ResponsiveCenterWidget` (`lib/common/widgets/responsive_center_widget.dart`) — vincola il contenuto a una larghezza massima e lo centra, evitando che form/liste si stirino edge-to-edge su tablet grandi (usato nella schermata Profilo e, con limite `maxGridWidth`, nella Home)
 - La griglia scarpe (Home) calcola il numero di colonne dalla larghezza reale dello schermo, mantenendo come minimo la scelta manuale dell'utente (1/2/3 colonne)
 - I grafici a torta (Database) dimensionano canvas e raggio delle sezioni in proporzione alla larghezza reale della card (box quadrato), evitando sovrapposizioni tra torta, titolo e legenda
 - L'orientamento dell'app non è più bloccato in verticale (`android:screenOrientation="unspecified"` in `AndroidManifest.xml`), permettendo la rotazione su tablet

@@ -1248,6 +1248,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Einheitlichere, besser lesbare Farben bei Systemelementen (Menüs, Dialoge, Schalter und Fehler), auch im dunklen Design.';
 
   @override
+  String get changelog_v4_1_0_bullet_33 =>
+      'Die Fotos der Sammlung füllen jetzt immer ihre Kachel aus und brauchen weniger Speicher; auf Tablets ist der Startbildschirm wie die anderen Bildschirme zentriert.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

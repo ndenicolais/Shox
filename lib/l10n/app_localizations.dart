@@ -2366,6 +2366,12 @@ abstract class AppLocalizations {
   /// **'More consistent, readable colors in system elements (menus, dialogs, switches and errors), dark mode included.'**
   String get changelog_v4_1_0_bullet_32;
 
+  /// No description provided for @changelog_v4_1_0_bullet_33.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection photos now always fill their tile and use less memory; on tablets the home screen is centered like the other screens.'**
+  String get changelog_v4_1_0_bullet_33;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:
