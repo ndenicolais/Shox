@@ -5,7 +5,7 @@ import 'package:shox/theme/app_theme.dart';
 
 enum ThemeModeApp { system, light, dark }
 
-class ThemeController extends GetxController {
+class ThemeController extends GetxController with WidgetsBindingObserver {
   final Rx<ThemeData> _theme = AppTheme.lightTheme().obs;
   final RxBool _isDark = false.obs;
   final Rx<ThemeModeApp> _mode = ThemeModeApp.system.obs;
@@ -17,7 +17,25 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    WidgetsBinding.instance.addObserver(this);
     _loadThemeFromPrefs();
+  }
+
+  @override
+  void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onClose();
+  }
+
+  /// Follows the OS light/dark switch while the app is open, when the user
+  /// picked the "system" mode.
+  @override
+  void didChangePlatformBrightness() {
+    if (_mode.value != ThemeModeApp.system) return;
+    updateTheme(
+      systemBrightness:
+          WidgetsBinding.instance.platformDispatcher.platformBrightness,
+    );
   }
 
   Future<void> _loadThemeFromPrefs() async {

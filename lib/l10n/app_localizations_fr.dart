@@ -1251,6 +1251,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Pendant la connexion, l’inscription et la réinitialisation du mot de passe, le bouton affiche désormais le chargement en son sein ; le bouton de choix du genre reste désactivé tant que vous n’en sélectionnez pas un.';
 
   @override
+  String get changelog_v4_1_0_bullet_31 =>
+      'Avec le thème Système, l’application suit désormais immédiatement le passage clair/sombre du téléphone, sans redémarrage ; les icônes de la barre d’état restent lisibles en thème sombre.';
+
+  @override
+  String get changelog_v4_1_0_bullet_32 =>
+      'Couleurs plus cohérentes et lisibles pour les éléments système (menus, boîtes de dialogue, interrupteurs et erreurs), thème sombre compris.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

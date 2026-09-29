@@ -1236,6 +1236,14 @@ class AppLocalizationsEs extends AppLocalizations {
       'Durante el inicio de sesión, el registro y el restablecimiento de contraseña el botón muestra la carga en su interior; el botón de selección de género permanece desactivado hasta que elijas uno.';
 
   @override
+  String get changelog_v4_1_0_bullet_31 =>
+      'Con el tema Sistema la app ahora sigue al instante el cambio claro/oscuro del teléfono, sin reiniciar; los iconos de la barra de estado se leen bien también en tema oscuro.';
+
+  @override
+  String get changelog_v4_1_0_bullet_32 =>
+      'Colores más coherentes y legibles en los elementos del sistema (menús, diálogos, interruptores y errores), también en tema oscuro.';
+
+  @override
   String get dashboard_other => 'Otro';
 
   @override

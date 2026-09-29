@@ -1242,6 +1242,14 @@ class AppLocalizationsIt extends AppLocalizations {
       'Durante accesso, registrazione e reset password il pulsante mostra il caricamento al suo interno; il pulsante di scelta del genere resta disattivato finché non ne selezioni uno.';
 
   @override
+  String get changelog_v4_1_0_bullet_31 =>
+      'Con il tema Sistema l\'app ora segue subito il passaggio chiaro/scuro del telefono, senza riavvio; le icone della barra di stato restano leggibili anche in tema scuro.';
+
+  @override
+  String get changelog_v4_1_0_bullet_32 =>
+      'Colori più coerenti e leggibili negli elementi di sistema (menu, finestre di dialogo, interruttori ed errori), anche in tema scuro.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

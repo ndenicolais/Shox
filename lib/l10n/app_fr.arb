@@ -407,6 +407,8 @@
   "changelog_v4_1_0_bullet_28": "Quitter le formulaire d’une chaussure avec des modifications non enregistrées demande désormais une confirmation.",
   "changelog_v4_1_0_bullet_29": "Transitions entre les écrans plus fluides et homogènes.",
   "changelog_v4_1_0_bullet_30": "Pendant la connexion, l’inscription et la réinitialisation du mot de passe, le bouton affiche désormais le chargement en son sein ; le bouton de choix du genre reste désactivé tant que vous n’en sélectionnez pas un.",
+  "changelog_v4_1_0_bullet_31": "Avec le thème Système, l’application suit désormais immédiatement le passage clair/sombre du téléphone, sans redémarrage ; les icônes de la barre d’état restent lisibles en thème sombre.",
+  "changelog_v4_1_0_bullet_32": "Couleurs plus cohérentes et lisibles pour les éléments système (menus, boîtes de dialogue, interrupteurs et erreurs), thème sombre compris.",
   "dashboard_other": "Autre",
   "user_screen_account_settings": "Paramètres du compte",
   "user_screen_total_shoes": "Total de chaussures",

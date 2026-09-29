@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import 'package:shox/core/routes/app_pages.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/firebase_options.dart';
 import 'package:shox/features/auth/services/auth_guard_service.dart';
+import 'package:shox/theme/app_theme.dart';
 import 'package:shox/theme/theme_controller.dart';
 
 final Logger _logger = Logger();
@@ -116,23 +118,26 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) => GetX<ThemeController>(
         builder: (controller) {
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: controller.theme,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            locale: _initialLocale,
-            supportedLocales: L10n.all,
-            home: firebaseReady ? null : StartupErrorScreen(onRetry: onRetry),
-            initialRoute: firebaseReady ? AppRoutes.intro : null,
-            getPages: firebaseReady ? AppPages.pages : null,
-            // One consistent page transition for every route.
-            defaultTransition: Transition.rightToLeftWithFade,
-            transitionDuration: const Duration(milliseconds: 300),
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: AppTheme.overlayStyle(isDark: controller.isDark),
+            child: GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: controller.theme,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: _initialLocale,
+              supportedLocales: L10n.all,
+              home: firebaseReady ? null : StartupErrorScreen(onRetry: onRetry),
+              initialRoute: firebaseReady ? AppRoutes.intro : null,
+              getPages: firebaseReady ? AppPages.pages : null,
+              // One consistent page transition for every route.
+              defaultTransition: Transition.rightToLeftWithFade,
+              transitionDuration: const Duration(milliseconds: 300),
+            ),
           );
         },
       ),

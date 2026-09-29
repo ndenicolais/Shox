@@ -7,22 +7,35 @@ const String _fontFamily = 'CustomFont';
 const String _fontFamilyBold = 'CustomFontBold';
 
 class AppTheme {
+  /// System bars style matching the active theme. Applied through an
+  /// `AnnotatedRegion` in `main.dart`, so building a theme has no side effects.
+  static SystemUiOverlayStyle overlayStyle({required bool isDark}) {
+    return SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+      systemNavigationBarColor:
+          isDark ? AppColors.darkGray : AppColors.whiteSmoke,
+      systemNavigationBarIconBrightness:
+          isDark ? Brightness.light : Brightness.dark,
+    );
+  }
+
   static ThemeData lightTheme() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.whiteSmoke,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
     return _baseTheme(
+      // App roles: primary = page background, secondary = accent,
+      // tertiary = main text. The on* colors must contrast with their role.
       colorScheme: const ColorScheme.light(
         primary: AppColors.whiteSmoke,
-        onPrimary: AppColors.whiteSmoke,
+        onPrimary: AppColors.darkGray,
         secondary: AppColors.darkPeach,
         onSecondary: AppColors.whiteSmoke,
         tertiary: AppColors.darkGray,
-        onTertiary: AppColors.darkPeach,
-        surface: AppColors.darkSalamon,
+        onTertiary: AppColors.whiteSmoke,
+        surface: AppColors.whiteSmoke,
         onSurface: AppColors.darkGray,
-        onError: AppColors.errorColor,
+        error: AppColors.errorColor,
+        onError: AppColors.whiteSmoke,
         tertiaryFixed: AppColors.valspar,
       ),
       bodyColor: AppColors.darkGray,
@@ -35,21 +48,18 @@ class AppTheme {
   }
 
   static ThemeData darkTheme() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.darkGray,
-      systemNavigationBarIconBrightness: Brightness.light,
-    ));
     return _baseTheme(
       colorScheme: const ColorScheme.dark(
         primary: AppColors.darkGray,
-        onPrimary: AppColors.darkGray,
+        onPrimary: AppColors.champagne,
         secondary: AppColors.champagne,
         onSecondary: AppColors.darkGray,
         tertiary: AppColors.darkSalamon,
-        onTertiary: AppColors.champagne,
-        surface: AppColors.valsparDark,
+        onTertiary: AppColors.darkGray,
+        surface: AppColors.darkGray,
         onSurface: AppColors.champagne,
-        onError: AppColors.errorColor,
+        error: AppColors.errorColor,
+        onError: AppColors.whiteSmoke,
         tertiaryFixed: AppColors.darkPeach,
       ),
       bodyColor: AppColors.champagne,
@@ -180,6 +190,18 @@ class AppTheme {
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: selectionColor,
         selectionHandleColor: selectionColor,
+      ),
+      // Material defaults paint these with `primary`, which here is the page
+      // background: point them to the accent color instead.
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.secondary,
+      ),
+      switchTheme: SwitchThemeData(
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? colorScheme.secondary
+              : null,
+        ),
       ),
       dividerTheme: DividerThemeData(
         color: borderColor,

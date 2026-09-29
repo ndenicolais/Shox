@@ -1225,6 +1225,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.';
 
   @override
+  String get changelog_v4_1_0_bullet_31 =>
+      'With the System theme the app now follows the phone\'s light/dark switch right away, without restarting; status bar icons stay readable in dark mode too.';
+
+  @override
+  String get changelog_v4_1_0_bullet_32 =>
+      'More consistent, readable colors in system elements (menus, dialogs, switches and errors), dark mode included.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

@@ -2354,6 +2354,18 @@ abstract class AppLocalizations {
   /// **'During sign-in, sign-up and password reset the button now shows its loading state inside; the gender selection button stays disabled until you pick one.'**
   String get changelog_v4_1_0_bullet_30;
 
+  /// No description provided for @changelog_v4_1_0_bullet_31.
+  ///
+  /// In en, this message translates to:
+  /// **'With the System theme the app now follows the phone\'s light/dark switch right away, without restarting; status bar icons stay readable in dark mode too.'**
+  String get changelog_v4_1_0_bullet_31;
+
+  /// No description provided for @changelog_v4_1_0_bullet_32.
+  ///
+  /// In en, this message translates to:
+  /// **'More consistent, readable colors in system elements (menus, dialogs, switches and errors), dark mode included.'**
+  String get changelog_v4_1_0_bullet_32;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

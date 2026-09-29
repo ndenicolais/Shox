@@ -1240,6 +1240,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'Bei Anmeldung, Registrierung und Passwort-Zurücksetzung zeigt die Schaltfläche den Ladevorgang jetzt direkt an; die Schaltfläche zur Geschlechtsauswahl bleibt deaktiviert, bis du eine Option wählst.';
 
   @override
+  String get changelog_v4_1_0_bullet_31 =>
+      'Mit dem System-Design folgt die App jetzt sofort dem Hell-/Dunkel-Wechsel des Telefons, ohne Neustart; die Symbole der Statusleiste bleiben auch im dunklen Design lesbar.';
+
+  @override
+  String get changelog_v4_1_0_bullet_32 =>
+      'Einheitlichere, besser lesbare Farben bei Systemelementen (Menüs, Dialoge, Schalter und Fehler), auch im dunklen Design.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override
