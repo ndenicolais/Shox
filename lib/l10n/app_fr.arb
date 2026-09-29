@@ -139,6 +139,7 @@
   "shoes_adder_screen_toast_success": "Chaussures ajoutées avec succès !",
   "shoes_adder_screen_toast_error": "Erreur lors de l'enregistrement",
   "shoes_form_screen_bg_remove_loading": "Suppression de l'arrière-plan...",
+  "shoes_form_screen_bg_remove_downloading": "La suppression de l’arrière-plan est en cours de préparation sur votre appareil : réessayez dans un instant.",
   "shoes_form_screen_bg_remove_success": "Arrière-plan supprimé avec succès",
   "shoes_form_screen_bg_remove_error": "Erreur lors de la suppression de l'arrière-plan : ",
 
@@ -431,6 +432,7 @@
   "changelog_v5_0_0_bullet_10": "Nouvelle fenêtre des nouveautés qui vous tient informé après chaque mise à jour.",
   "changelog_v5_0_0_bullet_11": "Nouvelle section Infos et politique de confidentialité mise à jour, lisible directement dans l’application dans toutes les langues.",
   "changelog_v5_0_0_bullet_12": "Suppression de l’arrière-plan plus précise : plus de liseré ni de halo autour de la chaussure.",
+  "changelog_v5_0_0_bullet_13": "Application plus légère : elle occupe environ la moitié de l’espace de la version précédente.",
   "dashboard_other": "Autre",
   "user_screen_account_settings": "Paramètres du compte",
   "user_screen_total_shoes": "Total de chaussures",

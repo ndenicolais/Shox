@@ -25,6 +25,7 @@ import 'package:shox/features/shoes/widgets/form/size_selector.dart';
 import 'package:shox/features/shoes/widgets/form/type_dropdown.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
+import 'package:shox/core/utils/bg_remover.dart';
 import 'package:shox/features/shoes/services/image_service.dart';
 import 'package:shox/features/shoes/services/shoes_form_service.dart';
 
@@ -209,9 +210,12 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
     } catch (e) {
       if (!mounted) return;
       Navigator.pop(context);
+      final l10n = AppLocalizations.of(context)!;
       showErrorToast(
         context,
-        '${AppLocalizations.of(context)!.shoes_form_screen_bg_remove_error}$e',
+        e is BackgroundModelDownloadingException
+            ? l10n.shoes_form_screen_bg_remove_downloading
+            : '${l10n.shoes_form_screen_bg_remove_error}$e',
       );
     }
   }

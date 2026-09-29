@@ -54,6 +54,9 @@ android/.kotlin/
 # Local release build script
 deploy_android.ps1
 
+# Dart debug symbols from obfuscated release builds (keep a local copy)
+symbols/
+
 # Local AI assistant context (not shared with the team)
 CLAUDE.md
 TASKS.md

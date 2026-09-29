@@ -440,6 +440,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Suppression de l\'arrière-plan...';
 
   @override
+  String get shoes_form_screen_bg_remove_downloading =>
+      'La suppression de l’arrière-plan est en cours de préparation sur votre appareil : réessayez dans un instant.';
+
+  @override
   String get shoes_form_screen_bg_remove_success =>
       'Arrière-plan supprimé avec succès';
 
@@ -1343,6 +1347,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_12 =>
       'Suppression de l’arrière-plan plus précise : plus de liseré ni de halo autour de la chaussure.';
+
+  @override
+  String get changelog_v5_0_0_bullet_13 =>
+      'Application plus légère : elle occupe environ la moitié de l’espace de la version précédente.';
 
   @override
   String get dashboard_other => 'Autre';

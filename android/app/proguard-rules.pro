@@ -16,10 +16,6 @@
 # Google Sign-In
 -keep class com.google.android.gms.auth.** { *; }
 
-# ONNX Runtime (JNI - native methods and classes must keep their names)
--keep class ai.onnxruntime.** { *; }
--dontwarn ai.onnxruntime.**
-
 # Keep native method names for any JNI usage
 -keepclasseswithmembernames class * {
     native <methods>;

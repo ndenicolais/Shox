@@ -430,6 +430,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shoes_form_screen_bg_remove_loading => 'Removing background...';
 
   @override
+  String get shoes_form_screen_bg_remove_downloading =>
+      'Background removal is being set up on your device: try again in a moment.';
+
+  @override
   String get shoes_form_screen_bg_remove_success =>
       'Background removed successfully';
 
@@ -1316,6 +1320,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_12 =>
       'More precise background removal: no more rim or halo around the shoe.';
+
+  @override
+  String get changelog_v5_0_0_bullet_13 =>
+      'A lighter app: it takes about half the space of the previous version.';
 
   @override
   String get dashboard_other => 'Other';

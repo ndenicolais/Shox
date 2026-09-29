@@ -47,7 +47,7 @@
 - Esportare la collezione completa in PDF o effettuare backup/ripristino in JSON
 - Condividere le schede delle scarpe come screenshot
 - Salvare le foto delle scarpe nella galleria del dispositivo
-- Rimuovere lo sfondo dalle immagini tramite modello ONNX integrato
+- Rimuovere lo sfondo dalle immagini sul dispositivo (Google ML Kit Subject Segmentation)
 - Accedere tramite account Google o email e password con sincronizzazione cloud in tempo reale
 
 L'app è completamente localizzata in 5 lingue (italiano, inglese, francese, spagnolo, tedesco) con tema chiaro e scuro.
@@ -73,7 +73,7 @@ L'app è completamente localizzata in 5 lingue (italiano, inglese, francese, spa
 | Immagini — selezione | [image_picker](https://pub.dev/packages/image_picker) `^1.1.2` |
 | Immagini — ritaglio | [image_cropper](https://pub.dev/packages/image_cropper) `^11.0.0` |
 | Immagini — compressione | [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) `^2.4.0` |
-| Immagini — rimozione sfondo | [image_background_remover](https://pub.dev/packages/image_background_remover) `^2.0.0` |
+| Immagini — rimozione sfondo | [google_mlkit_subject_segmentation](https://pub.dev/packages/google_mlkit_subject_segmentation) `^0.2.1` (on-device, modello scaricato da Google Play services) |
 | Immagini — cache | [cached_network_image](https://pub.dev/packages/cached_network_image) `^3.4.1` + [flutter_cache_manager](https://pub.dev/packages/flutter_cache_manager) `^3.4.1` |
 | Immagini — visualizzazione | [photo_view](https://pub.dev/packages/photo_view) `^0.15.0` |
 | Immagini — salvataggio galleria | [image_gallery_saver_plus](https://pub.dev/packages/image_gallery_saver_plus) `^4.0.1` |
@@ -281,7 +281,7 @@ Form per l'inserimento di una nuova scarpa nella collezione, organizzato in sezi
 - **Selezione immagine:** da fotocamera o galleria (`image_picker`)
 - **Ritaglio immagine:** editor di ritaglio integrato con preset di proporzioni (`image_cropper`)
 - **Compressione automatica:** l'immagine viene compressa prima del caricamento (`flutter_image_compress`, qualità 70%)
-- **Rimozione sfondo:** opzione per rimuovere lo sfondo dell'immagine tramite modello ONNX locale (`image_background_remover`). Pipeline in `core/utils/bg_remover.dart`: ridimensionamento a max 1024px, maschera del modello u2net (320px), rimozione del rumore e degli artefatti sopra la scarpa (profilo superiore mediato), **erosione** della maschera di 1–2px proporzionale all'immagine (`MaskRefinement.erode`, toglie il bordino di sfondo lasciato dalla maschera ingrandita), sfumatura dei bordi e **decontaminazione del colore** (`MaskRefinement.decontaminateEdges`: i pixel di bordo prendono il colore dell'interno della scarpa, niente alone). Le funzioni di `core/utils/mask_refinement.dart` sono pure e coperte da test
+- **Rimozione sfondo:** opzione per rimuovere lo sfondo sul dispositivo con Google ML Kit Subject Segmentation. Pipeline in `core/utils/bg_remover.dart`: orientamento EXIF applicato e ridimensionamento a max 1024px, maschera di confidenza ML Kit alla stessa risoluzione, conversione confidenza → alpha con rampa 0,35–0,65 (`MaskRefinement.alphaFromConfidence`), erosione di 1px (`MaskRefinement.erode`) e decontaminazione del colore dei bordi (`MaskRefinement.decontaminateEdges`, niente alone). Se il modello non è ancora stato scaricato viene lanciata `BackgroundModelDownloadingException` e il form mostra un messaggio dedicato. Le funzioni di `core/utils/mask_refinement.dart` sono pure e coperte da test
 - **Colore primario:** selettore colore principale della scarpa
 - **Colori aggiuntivi:** possibilità di aggiungere fino a N colori extra
 - **Campi obbligatori:** marca, taglia, categoria, tipo
@@ -665,7 +665,7 @@ dependencies:
   file_picker: ^9.0.2                      # Selettore file
   screenshot: ^3.0.0                       # Screenshot widget
   package_info_plus: ^9.0.0               # Info app (versione)
-  image_background_remover: ^2.0.0        # Rimozione sfondo con ONNX
+  google_mlkit_subject_segmentation: ^0.2.1  # Rimozione sfondo on-device (ML Kit)
   flutter_localizations:                   # Localizzazione Flutter
     sdk: flutter
 ```
@@ -733,7 +733,7 @@ flutter build appbundle --release
 **Note:**
 - Il file `android/local.properties` non va committato (contiene percorsi locali SDK)
 - La cartella `build/` non va committata (output di compilazione)
-- Il modello ONNX per la rimozione dello sfondo (`image_background_remover`) aumenta la dimensione dell'APK
+- La rimozione dello sfondo usa ML Kit Subject Segmentation: il modello non è nell'APK ma viene scaricato da Google Play services (all'installazione dal Play Store grazie al meta-data `com.google.mlkit.vision.DEPENDENCIES`, altrimenti al primo utilizzo; nel frattempo l'app mostra un messaggio dedicato). Richiede minSdk 24 e i Google Play services. APK di release arm64 offuscato: ~23 MB (prima ~46 MB con ONNX). Le build con `--obfuscate --split-debug-info=symbolsv<versione>` (vedi `deploy_android.ps1`) richiedono di conservare la cartella dei simboli per decodificare gli stack trace
 
 ---
 

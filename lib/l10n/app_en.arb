@@ -142,6 +142,7 @@
   "shoes_adder_screen_toast_success": "Shoes added successfully!",
   "shoes_adder_screen_toast_error": "Error during saving",
   "shoes_form_screen_bg_remove_loading": "Removing background...",
+  "shoes_form_screen_bg_remove_downloading": "Background removal is being set up on your device: try again in a moment.",
   "shoes_form_screen_bg_remove_success": "Background removed successfully",
   "shoes_form_screen_bg_remove_error": "Error removing background: ",
 
@@ -435,6 +436,7 @@
   "changelog_v5_0_0_bullet_10": "New what's-new dialog that keeps you posted after every update.",
   "changelog_v5_0_0_bullet_11": "New Info section and an updated privacy policy, readable right in the app in every language.",
   "changelog_v5_0_0_bullet_12": "More precise background removal: no more rim or halo around the shoe.",
+  "changelog_v5_0_0_bullet_13": "A lighter app: it takes about half the space of the previous version.",
   "dashboard_other": "Other",
   "user_screen_account_settings": "Account Settings",
   "user_screen_total_shoes": "Total Shoes",

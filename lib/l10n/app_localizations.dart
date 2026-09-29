@@ -866,6 +866,12 @@ abstract class AppLocalizations {
   /// **'Removing background...'**
   String get shoes_form_screen_bg_remove_loading;
 
+  /// No description provided for @shoes_form_screen_bg_remove_downloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Background removal is being set up on your device: try again in a moment.'**
+  String get shoes_form_screen_bg_remove_downloading;
+
   /// No description provided for @shoes_form_screen_bg_remove_success.
   ///
   /// In en, this message translates to:
@@ -2497,6 +2503,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More precise background removal: no more rim or halo around the shoe.'**
   String get changelog_v5_0_0_bullet_12;
+
+  /// No description provided for @changelog_v5_0_0_bullet_13.
+  ///
+  /// In en, this message translates to:
+  /// **'A lighter app: it takes about half the space of the previous version.'**
+  String get changelog_v5_0_0_bullet_13;
 
   /// No description provided for @dashboard_other.
   ///

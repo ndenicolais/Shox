@@ -439,6 +439,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get shoes_form_screen_bg_remove_loading => 'Rimozione dello sfondo...';
 
   @override
+  String get shoes_form_screen_bg_remove_downloading =>
+      'Sto preparando la rimozione dello sfondo sul dispositivo: riprova tra qualche istante.';
+
+  @override
   String get shoes_form_screen_bg_remove_success =>
       'Sfondo rimosso con successo';
 
@@ -1334,6 +1338,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_12 =>
       'Rimozione dello sfondo più precisa: niente più bordino o alone attorno alla scarpa.';
+
+  @override
+  String get changelog_v5_0_0_bullet_13 =>
+      'App più leggera: occupa circa la metà dello spazio rispetto alla versione precedente.';
 
   @override
   String get dashboard_other => 'Altro';

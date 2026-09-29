@@ -17,7 +17,7 @@
 - **Collezione** — Aggiungi, visualizza, modifica ed elimina le tue scarpe con foto, marca, taglia, categoria, tipo, stagione e colori
 - **Filtri avanzati** — Filtra per categoria, tipo, stagione, colore primario, colore aggiuntivo o cerca per marca
 - **Preferiti** — Contrassegna le scarpe preferite e visualizzale rapidamente
-- **Immagini** — Selezione da fotocamera o galleria con ritaglio, compressione automatica e rimozione sfondo (ONNX)
+- **Immagini** — Selezione da fotocamera o galleria con ritaglio, compressione automatica e rimozione sfondo sul dispositivo (Google ML Kit)
 - **Statistiche** — Grafici a torta interattivi per analizzare la collezione per colore, marca, categoria e tipo
 - **Export PDF** — Genera un catalogo PDF completo con copertina, profilo utente e scheda per ogni scarpa
 - **Backup JSON** — Esporta e importa l'intera collezione in formato JSON

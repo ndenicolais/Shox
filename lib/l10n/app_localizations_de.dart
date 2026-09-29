@@ -438,6 +438,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Hintergrund wird entfernt...';
 
   @override
+  String get shoes_form_screen_bg_remove_downloading =>
+      'Die Hintergrundentfernung wird auf deinem Gerät eingerichtet: versuche es gleich noch einmal.';
+
+  @override
   String get shoes_form_screen_bg_remove_success =>
       'Hintergrund erfolgreich entfernt';
 
@@ -1331,6 +1335,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_12 =>
       'Genauere Hintergrundentfernung: kein Rand oder Schein mehr um den Schuh.';
+
+  @override
+  String get changelog_v5_0_0_bullet_13 =>
+      'Schlankere App: Sie belegt etwa halb so viel Speicher wie die vorherige Version.';
 
   @override
   String get dashboard_other => 'Andere';

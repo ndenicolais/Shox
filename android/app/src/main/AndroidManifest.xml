@@ -20,6 +20,8 @@
             android:fitsSystemWindows="true"
             />
         <meta-data android:name="flutterEmbedding" android:value="2" />
+        <!-- Downloads the ML Kit subject segmentation model at install time (Play Store) -->
+        <meta-data android:name="com.google.mlkit.vision.DEPENDENCIES" android:value="subject_segment" />
     </application>
     <queries>
         <intent>

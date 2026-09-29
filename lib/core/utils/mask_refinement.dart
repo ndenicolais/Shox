@@ -6,10 +6,22 @@ import 'dart:typed_data';
 /// alpha values, `width * height * 4` RGBA bytes) so they are fast inside an
 /// isolate and easy to unit test.
 class MaskRefinement {
-  /// Erosion radius for an image whose longest side is [maxSide]: the model
-  /// mask is ~3x coarser than a 1024px photo and bleeds 2-3px outwards.
-  static int erosionRadiusFor(int maxSide) =>
-      math.max(1, (maxSide / 512).round());
+  /// Maps segmentation confidence (0..1 per pixel) to alpha: below [low] is
+  /// background, above [high] fully opaque, with a linear ramp in between
+  /// for soft but tight edges.
+  static Uint8List alphaFromConfidence(
+    List<double> confidence, {
+    double low = 0.35,
+    double high = 0.65,
+  }) {
+    final alpha = Uint8List(confidence.length);
+    final span = high - low;
+    for (int i = 0; i < confidence.length; i++) {
+      final t = ((confidence[i] - low) / span).clamp(0.0, 1.0);
+      alpha[i] = (t * 255).round();
+    }
+    return alpha;
+  }
 
   /// Shrinks the opaque area by [radius] pixels (min filter, done as two
   /// separable passes), removing the rim of background left around the

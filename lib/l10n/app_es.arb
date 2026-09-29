@@ -138,6 +138,7 @@
   "shoes_adder_screen_toast_success": "¡Zapatos añadidos con éxito!",
   "shoes_adder_screen_toast_error": "Error durante el guardado",
   "shoes_form_screen_bg_remove_loading": "Eliminando fondo...",
+  "shoes_form_screen_bg_remove_downloading": "Se está preparando la eliminación del fondo en tu dispositivo: inténtalo de nuevo en un momento.",
   "shoes_form_screen_bg_remove_success": "Fondo eliminado con éxito",
   "shoes_form_screen_bg_remove_error": "Error al eliminar el fondo: ",
 
@@ -433,6 +434,7 @@
   "changelog_v5_0_0_bullet_10": "Nueva ventana de novedades que te informa tras cada actualización.",
   "changelog_v5_0_0_bullet_11": "Nueva sección Info y política de privacidad actualizada, legible directamente en la app en todos los idiomas.",
   "changelog_v5_0_0_bullet_12": "Eliminación del fondo más precisa: sin borde ni halo alrededor del zapato.",
+  "changelog_v5_0_0_bullet_13": "App más ligera: ocupa aproximadamente la mitad de espacio que la versión anterior.",
   "dashboard_other": "Otro",
   "user_screen_account_settings": "Configuración de cuenta",
   "user_screen_total_shoes": "Total de zapatos",

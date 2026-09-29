@@ -139,6 +139,7 @@
   "shoes_adder_screen_toast_success": "Scarpe aggiunte con successo!",
   "shoes_adder_screen_toast_error": "Errore dureante il salvataggio",
   "shoes_form_screen_bg_remove_loading": "Rimozione dello sfondo...",
+  "shoes_form_screen_bg_remove_downloading": "Sto preparando la rimozione dello sfondo sul dispositivo: riprova tra qualche istante.",
   "shoes_form_screen_bg_remove_success": "Sfondo rimosso con successo",
   "shoes_form_screen_bg_remove_error": "Errore rimozione sfondo: ",
 
@@ -431,6 +432,7 @@
   "changelog_v5_0_0_bullet_10": "Nuova finestra delle novità, che mostra cosa cambia dopo ogni aggiornamento.",
   "changelog_v5_0_0_bullet_11": "Nuova sezione Info e informativa privacy aggiornata, leggibile direttamente nell'app in tutte le lingue.",
   "changelog_v5_0_0_bullet_12": "Rimozione dello sfondo più precisa: niente più bordino o alone attorno alla scarpa.",
+  "changelog_v5_0_0_bullet_13": "App più leggera: occupa circa la metà dello spazio rispetto alla versione precedente.",
   "dashboard_other": "Altro",
   "user_screen_account_settings": "Impostazioni Account",
   "user_screen_total_shoes": "Scarpe totali",

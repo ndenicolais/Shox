@@ -17,11 +17,17 @@ Uint8List squareMask(int size, int from, int to) {
 int opaqueCount(Uint8List alpha) => alpha.where((a) => a == 255).length;
 
 void main() {
-  group('erosionRadiusFor', () {
-    test('scales with the image size, at least 1px', () {
-      expect(MaskRefinement.erosionRadiusFor(300), 1);
-      expect(MaskRefinement.erosionRadiusFor(1024), 2);
-      expect(MaskRefinement.erosionRadiusFor(2048), 4);
+  group('alphaFromConfidence', () {
+    test('maps low confidence to transparent and high to opaque', () {
+      final alpha = MaskRefinement.alphaFromConfidence([0.0, 0.3, 0.7, 1.0]);
+
+      expect(alpha, [0, 0, 255, 255]);
+    });
+
+    test('ramps linearly between the thresholds', () {
+      final alpha = MaskRefinement.alphaFromConfidence([0.5]);
+
+      expect(alpha.single, closeTo(128, 1));
     });
   });
 
