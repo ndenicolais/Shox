@@ -1252,6 +1252,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Editar un zapato favorito ya no lo quita de favoritos, y ya no se puede guardar un zapato tras quitar su foto sin elegir una nueva.';
 
   @override
+  String get changelog_v4_1_0_bullet_35 =>
+      'El texto respeta el tamaño de letra del teléfono hasta el 130 %, sin etiquetas cortadas en los botones.';
+
+  @override
   String get dashboard_other => 'Otro';
 
   @override

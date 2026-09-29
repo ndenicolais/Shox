@@ -2378,6 +2378,12 @@ abstract class AppLocalizations {
   /// **'Editing a favorite shoe no longer removes it from favorites, and a shoe can no longer be saved after removing its photo without picking a new one.'**
   String get changelog_v4_1_0_bullet_34;
 
+  /// No description provided for @changelog_v4_1_0_bullet_35.
+  ///
+  /// In en, this message translates to:
+  /// **'Text follows the phone\'s font size setting up to 130%, with no more clipped button labels.'**
+  String get changelog_v4_1_0_bullet_35;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

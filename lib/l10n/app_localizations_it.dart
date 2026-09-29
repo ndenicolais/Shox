@@ -1258,6 +1258,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Modificare una scarpa preferita non la toglie più dai preferiti, e non è più possibile salvarla dopo averne rimosso la foto senza sceglierne una nuova.';
 
   @override
+  String get changelog_v4_1_0_bullet_35 =>
+      'Il testo rispetta la dimensione dei caratteri impostata sul telefono fino al 130%, senza più etichette tagliate nei pulsanti.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

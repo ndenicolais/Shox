@@ -1241,6 +1241,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Editing a favorite shoe no longer removes it from favorites, and a shoe can no longer be saved after removing its photo without picking a new one.';
 
   @override
+  String get changelog_v4_1_0_bullet_35 =>
+      'Text follows the phone\'s font size setting up to 130%, with no more clipped button labels.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

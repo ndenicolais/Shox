@@ -1256,6 +1256,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das Bearbeiten eines Lieblingsschuhs entfernt ihn nicht mehr aus den Favoriten, und ein Schuh kann nicht mehr gespeichert werden, nachdem sein Foto entfernt wurde, ohne ein neues zu wählen.';
 
   @override
+  String get changelog_v4_1_0_bullet_35 =>
+      'Der Text folgt der Schriftgröße des Telefons bis 130 %, ohne abgeschnittene Beschriftungen in Schaltflächen.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

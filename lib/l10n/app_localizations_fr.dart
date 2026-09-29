@@ -1267,6 +1267,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Modifier une chaussure favorite ne la retire plus des favoris, et il n’est plus possible d’enregistrer une chaussure après avoir supprimé sa photo sans en choisir une nouvelle.';
 
   @override
+  String get changelog_v4_1_0_bullet_35 =>
+      'Le texte suit la taille de police du téléphone jusqu’à 130 %, sans libellés de boutons coupés.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

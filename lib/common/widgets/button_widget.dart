@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shox/theme/app_spacing.dart';
 
 /// App-wide text button, filled or outlined.
 ///
@@ -54,28 +55,34 @@ class ButtonWidget extends StatelessWidget {
       color: isDisabled ? foreground.withValues(alpha: 0.6) : foreground,
       fontSize: fontSize,
     );
-    final Widget content = Center(
-      child: isLoading
-          ? Semantics(
-              label: text,
-              child: SizedBox.square(
-                dimension: 20.r,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: foreground,
+    // Labels shrink instead of overflowing when a fixed-width button meets a
+    // long translation or a large OS text size.
+    final Widget content = Padding(
+      padding: EdgeInsets.symmetric(horizontal: AppSpacing.xs.w),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: isLoading
+            ? Semantics(
+                label: text,
+                child: SizedBox.square(
+                  dimension: 20.r,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: foreground,
+                  ),
                 ),
-              ),
-            )
-          : icon != null
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(icon, color: foreground, size: iconSize ?? 24.sp),
-                    SizedBox(width: 8.w),
-                    Text(text, style: label),
-                  ],
-                )
-              : Text(text, style: label),
+              )
+            : icon != null
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(icon, color: foreground, size: iconSize ?? 24.sp),
+                      SizedBox(width: 8.w),
+                      Text(text, style: label),
+                    ],
+                  )
+                : Text(text, style: label),
+      ),
     );
 
     final Widget button = isOutline

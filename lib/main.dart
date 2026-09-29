@@ -13,6 +13,7 @@ import 'package:shox/core/routes/app_pages.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/firebase_options.dart';
 import 'package:shox/features/auth/services/auth_guard_service.dart';
+import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/theme/app_theme.dart';
 import 'package:shox/theme/theme_controller.dart';
 
@@ -135,6 +136,10 @@ class MyApp extends StatelessWidget {
               initialRoute: firebaseReady ? AppRoutes.intro : null,
               getPages: firebaseReady ? AppPages.pages : null,
               // One consistent page transition for every route.
+              builder: (context, child) => MediaQuery.withClampedTextScaling(
+                maxScaleFactor: AppFontSizes.maxTextScaleFactor,
+                child: child!,
+              ),
               defaultTransition: Transition.rightToLeftWithFade,
               transitionDuration: const Duration(milliseconds: 300),
             ),

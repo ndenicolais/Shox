@@ -552,6 +552,8 @@ Il tema attivo è gestito da `ThemeController` (GetX), selezionabile tra Sistema
 
 **UI scaling:** Tutto il layout usa `flutter_screenutil` con design size `390×844` px (adattato dinamicamente alle dimensioni reali dello schermo sui tablet) per garantire la proporzionalità su schermi di diverse dimensioni.
 
+**Dimensione del testo di sistema:** i `Text` applicano la dimensione caratteri impostata nel sistema operativo sopra i valori `.sp` di ScreenUtil; `main.dart` la limita a `AppFontSizes.maxTextScaleFactor` (1.3) con `MediaQuery.withClampedTextScaling`, oltre la quale i contenitori ad altezza fissa taglierebbero il testo. Le etichette di `ButtonWidget` si riducono (`FittedBox`) invece di andare in overflow. I widget condivisi sono verificati a scala 1.3 in lingua tedesca (le etichette più lunghe) in `test/common/widgets/text_scaling_test.dart`.
+
 **Layout adattivo (responsive):** oltre allo scaling proporzionale, alcune schermate riorganizzano realmente il contenuto in base alla larghezza disponibile, tramite `LayoutBuilder`:
 - `AppBreakpoints` (`lib/theme/app_breakpoints.dart`) — soglie centralizzate (tablet ≥ 600px, desktop ≥ 900px) e calcolo del numero di colonne in base alla larghezza reale
 - `ResponsiveCenterWidget` (`lib/common/widgets/responsive_center_widget.dart`) — vincola il contenuto a una larghezza massima e lo centra, evitando che form/liste si stirino edge-to-edge su tablet grandi (usato nella schermata Profilo e, con limite `maxGridWidth`, nella Home)

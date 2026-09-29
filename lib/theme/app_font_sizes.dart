@@ -1,6 +1,11 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppFontSizes {
+  /// Upper bound applied to the OS text size setting: up to this factor text
+  /// follows the user's preference, beyond it layouts with fixed heights
+  /// (buttons, toasts, chips) would clip or overflow.
+  static const double maxTextScaleFactor = 1.3;
+
   static double get micro => 6.sp;
   static double get tiny => 8.sp;
   static double get extraExtraSmall => 10.sp;
