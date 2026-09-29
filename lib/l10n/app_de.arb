@@ -2,6 +2,9 @@
   "@@locale": "de",
 
   "intro_title": "Shox",
+  "intro_tagline": "Dein digitaler Schuhschrank",
+  "onboarding_skip": "Überspringen",
+  "welcome_subtitle": "Deine ganze Schuhsammlung, immer dabei.",
   "intro_screen_load_data_error": "Benutzerdaten konnten nicht geladen werden",
 
   "onboarding_first_title": "Füge",
@@ -125,6 +128,7 @@
   "shoes_form_screen_section_details": "Details",
   "shoes_form_screen_section_notes": "Notizen",
   "shoes_form_screen_add_photo": "Foto hinzufügen",
+  "shoes_form_screen_save": "Speichern",
   "shoes_adder_screen_crop_image_title": "Bild zuschneiden",
   "shoes_adder_screen_toast_error_image": "Du hast kein Bild ausgewählt",
   "shoes_adder_screen_toast_error_color": "Du hast keine Primärfarbe ausgewählt",
@@ -163,6 +167,7 @@
   "shoes_details_screen_field_type": "TYP",
   "shoes_details_screen_field_season": "SAISON",
   "shoes_details_screen_field_note": "NOTIZEN",
+  "shoes_details_screen_field_added": "Hinzugefügt",
   "shoes_details_screen_menu_edit": "Bearbeiten",
   "shoes_details_screen_menu_share": "Teilen",
   "shoes_details_screen_menu_delete": "Löschen",

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +10,7 @@ import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/constants.dart';
 import 'package:shox/features/auth/services/auth_service.dart';
-import 'package:shox/theme/app_font_sizes.dart';
+import 'package:shox/theme/app_spacing.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -100,24 +99,25 @@ class IntroScreenState extends State<IntroScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LogoWidget(
-              width: 200.w,
-              height: 200.h,
+            const LogoWidget(
+              width: 160,
+              height: 160,
               semanticLabel: 'Intro Logo',
             ),
-            SizedBox(height: 24.h),
+            const SizedBox(height: AppSpacing.l),
+            Text(l10n.intro_title, style: textTheme.displaySmall),
+            const SizedBox(height: AppSpacing.xxs),
             Text(
-              AppLocalizations.of(context)!.intro_title,
-              style: TextStyle(
-                fontFamily: 'CustomFontBold',
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: AppFontSizes.titanic,
+              l10n.intro_tagline,
+              style: textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
           ],

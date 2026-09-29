@@ -2,6 +2,9 @@
   "@@locale": "es",
 
   "intro_title": "Shox",
+  "intro_tagline": "Tu armario de zapatos digital",
+  "onboarding_skip": "Omitir",
+  "welcome_subtitle": "Toda tu colección de zapatos, siempre contigo.",
   "intro_screen_load_data_error": "No se pudieron cargar los datos del usuario",
 
   "onboarding_first_title": "Añade",
@@ -124,6 +127,7 @@
   "shoes_form_screen_section_details": "Detalles",
   "shoes_form_screen_section_notes": "Notas",
   "shoes_form_screen_add_photo": "Añadir foto",
+  "shoes_form_screen_save": "Guardar",
   "shoes_adder_screen_crop_image_title": "Recortar Imagen",
   "shoes_adder_screen_toast_error_image": "No seleccionaste una imagen",
   "shoes_adder_screen_toast_error_color": "No seleccionaste el color primario",
@@ -161,6 +165,7 @@
   "shoes_details_screen_field_type": "TIPO",
   "shoes_details_screen_field_season": "TEMPORADA",
   "shoes_details_screen_field_note": "NOTAS",
+  "shoes_details_screen_field_added": "Añadido",
   "shoes_details_screen_menu_edit": "Editar",
   "shoes_details_screen_menu_share": "Compartir",
   "shoes_details_screen_menu_delete": "Eliminar",

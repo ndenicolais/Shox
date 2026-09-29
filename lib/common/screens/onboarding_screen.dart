@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/core/utils/constants.dart';
-import 'package:shox/theme/app_colors.dart';
-import 'package:shox/theme/app_font_sizes.dart';
+import 'package:shox/theme/app_radius.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -45,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      _checkRememberMe();
+      _finish();
     }
   }
 
@@ -60,27 +59,44 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
+  /// Marks the onboarding as seen and leaves it (finish or skip).
+  Future<void> _finish() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_completed', true);
+    await _checkRememberMe();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final bool isLast = _currentIndex == _pages.length - 1;
+
     return PopScope(
       canPop: false,
       child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [AppColors.darkPeach, AppColors.whiteSmoke],
-            ),
-          ),
-          child: SafeArea(
+        body: SafeArea(
+          child: ResponsiveCenterWidget(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSpacing.xl.w,
-                vertical: AppSpacing.xl.h,
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xl,
+                AppSpacing.xs,
+                AppSpacing.xl,
+                AppSpacing.xl,
               ),
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: AnimatedOpacity(
+                      opacity: isLast ? 0 : 1,
+                      duration: const Duration(milliseconds: 200),
+                      child: TextButton(
+                        onPressed: isLast ? null : _finish,
+                        child: Text(l10n.onboarding_skip),
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: PageView.builder(
                       controller: _pageController,
@@ -90,34 +106,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         final item = _pages[index];
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              width: 220.w,
-                              height: 220.h,
-                              child: item.image,
+                            Flexible(
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: Container(
+                                  padding: const EdgeInsets.all(AppSpacing.xl),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.tertiaryFixed,
+                                    borderRadius:
+                                        BorderRadius.circular(AppRadius.hero),
+                                  ),
+                                  child: item.image,
+                                ),
+                              ),
                             ),
-                            SizedBox(height: 32.h),
+                            const SizedBox(height: AppSpacing.xl),
                             Text(
                               item.title,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'CustomFontBold',
-                                fontSize: AppFontSizes.massive,
-                              ),
+                              style: theme.textTheme.headlineMedium,
                             ),
-                            SizedBox(height: 24.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: AppSpacing.m.w,
-                              ),
-                              child: Text(
-                                item.description,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'CustomFont',
-                                  fontSize: AppFontSizes.normal,
-                                ),
+                            const SizedBox(height: AppSpacing.s),
+                            Text(
+                              item.description,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant,
                               ),
                             ),
                           ],
@@ -125,68 +140,41 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                     ),
                   ),
+                  const SizedBox(height: AppSpacing.xl),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: List.generate(
-                          _pages.length,
-                          (i) => AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            margin: EdgeInsets.symmetric(
-                              horizontal: AppSpacing.xxs.w,
-                            ),
-                            width: _currentIndex == i ? 20.w : 8.w,
-                            height: 8.h,
-                            decoration: BoxDecoration(
-                              color: _currentIndex == i
-                                  ? AppColors.darkPeach
-                                  : AppColors.darkSalamon,
-                              borderRadius: BorderRadius.circular(8.r),
+                      Expanded(
+                        child: Row(
+                          children: List.generate(
+                            _pages.length,
+                            (i) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              margin: const EdgeInsets.only(
+                                right: AppSpacing.xs,
+                              ),
+                              width: _currentIndex == i ? 24 : 8,
+                              height: 8,
+                              decoration: BoxDecoration(
+                                color: _currentIndex == i
+                                    ? theme.colorScheme.primary
+                                    : theme.colorScheme.outline,
+                                borderRadius:
+                                    BorderRadius.circular(AppRadius.pill),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 160.w,
-                        height: 48.h,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (_currentIndex == _pages.length - 1) {
-                              final pres =
-                                  await SharedPreferences.getInstance();
-                              pres.setBool("onboarding_completed", true);
-                              _checkRememberMe();
-                            } else {
-                              _nextPage();
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFF6F61),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.r),
-                            ),
-                            elevation: 2,
-                          ),
-                          child: Text(
-                            _currentIndex == _pages.length - 1
-                                ? AppLocalizations.of(
-                                    context,
-                                  )!
-                                    .onboarding_finish
-                                : AppLocalizations.of(context)!.onboarding_next,
-                            style: TextStyle(
-                              fontFamily: 'CustomFont',
-                              color: AppColors.whiteSmoke,
-                              fontSize: AppFontSizes.medium,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                      FilledButton(
+                        onPressed: isLast ? _finish : _nextPage,
+                        child: Text(
+                          isLast
+                              ? l10n.onboarding_finish
+                              : l10n.onboarding_next,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.h),
                 ],
               ),
             ),

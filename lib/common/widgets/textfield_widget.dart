@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -33,20 +32,11 @@ class TextFieldWidget extends StatelessWidget {
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
-      cursorColor: Theme.of(context).colorScheme.secondary,
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        prefixIcon: Icon(
-          prefixIcon,
-          size: 18.sp,
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
+        prefixIcon: Icon(prefixIcon, size: 20),
         suffixIcon: suffixIcon,
-      ),
-      style: TextStyle(
-        fontFamily: 'CustomFont',
-        color: Theme.of(context).colorScheme.secondary,
       ),
       obscureText: obscureText!,
       keyboardType: keyboardType,

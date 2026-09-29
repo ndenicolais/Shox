@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 
+/// App bar with a back button; colors and title style come from the theme.
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
@@ -25,17 +26,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       leading: showLeading
           ? IconButton(
               tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-              icon: Icon(
-                MingCuteIcons.mgc_large_arrow_left_line,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              onPressed: () {
-                if (onBackPressed != null) {
-                  onBackPressed!();
-                } else {
-                  Get.back();
-                }
-              },
+              icon: const Icon(MingCuteIcons.mgc_left_line),
+              onPressed: onBackPressed ?? () => Get.back(),
             )
           : null,
       automaticallyImplyLeading: showLeading,

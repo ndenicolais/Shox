@@ -2,6 +2,9 @@
   "@@locale": "it",
 
   "intro_title": "Shox",
+  "intro_tagline": "Il tuo guardaroba di scarpe digitale",
+  "onboarding_skip": "Salta",
+  "welcome_subtitle": "Tutta la tua collezione di scarpe, sempre con te.",
   "intro_screen_load_data_error": "Impossibile caricare i dati utente",
 
   "onboarding_first_title": "Aggiungi",
@@ -125,6 +128,7 @@
   "shoes_form_screen_section_details": "Dettagli",
   "shoes_form_screen_section_notes": "Note",
   "shoes_form_screen_add_photo": "Aggiungi foto",
+  "shoes_form_screen_save": "Salva",
   "shoes_adder_screen_crop_image_title": "Ritaglia Immagine",
   "shoes_adder_screen_toast_error_image": "Non hai selezionato un'immagine",
   "shoes_adder_screen_toast_error_color": "Non hai selezionato il colore primario",
@@ -161,6 +165,7 @@
   "shoes_details_screen_field_type": "TIPO",
   "shoes_details_screen_field_season": "STAGIONE",
   "shoes_details_screen_field_note": "NOTE",
+  "shoes_details_screen_field_added": "Aggiunta",
   "shoes_details_screen_menu_edit": "Modifica",
   "shoes_details_screen_menu_share": "Condividi",
   "shoes_details_screen_menu_delete": "Elimina",

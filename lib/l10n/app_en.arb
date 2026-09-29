@@ -2,6 +2,9 @@
   "@@locale": "en",
 
   "intro_title": "Shox",
+  "intro_tagline": "Your digital shoe wardrobe",
+  "onboarding_skip": "Skip",
+  "welcome_subtitle": "Your whole shoe collection, always with you.",
   "intro_screen_load_data_error": "Unable to load user data",
 
   "onboarding_first_title": "Add",
@@ -128,6 +131,7 @@
   "shoes_form_screen_section_details": "Details",
   "shoes_form_screen_section_notes": "Notes",
   "shoes_form_screen_add_photo": "Add photo",
+  "shoes_form_screen_save": "Save",
   "shoes_adder_screen_crop_image_title": "Crop Image",
   "shoes_adder_screen_toast_error_image": "You did not select an image",
   "shoes_adder_screen_toast_error_color": "You did not select the primary color",
@@ -164,6 +168,7 @@
   "shoes_details_screen_field_type": "TYPE",
   "shoes_details_screen_field_season": "SEASON",
   "shoes_details_screen_field_note": "NOTES",
+  "shoes_details_screen_field_added": "Added",
   "shoes_details_screen_menu_edit": "Edit",
   "shoes_details_screen_menu_share": "Share",
   "shoes_details_screen_menu_delete": "Delete",

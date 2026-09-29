@@ -12,6 +12,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get intro_title => 'Shox';
 
   @override
+  String get intro_tagline => 'Tu armario de zapatos digital';
+
+  @override
+  String get onboarding_skip => 'Omitir';
+
+  @override
+  String get welcome_subtitle =>
+      'Toda tu colección de zapatos, siempre contigo.';
+
+  @override
   String get intro_screen_load_data_error =>
       'No se pudieron cargar los datos del usuario';
 
@@ -388,6 +398,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get shoes_form_screen_add_photo => 'Añadir foto';
 
   @override
+  String get shoes_form_screen_save => 'Guardar';
+
+  @override
   String get shoes_adder_screen_crop_image_title => 'Recortar Imagen';
 
   @override
@@ -494,6 +507,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get shoes_details_screen_field_note => 'NOTAS';
+
+  @override
+  String get shoes_details_screen_field_added => 'Añadido';
 
   @override
   String get shoes_details_screen_menu_edit => 'Editar';

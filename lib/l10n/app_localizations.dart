@@ -110,6 +110,24 @@ abstract class AppLocalizations {
   /// **'Shox'**
   String get intro_title;
 
+  /// No description provided for @intro_tagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your digital shoe wardrobe'**
+  String get intro_tagline;
+
+  /// No description provided for @onboarding_skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboarding_skip;
+
+  /// No description provided for @welcome_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your whole shoe collection, always with you.'**
+  String get welcome_subtitle;
+
   /// No description provided for @intro_screen_load_data_error.
   ///
   /// In en, this message translates to:
@@ -782,6 +800,12 @@ abstract class AppLocalizations {
   /// **'Add photo'**
   String get shoes_form_screen_add_photo;
 
+  /// No description provided for @shoes_form_screen_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get shoes_form_screen_save;
+
   /// No description provided for @shoes_adder_screen_crop_image_title.
   ///
   /// In en, this message translates to:
@@ -985,6 +1009,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'NOTES'**
   String get shoes_details_screen_field_note;
+
+  /// No description provided for @shoes_details_screen_field_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get shoes_details_screen_field_added;
 
   /// No description provided for @shoes_details_screen_menu_edit.
   ///

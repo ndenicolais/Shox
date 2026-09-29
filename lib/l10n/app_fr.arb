@@ -2,6 +2,9 @@
   "@@locale": "fr",
 
   "intro_title": "Shox",
+  "intro_tagline": "Votre dressing à chaussures numérique",
+  "onboarding_skip": "Passer",
+  "welcome_subtitle": "Toute votre collection de chaussures, toujours avec vous.",
   "intro_screen_load_data_error": "Impossible de charger les données utilisateur",
 
   "onboarding_first_title": "Ajouter",
@@ -125,6 +128,7 @@
   "shoes_form_screen_section_details": "Détails",
   "shoes_form_screen_section_notes": "Notes",
   "shoes_form_screen_add_photo": "Ajouter une photo",
+  "shoes_form_screen_save": "Enregistrer",
   "shoes_adder_screen_crop_image_title": "Recadrer l'image",
   "shoes_adder_screen_toast_error_image": "Vous n'avez pas sélectionné d'image",
   "shoes_adder_screen_toast_error_color": "Vous n'avez pas sélectionné la couleur primaire",
@@ -162,6 +166,7 @@
   "shoes_details_screen_field_type": "TYPE",
   "shoes_details_screen_field_season": "SAISON",
   "shoes_details_screen_field_note": "NOTES",
+  "shoes_details_screen_field_added": "Ajouté",
   "shoes_details_screen_menu_edit": "Modifier",
   "shoes_details_screen_menu_share": "Partager",
   "shoes_details_screen_menu_delete": "Supprimer",
