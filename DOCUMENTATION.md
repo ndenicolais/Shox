@@ -733,7 +733,8 @@ flutter build appbundle --release
 **Note:**
 - Il file `android/local.properties` non va committato (contiene percorsi locali SDK)
 - La cartella `build/` non va committata (output di compilazione)
-- La rimozione dello sfondo usa ML Kit Subject Segmentation: il modello non è nell'APK ma viene scaricato da Google Play services (all'installazione dal Play Store grazie al meta-data `com.google.mlkit.vision.DEPENDENCIES`, altrimenti al primo utilizzo; nel frattempo l'app mostra un messaggio dedicato). Richiede minSdk 24 e i Google Play services. APK di release arm64 offuscato: ~23 MB (prima ~46 MB con ONNX). Le build con `--obfuscate --split-debug-info=symbolsv<versione>` (vedi `deploy_android.ps1`) richiedono di conservare la cartella dei simboli per decodificare gli stack trace
+- La rimozione dello sfondo usa ML Kit Subject Segmentation: il modello non è nell'APK ma viene scaricato da Google Play services (all'installazione dal Play Store grazie al meta-data `com.google.mlkit.vision.DEPENDENCIES`, altrimenti al primo utilizzo; nel frattempo l'app mostra un messaggio dedicato). Richiede minSdk 24 e i Google Play services. APK di release arm64 offuscato: ~23 MB (prima ~46 MB con ONNX). Le build con `--obfuscate --split-debug-info=symbols/v<versione>` (vedi `deploy_android.ps1`) richiedono di conservare la cartella dei simboli per decodificare gli stack trace
+- Anteprime README: `flutter test tool/preview/generate_preview_test.dart` rigenera `images/shox_preview.png` (telefoni inclinati) e le schermate senza barre di sistema (larghe 540 px) in `images/screenshots/<nome>.png` partendo da `images/screenshots/<nome>_raw.png` (1080x2392, esclusi da git e tenuti in locale). Lo script è fuori da `test/`, quindi non gira con `flutter test`
 
 ---
 

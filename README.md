@@ -6,7 +6,12 @@
 
 ## Preview
 
-<img src="images/shox_preview.png" title="Shox's release" alt="Shox Preview">
+<img src="images/shox_preview.png" title="Shox 5.0.0" alt="Shox Preview">
+
+| Collezione | Dettaglio | Aggiunta | Statistiche | Dashboard |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="images/screenshots/home.png" width="160" alt="Home"> | <img src="images/screenshots/details.png" width="160" alt="Dettaglio scarpa"> | <img src="images/screenshots/form.png" width="160" alt="Aggiunta scarpa"> | <img src="images/screenshots/database.png" width="160" alt="Database"> | <img src="images/screenshots/dashboard.png" width="160" alt="Dashboard"> |
+
 
 ---
 
