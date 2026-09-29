@@ -1,100 +1,97 @@
 # Shox
 
-> App per la gestione digitale del guardaroba di scarpe per Android, sviluppata con Flutter.
+> A digital shoe wardrobe app for Android, built with Flutter.
 
-**Shox** è un'app completa per catalogare la propria collezione di scarpe, con sincronizzazione cloud in tempo reale, filtri avanzati, statistiche visive, export PDF e backup JSON — il tutto con supporto a 5 lingue e tema chiaro/scuro.
+**Shox** lets you catalogue your whole shoe collection, with real-time cloud sync, advanced filters, visual statistics, PDF export and JSON backup — all in 5 languages with light and dark themes.
 
 ## Preview
 
 <img src="images/shox_preview.png" title="Shox 5.0.0" alt="Shox Preview">
 
-| Collezione | Dettaglio | Aggiunta | Statistiche | Dashboard |
+| Collection | Details | Add shoe | Statistics | Dashboard |
 |:---:|:---:|:---:|:---:|:---:|
-| <img src="images/screenshots/home.png" width="160" alt="Home"> | <img src="images/screenshots/details.png" width="160" alt="Dettaglio scarpa"> | <img src="images/screenshots/form.png" width="160" alt="Aggiunta scarpa"> | <img src="images/screenshots/database.png" width="160" alt="Database"> | <img src="images/screenshots/dashboard.png" width="160" alt="Dashboard"> |
-
-
----
+| <img src="images/screenshots/home.png" width="160" alt="Home"> | <img src="images/screenshots/details.png" width="160" alt="Shoe details"> | <img src="images/screenshots/form.png" width="160" alt="Add shoe"> | <img src="images/screenshots/database.png" width="160" alt="Database"> | <img src="images/screenshots/dashboard.png" width="160" alt="Dashboard"> |
 
 ---
 
-## Funzionalità principali
+## Main features
 
-- **Collezione** — Aggiungi, visualizza, modifica ed elimina le tue scarpe con foto, marca, taglia, categoria, tipo, stagione e colori
-- **Filtri avanzati** — Filtra per categoria, tipo, stagione, colore primario, colore aggiuntivo o cerca per marca
-- **Preferiti** — Contrassegna le scarpe preferite e visualizzale rapidamente
-- **Immagini** — Selezione da fotocamera o galleria con ritaglio, compressione automatica e rimozione sfondo sul dispositivo (Google ML Kit)
-- **Statistiche** — Grafici a torta interattivi per analizzare la collezione per colore, marca, categoria e tipo
-- **Export PDF** — Genera un catalogo PDF completo con copertina, profilo utente e scheda per ogni scarpa
-- **Backup JSON** — Esporta e importa l'intera collezione in formato JSON
-- **Condivisione** — Condividi la scheda di una scarpa come screenshot o salva la foto in galleria
-- **Autenticazione** — Login tramite Google Account o email e password
-- **Sincronizzazione** — Dati in tempo reale su Cloud Firestore e immagini su Firebase Storage
-- **Multilingua** — Italiano, inglese, francese, spagnolo e tedesco
-- **Tema** — Supporto a tema chiaro e scuro con design Material 3
-- **Layout adattivo** — Riorganizzazione reale del contenuto (non solo scaling) su smartphone e tablet, con rotazione libera dello schermo
+- **Collection** — Add, view, edit and delete your shoes with photo, brand, size, category, type, season and colors
+- **Advanced filters** — Filter by category, type, season, primary color, extra color or favorites, and search by brand, type, category or notes
+- **Favorites** — Mark your favorite shoes and find them quickly
+- **Images** — Pick from camera or gallery with cropping, automatic compression and on-device background removal (Google ML Kit)
+- **Statistics** — Interactive pie charts to analyse the collection by color, brand, category and type
+- **PDF export** — Generate a full PDF catalogue with cover, user profile and a page for each shoe
+- **JSON backup** — Export and import the whole collection as JSON
+- **Sharing** — Share a shoe card as a screenshot or save its photo to the gallery
+- **Authentication** — Sign in with a Google account or email and password
+- **Sync** — Real-time data on Cloud Firestore and images on Firebase Storage
+- **Multilingual** — Italian, English, French, Spanish and German
+- **Theme** — System / Light / Dark theme with Material 3 design
+- **Adaptive layout** — Content that actually reorganizes (not just scales) on phones and tablets, with free screen rotation
 
 ---
 
-## Architettura
+## Architecture
 
-| Livello | Tecnologia |
+| Layer | Technology |
 |---|---|
 | Framework | Flutter 3 / Dart |
 | State management | GetX |
-| Database cloud | Cloud Firestore |
-| Storage immagini | Firebase Storage |
-| Autenticazione | Firebase Auth + Google Sign In |
-| Persistenza locale | SharedPreferences |
-| UI responsive | flutter_screenutil |
-| Font | Montserrat (locale) + ShoxIcons (custom) |
-| Icone | MingCute Icons |
-| Grafici | fl_chart |
-| Immagini | image_picker, image_cropper, flutter_image_compress, image_background_remover |
+| Cloud database | Cloud Firestore |
+| Image storage | Firebase Storage |
+| Authentication | Firebase Auth + Google Sign In |
+| Local persistence | SharedPreferences |
+| Responsive UI | flutter_screenutil |
+| Fonts | Montserrat (bundled) + ShoxIcons (custom) |
+| Icons | MingCute Icons |
+| Charts | fl_chart |
+| Images | image_picker, image_cropper, flutter_image_compress, google_mlkit_subject_segmentation |
 | Export | pdf, share_plus, image_gallery_saver_plus |
 
 ---
 
-## Struttura del progetto
+## Project structure
 
 ```
 lib/
 ├── main.dart                  # Entry point
-├── common/                    # Schermate comuni (intro, onboarding, welcome) e widget globali
-├── core/                      # Route GetX e utility
+├── common/                    # Shared screens (intro, onboarding, welcome) and global widgets
+├── core/                      # GetX routes, constants, services and utilities
 ├── features/                  # Feature modules
-│   ├── auth/                  # Autenticazione (login, signup, reset password, gender selection)
-│   ├── dashboard/             # Dashboard (impostazioni, account, info)
-│   ├── database/              # Statistiche, export PDF, export/import JSON
-│   ├── home/                  # Lista scarpe con filtri e ricerca
-│   ├── shoes/                 # CRUD scarpe
-│   └── users/                 # Profilo utente
-├── l10n/                      # File ARB per localizzazione (en, it, fr, es, de)
-└── theme/                     # Tema, colori e controller tema
+│   ├── auth/                  # Authentication (login, signup, reset password, gender selection)
+│   ├── dashboard/             # Dashboard (settings, account, info, privacy, support)
+│   ├── database/              # Statistics, PDF export, JSON export/import
+│   ├── home/                  # Shoe list with filters and search
+│   ├── shoes/                 # Shoe CRUD
+│   └── users/                 # User profile
+├── l10n/                      # ARB localization files (en, it, fr, es, de)
+└── theme/                     # Theme, colors, spacing and theme controller
 ```
 
 ---
 
-## Requisiti
+## Requirements
 
 - Flutter SDK `^3.7.0`
 - Dart SDK `^3.5.2`
-- Android 5.0+ (API 21+)
-- Connessione internet (per autenticazione e sincronizzazione Firestore)
-- File `android/app/google-services.json` configurato
+- Android 7.0+ (API 24+), 64-bit (arm64), with Google Play services
+- Internet connection (for authentication and Firestore sync)
+- A configured `android/app/google-services.json` file
 
 ---
 
-## Installazione e avvio
+## Installation and launch
 
 ```bash
-# Clona il repository
+# Clone the repository
 git clone https://github.com/ndenicolais/Shox.git
 cd Shox
 
-# Installa le dipendenze
+# Install dependencies
 flutter pub get
 
-# Avvia l'app
+# Run the app
 flutter run
 ```
 
@@ -102,19 +99,19 @@ flutter run
 
 ## Download
 
-[📥 Download dell'ultima release v5.0.0](https://github.com/ndenicolais/Shox/releases/download/v5.0.0/Shox_v5.0.0.apk)
+[📥 Download the latest release v5.0.0](https://github.com/ndenicolais/Shox/releases/download/v5.0.0/Shox_v5.0.0.apk)
 
 ---
 
-## Documentazione completa
+## Full documentation
 
-Per una documentazione dettagliata di tutte le funzionalità, modelli dati, schermate e scelte tecniche consulta il file [DOCUMENTATION.md](DOCUMENTATION.md).
+For detailed documentation of every feature, data model, screen and technical choice, see [DOCUMENTATION.md](DOCUMENTATION.md).
 
 ---
 
-## Licenza
+## License
 
-Copyright © 2026 Nicola De Nicolais — Tutti i diritti riservati.
-Licenza: **MIT** — see the [LICENSE.md](LICENSE.md) file for details.
+Copyright © 2026 Nicola De Nicolais — All rights reserved.
+License: **MIT** — see the [LICENSE.md](LICENSE.md) file for details.
 
-**Autore:** Nicola De Nicolais — [ndn21dev@gmail.com](mailto:ndn21dev@gmail.com) — [GitHub](https://github.com/ndenicolais)
+**Author:** Nicola De Nicolais — [ndn21dev@gmail.com](mailto:ndn21dev@gmail.com) — [GitHub](https://github.com/ndenicolais)
