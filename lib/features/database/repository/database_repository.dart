@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/controller/shoes_controller.dart';
@@ -21,7 +23,7 @@ class DatabaseRepository {
     ShoesController? shoesController,
   })  : _auth = auth ?? FirebaseAuth.instance,
         _firestore = firestore ?? FirebaseFirestore.instance,
-        _shoesController = shoesController ?? ShoesController();
+        _shoesController = shoesController ?? Get.find<ShoesController>();
 
   /// Get current authenticated user
   User? get currentUser => _auth.currentUser;
@@ -45,8 +47,12 @@ class DatabaseRepository {
       QuerySnapshot querySnapshot = await shoesCollection.get();
 
       final shoes = querySnapshot.docs
-          .map((doc) => ShoesModel.fromFirestore(
-              doc.id, doc.data() as Map<String, dynamic>))
+          .map(
+            (doc) => ShoesModel.fromFirestore(
+              doc.id,
+              doc.data() as Map<String, dynamic>,
+            ),
+          )
           .toList();
 
       _logger.i('Successfully fetched ${shoes.length} shoes');
@@ -90,11 +96,7 @@ class DatabaseRepository {
       }
 
       _logger.i('Successfully fetched user data for: $userName');
-      return {
-        'userId': userId,
-        'name': userName,
-        'email': userEmail,
-      };
+      return {'userId': userId, 'name': userName, 'email': userEmail};
     } catch (e) {
       _logger.e('Error fetching user data: $e');
       throw Exception('Failed to fetch user data: $e');
@@ -132,7 +134,9 @@ class DatabaseRepository {
       _logger.i('Starting JSON export...');
 
       final jsonCodes = await _shoesController.exportShoesToJson();
-      final directory = Directory('/storage/emulated/0/Download');
+      final Directory? downloadsDir = await getDownloadsDirectory();
+      final directory =
+          downloadsDir ?? await getApplicationDocumentsDirectory();
       final now = DateTime.now();
       final dateFormat = DateFormat('yyyyMMdd_HHmmss');
       final formattedDate = dateFormat.format(now);
@@ -150,8 +154,10 @@ class DatabaseRepository {
   }
 
   /// Import shoes database from JSON file
-  Future<void> importFromJson(String userId,
-      {Function(double)? onProgress}) async {
+  Future<void> importFromJson(
+    String userId, {
+    Function(double)? onProgress,
+  }) async {
     try {
       _logger.i('Starting JSON import...');
 
@@ -168,8 +174,10 @@ class DatabaseRepository {
       File file = File(result.files.single.path!);
       String jsonCodes = await file.readAsString();
 
-      await _shoesController.importShoesFromJson(jsonCodes,
-          onProgress: onProgress);
+      await _shoesController.importShoesFromJson(
+        jsonCodes,
+        onProgress: onProgress,
+      );
       _logger.i('JSON imported successfully');
     } catch (e) {
       _logger.e('Error importing from JSON: $e');
@@ -193,7 +201,9 @@ class DatabaseRepository {
   /// Check if export directory is accessible
   Future<bool> isExportDirectoryAccessible() async {
     try {
-      final directory = Directory('/storage/emulated/0/Download');
+      final Directory? downloadsDir = await getDownloadsDirectory();
+      final directory =
+          downloadsDir ?? await getApplicationDocumentsDirectory();
       return await directory.exists();
     } catch (e) {
       _logger.e('Error checking export directory: $e');
@@ -201,8 +211,9 @@ class DatabaseRepository {
     }
   }
 
-  /// Get the export directory path
-  String getExportDirectoryPath() {
-    return '/storage/emulated/0/Download';
+  Future<String> getExportDirectoryPath() async {
+    final Directory? downloadsDir = await getDownloadsDirectory();
+    final directory = downloadsDir ?? await getApplicationDocumentsDirectory();
+    return directory.path;
   }
 }

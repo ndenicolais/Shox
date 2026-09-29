@@ -1,26 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/common/widgets/button_widget.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
 class ErrorStateWidget extends StatelessWidget {
   final String message;
+  final VoidCallback? onRetry;
 
   const ErrorStateWidget({
     super.key,
     required this.message,
+    this.onRetry,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        message,
-        style: GoogleFonts.montserrat(
-          color: Theme.of(context).colorScheme.tertiary,
-          fontSize: AppFontSizes.mediumLarge,
-          fontWeight: FontWeight.w600,
+      child: SizedBox(
+        width: 260.w,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              MingCuteIcons.mgc_alert_line,
+              size: 80.sp,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              message,
+              style: TextStyle(
+                fontFamily: 'CustomFontBold',
+                color: Theme.of(context).colorScheme.tertiary,
+                fontSize: AppFontSizes.mediumLarge,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (onRetry != null) ...[
+              SizedBox(height: 16.h),
+              ButtonWidget(
+                width: 140.w,
+                height: 44.h,
+                text: AppLocalizations.of(context)!.common_retry,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                textColor: Theme.of(context).colorScheme.primary,
+                fontSize: AppFontSizes.normal,
+                onPressed: onRetry!,
+              ),
+            ],
+          ],
         ),
-        textAlign: TextAlign.center,
       ),
     );
   }

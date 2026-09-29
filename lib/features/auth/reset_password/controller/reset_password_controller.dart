@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:shox/core/utils/app_exceptions.dart';
 import '../repository/reset_password_repository.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 
@@ -8,6 +9,7 @@ class ResetPasswordController extends GetxController {
   final ResetPasswordRepository _resetPasswordRepository =
       ResetPasswordRepository();
   final emailController = TextEditingController();
+  var isLoading = false.obs;
 
   Future<void> resetPassword(
       BuildContext context, GlobalKey<FormState> formKey) async {
@@ -15,6 +17,7 @@ class ResetPasswordController extends GetxController {
       return;
     }
 
+    isLoading.value = true;
     try {
       final email = emailController.text.trim();
       if (emailController.text.isNotEmpty) {
@@ -29,23 +32,20 @@ class ResetPasswordController extends GetxController {
       }
     } catch (e) {
       String errorMessage = e.toString();
-      if (context.mounted) {
-        if (e is Exception) {
-          if (errorMessage.contains("email_not_found")) {
-            errorMessage = AppLocalizations.of(context)!
-                .reset_password_toast_error_email_not_found;
-          }
-        }
-        if (context.mounted) {
-          if (e is Exception && errorMessage.contains("reset_failed")) {
-            errorMessage = AppLocalizations.of(context)!
-                .reset_password_toast_error_password;
-          }
+      if (e is AuthException && context.mounted) {
+        if (e.code == 'email_not_found') {
+          errorMessage = AppLocalizations.of(context)!
+              .reset_password_toast_error_email_not_found;
+        } else if (e.code == 'reset_failed') {
+          errorMessage =
+              AppLocalizations.of(context)!.reset_password_toast_error_password;
         }
       }
       if (context.mounted) {
         showErrorToast(context, errorMessage);
       }
+    } finally {
+      isLoading.value = false;
     }
   }
 }

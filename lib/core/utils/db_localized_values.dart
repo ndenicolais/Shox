@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 
 class DbLocalizedValues {
   static String getColorName(BuildContext context, Color color) {
-    final colorHex = color.value
+    final colorHex = color
+        .toARGB32()
         .toRadixString(16)
         .padLeft(8, '0')
         .toUpperCase()

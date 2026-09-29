@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -45,7 +44,8 @@ class TextFieldWidget extends StatelessWidget {
         ),
         suffixIcon: suffixIcon,
       ),
-      style: GoogleFonts.montserrat(
+      style: TextStyle(
+        fontFamily: 'CustomFont',
         color: Theme.of(context).colorScheme.secondary,
       ),
       obscureText: obscureText!,

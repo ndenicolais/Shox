@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
-import 'package:shox/screens/auth/login/screens/login_screen.dart';
-import 'package:shox/screens/auth/signup/screens/signup_screen.dart';
+import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 
@@ -55,10 +53,10 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return Center(
       child: Text(
         AppLocalizations.of(context)!.welcome_text,
-        style: GoogleFonts.montserrat(
+        style: TextStyle(
+          fontFamily: 'CustomFontBold',
           color: Theme.of(context).colorScheme.secondary,
           fontSize: AppFontSizes.titanic,
-          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -74,11 +72,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       fontSize: AppFontSizes.large,
       isOutline: false,
       onPressed: () {
-        Get.to(
-          () => const LoginScreen(),
-          transition: Transition.fade,
-          duration: const Duration(milliseconds: 500),
-        );
+        Get.toNamed(AppRoutes.login);
       },
     );
   }
@@ -93,11 +87,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       fontSize: AppFontSizes.large,
       isOutline: true,
       onPressed: () {
-        Get.to(
-          () => const SignupScreen(),
-          transition: Transition.fade,
-          duration: const Duration(milliseconds: 500),
-        );
+        Get.toNamed(AppRoutes.signup);
       },
     );
   }

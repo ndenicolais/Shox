@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:path/path.dart' as path;
@@ -9,7 +10,7 @@ import 'package:shox/features/shoes/repository/shoes_repository.dart';
 
 /// Controller per la gestione della logica di business delle scarpe
 /// Coordina le operazioni tra UI e Repository
-class ShoesController {
+class ShoesController extends GetxController {
   final Logger _logger = Logger();
   final ShoesRepository _repository = ShoesRepository();
   final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
@@ -28,22 +29,14 @@ class ShoesController {
       // Step 1: Aggiungi la scarpa a Firestore (senza imageUrl)
       String shoesId = await _repository.addShoes(shoes);
 
-      // Step 2: Carica l'immagine su Supabase
-      String imagePath = await _repository.uploadImage(
+      // Step 2: Carica l'immagine su Firebase Storage e ottieni il download URL
+      String imageUrl = await _repository.uploadImage(
         userId: currentUser!.uid,
         shoesId: shoesId,
         imageFile: imageFile,
       );
 
-      // Step 3: Ottieni l'URL pubblico dell'immagine
-      final fileName = imagePath.split('/').last;
-      String imageUrl = _repository.getImageUrl(
-        userId: currentUser!.uid,
-        shoesId: shoesId,
-        fileName: fileName,
-      );
-
-      // Step 4: Aggiorna la scarpa con l'imageUrl
+      // Step 3: Aggiorna la scarpa con l'imageUrl
       final updatedShoes = ShoesModel(
         id: shoesId,
         imageUrl: imageUrl,
@@ -91,29 +84,17 @@ class ShoesController {
       // Elimina le immagini rimosse
       if (removedImages != null && removedImages.isNotEmpty) {
         for (String imageUrl in removedImages) {
-          final fileName = imageUrl.split('/').last;
-          await _repository.deleteImage(
-            userId: currentUser!.uid,
-            shoesId: shoes.id!,
-            fileName: fileName,
-          );
+          await _repository.deleteImage(imageUrl);
         }
         finalImageUrl = null;
       }
 
       // Carica la nuova immagine se presente
       if (newImage != null) {
-        String imagePath = await _repository.uploadImage(
+        finalImageUrl = await _repository.uploadImage(
           userId: currentUser!.uid,
           shoesId: shoes.id!,
           imageFile: newImage,
-        );
-
-        final fileName = imagePath.split('/').last;
-        finalImageUrl = _repository.getImageUrl(
-          userId: currentUser!.uid,
-          shoesId: shoes.id!,
-          fileName: fileName,
         );
       }
 
@@ -156,12 +137,7 @@ class ShoesController {
 
       // Elimina l'immagine se presente
       if (shoes.imageUrl.isNotEmpty) {
-        final fileName = shoes.imageUrl.split('/').last;
-        await _repository.deleteImage(
-          userId: currentUser!.uid,
-          shoesId: shoes.id!,
-          fileName: fileName,
-        );
+        await _repository.deleteImage(shoes.imageUrl);
       }
 
       // Elimina la scarpa da Firestore
@@ -220,8 +196,10 @@ class ShoesController {
   }
 
   /// Importa scarpe da JSON
-  Future<void> importShoesFromJson(String jsonData,
-      {Function(double)? onProgress}) async {
+  Future<void> importShoesFromJson(
+    String jsonData, {
+    Function(double)? onProgress,
+  }) async {
     try {
       if (currentUser == null) {
         throw Exception('User not authenticated');
@@ -255,19 +233,11 @@ class ShoesController {
               );
               await imageFile.writeAsBytes(response.bodyBytes);
 
-              // Carica su Supabase
-              String uploadedImagePath = await _repository.uploadImage(
+              // Carica su Firebase Storage e ottieni il download URL
+              String newImageUrl = await _repository.uploadImage(
                 userId: currentUser!.uid,
                 shoesId: shoesId,
                 imageFile: imageFile,
-              );
-
-              // Ottieni l'URL pubblico
-              final fileName = uploadedImagePath.split('/').last;
-              String newImageUrl = _repository.getImageUrl(
-                userId: currentUser!.uid,
-                shoesId: shoesId,
-                fileName: fileName,
               );
 
               // Aggiorna la scarpa con il nuovo URL

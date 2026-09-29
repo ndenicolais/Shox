@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shox/features/database/controller/database_controller.dart';
@@ -57,6 +58,9 @@ class PdfService {
       final ByteData data = await rootBundle.load('assets/images/app_logo.png');
       final Uint8List bytes = data.buffer.asUint8List();
       final logoImage = pw.MemoryImage(bytes);
+      if (!context.mounted) {
+        throw Exception('Context no longer mounted');
+      }
       final appLocalizations = AppLocalizations.of(context)!;
 
       pdf.addPage(_buildFirstPage(logoImage, ttf, appLocalizations));
@@ -67,6 +71,9 @@ class PdfService {
 
       for (var i = 0; i < shoesList.length; i++) {
         var shoes = shoesList[i];
+        if (!context.mounted) {
+          throw Exception('Context no longer mounted');
+        }
         await _addShoesPage(
             context, pdf, shoes, logoImage, ttf, ttfBold, appLocalizations);
         onProgress(0.2 + 0.8 * (i + 1) / shoesList.length);
@@ -96,7 +103,8 @@ Future<Uint8List> fetchImage(String imageUrl) async {
 
 /// Save PDF document to Downloads folder with timestamp
 Future<String> _savePdf(pw.Document pdf) async {
-  final directory = Directory('/storage/emulated/0/Download');
+  final Directory? downloadsDir = await getDownloadsDirectory();
+  final directory = downloadsDir ?? await getApplicationDocumentsDirectory();
   final now = DateTime.now();
   final dateFormat = DateFormat('yyyyMMdd_HHmmss');
   final formattedDate = dateFormat.format(now);
@@ -108,14 +116,14 @@ Future<String> _savePdf(pw.Document pdf) async {
 
 pw.TextStyle _headerTextStyle(pw.Font font) {
   return pw.TextStyle(
-    color: PdfColor.fromInt(AppColors.darkGray.value),
+    color: PdfColor.fromInt(AppColors.darkGray.toARGB32()),
     font: font,
   );
 }
 
 pw.TextStyle _bodyTextStyle(pw.Font font) {
   return pw.TextStyle(
-    color: PdfColor.fromInt(AppColors.darkGray.value),
+    color: PdfColor.fromInt(AppColors.darkGray.toARGB32()),
     font: font,
   );
 }
@@ -139,7 +147,7 @@ pw.Column _buildShoesDetails(
       pw.Text(localizations.pdf_field_color_secondary,
           style: _headerTextStyle(ttfBold)),
       pw.Text(
-        shoes.colorExtra == Colors.transparent
+        shoes.colorExtra == null || shoes.colorExtra!.isEmpty
             ? "-"
             : DbLocalizedValues.getColorName(
                 context,
@@ -186,7 +194,7 @@ pw.Page _buildFirstPage(
                 pw.Text(
                   'Shox',
                   style: pw.TextStyle(
-                    color: PdfColor.fromInt(AppColors.darkGray.value),
+                    color: PdfColor.fromInt(AppColors.darkGray.toARGB32()),
                     font: ttf,
                     fontSize: AppFontSizes.titanic,
                   ),
@@ -199,7 +207,7 @@ pw.Page _buildFirstPage(
             child: pw.Text(
               localizations.pdf_copyright,
               style: pw.TextStyle(
-                color: PdfColor.fromInt(AppColors.darkGray.value),
+                color: PdfColor.fromInt(AppColors.darkGray.toARGB32()),
                 fontSize: AppFontSizes.extraSmall,
                 font: ttf,
               ),
@@ -217,7 +225,7 @@ pw.Widget _buildHeader(pw.ImageProvider logoImage, pw.Font ttf) {
       border: pw.Border(
         bottom: pw.BorderSide(
           width: 1,
-          color: PdfColor.fromInt(AppColors.darkPeach.value),
+          color: PdfColor.fromInt(AppColors.darkPeach.toARGB32()),
         ),
       ),
     ),
@@ -231,7 +239,7 @@ pw.Widget _buildHeader(pw.ImageProvider logoImage, pw.Font ttf) {
               style: pw.TextStyle(
                 font: ttf,
                 fontSize: AppFontSizes.medium,
-                color: PdfColor.fromInt(AppColors.darkGray.value),
+                color: PdfColor.fromInt(AppColors.darkGray.toARGB32()),
               ),
             ),
             pw.Spacer(),
@@ -292,7 +300,7 @@ pw.Widget _buildUserInfo(
         style: pw.TextStyle(
           font: ttfBold,
           fontWeight: pw.FontWeight.bold,
-          color: PdfColor.fromInt(AppColors.darkPeach.value),
+          color: PdfColor.fromInt(AppColors.darkPeach.toARGB32()),
         ),
       ),
       pw.SizedBox(height: 8),
@@ -349,6 +357,9 @@ Future<void> _addShoesPage(
   AppLocalizations localizations,
 ) async {
   final imageBytes = await fetchImage(shoes.imageUrl);
+  if (!context.mounted) {
+    throw Exception('Context no longer mounted');
+  }
   final image = img.decodeImage(imageBytes)!;
   final pdfImage = pw.MemoryImage(Uint8List.fromList(img.encodePng(image)));
 
@@ -397,7 +408,7 @@ pw.Widget _buildFooter(int pageNumber, int pagesCount, pw.Font ttf,
       border: pw.Border(
         top: pw.BorderSide(
           width: 1,
-          color: PdfColor.fromInt(AppColors.darkPeach.value),
+          color: PdfColor.fromInt(AppColors.darkPeach.toARGB32()),
         ),
       ),
     ),
@@ -409,7 +420,7 @@ pw.Widget _buildFooter(int pageNumber, int pagesCount, pw.Font ttf,
           style: pw.TextStyle(
             font: ttf,
             fontSize: AppFontSizes.extraSmall,
-            color: PdfColor.fromInt(AppColors.darkGray.value),
+            color: PdfColor.fromInt(AppColors.darkGray.toARGB32()),
           ),
         ),
       ],

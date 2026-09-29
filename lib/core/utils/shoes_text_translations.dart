@@ -256,6 +256,23 @@ class ShoesTextTranslations {
     },
   };
 
+  /// Category labels for [languageCode], restricted to the categories
+  /// available for the user's gender ([categoryToTypes]).
+  ///
+  /// When [categoryToTypes] is empty the gender is not known yet, so every
+  /// category is returned. Pure function: easy to unit test.
+  static Map<String, String> categoryOptionsFor({
+    required String languageCode,
+    required Map<String, List<String>> categoryToTypes,
+  }) {
+    final all = categoryTranslations[languageCode] ?? const {};
+    if (categoryToTypes.isEmpty) return all;
+
+    return Map.fromEntries(
+      all.entries.where((entry) => categoryToTypes.containsKey(entry.key)),
+    );
+  }
+
   static String translateCategory(String category, String languageCode) {
     return categoryTranslations[languageCode]?[category] ?? category;
   }

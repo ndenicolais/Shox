@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:shox/theme/app_radius.dart';
 
 class ButtonWidget extends StatelessWidget {
   final double? width;
@@ -30,44 +30,57 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppRadius.large),
+    );
+    final label = TextStyle(
+      fontFamily: 'CustomFont',
+      color: textColor,
+      fontSize: fontSize,
+    );
+    final content = Center(
+      child: icon != null
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, color: textColor, size: iconSize ?? 24.sp),
+                SizedBox(width: 8.w),
+                Text(text, style: label),
+              ],
+            )
+          : Text(text, style: label),
+    );
+
+    if (isOutline) {
+      return SizedBox(
+        width: width,
+        height: height,
+        child: OutlinedButton(
+          onPressed: onPressed,
+          style: OutlinedButton.styleFrom(
+            foregroundColor: textColor,
+            side: BorderSide(color: textColor),
+            shape: shape,
+            backgroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+          ),
+          child: content,
+        ),
+      );
+    }
     return SizedBox(
       width: width,
       height: height,
-      child: MaterialButton(
+      child: ElevatedButton(
         onPressed: onPressed,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
-          side: isOutline ? BorderSide(color: textColor) : BorderSide.none,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor,
+          elevation: 1,
+          shape: shape,
+          padding: EdgeInsets.zero,
         ),
-        color: backgroundColor,
-        child: Center(
-          child: icon != null
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      icon,
-                      color: textColor,
-                      size: iconSize ?? 24.sp,
-                    ),
-                    SizedBox(width: 8.w),
-                    Text(
-                      text,
-                      style: GoogleFonts.montserrat(
-                        color: textColor,
-                        fontSize: fontSize,
-                      ),
-                    ),
-                  ],
-                )
-              : Text(
-                  text,
-                  style: GoogleFonts.montserrat(
-                    color: textColor,
-                    fontSize: fontSize,
-                  ),
-                ),
-        ),
+        child: content,
       ),
     );
   }

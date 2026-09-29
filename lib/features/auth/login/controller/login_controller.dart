@@ -1,20 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
+import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/core/utils/app_exceptions.dart';
 import 'package:shox/features/auth/login/repository/login_repository.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
-import 'package:shox/screens/auth/gender_selection/screens/gender_selection_screen.dart';
-import 'package:shox/screens/home/screens/home_screen.dart';
 
 class LoginController extends GetxController {
   final LoginRepository _loginRepository = LoginRepository();
-  final UserController _userController = UserController();
+  final UserController _userController = Get.find<UserController>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var passwordVisible = false.obs;
   var rememberMe = false.obs;
+  var isLoading = false.obs;
 
   @override
   void onClose() {
@@ -27,6 +28,7 @@ class LoginController extends GetxController {
     if (!formKey.currentState!.validate()) {
       return;
     }
+    isLoading.value = true;
     try {
       User? user = await _loginRepository.loginWithEmailPassword(
         emailController.text,
@@ -41,34 +43,51 @@ class LoginController extends GetxController {
               context,
               AppLocalizations.of(context)!.login_toast_success,
             );
-            Get.to(() => const HomeScreen(),
-                transition: Transition.fade,
-                duration: const Duration(milliseconds: 500));
+            Get.toNamed(AppRoutes.home);
           }
         }
       }
     } catch (e) {
       String errorMessage = e.toString();
-      if (context.mounted) {
-        if (e is Exception && errorMessage.contains("email_not_found")) {
-          errorMessage =
-              AppLocalizations.of(context)!.login_toast_error_email_not_found;
-        }
-      }
-      if (context.mounted) {
-        if (e is Exception && errorMessage.contains("invalid_password")) {
-          errorMessage =
-              AppLocalizations.of(context)!.login_toast_error_invalid_password;
+      if (e is AuthException && context.mounted) {
+        if (e.code == 'email_not_found') {
+          errorMessage = AppLocalizations.of(
+            context,
+          )!
+              .login_toast_error_email_not_found;
+        } else if (e.code == 'invalid_password') {
+          errorMessage = AppLocalizations.of(
+            context,
+          )!
+              .login_toast_error_invalid_password;
         }
       }
       if (context.mounted) {
         showErrorToast(context, errorMessage);
       }
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<void> loginWithGoogle(BuildContext context) async {
-    final result = await _loginRepository.loginWithGoogle(rememberMe.value);
+    isLoading.value = true;
+    Map<String, dynamic>? result;
+    try {
+      // Google login always keeps the user signed in, regardless of the
+      // "remember me" checkbox state.
+      result = await _loginRepository.loginWithGoogle(true);
+    } catch (e) {
+      if (context.mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        final errorMessage = e is AuthException && e.code == 'network_error'
+            ? l10n.login_toast_error_network
+            : '${l10n.login_toast_error_generic} $e';
+        showErrorToast(context, errorMessage);
+      }
+    } finally {
+      isLoading.value = false;
+    }
     if (result != null) {
       final user = result['user'] as User;
       final isNewUser = result['isNewUser'] as bool;
@@ -81,23 +100,18 @@ class LoginController extends GetxController {
 
         // If it's a new user, show gender selection screen
         if (isNewUser) {
-          Get.off(
-            () => GenderSelectionScreen(
-              userId: user.uid,
-              userEmail: user.email ?? '',
-              userName: user.displayName?.split(' ').first ?? 'User',
-              userImage: user.photoURL,
-            ),
-            transition: Transition.fade,
-            duration: const Duration(milliseconds: 500),
+          Get.offNamed(
+            AppRoutes.genderSelection,
+            arguments: {
+              'userId': user.uid,
+              'userEmail': user.email ?? '',
+              'userName': user.displayName?.split(' ').first ?? 'User',
+              'userImage': user.photoURL,
+            },
           );
         } else {
           // Existing user, go to home
-          Get.to(
-            () => const HomeScreen(),
-            transition: Transition.fade,
-            duration: const Duration(milliseconds: 500),
-          );
+          Get.toNamed(AppRoutes.home);
         }
       }
     }

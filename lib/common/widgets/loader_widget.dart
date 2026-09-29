@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shox/l10n/app_localizations.dart';
 
 class LoaderWidget extends StatefulWidget {
   final double width;
@@ -7,6 +8,7 @@ class LoaderWidget extends StatefulWidget {
   final IconData? icon;
   final Color? iconColor;
   final String? imagePath;
+  final String? semanticsLabel;
 
   const LoaderWidget({
     super.key,
@@ -16,6 +18,7 @@ class LoaderWidget extends StatefulWidget {
     this.icon,
     this.iconColor,
     this.imagePath,
+    this.semanticsLabel,
   });
 
   @override
@@ -51,30 +54,36 @@ class LoaderWidgetState extends State<LoaderWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _animation.value,
-            child: child,
-          );
-        },
-        child: SizedBox(
-          width: widget.width,
-          height: widget.height,
-          child: widget.useIcon
-              ? Icon(
-                  widget.icon ?? Icons.hourglass_empty,
-                  size: widget.width,
-                  color: widget.iconColor ??
-                      Theme.of(context).colorScheme.secondary,
-                )
-              : Image.asset(
-                  widget.imagePath ?? 'assets/images/app_logo.png',
-                  width: widget.width,
-                  height: widget.height,
-                ),
+    return Semantics(
+      liveRegion: true,
+      label: widget.semanticsLabel ??
+          AppLocalizations.of(context)?.a11y_loading ??
+          'Loading',
+      child: Center(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: _animation.value,
+              child: child,
+            );
+          },
+          child: SizedBox(
+            width: widget.width,
+            height: widget.height,
+            child: widget.useIcon
+                ? Icon(
+                    widget.icon ?? Icons.hourglass_empty,
+                    size: widget.width,
+                    color: widget.iconColor ??
+                        Theme.of(context).colorScheme.secondary,
+                  )
+                : Image.asset(
+                    widget.imagePath ?? 'assets/images/app_logo.png',
+                    width: widget.width,
+                    height: widget.height,
+                  ),
+          ),
         ),
       ),
     );

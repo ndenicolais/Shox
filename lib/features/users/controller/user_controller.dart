@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:shox/common/screens/welcome_screen.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
+import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:shox/features/users/repository/user_repository.dart';
 
@@ -26,6 +26,7 @@ class UserController extends GetxController {
   Future<void> loadUserProfile(String userId) async {
     try {
       isLoadingProfile.value = true;
+
       final user = await _userRepository.getUserDetails(userId);
       if (user != null) {
         userEmail.value = user.userEmail;
@@ -66,11 +67,7 @@ class UserController extends GetxController {
         AppLocalizations.of(context)!.logout_toast_success,
       );
     }
-    Get.offAll(
-      () => const WelcomeScreen(),
-      transition: Transition.fade,
-      duration: const Duration(milliseconds: 500),
-    );
+    Get.offAllNamed(AppRoutes.welcome);
   }
 
   Future<void> googleSignOut() async {
@@ -85,26 +82,21 @@ class UserController extends GetxController {
     await _userRepository.deleteEntireUserCollection(userId);
   }
 
-  // ==================== SUPABASE IMAGE OPERATIONS ====================
+  // ==================== FIREBASE STORAGE OPERATIONS ====================
 
-  /// Upload user image to Supabase Storage
-  /// Returns the storage path of the uploaded image
-  Future<String> addUserImageSupabase(String userId, File imageFile) async {
-    return await _userRepository.addUserImageSupabase(userId, imageFile);
+  /// Upload user image to Firebase Storage
+  /// Returns the download URL of the uploaded image
+  Future<String> addUserImage(String userId, File imageFile) async {
+    return await _userRepository.addUserImage(userId, imageFile);
   }
 
-  /// Delete user image from Supabase Storage
-  Future<void> deleteUserImageSupabase(String userId, String fileName) async {
-    await _userRepository.deleteUserImageSupabase(userId, fileName);
+  /// Delete user image from Firebase Storage via its download URL
+  Future<void> deleteUserImage(String imageUrl) async {
+    await _userRepository.deleteUserImage(imageUrl);
   }
 
-  /// Get public URL for user image from Supabase Storage
-  String getUserImageUrlSupabase(String userId, String fileName) {
-    return _userRepository.getUserImageUrlSupabase(userId, fileName);
-  }
-
-  /// Delete all user folders in Supabase Storage
-  Future<void> deleteUserFolderSupabase(String userId) async {
-    await _userRepository.deleteUserFolderSupabase(userId);
+  /// Delete all user folders in Firebase Storage
+  Future<void> deleteUserFolder(String userId) async {
+    await _userRepository.deleteUserFolder(userId);
   }
 }

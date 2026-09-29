@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/screens/home/screens/home_screen.dart';
-import 'package:shox/common/screens/welcome_screen.dart';
+import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/core/utils/constants.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/app_font_sizes.dart';
 
@@ -27,6 +26,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _pages = OnboardingItems(context).items;
@@ -45,20 +50,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _checkRememberMe() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool rememberMe = prefs.getBool('remember_me') ?? false;
+    bool rememberMe = prefs.getBool(AppConstants.prefsRememberMe) ?? false;
 
     if (rememberMe) {
-      Get.offAll(
-        () => const HomeScreen(),
-        transition: Transition.fade,
-        duration: const Duration(milliseconds: 500),
-      );
+      Get.offAllNamed(AppRoutes.home);
     } else {
-      Get.offAll(
-        () => const WelcomeScreen(),
-        transition: Transition.fade,
-        duration: const Duration(milliseconds: 500),
-      );
+      Get.offAllNamed(AppRoutes.welcome);
     }
   }
 
@@ -72,10 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                AppColors.darkPeach,
-                AppColors.whiteSmoke,
-              ],
+              colors: [AppColors.darkPeach, AppColors.whiteSmoke],
             ),
           ),
           child: SafeArea(
@@ -103,9 +97,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Text(
                               item.title,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.montserrat(
+                              style: TextStyle(
+                                fontFamily: 'CustomFontBold',
                                 fontSize: AppFontSizes.massive,
-                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(height: 24.h),
@@ -114,7 +108,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child: Text(
                                 item.description,
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.montserrat(
+                                style: TextStyle(
+                                  fontFamily: 'CustomFont',
                                   fontSize: AppFontSizes.normal,
                                 ),
                               ),
@@ -167,10 +162,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           child: Text(
                             _currentIndex == _pages.length - 1
-                                ? AppLocalizations.of(context)!
+                                ? AppLocalizations.of(
+                                    context,
+                                  )!
                                     .onboarding_finish
                                 : AppLocalizations.of(context)!.onboarding_next,
-                            style: GoogleFonts.montserrat(
+                            style: TextStyle(
+                              fontFamily: 'CustomFont',
                               color: AppColors.whiteSmoke,
                               fontSize: AppFontSizes.medium,
                               fontWeight: FontWeight.w400,
@@ -216,8 +214,10 @@ class OnboardingItems {
       ),
       OnboardingInfo(
         title: AppLocalizations.of(context)!.onboarding_second_title,
-        description:
-            AppLocalizations.of(context)!.onboarding_second_description,
+        description: AppLocalizations.of(
+          context,
+        )!
+            .onboarding_second_description,
         image: Image.asset('assets/images/onboarding_filter.png'),
       ),
       OnboardingInfo(
@@ -227,8 +227,10 @@ class OnboardingItems {
       ),
       OnboardingInfo(
         title: AppLocalizations.of(context)!.onboarding_fourth_title,
-        description:
-            AppLocalizations.of(context)!.onboarding_fourth_description,
+        description: AppLocalizations.of(
+          context,
+        )!
+            .onboarding_fourth_description,
         image: Image.asset('assets/images/onboarding_graphs.png'),
       ),
     ];

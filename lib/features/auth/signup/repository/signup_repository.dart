@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
+import 'package:shox/core/utils/app_exceptions.dart';
+import 'package:shox/core/utils/constants.dart';
 import 'package:shox/features/users/models/user_model.dart';
 
 class SignupRepository {
@@ -22,7 +24,7 @@ class SignupRepository {
         .get();
 
     if (emailCheck.docs.isNotEmpty) {
-      throw Exception("email_already_register");
+      throw const AuthException('email_already_register');
     }
 
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
@@ -38,8 +40,9 @@ class SignupRepository {
         .set(newUser.toFirestore());
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('remember_me', true);
-    await prefs.setString('user_id', userCredential.user?.uid ?? '');
+    await prefs.setBool(AppConstants.prefsRememberMe, true);
+    await prefs.setString(
+        AppConstants.prefsUserId, userCredential.user?.uid ?? '');
 
     return userCredential.user;
   }

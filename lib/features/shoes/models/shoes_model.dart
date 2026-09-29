@@ -42,7 +42,7 @@ class ShoesModel {
   Map<String, dynamic> toFirestore() {
     return {
       'imageUrl': imageUrl,
-      'colorPrimary': colorPrimary.value,
+      'colorPrimary': colorPrimary.toARGB32(),
       'colorExtra': colorExtra,
       'brand': brand,
       'size': size,

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 
@@ -49,16 +49,32 @@ Future<void> requestStoragePermission(
     else {
       PermissionStatus filePermission = await Permission.photos.status;
 
-      if (filePermission.isGranted) {
+      if (filePermission.isGranted || filePermission.isLimited) {
         return await pickImage();
       } else if (filePermission.isDenied) {
-        if (context.mounted) {
-          showErrorToast(
-            context,
-            AppLocalizations.of(context)!.permission_storage_denied,
-          );
+        filePermission = await Permission.photos.request();
+
+        if (filePermission.isGranted || filePermission.isLimited) {
+          return await pickImage();
+        } else if (filePermission.isPermanentlyDenied) {
+          if (context.mounted) {
+            showErrorToast(
+              context,
+              AppLocalizations.of(context)!.permission_storage_toast,
+            );
+          }
+          await Future.delayed(const Duration(milliseconds: 1200));
+          openAppSettings();
+          throw Exception('Storage permission permanently denied');
+        } else {
+          if (context.mounted) {
+            showErrorToast(
+              context,
+              AppLocalizations.of(context)!.permission_storage_denied,
+            );
+          }
+          throw Exception('Storage permission denied');
         }
-        throw Exception('Storage permission denied');
       } else if (filePermission.isPermanentlyDenied) {
         if (context.mounted) {
           showErrorToast(

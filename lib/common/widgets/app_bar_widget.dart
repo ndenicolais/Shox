@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -25,6 +24,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: showLeading
           ? IconButton(
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               icon: Icon(
                 MingCuteIcons.mgc_large_arrow_left_line,
                 color: Theme.of(context).colorScheme.secondary,
@@ -39,13 +39,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       automaticallyImplyLeading: showLeading,
-      title: Text(
-        title,
-        style: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
-      ),
-      centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      foregroundColor: Theme.of(context).colorScheme.secondary,
+      title: Text(title),
       actions: actions,
     );
   }

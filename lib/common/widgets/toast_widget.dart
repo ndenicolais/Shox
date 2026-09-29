@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/app_font_sizes.dart';
+import 'package:shox/theme/app_radius.dart';
 
 class ToastWidget extends StatelessWidget {
   final String title;
@@ -34,11 +34,18 @@ class ToastWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(100.r),
-            border: Border.all(color: borderColor, width: 1.5.w),
+            borderRadius: BorderRadius.circular(AppRadius.pill),
+            border: Border.all(color: borderColor, width: 1.w),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0x33000000),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -49,7 +56,8 @@ class ToastWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: GoogleFonts.montserrat(
+                  style: TextStyle(
+                    fontFamily: 'CustomFont',
                     color: titleColor,
                     fontSize: AppFontSizes.extraSmall,
                   ),
@@ -58,6 +66,7 @@ class ToastWidget extends StatelessWidget {
                 ),
               ),
               IconButton(
+                tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
                 icon: Icon(
                   MingCuteIcons.mgc_close_line,
                   color: AppColors.darkGray,
@@ -73,6 +82,8 @@ class ToastWidget extends StatelessWidget {
   }
 }
 
+OverlayEntry? _activeToastEntry;
+
 void showToast({
   required BuildContext context,
   required String title,
@@ -83,6 +94,8 @@ void showToast({
   required Color borderColor,
   Duration autoCloseDuration = const Duration(milliseconds: 1500),
 }) {
+  _activeToastEntry?.remove();
+
   final overlay = Overlay.of(context);
   late final OverlayEntry overlayEntry;
   overlayEntry = OverlayEntry(
@@ -93,13 +106,18 @@ void showToast({
       iconColor: iconColor,
       backgroundColor: backgroundColor,
       borderColor: borderColor,
-      onClose: () => overlayEntry.remove(),
+      onClose: () {
+        overlayEntry.remove();
+        if (_activeToastEntry == overlayEntry) _activeToastEntry = null;
+      },
     ),
   );
+  _activeToastEntry = overlayEntry;
   overlay.insert(overlayEntry);
 
   Future.delayed(autoCloseDuration, () {
     if (overlayEntry.mounted) overlayEntry.remove();
+    if (_activeToastEntry == overlayEntry) _activeToastEntry = null;
   });
 }
 

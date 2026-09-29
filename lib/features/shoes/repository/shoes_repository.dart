@@ -4,16 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
 /// Repository per la gestione dei dati delle scarpe
-/// Gestisce tutte le operazioni CRUD su Firestore e Supabase Storage
+/// Gestisce tutte le operazioni CRUD su Firestore e Firebase Storage
 class ShoesRepository {
   final Logger _logger = Logger();
   final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final SupabaseClient _supabaseClient = Supabase.instance.client;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   firebase_auth.User? get currentUser => _auth.currentUser;
 
@@ -131,10 +131,10 @@ class ShoesRepository {
     }
   }
 
-  // ========== SUPABASE STORAGE OPERATIONS ==========
+  // ========== FIREBASE STORAGE OPERATIONS ==========
 
-  /// Carica un'immagine su Supabase Storage
-  /// Restituisce il path dell'immagine caricata
+  /// Carica un'immagine su Firebase Storage
+  /// Restituisce il download URL dell'immagine caricata
   Future<String> uploadImage({
     required String userId,
     required String shoesId,
@@ -146,43 +146,29 @@ class ShoesRepository {
       String fileExtension = extension(imageFile.path);
       final path = '$userId/shoes/$shoesId/$uniqueId$fileExtension';
 
-      await _supabaseClient.storage.from('images').upload(path, imageFile);
+      final ref = _storage.ref(path);
+      await ref.putFile(imageFile);
+      final downloadUrl = await ref.getDownloadURL();
       _logger.i("Image uploaded successfully to: $path");
 
-      return path;
+      return downloadUrl;
     } catch (e) {
       _logger.e("Error uploading image: $e");
       rethrow;
     }
   }
 
-  /// Elimina un'immagine da Supabase Storage
-  Future<void> deleteImage({
-    required String userId,
-    required String shoesId,
-    required String fileName,
-  }) async {
-    final path = '$userId/shoes/$shoesId/$fileName';
-    _logger.i('Deleting image from Supabase with path: $path');
+  /// Elimina un'immagine da Firebase Storage tramite il suo download URL
+  Future<void> deleteImage(String imageUrl) async {
+    _logger.i('Deleting image from Firebase Storage: $imageUrl');
 
     try {
-      await _supabaseClient.storage.from('images').remove([path]);
-      _logger.i("Image successfully deleted from Supabase");
+      await _storage.refFromURL(imageUrl).delete();
+      _logger.i("Image successfully deleted from Firebase Storage");
     } catch (e) {
-      _logger.e("Error deleting image from Supabase: $e");
+      _logger.e("Error deleting image from Firebase Storage: $e");
       rethrow;
     }
-  }
-
-  /// Ottiene l'URL pubblico di un'immagine da Supabase
-  String getImageUrl({
-    required String userId,
-    required String shoesId,
-    required String fileName,
-  }) {
-    return _supabaseClient.storage
-        .from('images')
-        .getPublicUrl('$userId/shoes/$shoesId/$fileName');
   }
 
   // ========== UTILITY METHODS ==========

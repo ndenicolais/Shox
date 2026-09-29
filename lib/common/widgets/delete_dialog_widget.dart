@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shox/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/theme/app_font_sizes.dart';
+import 'package:shox/theme/app_radius.dart';
 
 class DeleteDialogWidget extends StatelessWidget {
   final String title;
@@ -23,12 +24,9 @@ class DeleteDialogWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.primary,
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.r),
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.secondary,
-          width: 2,
-        ),
+        borderRadius: BorderRadius.circular(AppRadius.dialog),
       ),
       contentPadding: EdgeInsets.zero,
       content: Column(
@@ -40,8 +38,8 @@ class DeleteDialogWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(22.r),
-                topRight: Radius.circular(22.r),
+                topLeft: Radius.circular(AppRadius.dialog),
+                topRight: Radius.circular(AppRadius.dialog),
               ),
             ),
             child: Column(
@@ -54,10 +52,10 @@ class DeleteDialogWidget extends StatelessWidget {
                 SizedBox(height: 12.h),
                 Text(
                   title,
-                  style: GoogleFonts.montserrat(
+                  style: TextStyle(
+                    fontFamily: 'CustomFontBold',
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: AppFontSizes.mediumLarge,
-                    fontWeight: FontWeight.w600,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -68,7 +66,8 @@ class DeleteDialogWidget extends StatelessWidget {
             padding: EdgeInsets.all(24.r),
             child: Text(
               content,
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
+                fontFamily: 'CustomFont',
                 color: Theme.of(context).colorScheme.tertiary,
                 fontSize: AppFontSizes.normal,
                 height: 1.5,
@@ -81,58 +80,27 @@ class DeleteDialogWidget extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: SizedBox(
+                  child: ButtonWidget(
                     height: 48.h,
-                    child: ElevatedButton(
-                      onPressed: onCancelPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.secondary,
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .custom_delete_dialog_cancel,
-                        style: GoogleFonts.montserrat(
-                          fontSize: AppFontSizes.normal,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    textColor: Theme.of(context).colorScheme.secondary,
+                    fontSize: AppFontSizes.normal,
+                    isOutline: true,
+                    onPressed: onCancelPressed,
+                    text: AppLocalizations.of(context)!
+                        .custom_delete_dialog_cancel,
                   ),
                 ),
                 SizedBox(width: 12.w),
                 Expanded(
-                  child: SizedBox(
+                  child: ButtonWidget(
                     height: 48.h,
-                    child: ElevatedButton(
-                      onPressed: onConfirmPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        foregroundColor: Theme.of(context).colorScheme.primary,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .custom_delete_dialog_confirm,
-                        style: GoogleFonts.montserrat(
-                          fontSize: AppFontSizes.normal,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    textColor: Theme.of(context).colorScheme.primary,
+                    fontSize: AppFontSizes.normal,
+                    onPressed: onConfirmPressed,
+                    text: AppLocalizations.of(context)!
+                        .custom_delete_dialog_confirm,
                   ),
                 ),
               ],

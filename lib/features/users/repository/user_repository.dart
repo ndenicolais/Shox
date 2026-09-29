@@ -5,8 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shox/core/utils/constants.dart';
 import 'package:shox/features/users/models/user_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class UserRepository {
@@ -15,7 +16,7 @@ class UserRepository {
   final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final SupabaseClient _supabaseClient = Supabase.instance.client;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<String> loadUserName() async {
     final user = _auth.currentUser;
@@ -49,7 +50,7 @@ class UserRepository {
   }
 
   /// Get user profile image URL
-  /// Returns Google profile image URL if available, otherwise Supabase image URL
+  /// Returns Google profile image URL if available, otherwise Firebase Storage image URL
   Future<String?> getUserProfileImageUrl(String userId) async {
     final user = currentUser;
     if (user != null &&
@@ -62,16 +63,14 @@ class UserRepository {
       }
     }
 
-    // Get image from Firestore/Supabase
+    // Get image from Firestore
     try {
       final userDoc = await _firestore.collection('users').doc(userId).get();
       if (userDoc.exists) {
         var data = userDoc.data() as Map<String, dynamic>;
         UserModel userModel = UserModel.fromFirestore(data);
-        if (userModel.userImage != null) {
-          final imageUrl = userModel.userImage!;
-          final fileName = imageUrl.split('/').last;
-          return getUserImageUrlSupabase(userId, fileName);
+        if (userModel.userImage != null && userModel.userImage!.isNotEmpty) {
+          return userModel.userImage;
         }
       }
     } catch (e) {
@@ -86,8 +85,8 @@ class UserRepository {
       await _auth.signOut();
       await googleSignOut();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.remove('remember_me');
-      await prefs.remove('user_id');
+      await prefs.remove(AppConstants.prefsRememberMe);
+      await prefs.remove(AppConstants.prefsUserId);
     } catch (e) {
       throw Exception('Error during logout.');
     }
@@ -107,7 +106,7 @@ class UserRepository {
       }
       try {
         await deleteEntireUserCollection(user.uid);
-        await deleteUserFolderSupabase(user.uid);
+        await deleteUserFolder(user.uid);
         await user.delete();
         await _auth.signOut();
         await _googleSignIn.signOut();
@@ -138,97 +137,66 @@ class UserRepository {
     }
   }
 
-  // ==================== SUPABASE STORAGE OPERATIONS ====================
+  // ==================== FIREBASE STORAGE OPERATIONS ====================
 
-  /// Add user image to Supabase Storage
-  /// Returns the storage path of the uploaded image
-  Future<String> addUserImageSupabase(String userId, File imageFile) async {
+  /// Add user image to Firebase Storage
+  /// Returns the download URL of the uploaded image
+  Future<String> addUserImage(String userId, File imageFile) async {
     var uuid = const Uuid();
     String uniqueId = uuid.v4();
     String fileExtension = extension(imageFile.path);
     final path = '$userId/users/$uniqueId$fileExtension';
 
-    await _supabaseClient.storage.from('images').upload(path, imageFile);
-    _logger.i('User image uploaded to Supabase: $path');
+    final ref = _storage.ref(path);
+    await ref.putFile(imageFile);
+    final downloadUrl = await ref.getDownloadURL();
+    _logger.i('User image uploaded to Firebase Storage: $path');
 
-    return path;
+    return downloadUrl;
   }
 
-  /// Delete user image from Supabase Storage
-  Future<void> deleteUserImageSupabase(String userId, String fileName) async {
-    final path = '$userId/users/$fileName';
-    _logger.i('Deleting image from Supabase with path: $path');
+  /// Delete user image from Firebase Storage via its download URL
+  Future<void> deleteUserImage(String imageUrl) async {
+    _logger.i('Deleting image from Firebase Storage: $imageUrl');
 
     try {
-      await _supabaseClient.storage.from('images').remove([path]);
-      _logger.i("Image successfully deleted from Supabase");
+      await _storage.refFromURL(imageUrl).delete();
+      _logger.i("Image successfully deleted from Firebase Storage");
     } catch (e) {
-      _logger.e("Error in deleting image from Supabase: $e");
+      _logger.e("Error in deleting image from Firebase Storage: $e");
       rethrow;
     }
   }
 
-  /// Get public URL for user image from Supabase Storage
-  String getUserImageUrlSupabase(String userId, String fileName) {
-    return _supabaseClient.storage
-        .from('images')
-        .getPublicUrl('$userId/users/$fileName');
-  }
-
-  /// Delete all user folders in Supabase Storage
+  /// Delete all user folders in Firebase Storage
   /// Removes both 'users' and 'shoes' folders for the given userId
-  Future<void> deleteUserFolderSupabase(String userId) async {
+  Future<void> deleteUserFolder(String userId) async {
     final folders = ['users', 'shoes'];
 
     for (final folder in folders) {
-      final pathPrefix = '$userId/$folder/';
+      final ref = _storage.ref('$userId/$folder');
       _logger
-          .i('Deleting all files in Supabase folder with prefix: $pathPrefix');
+          .i('Deleting all files in Firebase Storage folder: $userId/$folder');
 
       try {
-        // List all files in the folder
-        final result =
-            await _supabaseClient.storage.from('images').list(path: pathPrefix);
+        final result = await ref.listAll();
 
-        if (result.isEmpty) {
-          _logger.i("No files found in Supabase folder: $pathPrefix");
-          continue;
+        for (final item in result.items) {
+          await item.delete();
         }
 
-        // Handle nested files in the 'shoes' folder
-        if (folder == 'shoes') {
-          for (final directory in result) {
-            final nestedPathPrefix = '$pathPrefix${directory.name}/';
-            final nestedResult = await _supabaseClient.storage
-                .from('images')
-                .list(path: nestedPathPrefix);
-
-            if (nestedResult.isEmpty) {
-              _logger.i(
-                  "No files found in nested Supabase folder: $nestedPathPrefix");
-              continue;
-            }
-
-            final nestedFilePaths = nestedResult
-                .map((file) => '$nestedPathPrefix${file.name}')
-                .toList();
-            await _supabaseClient.storage
-                .from('images')
-                .remove(nestedFilePaths);
-            _logger.i(
-                "All files successfully deleted from nested Supabase folder: $nestedPathPrefix");
+        for (final prefix in result.prefixes) {
+          final nestedResult = await prefix.listAll();
+          for (final item in nestedResult.items) {
+            await item.delete();
           }
-        } else {
-          // Handle files in the 'users' folder
-          final filePaths =
-              result.map((file) => '$pathPrefix${file.name}').toList();
-          await _supabaseClient.storage.from('images').remove(filePaths);
-          _logger.i(
-              "All files successfully deleted from Supabase folder: $pathPrefix");
+          _logger.i('All files deleted from nested folder: ${prefix.fullPath}');
         }
+
+        _logger.i(
+            'All files successfully deleted from Firebase Storage folder: $userId/$folder');
       } catch (e) {
-        _logger.e("Error in deleting user folder from Supabase: $e");
-        rethrow;
+        _logger.e('Error in deleting user folder from Firebase Storage: $e');
       }
     }
   }

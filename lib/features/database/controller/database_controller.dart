@@ -1,10 +1,11 @@
 import 'dart:ui';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:shox/features/database/repository/database_repository.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 
 /// Controller that manages business logic for database operations
-class DatabaseController {
+class DatabaseController extends GetxController {
   final Logger _logger = Logger();
   final DatabaseRepository _repository;
 
@@ -39,7 +40,7 @@ class DatabaseController {
       final Map<String, int> colorCounts = {};
 
       for (var shoes in shoesList) {
-        String colorHex = shoes.colorPrimary.value.toRadixString(16);
+        String colorHex = shoes.colorPrimary.toARGB32().toRadixString(16);
         colorCounts[colorHex] = (colorCounts[colorHex] ?? 0) + 1;
       }
 
@@ -204,7 +205,7 @@ class DatabaseController {
 
       final Map<String, int> colorCounts = {};
       for (var shoes in shoesList) {
-        String colorHex = shoes.colorPrimary.value.toRadixString(16);
+        String colorHex = shoes.colorPrimary.toARGB32().toRadixString(16);
         colorCounts[colorHex] = (colorCounts[colorHex] ?? 0) + 1;
       }
 
@@ -296,16 +297,15 @@ class DatabaseController {
   }
 
   /// Import database from JSON with validation
-  Future<ImportResult> importDatabase(String userId,
-      {Function(double)? onProgress}) async {
+  Future<ImportResult> importDatabase(
+    String userId, {
+    Function(double)? onProgress,
+  }) async {
     try {
       _logger.d('Starting database import...');
 
       if (userId.isEmpty) {
-        return ImportResult(
-          success: false,
-          message: 'User ID is required',
-        );
+        return ImportResult(success: false, message: 'User ID is required');
       }
 
       await _repository.importFromJson(userId, onProgress: onProgress);
@@ -386,11 +386,7 @@ class ExportResult {
   final String message;
   final String? filePath;
 
-  ExportResult({
-    required this.success,
-    required this.message,
-    this.filePath,
-  });
+  ExportResult({required this.success, required this.message, this.filePath});
 }
 
 /// Result of an import operation
