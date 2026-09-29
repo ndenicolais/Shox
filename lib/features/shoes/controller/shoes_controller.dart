@@ -12,8 +12,18 @@ import 'package:shox/features/shoes/repository/shoes_repository.dart';
 /// Coordina le operazioni tra UI e Repository
 class ShoesController extends GetxController {
   final Logger _logger = Logger();
-  final ShoesRepository _repository = ShoesRepository();
-  final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
+  final ShoesRepository _repository;
+  final firebase_auth.FirebaseAuth _auth;
+  final http.Client _httpClient;
+
+  /// Dependencies default to the real instances; tests can pass fakes.
+  ShoesController({
+    ShoesRepository? repository,
+    firebase_auth.FirebaseAuth? auth,
+    http.Client? httpClient,
+  })  : _repository = repository ?? ShoesRepository(),
+        _auth = auth ?? firebase_auth.FirebaseAuth.instance,
+        _httpClient = httpClient ?? http.Client();
 
   firebase_auth.User? get currentUser => _auth.currentUser;
 
@@ -224,7 +234,7 @@ class ShoesController extends GetxController {
           try {
             // Scarica l'immagine dall'URL
             Uri imageUri = Uri.parse(imageUrl);
-            http.Response response = await http.get(imageUri);
+            http.Response response = await _httpClient.get(imageUri);
 
             if (response.statusCode == 200) {
               // Salva temporaneamente l'immagine

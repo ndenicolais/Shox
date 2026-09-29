@@ -676,12 +676,12 @@ dev_dependencies:
   mocktail: ^1.0.5                         # Mock per i test (Firebase, Google Sign-In, controller)
 ```
 
-**Test (`flutter test`):** 63 test in `test/`.
+**Test (`flutter test`):** 85 test in `test/`.
 - Logica pura: `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`
-- Con mock (`mocktail`): `AuthService` (ricerca utente su Firestore, sessione in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (mappatura errori email/password e Google Sign-In), `ShoesFormService` (aggiunta, modifica, sostituzione e rimozione foto, conservazione del preferito), `AuthGuardService` (widget test con navigazione GetX reale: redirect su sessione scaduta, sign-out volontario, route pubbliche)
+- Con mock (`mocktail`): `AuthService` (ricerca utente su Firestore, sessione in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (mappatura errori email/password e Google Sign-In), `ShoesFormService` (aggiunta, modifica, sostituzione e rimozione foto, conservazione del preferito), `AuthGuardService` (widget test con navigazione GetX reale: redirect su sessione scaduta, sign-out volontario, route pubbliche), controller `ShoesController` (aggiunta, modifica, eliminazione, import/export JSON con client HTTP finto), `DatabaseController` (conteggi e statistiche, collezione vuota, errori) e `UserController` (caricamento profilo e nome)
 - Layout: widget condivisi a scala testo 1.3 (`test/common/widgets/text_scaling_test.dart`)
 
-`LoginRepository`, `AuthGuardService` e `AuthService` accettano le dipendenze (Firebase, Google Sign-In, Firestore) come parametri opzionali del costruttore, con le istanze reali come default, per poterle sostituire nei test.
+`ShoesController` (repository, Firebase Auth, `http.Client`), `UserController` (repository), `LoginRepository`, `AuthGuardService` e `AuthService` accettano le dipendenze (Firebase, Google Sign-In, Firestore) come parametri opzionali del costruttore, con le istanze reali come default, per poterle sostituire nei test.
 
 **Lint (`analysis_options.yaml`):** oltre a `flutter_lints` sono attive `avoid_print`, `prefer_const_constructors`, `prefer_const_declarations`, `use_super_parameters` e `require_trailing_commas`; i file generati da `flutter gen-l10n` (`lib/l10n/app_localizations*.dart`) sono esclusi dall'analisi. Le segnalazioni correggibili si applicano con `dart fix --apply`.
 

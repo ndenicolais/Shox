@@ -13,7 +13,11 @@ class UserController extends GetxController {
   final userEmail = ''.obs;
   final userProfileImage = ''.obs;
   final isLoadingProfile = true.obs;
-  final UserRepository _userRepository = UserRepository();
+  final UserRepository _userRepository;
+
+  /// The repository defaults to the real one; tests can pass a fake.
+  UserController({UserRepository? userRepository})
+      : _userRepository = userRepository ?? UserRepository();
 
   Future<void> loadUserName() async {
     await _userRepository.loadUserName().then((name) {
