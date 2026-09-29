@@ -240,12 +240,12 @@ Schermata principale che mostra l'intera collezione di scarpe dell'utente.
   - Stagione
   - Colore primario
   - Colore aggiuntivo
-- **Preferiti:** toggle rapido per visualizzare solo le scarpe contrassegnate come preferite; il cuore sulle card ha uno sfondo semitrasparente per restare leggibile sulle foto chiare
-- **Indicatore filtri:** l'icona dei filtri è evidenziata tramite il getter calcolato `_filtersActive`, derivato dal contenuto effettivo dei filtri (colore, colore extra, categoria, tipo, stagione, preferiti); la ricerca testuale è esclusa perché dispone del proprio pulsante di pulizia
+- **Intestazione e filtri rapidi (redesign A):** `TopBar` con avatar, saluto e titolo "La tua collezione"; `FilterBar` con campo di ricerca a pillola e pulsante filtri pieno (pallino `Badge` quando un filtro è attivo); `CategoryChips` con chip Tutte / Preferite / una per categoria (tradotte) che impostano direttamente `selectedCategory` e `showOnlyFavorites`; riga "N paia · M preferite" (plurali ICU) con il cambio griglia. Le card (`ShoeCard`) mostrano foto quadrata con cuore su sfondo semitrasparente, marca e "Tg. 42 · tipo"; l'altezza della cella è foto + didascalia scalata con il testo di sistema (`ShoeCard.captionHeight`)
+- **Indicatore filtri:** il pallino sul pulsante filtri è acceso tramite `ShoesFilter.isActive`, derivato dal contenuto effettivo dei filtri (colore, colore extra, categoria, tipo, stagione, preferiti); la ricerca testuale è esclusa perché dispone del proprio pulsante di pulizia
 - **Reset filtri:** `_resetFilters()` azzera tutti i filtri, la ricerca e il toggle preferiti; è condiviso fra il pulsante di pulizia della barra di ricerca e l'azione dello stato "nessun risultato"
 - **Stato vuoto:** messaggio informativo se la collezione è vuota
 - **Stato "nessun risultato":** se i filtri o la ricerca azzerano i risultati viene mostrato `EmptyStateWidget` con messaggio dedicato e azione "Azzera filtri"
-- **FAB (Floating Action Button):** navigazione rapida alla schermata di aggiunta scarpa; la griglia ha un padding inferiore di 88 per non farsi coprire l'ultima riga
+- **FAB esteso "Aggiungi":** navigazione alla schermata di aggiunta scarpa (stile da `floatingActionButtonTheme`: pesca, forma a pillola); la griglia ha un padding inferiore di 96 per non farsi coprire l'ultima riga
 - **Accessibilità:** tutti i pulsanti solo-icona espongono un `tooltip` localizzato (chiavi `a11y_*`); i toggle preferiti e filtri usano un'etichetta che riflette lo stato corrente. Nella top bar l'avatar è un `InkWell` con `Semantics(button: true)` e l'icona impostazioni un `IconButton`, per garantire ripple e area di tocco minima di 48dp.
 
 ---
@@ -510,7 +510,7 @@ Backup e ripristino della collezione.
 
 **Percorso:** `lib/theme/`
 
-**Font:** Montserrat (regular + bold), incluso come asset locale (nessuna dipendenza `google_fonts` o download a runtime). Utilizzato tramite `TextStyle(fontFamily: 'CustomFont')` per il peso regular e `TextStyle(fontFamily: 'CustomFontBold')` per il peso bold.
+**Font:** Montserrat (regular 400 + bold 700), incluso come asset locale e registrato in `pubspec.yaml` sia come famiglia unica `Montserrat` con i due pesi (usata dal tema: `ThemeData.fontFamily` e `TextTheme`) sia con le famiglie storiche `CustomFont`/`CustomFontBold`, ancora presenti nelle schermate non ridisegnate (nessuna dipendenza `google_fonts` o download a runtime). Utilizzato tramite `TextStyle(fontFamily: 'CustomFont')` per il peso regular e `TextStyle(fontFamily: 'CustomFontBold')` per il peso bold.
 
 **Font icone personalizzate:** `ShoxIcons.ttf` — font vettoriale custom incluso in assets.
 
@@ -553,6 +553,8 @@ Il tema attivo è gestito da `ThemeController` (GetX), selezionabile tra Sistema
 | `cardLight` | `#FFFFFF` | Card rialzate in tema chiaro (`surfaceContainerLowest`) |
 
 **Ruoli del `ColorScheme` (semantici):** `surface` = sfondo pagina, `onSurface` = testo principale, `onSurfaceVariant` = testo secondario, `secondary` = accento caldo (pesca / champagne), `primary` = azioni principali (pulsanti pieni, chip selezionati: darkGray in chiaro, champagne in scuro), `surfaceContainerLowest` = card rialzate, `outline` = bordi sottili, `error` = `errorColor`. Le schermate referenziano solo questi ruoli; `progressIndicatorTheme` e `switchTheme` usano l'accento.
+
+**Tipografia e componenti (redesign A):** `AppTheme._textTheme` definisce un'unica scala (headlineMedium 28 titolo dettaglio, headlineSmall 22 titoli schermata, titleMedium 16 app bar, titleSmall 15 titolo card, body 14/16, bodySmall 12 testo secondario, labelLarge 15 pulsanti, labelMedium 13 chip, labelSmall 11 etichette in maiuscolo). I temi dei componenti allineano pulsanti (pieni `primary`, a pillola, altezza 52), campi (riempiti con `surfaceContainerLowest`, senza bordo, bordo `primary` al focus), card, chip, FAB, dialog e bottom sheet (con maniglia). `ButtonWidget` eredita colori, forma e stile del testo dal tema.
 
 **Spaziature (`AppSpacing`, `lib/theme/app_spacing.dart`):** scala unica per padding, margini e gap — `grid` 2, `xxs` 4, `xs` 8, `s` 12, `m` 16, `l` 20, `xl` 24, `xxl` 32, più `screen` 30 per il padding esterno delle pagine. Come `AppRadius` sono valori grezzi: ogni chiamata sceglie lo scaling ScreenUtil adatto all'asse (`AppSpacing.m.r`, `AppSpacing.xs.h`). I pochi valori fuori scala rimasti (es. 88 di spazio per il FAB, 72 in fondo al form) sono casi specifici voluti.
 

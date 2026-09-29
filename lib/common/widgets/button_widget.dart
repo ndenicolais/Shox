@@ -6,10 +6,11 @@ import 'package:shox/theme/app_spacing.dart';
 
 /// App-wide text button, filled or outlined.
 ///
-/// Colors default to the theme (`secondary` background with `primary` text
-/// when filled, `secondary` text and border when outlined); shape comes from
-/// the theme's button themes. A null [onPressed] renders the button disabled,
-/// [isLoading] swaps the label for a spinner while keeping the button size.
+/// Colors default to the theme (`primary` background with `onPrimary` text
+/// when filled, `onSurface` text with an `outline` border when outlined);
+/// shape (stadium) and label style come from the theme's button themes.
+/// A null [onPressed] renders the button disabled, [isLoading] swaps the
+/// label for a spinner while keeping the button size.
 class ButtonWidget extends StatelessWidget {
   /// Material minimum touch target.
   static const double minTouchTarget = 48;
@@ -44,17 +45,16 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final Color foreground =
-        textColor ?? (isOutline ? colorScheme.secondary : colorScheme.surface);
-    final Color background = backgroundColor ?? colorScheme.secondary;
+    final Color foreground = textColor ??
+        (isOutline ? colorScheme.onSurface : colorScheme.onPrimary);
+    final Color background = backgroundColor ?? colorScheme.primary;
     final VoidCallback? action = isLoading ? null : onPressed;
     final bool isDisabled = onPressed == null;
 
-    final label = TextStyle(
-      fontFamily: 'CustomFont',
-      color: isDisabled ? foreground.withValues(alpha: 0.6) : foreground,
-      fontSize: fontSize,
-    );
+    final label = Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: isDisabled ? foreground.withValues(alpha: 0.6) : foreground,
+          fontSize: fontSize,
+        );
     // Labels shrink instead of overflowing when a fixed-width button meets a
     // long translation or a large OS text size.
     final Widget content = Padding(
@@ -91,7 +91,8 @@ class ButtonWidget extends StatelessWidget {
             style: OutlinedButton.styleFrom(
               foregroundColor: foreground,
               side: BorderSide(
-                color: foreground.withValues(alpha: action == null ? 0.4 : 1),
+                color: colorScheme.outline
+                    .withValues(alpha: action == null ? 0.4 : 1),
               ),
               backgroundColor: Colors.transparent,
               padding: EdgeInsets.zero,

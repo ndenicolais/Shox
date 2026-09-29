@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:shox/theme/app_font_sizes.dart';
 
 class FilterSheet extends StatelessWidget {
   final Color? selectedColor;
@@ -58,232 +56,172 @@ class FilterSheet extends StatelessWidget {
     return ['All', ...translatedAvailableTypes];
   }
 
+  /// Dropdown values keep the stored 'All' sentinel; only its label is
+  /// translated.
+  String _label(BuildContext context, String item) =>
+      item == 'All' ? AppLocalizations.of(context)!.home_screen_chip_all : item;
+
+  List<DropdownMenuItem<String>> _items(
+    BuildContext context,
+    List<String> values,
+  ) =>
+      values
+          .map(
+            (item) => DropdownMenuItem<String>(
+              value: item,
+              child: Text(_label(context, item)),
+            ),
+          )
+          .toList();
+
+  Widget _sectionLabel(BuildContext context, String text) => Padding(
+        padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+        child: Text(
+          text.toUpperCase(),
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+      );
+
+  Widget _swatches(
+    BuildContext context, {
+    required Color? selected,
+    required Function(Color) onSelected,
+  }) {
+    final colors = Theme.of(context).colorScheme;
+    return SizedBox(
+      height: 44,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: colorList.map((color) {
+          final bool isSelected = selected == color;
+          return Semantics(
+            button: true,
+            selected: isSelected,
+            child: InkResponse(
+              onTap: () => onSelected(color),
+              radius: 22,
+              child: Container(
+                width: 36,
+                height: 36,
+                margin: const EdgeInsets.only(right: AppSpacing.xs, top: 4),
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: isSelected ? colors.onSurface : Colors.transparent,
+                    width: 2,
+                  ),
+                ),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: colors.outline),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    const icon = Icon(MingCuteIcons.mgc_down_line);
+
     return Padding(
-      padding: EdgeInsets.all(AppSpacing.m.r),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            AppLocalizations.of(context)!.home_screen_filter_title,
-            style: TextStyle(
-              fontFamily: 'CustomFontBold',
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: AppFontSizes.medium,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.l,
+        0,
+        AppSpacing.l,
+        AppSpacing.xl,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.home_screen_filter_title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.xs.r),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppLocalizations.of(context)!.home_screen_filter_color_primary,
-                style: TextStyle(
-                  fontFamily: 'CustomFont',
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
+            const SizedBox(height: AppSpacing.l),
+            _sectionLabel(context, l10n.home_screen_filter_color_primary),
+            _swatches(
+              context,
+              selected: selectedColor,
+              onSelected: onColorSelected,
             ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: colorList.map((color) {
-                return Padding(
-                  padding: EdgeInsets.only(right: AppSpacing.xs.r),
-                  child: GestureDetector(
-                    onTap: () => onColorSelected(color),
-                    child: Container(
-                      width: 24.w,
-                      height: 24.h,
-                      decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(50.r),
-                        border: Border.all(
-                          color: selectedColor == color
-                              ? Theme.of(context).colorScheme.onSurface
-                              : Colors.transparent,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
+            const SizedBox(height: AppSpacing.m),
+            _sectionLabel(context, l10n.extra_colors),
+            _swatches(
+              context,
+              selected: selectedColorExtra,
+              onSelected: onColorExtraSelected,
             ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.xs.r),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppLocalizations.of(context)!.extra_colors,
-                style: TextStyle(
-                  fontFamily: 'CustomFont',
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: colorList.map((color) {
-                return Padding(
-                  padding: EdgeInsets.only(right: AppSpacing.xs.r),
-                  child: GestureDetector(
-                    onTap: () => onColorExtraSelected(color),
-                    child: Container(
-                      width: 24.w,
-                      height: 24.h,
-                      decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(50.r),
-                        border: Border.all(
-                          color: selectedColorExtra == color
-                              ? Theme.of(context).colorScheme.onSurface
-                              : Colors.transparent,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          SizedBox(height: 10.h),
-          DropdownButtonFormField<String>(
-            initialValue: selectedCategory != null
-                ? translatedCategoryOptions[selectedCategory]
-                : null,
-            items: ['All', ...translatedCategoryOptions.values].map((item) {
-              return DropdownMenuItem<String>(
-                value: item,
-                child: Padding(
-                  padding: EdgeInsets.only(left: AppSpacing.s.r),
-                  child: Text(
-                    item,
-                    style: TextStyle(
-                      fontFamily: 'CustomFont',
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-            icon: Icon(
-              MingCuteIcons.mgc_down_line,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            dropdownColor: Theme.of(context).colorScheme.surface,
-            decoration: InputDecoration(
-              labelText:
-                  AppLocalizations.of(context)!.home_screen_filter_category,
-            ),
-            onChanged: onCategoryChanged,
-          ),
-          SizedBox(height: 10.h),
-          if (selectedCategory != null)
+            const SizedBox(height: AppSpacing.l),
             DropdownButtonFormField<String>(
-              initialValue: selectedType,
-              items: _getAvailableTypeOptions().map((item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: AppSpacing.s.r),
-                    child: Text(
-                      item,
-                      style: TextStyle(
-                        fontFamily: 'CustomFont',
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-              icon: Icon(
-                MingCuteIcons.mgc_down_line,
-                color: Theme.of(context).colorScheme.onSurface,
+              initialValue: selectedCategory != null
+                  ? translatedCategoryOptions[selectedCategory]
+                  : null,
+              items: _items(
+                context,
+                ['All', ...translatedCategoryOptions.values],
               ),
-              dropdownColor: Theme.of(context).colorScheme.surface,
+              icon: icon,
               decoration: InputDecoration(
-                labelText:
-                    AppLocalizations.of(context)!.home_screen_filter_type,
+                labelText: l10n.home_screen_filter_category,
               ),
-              onChanged: onTypeChanged,
+              onChanged: onCategoryChanged,
             ),
-          SizedBox(height: 10.h),
-          DropdownButtonFormField<String>(
-            initialValue: selectedSeason,
-            items: ['All', ...translatedSeasonOptions.values].map((item) {
-              return DropdownMenuItem<String>(
-                value: item,
-                child: Padding(
-                  padding: EdgeInsets.only(left: AppSpacing.s.r),
-                  child: Text(
-                    item,
-                    style: TextStyle(
-                      fontFamily: 'CustomFont',
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
+            if (selectedCategory != null) ...[
+              const SizedBox(height: AppSpacing.s),
+              DropdownButtonFormField<String>(
+                initialValue: selectedType,
+                items: _items(context, _getAvailableTypeOptions()),
+                icon: icon,
+                decoration: InputDecoration(
+                  labelText: l10n.home_screen_filter_type,
                 ),
-              );
-            }).toList(),
-            icon: Icon(
-              MingCuteIcons.mgc_down_line,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            dropdownColor: Theme.of(context).colorScheme.surface,
-            decoration: InputDecoration(
-              labelText:
-                  AppLocalizations.of(context)!.home_screen_filter_season,
-            ),
-            onChanged: onSeasonChanged,
-          ),
-          SizedBox(height: 10.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
-                onPressed: onReset,
-                child: Text(
-                  AppLocalizations.of(context)!.home_screen_filter_reset,
-                  style: TextStyle(
-                    fontFamily: 'CustomFont',
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: AppFontSizes.normal,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8.w),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-                onPressed: onApply,
-                child: Text(
-                  AppLocalizations.of(context)!.home_screen_filter_apply,
-                  style: TextStyle(
-                    fontFamily: 'CustomFont',
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: AppFontSizes.normal,
-                  ),
-                ),
+                onChanged: onTypeChanged,
               ),
             ],
-          ),
-          SizedBox(height: 10.h),
-        ],
+            const SizedBox(height: AppSpacing.s),
+            DropdownButtonFormField<String>(
+              initialValue: selectedSeason,
+              items: _items(
+                context,
+                ['All', ...translatedSeasonOptions.values],
+              ),
+              icon: icon,
+              decoration: InputDecoration(
+                labelText: l10n.home_screen_filter_season,
+              ),
+              onChanged: onSeasonChanged,
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: onReset,
+                    child: Text(l10n.home_screen_filter_reset),
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.s),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: onApply,
+                    child: Text(l10n.home_screen_filter_apply),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

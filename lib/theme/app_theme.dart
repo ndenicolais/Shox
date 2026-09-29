@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:shox/theme/app_colors.dart';
 import 'package:shox/theme/app_radius.dart';
 
-const String _fontFamily = 'CustomFont';
-const String _fontFamilyBold = 'CustomFontBold';
+/// Montserrat registered with its real weights (400, 700) in pubspec.yaml.
+const String _fontFamily = 'Montserrat';
 
 class AppTheme {
   /// System bars style matching the active theme. Applied through an
@@ -43,10 +43,7 @@ class AppTheme {
         onError: AppColors.whiteSmoke,
         tertiaryFixed: AppColors.valspar,
       ),
-      bodyColor: AppColors.darkGray,
-      hintColor: AppColors.darkPeach,
-      borderColor: AppColors.darkPeach,
-      cardColor: AppColors.valspar,
+      cardColor: AppColors.cardLight,
       selectionColor: AppColors.champagne,
       shadowColor: AppColors.darkGray,
     );
@@ -71,9 +68,6 @@ class AppTheme {
         onError: AppColors.whiteSmoke,
         tertiaryFixed: AppColors.darkPeach,
       ),
-      bodyColor: AppColors.champagne,
-      hintColor: AppColors.champagne,
-      borderColor: AppColors.champagne,
       cardColor: AppColors.valsparDark,
       selectionColor: AppColors.darkSalamon,
       shadowColor: Colors.black,
@@ -82,126 +76,166 @@ class AppTheme {
 
   static ThemeData _baseTheme({
     required ColorScheme colorScheme,
-    required Color bodyColor,
-    required Color hintColor,
-    required Color borderColor,
     required Color cardColor,
     required Color selectionColor,
     required Color shadowColor,
   }) {
-    final textTheme = _textTheme(bodyColor);
-    final buttonShape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppRadius.large),
-    );
+    final textTheme = _textTheme(colorScheme);
+    const stadium = StadiumBorder();
+    const buttonMinSize = Size(64, 52);
+    final fieldRadius = BorderRadius.circular(AppRadius.large);
 
     return ThemeData(
       useMaterial3: true,
+      fontFamily: _fontFamily,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: colorScheme.surface,
       splashFactory: InkSparkle.splashFactory,
       textTheme: textTheme,
+      cardColor: cardColor,
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.secondary,
+        foregroundColor: colorScheme.onSurface,
         elevation: 0,
-        scrolledUnderElevation: 3,
-        shadowColor: shadowColor,
-        surfaceTintColor: colorScheme.secondary,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
-        titleTextStyle: textTheme.titleLarge?.copyWith(
-          fontFamily: _fontFamilyBold,
-          color: colorScheme.secondary,
-        ),
+        titleTextStyle: textTheme.titleMedium,
       ),
       cardTheme: CardThemeData(
         color: cardColor,
-        elevation: 1,
+        elevation: 0,
+        margin: EdgeInsets.zero,
         surfaceTintColor: Colors.transparent,
-        shadowColor: shadowColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.extraLarge),
+          borderRadius: BorderRadius.circular(AppRadius.large),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          elevation: 1,
-          shadowColor: shadowColor,
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-          shape: buttonShape,
-          textStyle: const TextStyle(fontFamily: _fontFamilyBold),
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          elevation: 0,
+          minimumSize: buttonMinSize,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          shape: stadium,
+          textStyle: textTheme.labelLarge,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-          shape: buttonShape,
-          textStyle: const TextStyle(fontFamily: _fontFamilyBold),
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          minimumSize: buttonMinSize,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          shape: stadium,
+          textStyle: textTheme.labelLarge,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-          shape: buttonShape,
-          textStyle: const TextStyle(fontFamily: _fontFamilyBold),
+          foregroundColor: colorScheme.onSurface,
+          side: BorderSide(color: colorScheme.outline),
+          minimumSize: buttonMinSize,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          shape: stadium,
+          textStyle: textTheme.labelLarge,
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          shape: buttonShape,
-          textStyle: const TextStyle(fontFamily: _fontFamilyBold),
+          foregroundColor: colorScheme.onSurface,
+          shape: stadium,
+          textStyle: textTheme.labelLarge,
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
+          foregroundColor: colorScheme.onSurface,
           shape: const CircleBorder(),
+          minimumSize: const Size(44, 44),
         ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.secondary,
+        foregroundColor: colorScheme.onSecondary,
+        elevation: 4,
+        highlightElevation: 6,
+        shape: stadium,
+        extendedTextStyle: textTheme.labelLarge,
+      ),
+      chipTheme: ChipThemeData(
+        shape: stadium,
+        side: BorderSide(color: colorScheme.outline),
+        backgroundColor: Colors.transparent,
+        selectedColor: colorScheme.primary,
+        showCheckmark: false,
+        labelStyle: textTheme.labelMedium,
+        secondaryLabelStyle:
+            textTheme.labelMedium?.copyWith(color: colorScheme.onPrimary),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: colorScheme.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 4,
         shadowColor: shadowColor,
+        titleTextStyle: textTheme.titleLarge,
+        contentTextStyle: textTheme.bodyMedium,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.dialog),
         ),
       ),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(fontFamily: _fontFamily, color: bodyColor),
-        hintStyle: TextStyle(fontFamily: _fontFamily, color: hintColor),
-        errorStyle: const TextStyle(
-          fontFamily: _fontFamilyBold,
-          color: AppColors.errorColor,
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colorScheme.surface,
+        surfaceTintColor: Colors.transparent,
+        showDragHandle: true,
+        dragHandleColor: colorScheme.outline,
+        shape: const RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(AppRadius.dialog)),
         ),
-        counterStyle: TextStyle(fontFamily: _fontFamily, color: bodyColor),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: colorScheme.surfaceContainerLowest,
+        labelStyle:
+            textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
+        floatingLabelStyle:
+            textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+        hintStyle:
+            textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
+        errorStyle: textTheme.bodySmall?.copyWith(color: colorScheme.error),
+        prefixIconColor: colorScheme.onSurfaceVariant,
+        suffixIconColor: colorScheme.onSurfaceVariant,
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: borderColor),
-          borderRadius: BorderRadius.circular(AppRadius.large),
+          borderSide: BorderSide.none,
+          borderRadius: fieldRadius,
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: borderColor),
-          borderRadius: BorderRadius.circular(AppRadius.large),
+          borderSide: BorderSide.none,
+          borderRadius: fieldRadius,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: borderColor, width: 2),
-          borderRadius: BorderRadius.circular(AppRadius.large),
+          borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
+          borderRadius: fieldRadius,
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.errorColor),
-          borderRadius: BorderRadius.circular(AppRadius.large),
+          borderSide: BorderSide(color: colorScheme.error),
+          borderRadius: fieldRadius,
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.errorColor, width: 2),
-          borderRadius: BorderRadius.circular(AppRadius.large),
+          borderSide: BorderSide(color: colorScheme.error, width: 1.5),
+          borderRadius: fieldRadius,
         ),
       ),
       textSelectionTheme: TextSelectionThemeData(
+        cursorColor: colorScheme.onSurface,
         selectionColor: selectionColor,
         selectionHandleColor: selectionColor,
       ),
-      // Material defaults paint these with `primary`, which here is the page
-      // background: point them to the accent color instead.
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colorScheme.secondary,
       ),
@@ -212,88 +246,64 @@ class AppTheme {
               : null,
         ),
       ),
+      listTileTheme: ListTileThemeData(
+        iconColor: colorScheme.onSurface,
+        textColor: colorScheme.onSurface,
+        titleTextStyle: textTheme.bodyLarge,
+        subtitleTextStyle:
+            textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+      ),
       dividerTheme: DividerThemeData(
-        color: borderColor,
+        color: colorScheme.outline,
         thickness: 1,
         space: 32,
       ),
     );
   }
 
-  static TextTheme _textTheme(Color bodyColor) {
+  /// One type scale for the whole app (redesign direction A).
+  static TextTheme _textTheme(ColorScheme colors) {
+    final ink = colors.onSurface;
+    final muted = colors.onSurfaceVariant;
+    TextStyle style(
+      double size,
+      FontWeight weight,
+      Color color, {
+      double? letterSpacing,
+      double? height,
+    }) =>
+        TextStyle(
+          fontFamily: _fontFamily,
+          fontSize: size,
+          fontWeight: weight,
+          color: color,
+          letterSpacing: letterSpacing,
+          height: height,
+        );
+
     return TextTheme(
-      displayLarge: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 57,
-        color: bodyColor,
-      ),
-      displayMedium: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 45,
-        color: bodyColor,
-      ),
-      displaySmall: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 36,
-        color: bodyColor,
-      ),
-      headlineLarge: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 32,
-        color: bodyColor,
-      ),
-      headlineMedium: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 28,
-        color: bodyColor,
-      ),
-      headlineSmall: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 24,
-        color: bodyColor,
-      ),
-      titleLarge: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 22,
-        color: bodyColor,
-      ),
-      titleMedium: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 16,
-        color: bodyColor,
-      ),
-      titleSmall: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 14,
-        color: bodyColor,
-      ),
-      bodyLarge: TextStyle(
-        fontFamily: _fontFamily,
-        fontSize: 16,
-        color: bodyColor,
-        height: 1.4,
-      ),
-      bodyMedium: TextStyle(
-        fontFamily: _fontFamily,
-        fontSize: 14,
-        color: bodyColor,
-        height: 1.4,
-      ),
-      bodySmall: TextStyle(
-        fontFamily: _fontFamily,
-        fontSize: 12,
-        color: bodyColor,
-        height: 1.4,
-      ),
-      labelLarge: TextStyle(
-        fontFamily: _fontFamilyBold,
-        fontSize: 14,
-        color: bodyColor,
-      ),
-      labelMedium:
-          TextStyle(fontFamily: _fontFamily, fontSize: 12, color: bodyColor),
-      labelSmall:
-          TextStyle(fontFamily: _fontFamily, fontSize: 11, color: bodyColor),
+      displayLarge: style(57, FontWeight.w700, ink, letterSpacing: -1),
+      displayMedium: style(45, FontWeight.w700, ink, letterSpacing: -0.8),
+      displaySmall: style(36, FontWeight.w700, ink, letterSpacing: -0.6),
+      headlineLarge: style(32, FontWeight.w700, ink, letterSpacing: -0.5),
+      // Detail titles (shoe brand).
+      headlineMedium: style(28, FontWeight.w700, ink, letterSpacing: -0.4),
+      // Screen titles ("La tua collezione").
+      headlineSmall: style(22, FontWeight.w700, ink, letterSpacing: -0.3),
+      titleLarge: style(18, FontWeight.w700, ink),
+      // App bar titles.
+      titleMedium: style(16, FontWeight.w700, ink),
+      // Card titles (brand in the grid).
+      titleSmall: style(15, FontWeight.w700, ink),
+      bodyLarge: style(16, FontWeight.w400, ink, height: 1.45),
+      bodyMedium: style(14, FontWeight.w400, ink, height: 1.45),
+      bodySmall: style(12, FontWeight.w400, muted, height: 1.4),
+      // Buttons.
+      labelLarge: style(15, FontWeight.w700, ink),
+      // Chips.
+      labelMedium: style(13, FontWeight.w400, ink),
+      // Uppercase eyebrows ("TAGLIA", "NOTE").
+      labelSmall: style(11, FontWeight.w700, muted, letterSpacing: 0.6),
     );
   }
 }

@@ -90,7 +90,7 @@
   "permission_camera_toast": "Concedi il permesso della fotocamera dalle impostazioni",
 
   "home_screen_welcome_text": "Ciao",
-  "home_screen_search_bar": "Cerca per Brand",
+  "home_screen_search_bar": "Cerca marca, tipo, note",
   "home_screen_filter_title": "Filtra",
   "home_screen_filter_color_primary": "Colore Primario",
   "home_screen_filter_category": "Categoria",
@@ -102,6 +102,13 @@
   "home_screen_empty_state": "Nessuna scarpa presente nel box",
   "home_screen_no_results_state": "Nessuna scarpa corrisponde ai filtri selezionati",
   "home_screen_no_results_reset": "Azzera filtri",
+  "home_screen_title": "La tua collezione",
+  "home_screen_add": "Aggiungi",
+  "home_screen_chip_all": "Tutte",
+  "home_screen_chip_favorites": "Preferite",
+  "home_screen_pairs_count": "{count, plural, =1{1 paio} other{{count} paia}}",
+  "home_screen_favorites_count": "{count, plural, =1{1 preferita} other{{count} preferite}}",
+  "home_screen_card_size": "Tg. {size}",
 
   "shoes_adder_screen_title": "Aggiungi Scarpe",
   "shoes_adder_screen_field_color_primary": "Primario",

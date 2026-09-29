@@ -90,7 +90,7 @@
   "permission_camera_toast": "Erteilen Sie die Kameraberechtigung in den Einstellungen",
 
   "home_screen_welcome_text": "Hallo",
-  "home_screen_search_bar": "Nach Marke suchen",
+  "home_screen_search_bar": "Marke, Typ, Notizen suchen",
   "home_screen_filter_title": "Filtern",
   "home_screen_filter_color_primary": "Primärfarbe",
   "home_screen_filter_category": "Kategorie",
@@ -102,6 +102,13 @@
   "home_screen_empty_state": "Keine Schuhe im Kasten vorhanden",
   "home_screen_no_results_state": "Keine Schuhe entsprechen den ausgewählten Filtern",
   "home_screen_no_results_reset": "Filter zurücksetzen",
+  "home_screen_title": "Deine Sammlung",
+  "home_screen_add": "Hinzufügen",
+  "home_screen_chip_all": "Alle",
+  "home_screen_chip_favorites": "Favoriten",
+  "home_screen_pairs_count": "{count, plural, =1{1 Paar} other{{count} Paar}}",
+  "home_screen_favorites_count": "{count, plural, =1{1 Favorit} other{{count} Favoriten}}",
+  "home_screen_card_size": "Gr. {size}",
 
   "shoes_adder_screen_title": "Schuhe hinzufügen",
   "shoes_adder_screen_field_color_primary": "Primär",

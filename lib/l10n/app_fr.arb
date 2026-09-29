@@ -90,7 +90,7 @@
   "permission_camera_toast": "Accordez la permission de la caméra depuis les paramètres",
 
   "home_screen_welcome_text": "Bonjour",
-  "home_screen_search_bar": "Rechercher par marque",
+  "home_screen_search_bar": "Rechercher marque, type, notes",
   "home_screen_filter_title": "Filtrer",
   "home_screen_filter_color_primary": "Couleur Primaire",
   "home_screen_filter_category": "Catégorie",
@@ -102,6 +102,13 @@
   "home_screen_empty_state": "Aucune chaussure dans la boîte",
   "home_screen_no_results_state": "Aucune chaussure ne correspond aux filtres sélectionnés",
   "home_screen_no_results_reset": "Réinitialiser les filtres",
+  "home_screen_title": "Votre collection",
+  "home_screen_add": "Ajouter",
+  "home_screen_chip_all": "Toutes",
+  "home_screen_chip_favorites": "Favorites",
+  "home_screen_pairs_count": "{count, plural, =1{1 paire} other{{count} paires}}",
+  "home_screen_favorites_count": "{count, plural, =1{1 favorite} other{{count} favorites}}",
+  "home_screen_card_size": "Pointure {size}",
 
   "shoes_adder_screen_title": "Ajouter des chaussures",
   "shoes_adder_screen_field_color_primary": "Primaire",

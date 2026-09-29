@@ -1,114 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/l10n/app_localizations.dart';
+import 'package:shox/theme/app_radius.dart';
+import 'package:shox/theme/app_spacing.dart';
 
+/// Home search field (pill) with the button that opens the filter sheet.
 class FilterBar extends StatelessWidget {
   final TextEditingController searchController;
-  final String searchQuery;
   final ValueChanged<String> onChanged;
-  final VoidCallback onReset;
+  final VoidCallback onClear;
   final VoidCallback onFilter;
-  final VoidCallback onToggleGrid;
-  final VoidCallback onToggleFavorites;
   final bool filtersActive;
-  final IconData currentIcon;
-  final bool showOnlyFavorites;
 
   const FilterBar({
     super.key,
     required this.searchController,
-    required this.searchQuery,
     required this.onChanged,
-    required this.onReset,
+    required this.onClear,
     required this.onFilter,
-    required this.onToggleGrid,
-    required this.onToggleFavorites,
     required this.filtersActive,
-    required this.currentIcon,
-    required this.showOnlyFavorites,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = Theme.of(context).colorScheme;
+    final pill = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppRadius.pill),
+      borderSide: BorderSide.none,
+    );
+
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            controller: searchController,
-            onTapOutside: (event) =>
-                FocusManager.instance.primaryFocus?.unfocus(),
-            style: TextStyle(
-              fontFamily: 'CustomFont',
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            cursorColor: Theme.of(context).colorScheme.onSurface,
-            onChanged: onChanged,
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                MingCuteIcons.mgc_search_2_line,
-                size: 18.sp,
-                color: Theme.of(context).colorScheme.onSurface,
+          child: ValueListenableBuilder<TextEditingValue>(
+            valueListenable: searchController,
+            builder: (context, value, _) => TextField(
+              controller: searchController,
+              onTapOutside: (event) =>
+                  FocusManager.instance.primaryFocus?.unfocus(),
+              onChanged: onChanged,
+              textInputAction: TextInputAction.search,
+              decoration: InputDecoration(
+                hintText: l10n.home_screen_search_bar,
+                prefixIcon: const Icon(MingCuteIcons.mgc_search_2_line),
+                suffixIcon: value.text.isNotEmpty
+                    ? IconButton(
+                        tooltip: l10n.a11y_clear_search,
+                        icon: const Icon(MingCuteIcons.mgc_close_line),
+                        onPressed: onClear,
+                      )
+                    : null,
+                contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                border: pill,
+                enabledBorder: pill,
+                focusedBorder: pill.copyWith(
+                  borderSide: BorderSide(color: colors.primary, width: 1.5),
+                ),
               ),
-              suffixIcon: searchController.text.isNotEmpty
-                  ? IconButton(
-                      tooltip: AppLocalizations.of(context)!.a11y_clear_search,
-                      icon: Icon(
-                        Icons.clear,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      onPressed: onReset,
-                    )
-                  : null,
-              labelText: AppLocalizations.of(context)!.home_screen_search_bar,
             ),
           ),
         ),
-        IconButton(
-          tooltip: AppLocalizations.of(context)!.a11y_filters,
-          icon: _animatedIcon(
-            filtersActive
-                ? MingCuteIcons.mgc_filter_fill
-                : MingCuteIcons.mgc_filter_line,
-            filtersActive
-                ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.onSurface,
+        const SizedBox(width: AppSpacing.s),
+        Badge(
+          isLabelVisible: filtersActive,
+          backgroundColor: colors.secondary,
+          smallSize: 10,
+          child: IconButton.filled(
+            tooltip: l10n.a11y_filters,
+            style: IconButton.styleFrom(
+              backgroundColor: colors.primary,
+              foregroundColor: colors.onPrimary,
+              minimumSize: const Size(48, 48),
+            ),
+            onPressed: onFilter,
+            icon: const Icon(MingCuteIcons.mgc_filter_2_line),
           ),
-          onPressed: onFilter,
-        ),
-        IconButton(
-          tooltip: AppLocalizations.of(context)!.a11y_toggle_grid,
-          icon: _animatedIcon(
-            currentIcon,
-            Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: onToggleGrid,
-        ),
-        IconButton(
-          tooltip: showOnlyFavorites
-              ? AppLocalizations.of(context)!.a11y_show_all_shoes
-              : AppLocalizations.of(context)!.a11y_show_only_favorites,
-          icon: _animatedIcon(
-            showOnlyFavorites
-                ? MingCuteIcons.mgc_heart_fill
-                : MingCuteIcons.mgc_heart_line,
-            showOnlyFavorites
-                ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: onToggleFavorites,
         ),
       ],
-    );
-  }
-
-  /// Icon that scales in when it changes (grid layout, active state...).
-  Widget _animatedIcon(IconData icon, Color color) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 200),
-      transitionBuilder: (child, animation) =>
-          ScaleTransition(scale: animation, child: child),
-      child: Icon(icon, key: ValueKey(icon), color: color),
     );
   }
 }

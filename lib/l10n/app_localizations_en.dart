@@ -262,7 +262,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_screen_welcome_text => 'Hello';
 
   @override
-  String get home_screen_search_bar => 'Search by Brand';
+  String get home_screen_search_bar => 'Search brand, type, notes';
 
   @override
   String get home_screen_filter_title => 'Filter';
@@ -297,6 +297,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home_screen_no_results_reset => 'Clear filters';
+
+  @override
+  String get home_screen_title => 'Your collection';
+
+  @override
+  String get home_screen_add => 'Add';
+
+  @override
+  String get home_screen_chip_all => 'All';
+
+  @override
+  String get home_screen_chip_favorites => 'Favorites';
+
+  @override
+  String home_screen_pairs_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pairs',
+      one: '1 pair',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String home_screen_favorites_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count favorites',
+      one: '1 favorite',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String home_screen_card_size(String size) {
+    return 'Size $size';
+  }
 
   @override
   String get shoes_adder_screen_title => 'Add Shoes';

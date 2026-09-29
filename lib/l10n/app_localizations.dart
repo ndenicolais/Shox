@@ -581,7 +581,7 @@ abstract class AppLocalizations {
   /// No description provided for @home_screen_search_bar.
   ///
   /// In en, this message translates to:
-  /// **'Search by Brand'**
+  /// **'Search brand, type, notes'**
   String get home_screen_search_bar;
 
   /// No description provided for @home_screen_filter_title.
@@ -649,6 +649,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear filters'**
   String get home_screen_no_results_reset;
+
+  /// No description provided for @home_screen_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your collection'**
+  String get home_screen_title;
+
+  /// No description provided for @home_screen_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get home_screen_add;
+
+  /// No description provided for @home_screen_chip_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get home_screen_chip_all;
+
+  /// No description provided for @home_screen_chip_favorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get home_screen_chip_favorites;
+
+  /// No description provided for @home_screen_pairs_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 pair} other{{count} pairs}}'**
+  String home_screen_pairs_count(int count);
+
+  /// No description provided for @home_screen_favorites_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 favorite} other{{count} favorites}}'**
+  String home_screen_favorites_count(int count);
+
+  /// No description provided for @home_screen_card_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size {size}'**
+  String home_screen_card_size(String size);
 
   /// No description provided for @shoes_adder_screen_title.
   ///

@@ -82,6 +82,14 @@ flutter:
     - assets/images/
 
   fonts:
+    # Single family with real weights, used by the theme's TextTheme.
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+
     - family: CustomFont
       fonts:
         - asset: assets/fonts/Montserrat.ttf

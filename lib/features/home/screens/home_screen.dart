@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
@@ -24,9 +22,12 @@ import 'package:shox/core/utils/utils.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/skeleton_widget.dart';
 import 'package:shox/features/home/widgets/top_bar.dart';
+import 'package:shox/features/home/widgets/category_chips.dart';
 import 'package:shox/features/home/widgets/filter_bar.dart';
+import 'package:shox/features/home/widgets/shoe_card.dart';
 import 'package:shox/features/home/widgets/filter_sheet.dart';
 import 'package:shox/theme/app_breakpoints.dart';
+import 'package:shox/theme/app_radius.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,60 +64,48 @@ class HomeScreenState extends State<HomeScreen>
           child: ResponsiveCenterWidget(
             maxWidth: AppBreakpoints.maxGridWidth,
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: AppSpacing.s.r,
-                horizontal: AppSpacing.l.r,
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.l,
+                AppSpacing.s,
+                AppSpacing.l,
+                0,
               ),
               child: Column(
                 children: [
                   TopBar(userController: userController),
-                  SizedBox(height: 10.h),
+                  const SizedBox(height: AppSpacing.l),
                   FilterBar(
                     searchController: _searchController,
-                    searchQuery: searchQuery,
                     onChanged: _onSearchChanged,
-                    onReset: () {
-                      setState(() {
-                        _resetFilters();
-                      });
-                    },
+                    onClear: () => setState(_resetFilters),
                     onFilter: _showFilterDialog,
-                    onToggleGrid: toggleGrid,
-                    onToggleFavorites: () {
-                      setState(() {
-                        showOnlyFavorites = !showOnlyFavorites;
-                      });
-                    },
                     filtersActive: _filter.isActive,
-                    currentIcon: currentIcon,
-                    showOnlyFavorites: showOnlyFavorites,
                   ),
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: AppSpacing.m),
+                  CategoryChips(
+                    categories: translatedCategoryOptions,
+                    selectedCategory: selectedCategory,
+                    onlyFavorites: showOnlyFavorites,
+                    onCategorySelected: (category) => setState(() {
+                      selectedCategory = category;
+                      selectedType = ShoesFilter.all;
+                    }),
+                    onFavoritesToggled: () => setState(
+                      () => showOnlyFavorites = !showOnlyFavorites,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
                   _buildMainContent(context),
-                  SizedBox(height: 10.h),
                 ],
               ),
             ),
           ),
         ),
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(bottom: 10.sp),
-          child: FloatingActionButton(
-            tooltip: AppLocalizations.of(context)!.a11y_add_shoe,
-            onPressed: () {
-              Get.toNamed(AppRoutes.shoesAdder);
-            },
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32.w),
-            ),
-            child: Icon(
-              MingCuteIcons.mgc_add_line,
-              color: Theme.of(context).colorScheme.surface,
-              size: 28.w,
-            ),
-          ),
+        floatingActionButton: FloatingActionButton.extended(
+          tooltip: AppLocalizations.of(context)!.a11y_add_shoe,
+          onPressed: () => Get.toNamed(AppRoutes.shoesAdder),
+          icon: const Icon(MingCuteIcons.mgc_add_line),
+          label: Text(AppLocalizations.of(context)!.home_screen_add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
@@ -312,29 +301,83 @@ class HomeScreenState extends State<HomeScreen>
       : AppBreakpoints.gridColumnsForWidth(maxWidth, minColumns: _baseColumns)
           .clamp(_baseColumns, 4);
 
-  /// Placeholder grid with the same columns and cell shape as the real one.
+  static const double _gridCrossSpacing = AppSpacing.s;
+  static const double _gridMainSpacing = AppSpacing.m;
+
+  double _cellWidth(double maxWidth, int columns) =>
+      (maxWidth - _gridCrossSpacing * (columns - 1)) / columns;
+
+  /// Square photo plus the caption block of [ShoeCard].
+  SliverGridDelegate _gridDelegate(int columns, double cellWidth) =>
+      SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: columns,
+        crossAxisSpacing: _gridCrossSpacing,
+        mainAxisSpacing: _gridMainSpacing,
+        mainAxisExtent: cellWidth + ShoeCard.captionHeight(context),
+      );
+
+  /// Placeholder grid with the same columns and card shape as the real one.
   Widget _buildGridSkeleton(BuildContext context) {
     return Semantics(
       label: AppLocalizations.of(context)!.a11y_loading,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final int columns = _columnsFor(constraints.maxWidth);
-          final double spacing = AppSpacing.grid.r;
+          final double cellWidth = _cellWidth(constraints.maxWidth, columns);
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: columns,
-              crossAxisSpacing: spacing,
-              mainAxisSpacing: spacing,
-              childAspectRatio: _gridTileAspectRatio,
-            ),
+            padding: const EdgeInsets.only(top: AppSpacing.xl),
+            gridDelegate: _gridDelegate(columns, cellWidth),
             itemCount: columns * 4,
-            itemBuilder: (context, index) => SkeletonWidget(
-              borderRadius: BorderRadius.all(Radius.circular(20.r)),
+            itemBuilder: (context, index) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonWidget(
+                  width: cellWidth,
+                  height: cellWidth,
+                  borderRadius: BorderRadius.circular(AppRadius.extraLarge),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                SkeletonWidget(
+                  width: cellWidth * 0.6,
+                  height: 12,
+                  borderRadius: BorderRadius.circular(AppRadius.small),
+                ),
+              ],
             ),
           );
         },
       ),
+    );
+  }
+
+  /// "12 pairs · 4 favorites" with the grid layout toggle.
+  Widget _buildCountRow(BuildContext context, List<ShoesModel> shoes) {
+    final l10n = AppLocalizations.of(context)!;
+    final int favorites = shoes.where((s) => s.isFavorite).length;
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            '${l10n.home_screen_pairs_count(shoes.length)} · '
+            '${l10n.home_screen_favorites_count(favorites)}',
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+          ),
+        ),
+        IconButton(
+          tooltip: l10n.a11y_toggle_grid,
+          onPressed: toggleGrid,
+          icon: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            transitionBuilder: (child, animation) =>
+                ScaleTransition(scale: animation, child: child),
+            child: Icon(currentIcon, key: ValueKey(currentIcon)),
+          ),
+        ),
+      ],
     );
   }
 
@@ -352,111 +395,57 @@ class HomeScreenState extends State<HomeScreen>
       );
     }
 
-    return LayoutBuilder(
+    return Column(
       key: ValueKey('grid|$_gridViewKey'),
-      builder: (context, constraints) {
-        final int columns = _columnsFor(constraints.maxWidth);
-        final double spacing = AppSpacing.grid.r;
-        final double cellWidth =
-            (constraints.maxWidth - spacing * (columns - 1)) / columns;
+      children: [
+        _buildCountRow(context, filteredShoes),
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final int columns = _columnsFor(constraints.maxWidth);
+              final double cellWidth =
+                  _cellWidth(constraints.maxWidth, columns);
 
-        return RefreshIndicator(
-          onRefresh: _refreshShoes,
-          color: Theme.of(context).colorScheme.surface,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          child: GridView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(bottom: 88.h),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: columns,
-              crossAxisSpacing: spacing,
-              mainAxisSpacing: spacing,
-              childAspectRatio: _gridTileAspectRatio,
-            ),
-            itemCount: filteredShoes.length,
-            itemBuilder: (context, index) {
-              ShoesModel shoe = filteredShoes[index];
-              return _buildShoesCard(context, shoe, cellWidth);
+              return RefreshIndicator(
+                onRefresh: _refreshShoes,
+                color: Theme.of(context).colorScheme.onPrimary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                child: GridView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  // Keeps the last row clear of the floating button.
+                  padding: const EdgeInsets.only(bottom: 96),
+                  gridDelegate: _gridDelegate(columns, cellWidth),
+                  itemCount: filteredShoes.length,
+                  itemBuilder: (context, index) {
+                    final shoe = filteredShoes[index];
+                    return ShoeCard(
+                      shoe: shoe,
+                      typeLabel: translatedTypeOptions[shoe.type] ?? shoe.type,
+                      cellWidth: cellWidth,
+                      onTap: () => Get.toNamed(
+                        AppRoutes.shoesDetails,
+                        arguments: shoe.id!,
+                      ),
+                      onToggleFavorite: () =>
+                          _shoesController.toggleFavoriteStatus(
+                        shoe.id!,
+                        !shoe.isFavorite,
+                      ),
+                    );
+                  },
+                ),
+              );
             },
           ),
-        );
-      },
-    );
-  }
-
-  /// Grid cells are square in every column layout.
-  static const double _gridTileAspectRatio = 1;
-
-  /// Fills its grid cell; [cellWidth] only sizes the decoded bitmap, so
-  /// thumbnails are not decoded at the full photo resolution.
-  Widget _buildImage(
-    BuildContext context,
-    String imageUrl,
-    double cellWidth,
-  ) {
-    final int cacheWidth =
-        (cellWidth * MediaQuery.devicePixelRatioOf(context)).round();
-
-    if (imageUrl.startsWith('http')) {
-      return CachedNetworkImage(
-        imageUrl: imageUrl,
-        width: double.infinity,
-        height: double.infinity,
-        memCacheWidth: cacheWidth,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => const SkeletonWidget(),
-        errorWidget: (context, url, error) => Icon(
-          MingCuteIcons.mgc_close_line,
-          color: Theme.of(context).colorScheme.secondary,
         ),
-      );
-    } else {
-      return Image.asset(
-        imageUrl,
-        width: double.infinity,
-        height: double.infinity,
-        cacheWidth: cacheWidth,
-        fit: BoxFit.cover,
-      );
-    }
-  }
-
-  Widget _buildShoesCard(
-    BuildContext context,
-    ShoesModel shoes,
-    double cellWidth,
-  ) {
-    return GestureDetector(
-      onTap: () {
-        Get.toNamed(AppRoutes.shoesDetails, arguments: shoes.id!);
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Hero(
-            tag: 'shoes-${shoes.id}',
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(20.r)),
-              child: _buildImage(context, shoes.imageUrl, cellWidth),
-            ),
-          ),
-          Positioned(
-            top: 2.r,
-            right: 2.r,
-            child: _buildFavoriteButton(shoes, context),
-          ),
-        ],
-      ),
+      ],
     );
   }
 
   void _showFilterDialog() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-      ),
+      isScrollControlled: true,
       builder: (BuildContext context) {
         Color? tempSelectedColor = selectedColor;
         Color? tempSelectedColorExtra = selectedColorExtra;
@@ -538,28 +527,6 @@ class HomeScreenState extends State<HomeScreen>
             );
           },
         );
-      },
-    );
-  }
-
-  Widget _buildFavoriteButton(ShoesModel shoe, BuildContext context) {
-    return IconButton(
-      tooltip: shoe.isFavorite
-          ? AppLocalizations.of(context)!.a11y_remove_from_favorites
-          : AppLocalizations.of(context)!.a11y_add_to_favorites,
-      // Semi-transparent backdrop keeps the heart readable on light photos.
-      style: IconButton.styleFrom(
-        backgroundColor:
-            Theme.of(context).colorScheme.surface.withValues(alpha: 0.75),
-      ),
-      icon: Icon(
-        shoe.isFavorite
-            ? MingCuteIcons.mgc_heart_fill
-            : MingCuteIcons.mgc_heart_line,
-        color: Theme.of(context).colorScheme.secondary,
-      ),
-      onPressed: () {
-        _shoesController.toggleFavoriteStatus(shoe.id!, !shoe.isFavorite);
       },
     );
   }
