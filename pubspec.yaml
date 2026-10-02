@@ -67,9 +67,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
-  change_app_package_name: ^1.4.0
   flutter_launcher_icons: ^0.14.2
-  intl_utils: ^2.8.7
   mocktail: ^1.0.5
 
 flutter:
@@ -88,10 +86,6 @@ flutter:
           weight: 400
         - asset: assets/fonts/Montserrat-Bold.ttf
           weight: 700
-
-    - family: ShoxIcons
-      fonts:
-        - asset: assets/fonts/ShoxIcons.ttf
 
 flutter_launcher_icons:
   android: "launcher_icon"
