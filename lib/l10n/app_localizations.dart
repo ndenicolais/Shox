@@ -1019,7 +1019,7 @@ abstract class AppLocalizations {
   /// No description provided for @database_screen_pdf_confirm.
   ///
   /// In en, this message translates to:
-  /// **'PDF saved to Download folder'**
+  /// **'PDF saved to Download/Shox'**
   String get database_screen_pdf_confirm;
 
   /// No description provided for @database_screen_pdf_error.
@@ -1856,53 +1856,17 @@ abstract class AppLocalizations {
   /// **'Other'**
   String get type_other;
 
-  /// No description provided for @pdf_field_id.
-  ///
-  /// In en, this message translates to:
-  /// **'ID'**
-  String get pdf_field_id;
-
-  /// No description provided for @pdf_field_date.
-  ///
-  /// In en, this message translates to:
-  /// **'Date'**
-  String get pdf_field_date;
-
   /// No description provided for @pdf_field_color_primary.
   ///
   /// In en, this message translates to:
   /// **'Primary Color'**
   String get pdf_field_color_primary;
 
-  /// No description provided for @pdf_field_color_secondary.
-  ///
-  /// In en, this message translates to:
-  /// **'Secondary Color'**
-  String get pdf_field_color_secondary;
-
-  /// No description provided for @pdf_field_brand.
-  ///
-  /// In en, this message translates to:
-  /// **'Brand'**
-  String get pdf_field_brand;
-
   /// No description provided for @pdf_field_size.
   ///
   /// In en, this message translates to:
   /// **'Size'**
   String get pdf_field_size;
-
-  /// No description provided for @pdf_field_category.
-  ///
-  /// In en, this message translates to:
-  /// **'Category'**
-  String get pdf_field_category;
-
-  /// No description provided for @pdf_field_type.
-  ///
-  /// In en, this message translates to:
-  /// **'Type'**
-  String get pdf_field_type;
 
   /// No description provided for @pdf_field_notes.
   ///
@@ -1915,6 +1879,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'© 2024 Nicola De Nicolais'**
   String get pdf_copyright;
+
+  /// No description provided for @pdf_cover_title.
+  ///
+  /// In en, this message translates to:
+  /// **'My collection'**
+  String get pdf_cover_title;
+
+  /// No description provided for @pdf_cover_generated.
+  ///
+  /// In en, this message translates to:
+  /// **'Generated on {date}'**
+  String pdf_cover_generated(String date);
+
+  /// No description provided for @pdf_summary_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get pdf_summary_title;
+
+  /// No description provided for @pdf_summary_top_brands.
+  ///
+  /// In en, this message translates to:
+  /// **'Top brands'**
+  String get pdf_summary_top_brands;
+
+  /// No description provided for @pdf_summary_top_colors.
+  ///
+  /// In en, this message translates to:
+  /// **'Top colors'**
+  String get pdf_summary_top_colors;
+
+  /// No description provided for @pdf_field_extra_colors.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra colors'**
+  String get pdf_field_extra_colors;
 
   /// No description provided for @full_screen_image_save_success_toast.
   ///
@@ -1987,42 +1987,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get custom_delete_dialog_cancel;
-
-  /// No description provided for @database_screen_pdf_user.
-  ///
-  /// In en, this message translates to:
-  /// **'User'**
-  String get database_screen_pdf_user;
-
-  /// No description provided for @database_screen_pdf_name.
-  ///
-  /// In en, this message translates to:
-  /// **'Name'**
-  String get database_screen_pdf_name;
-
-  /// No description provided for @database_screen_pdf_email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get database_screen_pdf_email;
-
-  /// No description provided for @database_screen_pdf_date.
-  ///
-  /// In en, this message translates to:
-  /// **'Date'**
-  String get database_screen_pdf_date;
-
-  /// No description provided for @database_screen_pdf_shoes.
-  ///
-  /// In en, this message translates to:
-  /// **'Shoes'**
-  String get database_screen_pdf_shoes;
-
-  /// No description provided for @database_screen_pdf_page.
-  ///
-  /// In en, this message translates to:
-  /// **'Page'**
-  String get database_screen_pdf_page;
 
   /// No description provided for @auth_or_continue_with.
   ///
@@ -2335,6 +2299,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Translated a few texts that were still shown in English.'**
   String get changelog_v5_0_0_bullet_16;
+
+  /// No description provided for @changelog_v5_0_0_bullet_17.
+  ///
+  /// In en, this message translates to:
+  /// **'PDF export now works with shoes that have extra colors, a missing photo no longer stops the whole document, and the file is saved to Download/Shox, visible in the Files app.'**
+  String get changelog_v5_0_0_bullet_17;
+
+  /// No description provided for @changelog_v5_0_0_bullet_18.
+  ///
+  /// In en, this message translates to:
+  /// **'While typing the brand, the app suggests the ones already in your collection so you can enter them faster.'**
+  String get changelog_v5_0_0_bullet_18;
+
+  /// No description provided for @changelog_v5_0_0_bullet_19.
+  ///
+  /// In en, this message translates to:
+  /// **'New collection PDF: cover, summary page with statistics and a redesigned page for each shoe, in a file up to 8 times smaller and faster to generate.'**
+  String get changelog_v5_0_0_bullet_19;
 
   /// No description provided for @user_screen_total_shoes.
   ///

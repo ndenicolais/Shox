@@ -519,8 +519,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get database_screen_pdf_download => 'PDF herunterladen';
 
   @override
-  String get database_screen_pdf_confirm =>
-      'PDF im Download-Ordner gespeichert';
+  String get database_screen_pdf_confirm => 'PDF in Download/Shox gespeichert';
 
   @override
   String get database_screen_pdf_error => 'PDF konnte nicht erstellt werden';
@@ -990,34 +989,36 @@ class AppLocalizationsDe extends AppLocalizations {
   String get type_other => 'Andere';
 
   @override
-  String get pdf_field_id => 'ID';
-
-  @override
-  String get pdf_field_date => 'Datum';
-
-  @override
   String get pdf_field_color_primary => 'Primärfarbe';
 
   @override
-  String get pdf_field_color_secondary => 'Sekundärfarbe';
-
-  @override
-  String get pdf_field_brand => 'Marke';
-
-  @override
   String get pdf_field_size => 'Größe';
-
-  @override
-  String get pdf_field_category => 'Kategorie';
-
-  @override
-  String get pdf_field_type => 'Typ';
 
   @override
   String get pdf_field_notes => 'Notizen';
 
   @override
   String get pdf_copyright => '© 2024 Nicola De Nicolais';
+
+  @override
+  String get pdf_cover_title => 'Meine Sammlung';
+
+  @override
+  String pdf_cover_generated(String date) {
+    return 'Erstellt am $date';
+  }
+
+  @override
+  String get pdf_summary_title => 'Übersicht';
+
+  @override
+  String get pdf_summary_top_brands => 'Häufigste Marken';
+
+  @override
+  String get pdf_summary_top_colors => 'Häufigste Farben';
+
+  @override
+  String get pdf_field_extra_colors => 'Zusatzfarben';
 
   @override
   String get full_screen_image_save_success_toast =>
@@ -1059,24 +1060,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get custom_delete_dialog_cancel => 'Abbrechen';
-
-  @override
-  String get database_screen_pdf_user => 'Benutzer';
-
-  @override
-  String get database_screen_pdf_name => 'Name';
-
-  @override
-  String get database_screen_pdf_email => 'E-Mail';
-
-  @override
-  String get database_screen_pdf_date => 'Datum';
-
-  @override
-  String get database_screen_pdf_shoes => 'Schuhe';
-
-  @override
-  String get database_screen_pdf_page => 'Seite';
 
   @override
   String get auth_or_continue_with => 'Oder fortfahren mit';
@@ -1249,6 +1232,18 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_16 =>
       'Einige Texte, die noch auf Englisch angezeigt wurden, sind jetzt übersetzt.';
+
+  @override
+  String get changelog_v5_0_0_bullet_17 =>
+      'Der PDF-Export funktioniert jetzt auch mit Schuhen mit Zusatzfarben, ein fehlendes Foto stoppt nicht mehr das ganze Dokument, und die Datei wird in Download/Shox gespeichert, sichtbar in der Dateien-App.';
+
+  @override
+  String get changelog_v5_0_0_bullet_18 =>
+      'Beim Eingeben der Marke schlägt die App die bereits in deiner Sammlung vorhandenen vor, damit du sie schneller eingeben kannst.';
+
+  @override
+  String get changelog_v5_0_0_bullet_19 =>
+      'Neues Sammlungs-PDF: Titelseite, Übersicht mit Statistiken und eine neu gestaltete Seite pro Schuh, in einer bis zu 8-mal kleineren Datei, die schneller erstellt wird.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

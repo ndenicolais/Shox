@@ -41,7 +41,7 @@ visual statistics, PDF export and JSON backup — in 5 languages, with light and
 | ❤️ **Favorites** | Mark your favorite shoes and find them quickly |
 | 📸 **Images** | Camera or gallery, with cropping, automatic compression and on-device background removal (Google ML Kit) |
 | 📊 **Statistics** | Interactive pie charts by color, brand, category and type |
-| 📄 **PDF export** | A full PDF catalogue with cover, user profile and a page for each shoe |
+| 📄 **PDF export** | A full PDF catalogue with cover, statistics summary and a page for each shoe, saved to Download/Shox |
 | 💾 **JSON backup** | Export and import the whole collection as JSON |
 | 📤 **Sharing** | Share a shoe card as a screenshot or save its photo to the gallery |
 | 🔐 **Authentication** | Sign in with a Google account or email and password |

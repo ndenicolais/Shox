@@ -146,7 +146,7 @@ feature/
 
 **Widget naming convention:** every file is named after its class in snake_case. Generic widgets in `lib/common/widgets/` use the `Widget` suffix (`ButtonWidget`, `ToastWidget`, `ChangelogDialogWidget`…), which avoids clashes with Flutter classes (`AppBar`, `Dialog`…). Feature widgets have descriptive names without a suffix (`LoginForm`, `FilterBar`, `FilterSheet`, `TopBar`, `DashboardMenuItem`, `ShoesPieChart`, `ColorChip`…), avoiding names already used by Flutter.
 
-**Widgets extracted from the largest screens:** `ShoePhotoArea`, `BackgroundRemovalDialog` and `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (the filter sheet owns its temporary selection and returns the result), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); database charts in `database/widgets/database_charts.dart` and the shared progress overlay `ProgressOverlayWidget`; account deletion sections and backup dialogs in `users/widgets/delete_account_info.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; "what's new" dialog logic in `core/services/changelog_service.dart`.
+**Widgets extracted from the largest screens:** `ShoePhotoArea`, `BackgroundRemovalDialog` and `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (the filter sheet owns its temporary selection and returns the result), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); database charts in `database/widgets/database_charts.dart` and the shared progress overlay `ProgressOverlayWidget`; account deletion sections and backup dialogs in `users/widgets/delete_account_info.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; "what's new" dialog logic in `core/services/changelog_service.dart`; saving to the public Download/Shox folder in `core/services/downloads_service.dart`.
 
 **`GetView<T>`:** screens without state of their own extend `GetView` and read the binding's controller through `controller`: login, signup and reset password (the `GlobalKey<FormState>` lives in the controller) and gender selection (`GenderSelectionController.selectedGender` is an `RxnString`). The others stay `StatefulWidget` because they have real local state (streams, animations, shoe form data, loaded statistics, app version). Since the form keys live in the controllers, login and signup link to each other with `Get.offNamed`: the two screens never stack (two forms with the same `GlobalKey` would throw).
 
@@ -298,6 +298,7 @@ Form to add a new shoe to the collection, organized in sections (Photo, Colors, 
 - **Primary color:** picker for the shoe's main color
 - **Extra colors:** extra colors can be added
 - **Required fields:** photo, primary color, brand, size, category, type
+- **Brand suggestions:** `BrandTextField` uses `RawAutocomplete` to suggest brands already in the collection while typing (up to 5, prefix matches before substring matches, hidden when the text equals a known brand). The list comes from `BrandSuggestions.fromShoes` (`features/shoes/models/brand_suggestions.dart`: case-insensitive dedupe, most used first then A-Z, most frequent spelling kept), loaded once in `initState` via `ShoesFormService.loadBrandSuggestions()` → `ShoesController.getBrandSuggestions()`; on error the field works without suggestions. Covered by `test/features/shoes/models/brand_suggestions_test.dart`
 - **Optional fields:** season, notes
 - **Saving:** the shoe is saved to Firestore, the image is uploaded to Firebase Storage and its URL is stored in the document
 - **Unsaved changes:** `PopScope` intercepts the back action (system and app bar); if the fields differ from the initial state, `DeleteDialogWidget` asks for confirmation (custom "Stay" / "Leave" labels)
@@ -357,7 +358,7 @@ Statistical analysis of the collection and data management.
   - Distribution by **brand**
   - Distribution by **category**
   - Distribution by **type**
-- **PDF export:** generates a full PDF document with cover, user profile page and a page per shoe with image and details; saved in the Downloads folder
+- **PDF export:** generates a full PDF document with cover, summary page (stats and rankings) and a page per shoe with photo and details; saved in the public `Download/Shox` folder (visible in the Files app) and then offered through the share sheet
 - **JSON export:** exports the whole collection as a JSON file
 - **JSON import:** imports a collection from a previous JSON backup with a progress bar
 
@@ -491,17 +492,35 @@ Saving the add/edit shoe form, outside the UI.
 
 Generates a PDF document of the whole shoe collection.
 
-**PDF structure:**
-- **Cover page:** app logo, title, generation date
-- **User profile page:** name, email, registration date, total number of shoes
-- **One page per shoe:** image, brand, size, category, type, season, colors, notes, dates
+**PDF structure** (A4, app palette: cream `whiteSmoke` panels and tiles, `darkPeach` accent, `darkGray` text, Montserrat regular/bold):
+- **Cover:** full cream page with logo, "Shox", "My collection", accent rule, user name and email, total pairs; generation date at the bottom
+- **Summary:** three stat tiles (total pairs, favorites, brands) and three rankings with bars relative to the top row: top 5 brands, categories, primary colors (with color dot). Figures come from `PdfCollectionSummary.fromShoes` (`features/database/models/pdf_collection_summary.dart`, pure and covered by `test/features/database/models/pdf_collection_summary_test.dart`)
+- **One page per shoe** (newest first): large cream photo panel, brand + "category · type", a peach heart (inline SVG, `pw.SvgImage`) when favorited, then cream tiles on a 3-column grid: size, season, date added; primary color and extra colors (dot + localized name; the extra colors tile is omitted when there are none); notes (only when present)
+- **Credits (last page):** full cream page with logo, "Shox", app version (`PackageInfo`), "Designed and developed by" `AppConstants.developerName`, clickable links (`pw.UrlLink`) to the developer website and the GitHub repository, copyright
+- Summary and shoe pages have a header (logo + "Shox") and a footer with `page / total`
 
 **Details:**
-- The Montserrat font is loaded from the bundled asset files for consistent rendering
-- Shoe images are downloaded from their Firebase Storage URL during generation
+- The Montserrat font is loaded from the bundled asset files; the `pdf` package embeds only the used glyphs (a few KB)
+- **Speed:** shoes, user data, fonts, logo and `PackageInfo` are loaded in parallel (record `.wait`); photos are loaded by 4 parallel workers (`_imageConcurrency`) sharing one `http.Client` (kept-alive connections), and pages are built once all photos are ready. With 250 ms simulated latency per photo, 47 pairs take ~6 s instead of ~18 s sequentially. The registration date is no longer fetched
+- Shoe images are downloaded from their Firebase Storage URL during generation and processed in a background isolate (`Isolate.run`): transparent margins of background-free photos are trimmed (`img.trim`, `TrimMode.transparent`) so the shoe fills the panel, the longest side is capped at 640px, the photo is flattened on the panel color and encoded as JPEG (quality 80). This keeps a 47-pair export around 1.5 MB (it was ~12 MB with lossless PNG + alpha mask). A photo that cannot be downloaded or decoded shows the app logo in the panel instead of aborting the export
+- Extra colors: `colorExtra` stores one ARGB int per color, so each one is converted with `Color(argb)`
+- Generation errors are logged with the stack trace (`Logger`) before being rethrown to the screen, which shows the error toast
 - Progress callback (`onProgress`) for the progress bar in the UI
-- Saved in the `Downloads` folder with a timestamped name (`shox_YYYY-MM-DD_HH-mm-ss.pdf`)
-- Requires the `MANAGE_EXTERNAL_STORAGE` permission on Android
+- The PDF is written to the app cache (`getTemporaryDirectory()`) as `shox_db_yyyyMMdd_HHmmss.pdf`, then copied to the public **`Download/Shox`** folder by `DownloadsService.saveToDownloads` (see 7.5.1); the cache copy is the one passed to the share sheet that opens right after
+- No `MANAGE_EXTERNAL_STORAGE` request: on Android 10+ MediaStore needs no permission, on Android 7–9 only `WRITE_EXTERNAL_STORAGE` (`Permission.storage`) is requested
+- If saving to Download/Shox fails (permission denied, MediaStore error) the whole export fails and the error toast is shown
+
+#### 7.5.1 DownloadsService
+
+**Paths:** `lib/core/services/downloads_service.dart`, `android/app/src/main/kotlin/com/ndn21/shox/MainActivity.kt`
+
+Copies a local file into the public `Download/Shox` folder, so it shows up in the Files app and is kept after uninstalling the app. (`path_provider`'s `getDownloadsDirectory()` on Android returns the app-private `Android/data/com.ndn21.shox/files/Download`, which is neither visible in the Files app nor kept after uninstall.)
+
+- **Dart:** `DownloadsService.saveToDownloads(filePath, mimeType:)` calls the `com.ndn21.shox/downloads` `MethodChannel` (method `saveToDownloads`, args `path` and `mimeType`) and returns the relative location (`Download/Shox/<name>`); on API < 29 it first requests `Permission.storage`
+- **Kotlin (`MainActivity.configureFlutterEngine`):** the copy runs on a background thread
+  - API 29+ (Android 10+): `MediaStore.Downloads` insert with `RELATIVE_PATH = Download/Shox` and `IS_PENDING` during the write; the row is deleted if the copy fails
+  - API 24–28: copy into `Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)/Shox`, then `MediaScannerConnection.scanFile`
+- Currently used only by the PDF export; the JSON backup still uses the app-private downloads folder
 
 ---
 
@@ -710,7 +729,7 @@ dev_dependencies:
 | Minimum Android | API 24 (Android 7.0), required by ML Kit |
 | Recommended Android | API 26+ (Android 8.0) |
 | Architecture | 64-bit only (`arm64-v8a`) |
-| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES` |
+| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES`; saving the PDF to Download/Shox needs no permission on API 29+, `WRITE_EXTERNAL_STORAGE` on API 24–28 |
 | Google Play services | Required (Google sign-in and background removal model) |
 | Main platform | Android |
 | Internet connection | Required for authentication and Firestore sync |
