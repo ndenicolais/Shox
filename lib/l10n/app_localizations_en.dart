@@ -86,9 +86,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'The email entered has already been registered';
 
   @override
-  String get signup_toast_error_generic => 'Error during registration:';
-
-  @override
   String get login_screen_title => 'Login';
 
   @override
@@ -136,9 +133,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout_toast_success => 'See you soon!';
 
   @override
-  String get logout_toast_error_generic => 'Error during logout';
-
-  @override
   String get reset_password_screen_title => 'Reset Password';
 
   @override
@@ -169,9 +163,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gender_selection_screen_title => 'Select Gender';
 
   @override
-  String get gender_selection_screen_subtitle => 'Choose Your Gender';
-
-  @override
   String get gender_selection_screen_description =>
       'This will help us customize your shoe collection experience';
 
@@ -191,9 +182,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gender_female => 'Female';
 
   @override
-  String get gender_other => 'Other';
-
-  @override
   String get validator_name => 'Name';
 
   @override
@@ -204,9 +192,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validator_name_required => 'Name is required';
-
-  @override
-  String get validator_name_error => 'Invalid name: ';
 
   @override
   String get validator_email => 'Email';
@@ -222,9 +207,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validator_email_required => 'Email is required';
-
-  @override
-  String get validator_email_error => 'Invalid email: ';
 
   @override
   String get validator_password => 'Password';
@@ -252,20 +234,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validator_password_required => 'Password is required';
 
   @override
-  String get validator_password_error => 'Invalid password: ';
-
-  @override
   String get permission_storage_denied => 'Storage permission denied';
 
   @override
   String get permission_storage_toast =>
       'Grant storage permission from settings';
-
-  @override
-  String get permission_camera_denied => 'Camera permission denied';
-
-  @override
-  String get permission_camera_toast => 'Grant camera permission from settings';
 
   @override
   String get home_screen_welcome_text => 'Hello';
@@ -377,9 +350,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shoes_adder_screen_field_note => 'Notes';
 
   @override
-  String get shoes_form_screen_section_photo => 'Photo';
-
-  @override
   String get shoes_form_screen_section_colors => 'Colors';
 
   @override
@@ -408,10 +378,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get shoes_adder_screen_toast_error_brand =>
       'You did not enter the brand';
-
-  @override
-  String get shoes_adder_screen_toast_error_size =>
-      'You did not enter the size';
 
   @override
   String get shoes_adder_screen_toast_error_category =>
@@ -444,43 +410,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shoes_updater_screen_title => 'Update Shoes';
 
   @override
-  String get shoes_updater_screen_field_color_primary => 'Primary Color';
-
-  @override
-  String get shoes_updater_screen_field_brand => 'Brand';
-
-  @override
-  String get shoes_updater_screen_field_size => 'Size';
-
-  @override
-  String get shoes_updater_screen_field_category => 'Category';
-
-  @override
-  String get shoes_updater_screen_field_type => 'Type';
-
-  @override
-  String get shoes_updater_screen_field_season => 'Season';
-
-  @override
-  String get shoes_updater_screen_field_note => 'Notes';
-
-  @override
-  String get shoes_updater_screen_crop_image_title => 'Crop Image';
-
-  @override
-  String get shoes_updater_screen_toast_error_brand =>
-      'You did not enter the brand';
-
-  @override
-  String get shoes_updater_screen_toast_error_size =>
-      'You did not enter the size';
-
-  @override
   String get shoes_updater_screen_toast_success =>
       'Shoes updated successfully!';
-
-  @override
-  String get shoes_updater_screen_toast_error => 'Error during update';
 
   @override
   String get shoes_details_screen_title => 'Shoes Details';
@@ -492,16 +423,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shoes_details_screen_field_color_primary => 'Primary';
 
   @override
-  String get shoes_details_screen_field_brand => 'BRAND';
-
-  @override
   String get shoes_details_screen_field_size => 'SIZE';
-
-  @override
-  String get shoes_details_screen_field_category => 'CATEGORY';
-
-  @override
-  String get shoes_details_screen_field_type => 'TYPE';
 
   @override
   String get shoes_details_screen_field_season => 'SEASON';
@@ -549,9 +471,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get user_screen_button_database => 'Database';
-
-  @override
-  String get user_screen_button_logout => 'Log Out';
 
   @override
   String get user_screen_button_delete => 'Delete Account';
@@ -896,14 +815,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'If you delete a pair of shoes, it will be permanently removed. You will be asked to confirm before proceeding with the operation.';
 
   @override
-  String get support_screen_faq_q7 =>
-      'What can I do if the app doesn\'t work properly?';
-
-  @override
-  String get support_screen_faq_a7 =>
-      'If you encounter problems, try restarting the app. If the problem persists, contact technical support through the \'Contact Us\' section.';
-
-  @override
   String get support_screen_faq_q8 => 'What can I do if the app doesn\'t work?';
 
   @override
@@ -1089,9 +1000,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pdf_field_type => 'Type';
 
   @override
-  String get pdf_field_season => 'Season';
-
-  @override
   String get pdf_field_notes => 'Notes';
 
   @override
@@ -1223,12 +1131,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get a11y_toggle_grid => 'Change grid layout';
 
   @override
-  String get a11y_show_only_favorites => 'Show only favorites';
-
-  @override
-  String get a11y_show_all_shoes => 'Show all shoes';
-
-  @override
   String get a11y_add_to_favorites => 'Add to favorites';
 
   @override
@@ -1254,9 +1156,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get a11y_remove_background => 'Remove background';
-
-  @override
-  String get a11y_save_shoe => 'Save shoe';
 
   @override
   String get a11y_edit_profile => 'Edit profile';
@@ -1334,10 +1233,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'In dark mode the background behind shoe photos is now a softer, less intrusive tone.';
 
   @override
-  String get dashboard_other => 'Other';
-
-  @override
-  String get user_screen_account_settings => 'Account Settings';
+  String get changelog_v5_0_0_bullet_16 =>
+      'Translated a few texts that were still shown in English.';
 
   @override
   String get user_screen_total_shoes => 'Total Shoes';
@@ -1368,10 +1265,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get extra_colors => 'Extra';
-
-  @override
-  String get select_extra_colors => 'Select Extra Colors';
-
-  @override
-  String get add_more_colors => 'Add More Colors';
 }

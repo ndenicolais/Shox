@@ -248,12 +248,6 @@ abstract class AppLocalizations {
   /// **'The email entered has already been registered'**
   String get signup_toast_error_email_already_register;
 
-  /// No description provided for @signup_toast_error_generic.
-  ///
-  /// In en, this message translates to:
-  /// **'Error during registration:'**
-  String get signup_toast_error_generic;
-
   /// No description provided for @login_screen_title.
   ///
   /// In en, this message translates to:
@@ -338,12 +332,6 @@ abstract class AppLocalizations {
   /// **'See you soon!'**
   String get logout_toast_success;
 
-  /// No description provided for @logout_toast_error_generic.
-  ///
-  /// In en, this message translates to:
-  /// **'Error during logout'**
-  String get logout_toast_error_generic;
-
   /// No description provided for @reset_password_screen_title.
   ///
   /// In en, this message translates to:
@@ -398,12 +386,6 @@ abstract class AppLocalizations {
   /// **'Select Gender'**
   String get gender_selection_screen_title;
 
-  /// No description provided for @gender_selection_screen_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose Your Gender'**
-  String get gender_selection_screen_subtitle;
-
   /// No description provided for @gender_selection_screen_description.
   ///
   /// In en, this message translates to:
@@ -440,12 +422,6 @@ abstract class AppLocalizations {
   /// **'Female'**
   String get gender_female;
 
-  /// No description provided for @gender_other.
-  ///
-  /// In en, this message translates to:
-  /// **'Other'**
-  String get gender_other;
-
   /// No description provided for @validator_name.
   ///
   /// In en, this message translates to:
@@ -469,12 +445,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Name is required'**
   String get validator_name_required;
-
-  /// No description provided for @validator_name_error.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid name: '**
-  String get validator_name_error;
 
   /// No description provided for @validator_email.
   ///
@@ -505,12 +475,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email is required'**
   String get validator_email_required;
-
-  /// No description provided for @validator_email_error.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid email: '**
-  String get validator_email_error;
 
   /// No description provided for @validator_password.
   ///
@@ -560,12 +524,6 @@ abstract class AppLocalizations {
   /// **'Password is required'**
   String get validator_password_required;
 
-  /// No description provided for @validator_password_error.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid password: '**
-  String get validator_password_error;
-
   /// No description provided for @permission_storage_denied.
   ///
   /// In en, this message translates to:
@@ -577,18 +535,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Grant storage permission from settings'**
   String get permission_storage_toast;
-
-  /// No description provided for @permission_camera_denied.
-  ///
-  /// In en, this message translates to:
-  /// **'Camera permission denied'**
-  String get permission_camera_denied;
-
-  /// No description provided for @permission_camera_toast.
-  ///
-  /// In en, this message translates to:
-  /// **'Grant camera permission from settings'**
-  String get permission_camera_toast;
 
   /// No description provided for @home_screen_welcome_text.
   ///
@@ -770,12 +716,6 @@ abstract class AppLocalizations {
   /// **'Notes'**
   String get shoes_adder_screen_field_note;
 
-  /// No description provided for @shoes_form_screen_section_photo.
-  ///
-  /// In en, this message translates to:
-  /// **'Photo'**
-  String get shoes_form_screen_section_photo;
-
   /// No description provided for @shoes_form_screen_section_colors.
   ///
   /// In en, this message translates to:
@@ -829,12 +769,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You did not enter the brand'**
   String get shoes_adder_screen_toast_error_brand;
-
-  /// No description provided for @shoes_adder_screen_toast_error_size.
-  ///
-  /// In en, this message translates to:
-  /// **'You did not enter the size'**
-  String get shoes_adder_screen_toast_error_size;
 
   /// No description provided for @shoes_adder_screen_toast_error_category.
   ///
@@ -890,77 +824,11 @@ abstract class AppLocalizations {
   /// **'Update Shoes'**
   String get shoes_updater_screen_title;
 
-  /// No description provided for @shoes_updater_screen_field_color_primary.
-  ///
-  /// In en, this message translates to:
-  /// **'Primary Color'**
-  String get shoes_updater_screen_field_color_primary;
-
-  /// No description provided for @shoes_updater_screen_field_brand.
-  ///
-  /// In en, this message translates to:
-  /// **'Brand'**
-  String get shoes_updater_screen_field_brand;
-
-  /// No description provided for @shoes_updater_screen_field_size.
-  ///
-  /// In en, this message translates to:
-  /// **'Size'**
-  String get shoes_updater_screen_field_size;
-
-  /// No description provided for @shoes_updater_screen_field_category.
-  ///
-  /// In en, this message translates to:
-  /// **'Category'**
-  String get shoes_updater_screen_field_category;
-
-  /// No description provided for @shoes_updater_screen_field_type.
-  ///
-  /// In en, this message translates to:
-  /// **'Type'**
-  String get shoes_updater_screen_field_type;
-
-  /// No description provided for @shoes_updater_screen_field_season.
-  ///
-  /// In en, this message translates to:
-  /// **'Season'**
-  String get shoes_updater_screen_field_season;
-
-  /// No description provided for @shoes_updater_screen_field_note.
-  ///
-  /// In en, this message translates to:
-  /// **'Notes'**
-  String get shoes_updater_screen_field_note;
-
-  /// No description provided for @shoes_updater_screen_crop_image_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Crop Image'**
-  String get shoes_updater_screen_crop_image_title;
-
-  /// No description provided for @shoes_updater_screen_toast_error_brand.
-  ///
-  /// In en, this message translates to:
-  /// **'You did not enter the brand'**
-  String get shoes_updater_screen_toast_error_brand;
-
-  /// No description provided for @shoes_updater_screen_toast_error_size.
-  ///
-  /// In en, this message translates to:
-  /// **'You did not enter the size'**
-  String get shoes_updater_screen_toast_error_size;
-
   /// No description provided for @shoes_updater_screen_toast_success.
   ///
   /// In en, this message translates to:
   /// **'Shoes updated successfully!'**
   String get shoes_updater_screen_toast_success;
-
-  /// No description provided for @shoes_updater_screen_toast_error.
-  ///
-  /// In en, this message translates to:
-  /// **'Error during update'**
-  String get shoes_updater_screen_toast_error;
 
   /// No description provided for @shoes_details_screen_title.
   ///
@@ -980,29 +848,11 @@ abstract class AppLocalizations {
   /// **'Primary'**
   String get shoes_details_screen_field_color_primary;
 
-  /// No description provided for @shoes_details_screen_field_brand.
-  ///
-  /// In en, this message translates to:
-  /// **'BRAND'**
-  String get shoes_details_screen_field_brand;
-
   /// No description provided for @shoes_details_screen_field_size.
   ///
   /// In en, this message translates to:
   /// **'SIZE'**
   String get shoes_details_screen_field_size;
-
-  /// No description provided for @shoes_details_screen_field_category.
-  ///
-  /// In en, this message translates to:
-  /// **'CATEGORY'**
-  String get shoes_details_screen_field_category;
-
-  /// No description provided for @shoes_details_screen_field_type.
-  ///
-  /// In en, this message translates to:
-  /// **'TYPE'**
-  String get shoes_details_screen_field_type;
 
   /// No description provided for @shoes_details_screen_field_season.
   ///
@@ -1093,12 +943,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Database'**
   String get user_screen_button_database;
-
-  /// No description provided for @user_screen_button_logout.
-  ///
-  /// In en, this message translates to:
-  /// **'Log Out'**
-  String get user_screen_button_logout;
 
   /// No description provided for @user_screen_button_delete.
   ///
@@ -1700,18 +1544,6 @@ abstract class AppLocalizations {
   /// **'If you delete a pair of shoes, it will be permanently removed. You will be asked to confirm before proceeding with the operation.'**
   String get support_screen_faq_a4;
 
-  /// No description provided for @support_screen_faq_q7.
-  ///
-  /// In en, this message translates to:
-  /// **'What can I do if the app doesn\'t work properly?'**
-  String get support_screen_faq_q7;
-
-  /// No description provided for @support_screen_faq_a7.
-  ///
-  /// In en, this message translates to:
-  /// **'If you encounter problems, try restarting the app. If the problem persists, contact technical support through the \'Contact Us\' section.'**
-  String get support_screen_faq_a7;
-
   /// No description provided for @support_screen_faq_q8.
   ///
   /// In en, this message translates to:
@@ -2072,12 +1904,6 @@ abstract class AppLocalizations {
   /// **'Type'**
   String get pdf_field_type;
 
-  /// No description provided for @pdf_field_season.
-  ///
-  /// In en, this message translates to:
-  /// **'Season'**
-  String get pdf_field_season;
-
   /// No description provided for @pdf_field_notes.
   ///
   /// In en, this message translates to:
@@ -2330,18 +2156,6 @@ abstract class AppLocalizations {
   /// **'Change grid layout'**
   String get a11y_toggle_grid;
 
-  /// No description provided for @a11y_show_only_favorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Show only favorites'**
-  String get a11y_show_only_favorites;
-
-  /// No description provided for @a11y_show_all_shoes.
-  ///
-  /// In en, this message translates to:
-  /// **'Show all shoes'**
-  String get a11y_show_all_shoes;
-
   /// No description provided for @a11y_add_to_favorites.
   ///
   /// In en, this message translates to:
@@ -2395,12 +2209,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove background'**
   String get a11y_remove_background;
-
-  /// No description provided for @a11y_save_shoe.
-  ///
-  /// In en, this message translates to:
-  /// **'Save shoe'**
-  String get a11y_save_shoe;
 
   /// No description provided for @a11y_edit_profile.
   ///
@@ -2522,17 +2330,11 @@ abstract class AppLocalizations {
   /// **'In dark mode the background behind shoe photos is now a softer, less intrusive tone.'**
   String get changelog_v5_0_0_bullet_15;
 
-  /// No description provided for @dashboard_other.
+  /// No description provided for @changelog_v5_0_0_bullet_16.
   ///
   /// In en, this message translates to:
-  /// **'Other'**
-  String get dashboard_other;
-
-  /// No description provided for @user_screen_account_settings.
-  ///
-  /// In en, this message translates to:
-  /// **'Account Settings'**
-  String get user_screen_account_settings;
+  /// **'Translated a few texts that were still shown in English.'**
+  String get changelog_v5_0_0_bullet_16;
 
   /// No description provided for @user_screen_total_shoes.
   ///
@@ -2593,18 +2395,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Extra'**
   String get extra_colors;
-
-  /// No description provided for @select_extra_colors.
-  ///
-  /// In en, this message translates to:
-  /// **'Select Extra Colors'**
-  String get select_extra_colors;
-
-  /// No description provided for @add_more_colors.
-  ///
-  /// In en, this message translates to:
-  /// **'Add More Colors'**
-  String get add_more_colors;
 }
 
 class _AppLocalizationsDelegate

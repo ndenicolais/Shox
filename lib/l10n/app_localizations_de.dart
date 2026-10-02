@@ -87,9 +87,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Die eingegebene E-Mail ist bereits als persönliche E-Mail registriert';
 
   @override
-  String get signup_toast_error_generic => 'Fehler bei der Registrierung:';
-
-  @override
   String get login_screen_title => 'Anmeldung';
 
   @override
@@ -137,9 +134,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get logout_toast_success => 'Bis bald!';
 
   @override
-  String get logout_toast_error_generic => 'Fehler beim Abmelden';
-
-  @override
   String get reset_password_screen_title => 'Passwort zurücksetzen';
 
   @override
@@ -171,9 +165,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gender_selection_screen_title => 'Geschlecht Auswählen';
 
   @override
-  String get gender_selection_screen_subtitle => 'Wählen Sie Ihr Geschlecht';
-
-  @override
   String get gender_selection_screen_description =>
       'Dies hilft uns, Ihre Schuhsammlung zu personalisieren';
 
@@ -195,9 +186,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gender_female => 'Weiblich';
 
   @override
-  String get gender_other => 'Andere';
-
-  @override
   String get validator_name => 'Name';
 
   @override
@@ -208,9 +196,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get validator_name_required => 'Name ist erforderlich';
-
-  @override
-  String get validator_name_error => 'Ungültiger Name: ';
 
   @override
   String get validator_email => 'Email';
@@ -226,9 +211,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get validator_email_required => 'Email ist erforderlich';
-
-  @override
-  String get validator_email_error => 'Ungültige Email-Adresse: ';
 
   @override
   String get validator_password => 'Passwort';
@@ -256,21 +238,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get validator_password_required => 'Passwort ist erforderlich';
 
   @override
-  String get validator_password_error => 'Ungültiges Passwort: ';
-
-  @override
   String get permission_storage_denied => 'Speicherberechtigung verweigert';
 
   @override
   String get permission_storage_toast =>
       'Erteilen Sie die Speicherberechtigung in den Einstellungen';
-
-  @override
-  String get permission_camera_denied => 'Kameraberechtigung verweigert';
-
-  @override
-  String get permission_camera_toast =>
-      'Erteilen Sie die Kameraberechtigung in den Einstellungen';
 
   @override
   String get home_screen_welcome_text => 'Hallo';
@@ -382,9 +354,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get shoes_adder_screen_field_note => 'Notizen';
 
   @override
-  String get shoes_form_screen_section_photo => 'Foto';
-
-  @override
   String get shoes_form_screen_section_colors => 'Farben';
 
   @override
@@ -413,10 +382,6 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get shoes_adder_screen_toast_error_brand =>
       'Du hast keine Marke eingegeben';
-
-  @override
-  String get shoes_adder_screen_toast_error_size =>
-      'Du hast keine Größe eingegeben';
 
   @override
   String get shoes_adder_screen_toast_error_category =>
@@ -453,43 +418,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get shoes_updater_screen_title => 'Schuhe aktualisieren';
 
   @override
-  String get shoes_updater_screen_field_color_primary => 'Primär';
-
-  @override
-  String get shoes_updater_screen_field_brand => 'Marke';
-
-  @override
-  String get shoes_updater_screen_field_size => 'Größe';
-
-  @override
-  String get shoes_updater_screen_field_category => 'Kategorie';
-
-  @override
-  String get shoes_updater_screen_field_type => 'Typ';
-
-  @override
-  String get shoes_updater_screen_field_season => 'Saison';
-
-  @override
-  String get shoes_updater_screen_field_note => 'Notizen';
-
-  @override
-  String get shoes_updater_screen_crop_image_title => 'Bild zuschneiden';
-
-  @override
-  String get shoes_updater_screen_toast_error_brand =>
-      'Du hast keine Marke eingegeben';
-
-  @override
-  String get shoes_updater_screen_toast_error_size =>
-      'Du hast keine Größe eingegeben';
-
-  @override
   String get shoes_updater_screen_toast_success =>
       'Schuhe erfolgreich aktualisiert!';
-
-  @override
-  String get shoes_updater_screen_toast_error => 'Fehler beim Aktualisieren';
 
   @override
   String get shoes_details_screen_title => 'Schuhdetails';
@@ -501,16 +431,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get shoes_details_screen_field_color_primary => 'Primärfarbe';
 
   @override
-  String get shoes_details_screen_field_brand => 'MARKE';
-
-  @override
   String get shoes_details_screen_field_size => 'GRÖSSE';
-
-  @override
-  String get shoes_details_screen_field_category => 'KATEGORIE';
-
-  @override
-  String get shoes_details_screen_field_type => 'TYP';
 
   @override
   String get shoes_details_screen_field_season => 'SAISON';
@@ -559,9 +480,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get user_screen_button_database => 'Datenbank';
-
-  @override
-  String get user_screen_button_logout => 'Abmelden';
 
   @override
   String get user_screen_button_delete => 'Konto löschen';
@@ -907,14 +825,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Wenn du ein Ereignis oder ein Paar Schuhe lösche, wird es dauerhaft entfernt. Du wirst aufgefordert, die Aktion zu bestätigen, bevor du fortfährst.';
 
   @override
-  String get support_screen_faq_q7 =>
-      'Was kann ich tun, wenn die App nicht richtig funktioniert?';
-
-  @override
-  String get support_screen_faq_a7 =>
-      'Wenn du Probleme hast, versuche die App neu zu starten. Wenn das Problem weiterhin besteht, kontaktiere den technischen Support über den Abschnitt \'Kontaktiere uns\'.';
-
-  @override
   String get support_screen_faq_q8 =>
       'Was kann ich tun, wenn die App nicht funktioniert?';
 
@@ -1104,9 +1014,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pdf_field_type => 'Typ';
 
   @override
-  String get pdf_field_season => 'Saison';
-
-  @override
   String get pdf_field_notes => 'Notizen';
 
   @override
@@ -1238,12 +1145,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get a11y_toggle_grid => 'Rasteransicht ändern';
 
   @override
-  String get a11y_show_only_favorites => 'Nur Favoriten anzeigen';
-
-  @override
-  String get a11y_show_all_shoes => 'Alle Schuhe anzeigen';
-
-  @override
   String get a11y_add_to_favorites => 'Zu Favoriten hinzufügen';
 
   @override
@@ -1269,9 +1170,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get a11y_remove_background => 'Hintergrund entfernen';
-
-  @override
-  String get a11y_save_shoe => 'Schuh speichern';
 
   @override
   String get a11y_edit_profile => 'Profil bearbeiten';
@@ -1349,10 +1247,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'Im dunklen Modus hat der Hintergrund der Schuhfotos jetzt einen sanfteren, dezenteren Farbton.';
 
   @override
-  String get dashboard_other => 'Andere';
-
-  @override
-  String get user_screen_account_settings => 'Kontoeinstellungen';
+  String get changelog_v5_0_0_bullet_16 =>
+      'Einige Texte, die noch auf Englisch angezeigt wurden, sind jetzt übersetzt.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';
@@ -1383,10 +1279,4 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get extra_colors => 'Zusätzliche';
-
-  @override
-  String get select_extra_colors => 'Zusätzliche Farben auswählen';
-
-  @override
-  String get add_more_colors => 'Weitere Farben hinzufügen';
 }

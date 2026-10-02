@@ -88,9 +88,6 @@ class AppLocalizationsIt extends AppLocalizations {
       'L\'email inserita è già stata registrata come email personale';
 
   @override
-  String get signup_toast_error_generic => 'Errore durante la registrazione:';
-
-  @override
   String get login_screen_title => 'Accesso';
 
   @override
@@ -138,17 +135,14 @@ class AppLocalizationsIt extends AppLocalizations {
   String get logout_toast_success => 'A presto!';
 
   @override
-  String get logout_toast_error_generic => 'Errore durante il logout';
-
-  @override
-  String get reset_password_screen_title => 'Reset Password';
+  String get reset_password_screen_title => 'Reimposta Password';
 
   @override
   String get reset_password_screen_description =>
       'Inserisci la tua email per ricevere il link con la procedura per il reset della password';
 
   @override
-  String get reset_password_screen_text => 'Reset password';
+  String get reset_password_screen_text => 'Reimposta password';
 
   @override
   String get reset_password_form_email => 'Email';
@@ -172,9 +166,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get gender_selection_screen_title => 'Seleziona Genere';
 
   @override
-  String get gender_selection_screen_subtitle => 'Scegli il Tuo Genere';
-
-  @override
   String get gender_selection_screen_description =>
       'Questo ci aiuterà a personalizzare la tua esperienza di gestione della collezione di scarpe';
 
@@ -196,9 +187,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get gender_female => 'Donna';
 
   @override
-  String get gender_other => 'Altro';
-
-  @override
   String get validator_name => 'Nome';
 
   @override
@@ -209,9 +197,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get validator_name_required => 'Nome è richiesto';
-
-  @override
-  String get validator_name_error => 'Nome non valido: ';
 
   @override
   String get validator_email => 'Email';
@@ -227,9 +212,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get validator_email_required => 'Email è richiesta';
-
-  @override
-  String get validator_email_error => 'Email non valida: ';
 
   @override
   String get validator_password => 'Password';
@@ -258,21 +240,11 @@ class AppLocalizationsIt extends AppLocalizations {
   String get validator_password_required => 'Password è richiesta';
 
   @override
-  String get validator_password_error => 'Password non valida: ';
-
-  @override
   String get permission_storage_denied => 'Permesso di archiviazione negato';
 
   @override
   String get permission_storage_toast =>
       'Concedi il permesso di archiviazione dalle impostazioni';
-
-  @override
-  String get permission_camera_denied => 'Permesso fotocamera negato';
-
-  @override
-  String get permission_camera_toast =>
-      'Concedi il permesso della fotocamera dalle impostazioni';
 
   @override
   String get home_screen_welcome_text => 'Ciao';
@@ -296,7 +268,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get home_screen_filter_season => 'Stagione';
 
   @override
-  String get home_screen_filter_reset => 'Reset';
+  String get home_screen_filter_reset => 'Azzera';
 
   @override
   String get home_screen_filter_apply => 'Applica';
@@ -384,9 +356,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get shoes_adder_screen_field_note => 'Note';
 
   @override
-  String get shoes_form_screen_section_photo => 'Foto';
-
-  @override
   String get shoes_form_screen_section_colors => 'Colori';
 
   @override
@@ -415,10 +384,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get shoes_adder_screen_toast_error_brand =>
       'Non hai inserito il brand';
-
-  @override
-  String get shoes_adder_screen_toast_error_size =>
-      'Non hai inserito la taglia';
 
   @override
   String get shoes_adder_screen_toast_error_category =>
@@ -453,44 +418,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get shoes_updater_screen_title => 'Aggiorna Scarpe';
 
   @override
-  String get shoes_updater_screen_field_color_primary => 'Colore Primario';
-
-  @override
-  String get shoes_updater_screen_field_brand => 'Brand';
-
-  @override
-  String get shoes_updater_screen_field_size => 'Taglia';
-
-  @override
-  String get shoes_updater_screen_field_category => 'Categoria';
-
-  @override
-  String get shoes_updater_screen_field_type => 'Tipo';
-
-  @override
-  String get shoes_updater_screen_field_season => 'Stagione';
-
-  @override
-  String get shoes_updater_screen_field_note => 'Note';
-
-  @override
-  String get shoes_updater_screen_crop_image_title => 'Ritaglia Immagine';
-
-  @override
-  String get shoes_updater_screen_toast_error_brand =>
-      'Non hai inserito il brand';
-
-  @override
-  String get shoes_updater_screen_toast_error_size =>
-      'Non hai inserito la taglia';
-
-  @override
   String get shoes_updater_screen_toast_success =>
       'Scarpe modificate con successo!';
-
-  @override
-  String get shoes_updater_screen_toast_error =>
-      'Errore durante l\'aggiornamento';
 
   @override
   String get shoes_details_screen_title => 'Dettagli Scarpe';
@@ -502,16 +431,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get shoes_details_screen_field_color_primary => 'Primario';
 
   @override
-  String get shoes_details_screen_field_brand => 'BRAND';
-
-  @override
   String get shoes_details_screen_field_size => 'TAGLIA';
-
-  @override
-  String get shoes_details_screen_field_category => 'CATEGORIA';
-
-  @override
-  String get shoes_details_screen_field_type => 'TIPO';
 
   @override
   String get shoes_details_screen_field_season => 'STAGIONE';
@@ -561,9 +481,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get user_screen_button_database => 'Database';
-
-  @override
-  String get user_screen_button_logout => 'Log Out';
 
   @override
   String get user_screen_button_delete => 'Elimina Account';
@@ -911,14 +828,6 @@ class AppLocalizationsIt extends AppLocalizations {
       'Se elimini un paio di scarpe, questo verrà rimosso permanentemente. Ti verrà chiesto di confermare prima di procedere all\'operazione.';
 
   @override
-  String get support_screen_faq_q7 =>
-      'Cosa posso fare se l\'app non funziona correttamente?';
-
-  @override
-  String get support_screen_faq_a7 =>
-      'Se riscontri problemi, prova a riavviare l\'app. Se il problema persiste, contatta il supporto tecnico tramite la sezione \'Contattaci\'.';
-
-  @override
   String get support_screen_faq_q8 => 'Come posso fare se l\'app non funziona?';
 
   @override
@@ -1107,9 +1016,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get pdf_field_type => 'Tipo';
 
   @override
-  String get pdf_field_season => 'Stagione';
-
-  @override
   String get pdf_field_notes => 'Note';
 
   @override
@@ -1241,12 +1147,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get a11y_toggle_grid => 'Cambia disposizione griglia';
 
   @override
-  String get a11y_show_only_favorites => 'Mostra solo i preferiti';
-
-  @override
-  String get a11y_show_all_shoes => 'Mostra tutte le scarpe';
-
-  @override
   String get a11y_add_to_favorites => 'Aggiungi ai preferiti';
 
   @override
@@ -1272,9 +1172,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get a11y_remove_background => 'Rimuovi sfondo';
-
-  @override
-  String get a11y_save_shoe => 'Salva scarpa';
 
   @override
   String get a11y_edit_profile => 'Modifica profilo';
@@ -1352,10 +1249,8 @@ class AppLocalizationsIt extends AppLocalizations {
       'In tema scuro lo sfondo delle foto delle scarpe ora è un tono più tenue e meno invadente.';
 
   @override
-  String get dashboard_other => 'Altro';
-
-  @override
-  String get user_screen_account_settings => 'Impostazioni Account';
+  String get changelog_v5_0_0_bullet_16 =>
+      'Tradotti alcuni testi che comparivano ancora in inglese.';
 
   @override
   String get user_screen_total_shoes => 'Scarpe totali';
@@ -1386,10 +1281,4 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get extra_colors => 'Extra';
-
-  @override
-  String get select_extra_colors => 'Seleziona Colori Extra';
-
-  @override
-  String get add_more_colors => 'Aggiungi altri colori';
 }

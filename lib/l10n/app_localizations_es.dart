@@ -54,7 +54,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Explora varios gráficos coloridos que muestran estadísticas detalladas sobre el total y las especificaciones de tus zapatos en la base de datos.';
 
   @override
-  String get onboarding_next => 'Next';
+  String get onboarding_next => 'Siguiente';
 
   @override
   String get onboarding_finish => 'Comienza';
@@ -63,10 +63,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get welcome_text => 'Hola';
 
   @override
-  String get welcome_login => 'Login';
+  String get welcome_login => 'Iniciar sesión';
 
   @override
-  String get welcome_signup => 'Signup';
+  String get welcome_signup => 'Registrarse';
 
   @override
   String get signup_screen_title => 'Registro';
@@ -86,9 +86,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get signup_toast_error_email_already_register =>
       'El correo electrónico introducido ya ha sido registrado como correo electrónico personal';
-
-  @override
-  String get signup_toast_error_generic => 'Error durante el registro:';
 
   @override
   String get login_screen_title => 'Inicio de sesión';
@@ -138,9 +135,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get logout_toast_success => '¡Hasta pronto!';
 
   @override
-  String get logout_toast_error_generic => 'Error durante el cierre de sesión';
-
-  @override
   String get reset_password_screen_title => 'Restablecer contraseña';
 
   @override
@@ -173,9 +167,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get gender_selection_screen_title => 'Seleccionar Género';
 
   @override
-  String get gender_selection_screen_subtitle => 'Elige Tu Género';
-
-  @override
   String get gender_selection_screen_description =>
       'Esto nos ayudará a personalizar tu experiencia de colección de zapatos';
 
@@ -196,9 +187,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get gender_female => 'Mujer';
 
   @override
-  String get gender_other => 'Otro';
-
-  @override
   String get validator_name => 'Nombre';
 
   @override
@@ -209,9 +197,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validator_name_required => 'El nombre es requerido';
-
-  @override
-  String get validator_name_error => 'Inválido nombre: ';
 
   @override
   String get validator_email => 'Email';
@@ -227,9 +212,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validator_email_required => 'Email es requerido';
-
-  @override
-  String get validator_email_error => 'Inválido email: ';
 
   @override
   String get validator_password => 'Password';
@@ -257,21 +239,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get validator_password_required => 'Password es requerido';
 
   @override
-  String get validator_password_error => 'Inválido password: ';
-
-  @override
   String get permission_storage_denied => 'Permiso de almacenamiento denegado';
 
   @override
   String get permission_storage_toast =>
       'Conceda el permiso de almacenamiento desde la configuración';
-
-  @override
-  String get permission_camera_denied => 'Permiso de cámara denegado';
-
-  @override
-  String get permission_camera_toast =>
-      'Conceda el permiso de la cámara desde la configuración';
 
   @override
   String get home_screen_welcome_text => 'Hola';
@@ -383,9 +355,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get shoes_adder_screen_field_note => 'Notas';
 
   @override
-  String get shoes_form_screen_section_photo => 'Foto';
-
-  @override
   String get shoes_form_screen_section_colors => 'Colores';
 
   @override
@@ -413,9 +382,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get shoes_adder_screen_toast_error_brand => 'No ingresaste la marca';
-
-  @override
-  String get shoes_adder_screen_toast_error_size => 'No ingresaste el tamaño';
 
   @override
   String get shoes_adder_screen_toast_error_category =>
@@ -448,42 +414,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get shoes_updater_screen_title => 'Actualizar Zapatos';
 
   @override
-  String get shoes_updater_screen_field_color_primary => 'Color Primario';
-
-  @override
-  String get shoes_updater_screen_field_brand => 'Marca';
-
-  @override
-  String get shoes_updater_screen_field_size => 'Tamaño';
-
-  @override
-  String get shoes_updater_screen_field_category => 'Categoría';
-
-  @override
-  String get shoes_updater_screen_field_type => 'Tipo';
-
-  @override
-  String get shoes_updater_screen_field_season => 'Temporada';
-
-  @override
-  String get shoes_updater_screen_field_note => 'Notas';
-
-  @override
-  String get shoes_updater_screen_crop_image_title => 'Recortar Imagen';
-
-  @override
-  String get shoes_updater_screen_toast_error_brand => 'No ingresaste la marca';
-
-  @override
-  String get shoes_updater_screen_toast_error_size => 'No ingresaste el tamaño';
-
-  @override
   String get shoes_updater_screen_toast_success =>
       '¡Zapatos actualizados con éxito!';
-
-  @override
-  String get shoes_updater_screen_toast_error =>
-      'Error durante la actualización';
 
   @override
   String get shoes_details_screen_title => 'Detalles de los Zapatos';
@@ -495,16 +427,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get shoes_details_screen_field_color_primary => 'Primario';
 
   @override
-  String get shoes_details_screen_field_brand => 'MARCA';
-
-  @override
   String get shoes_details_screen_field_size => 'TAMAÑO';
-
-  @override
-  String get shoes_details_screen_field_category => 'CATEGORÍA';
-
-  @override
-  String get shoes_details_screen_field_type => 'TIPO';
 
   @override
   String get shoes_details_screen_field_season => 'TEMPORADA';
@@ -554,9 +477,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get user_screen_button_database => 'Base de datos';
-
-  @override
-  String get user_screen_button_logout => 'Cerrar sesión';
 
   @override
   String get user_screen_button_delete => 'Borrar cuenta';
@@ -904,14 +824,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Si eliminas un par de zapatos, se eliminará permanentemente. Se te pedirá que confirmes antes de proceder con la operación.';
 
   @override
-  String get support_screen_faq_q7 =>
-      '¿Qué puedo hacer si la aplicación no funciona correctamente?';
-
-  @override
-  String get support_screen_faq_a7 =>
-      'Si tienes problemas, intenta reiniciar la aplicación. Si el problema persiste, contacta con el soporte técnico a través de la sección \'Contáctanos\'.';
-
-  @override
   String get support_screen_faq_q8 =>
       '¿Qué puedo hacer si la aplicación no funciona?';
 
@@ -1101,9 +1013,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pdf_field_type => 'Tipo';
 
   @override
-  String get pdf_field_season => 'Estación';
-
-  @override
   String get pdf_field_notes => 'Notas';
 
   @override
@@ -1235,12 +1144,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get a11y_toggle_grid => 'Cambiar disposición de la cuadrícula';
 
   @override
-  String get a11y_show_only_favorites => 'Mostrar solo favoritos';
-
-  @override
-  String get a11y_show_all_shoes => 'Mostrar todos los zapatos';
-
-  @override
   String get a11y_add_to_favorites => 'Añadir a favoritos';
 
   @override
@@ -1266,9 +1169,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get a11y_remove_background => 'Quitar fondo';
-
-  @override
-  String get a11y_save_shoe => 'Guardar zapato';
 
   @override
   String get a11y_edit_profile => 'Editar perfil';
@@ -1346,10 +1246,8 @@ class AppLocalizationsEs extends AppLocalizations {
       'En modo oscuro, el fondo de las fotos de las zapatillas ahora tiene un tono más suave y menos llamativo.';
 
   @override
-  String get dashboard_other => 'Otro';
-
-  @override
-  String get user_screen_account_settings => 'Configuración de cuenta';
+  String get changelog_v5_0_0_bullet_16 =>
+      'Traducidos algunos textos que todavía aparecían en inglés.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';
@@ -1380,10 +1278,4 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get extra_colors => 'Extra';
-
-  @override
-  String get select_extra_colors => 'Seleccionar colores extra';
-
-  @override
-  String get add_more_colors => 'Agregar más colores';
 }
