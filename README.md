@@ -43,7 +43,7 @@
 | Authentication | Firebase Auth + Google Sign In |
 | Local persistence | SharedPreferences |
 | Responsive UI | flutter_screenutil |
-| Fonts | Montserrat (bundled) + ShoxIcons (custom) |
+| Fonts | Montserrat (bundled) |
 | Icons | MingCute Icons |
 | Charts | fl_chart |
 | Images | image_picker, image_cropper, flutter_image_compress, google_mlkit_subject_segmentation |
@@ -73,8 +73,8 @@ lib/
 
 ## Requirements
 
-- Flutter SDK `^3.7.0`
-- Dart SDK `^3.5.2`
+- Flutter SDK 3.44 or later (stable channel)
+- Dart SDK 3.12 or later (bundled with Flutter)
 - Android 7.0+ (API 24+), 64-bit (arm64), with Google Play services
 - Internet connection (for authentication and Firestore sync)
 - A configured `android/app/google-services.json` file
@@ -111,7 +111,7 @@ For detailed documentation of every feature, data model, screen and technical ch
 
 ## License
 
-Copyright © 2026 Nicola De Nicolais — All rights reserved.
+Copyright © 2025–2026 Nicola De Nicolais.
 License: **MIT** — see the [LICENSE.md](LICENSE.md) file for details.
 
 **Author:** Nicola De Nicolais — [ndn21dev@gmail.com](mailto:ndn21dev@gmail.com) — [GitHub](https://github.com/ndenicolais)

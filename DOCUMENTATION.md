@@ -102,7 +102,7 @@ The app is fully localized in 5 languages (Italian, English, French, Spanish, Ge
 shox/
 ├── android/                        # Native Android configuration
 ├── assets/
-│   ├── fonts/                      # Montserrat (regular + bold) + ShoxIcons
+│   ├── fonts/                      # Montserrat (regular + bold)
 │   └── images/                     # App logo, launcher icon sources and other static images
 ├── images/                         # README preview images
 ├── lib/
@@ -531,8 +531,6 @@ Collection backup and restore.
 
 **Font:** Montserrat (regular 400 + bold 700), bundled as a local asset and registered in `pubspec.yaml` as a single `Montserrat` family with both weights, used by the theme (`ThemeData.fontFamily` and `TextTheme`); bold text uses `FontWeight.w700`. No `google_fonts` dependency or runtime download. The PDF export loads the font files by path.
 
-**Custom icon font:** `ShoxIcons.ttf` — a custom vector font bundled in assets.
-
 **App icon:** generated with [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) from the `assets/images/app_logo.png` logo (a shoe on a box). There are two derived variants:
 - `assets/images/app_icon_legacy.png` — flat icon (Android < 8.0), logo at 86% of the canvas
 - `assets/images/app_icon_foreground.png` — foreground for the adaptive icon (Android 8.0+), logo at 62% of the canvas to respect the system mask's safe zone
@@ -689,8 +687,6 @@ dependencies:
 dev_dependencies:
   flutter_lints: ^5.0.0                    # Lint rules
   flutter_launcher_icons: ^0.14.2          # Launcher icon generation
-  change_app_package_name: ^1.4.0          # Android package renaming
-  intl_utils: ^2.8.7                       # Localization utilities
   mocktail: ^1.0.5                         # Test mocks (Firebase, Google Sign-In, controllers)
 ```
 
@@ -709,8 +705,8 @@ dev_dependencies:
 
 | Requirement | Value |
 |---|---|
-| Flutter SDK | `^3.7.0` |
-| Dart SDK | `^3.5.2` |
+| Flutter SDK | 3.44+ (stable) |
+| Dart SDK | 3.12+ (`environment: sdk: ^3.5.2` in `pubspec.yaml`) |
 | Minimum Android | API 24 (Android 7.0), required by ML Kit |
 | Recommended Android | API 26+ (Android 8.0) |
 | Architecture | 64-bit only (`arm64-v8a`) |
@@ -745,20 +741,29 @@ flutter build appbundle --release
 - Make sure `android/app/google-services.json` is present and up to date
 - `google-services.json` must not be committed with production credentials to public repositories
 
-**APK signing:** configure `android/app/build.gradle` with the production keystore before a release build.
+**APK signing:** `android/app/build.gradle` signs release builds with the keystore described in `android/key.properties` (git-ignored, like `*.jks`/`*.keystore`):
+
+```properties
+storeFile=<absolute path to>/shox-release.jks
+storePassword=<store password>
+keyAlias=shox
+keyPassword=<key password>
+```
+
+`storeFile` is resolved relative to `android/app/`, so an absolute path outside the repo is the safest choice. Without `key.properties` the release build falls back to the debug key and Gradle prints a warning. The keystore and its passwords must be backed up outside the repo: an APK signed with a different key cannot update an existing installation. The SHA-1 and SHA-256 fingerprints of the release key (`keytool -list -v -keystore <file> -alias shox`) must be registered in the Firebase console, otherwise Google sign-in fails on release builds.
 
 **Notes:**
 - `android/local.properties` must not be committed (it contains local SDK paths)
 - The `build/` folder must not be committed (build output)
 - The version in `pubspec.yaml` is the single source of truth: the app reads it at runtime through `PackageInfo`
 - Background removal uses ML Kit Subject Segmentation: the model is not in the APK but is downloaded by Google Play services (at install time from the Play Store thanks to the `com.google.mlkit.vision.DEPENDENCIES` meta-data, otherwise on first use; meanwhile the app shows a dedicated message). Obfuscated arm64 release APK: ~23 MB (previously ~46 MB with ONNX). Builds with `--obfuscate --split-debug-info=symbols/v<version>` (see `deploy_android.ps1`) require keeping the symbols folder to decode stack traces
-- README previews: `flutter test tool/preview/generate_preview_test.dart` regenerates `images/shox_preview.png` (tilted phones) and the screens without system bars (540 px wide) in `images/screenshots/<name>.png` from `images/screenshots/<name>_raw.png` (1080x2392, git-ignored and kept locally). The script lives outside `test/`, so it does not run with `flutter test`
+- README previews (local only, `tool/` is git-ignored): `flutter test tool/preview/generate_preview_test.dart` regenerates `images/shox_preview.png` (tilted phones) and the screens without system bars (540 px wide) in `images/screenshots/<name>.png` from `images/screenshots/<name>_raw.png` (1080x2392, git-ignored and kept locally). The script lives outside `test/`, so it does not run with `flutter test`
 
 ---
 
 ## License
 
-Copyright © 2026 **Nicola De Nicolais** — All rights reserved.
+Copyright © 2025–2026 **Nicola De Nicolais**.
 
 License: **MIT**
 
