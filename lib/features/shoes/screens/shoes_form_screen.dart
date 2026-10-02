@@ -11,6 +11,7 @@ import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/button_widget.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/delete_dialog_widget.dart';
+import 'package:shox/features/shoes/models/brand_suggestions.dart';
 import 'package:shox/features/shoes/models/shoes_form_data.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/widgets/shoes_categories_mixin.dart';
@@ -63,6 +64,7 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
   String _selectedCategory = '';
   String _selectedType = '';
   String _selectedSeason = '';
+  BrandSuggestions _brandSuggestions = const BrandSuggestions([]);
   bool get _isEditMode => widget.shoes != null;
   String get _screenTitle => _isEditMode
       ? AppLocalizations.of(context)!.shoes_updater_screen_title
@@ -77,6 +79,9 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
     _loadInitialData();
     _initialFormSignature = _formSignature();
     loadUserGender(currentUser?.uid);
+    _shoesFormService.loadBrandSuggestions().then((suggestions) {
+      if (mounted) setState(() => _brandSuggestions = suggestions);
+    });
   }
 
   String _formSignature() => [
@@ -347,7 +352,10 @@ class ShoesFormScreenState extends State<ShoesFormScreen>
                             _buildSectionHeader(
                               l10n.shoes_form_screen_section_details,
                             ),
-                            BrandTextField(controller: _brandController),
+                            BrandTextField(
+                              controller: _brandController,
+                              suggestions: _brandSuggestions,
+                            ),
                             const SizedBox(height: AppSpacing.s),
                             SizeSelector(
                               selectedSize: _sizeController.text.isNotEmpty

@@ -3,12 +3,17 @@ import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:shox/features/shoes/controller/shoes_controller.dart';
+import 'package:shox/features/shoes/models/brand_suggestions.dart';
 import 'package:shox/features/shoes/models/shoes_form_data.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 
 /// Persists the add/edit shoe form through [ShoesController].
 class ShoesFormService {
   final ShoesController _shoesController = Get.find<ShoesController>();
+
+  /// Brands already in the collection, suggested while typing.
+  Future<BrandSuggestions> loadBrandSuggestions() =>
+      _shoesController.getBrandSuggestions();
 
   /// Adds a new shoe, or updates [existing] when given.
   ///

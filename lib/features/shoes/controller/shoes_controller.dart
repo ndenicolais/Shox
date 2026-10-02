@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:path/path.dart' as path;
+import 'package:shox/features/shoes/models/brand_suggestions.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/repository/shoes_repository.dart';
 
@@ -163,6 +164,17 @@ class ShoesController extends GetxController {
   /// Ottiene la lista di tutte le scarpe dell'utente come Stream
   Stream<List<ShoesModel>> getShoesList(String userId) {
     return _repository.getShoesList(userId);
+  }
+
+  /// Brands already used by the user, for the brand field autocomplete.
+  /// Returns no suggestions on failure: they are only a typing shortcut.
+  Future<BrandSuggestions> getBrandSuggestions() async {
+    try {
+      return BrandSuggestions.fromShoes(await _repository.getAllShoes());
+    } catch (e) {
+      _logger.w("Error loading brand suggestions: $e");
+      return const BrandSuggestions([]);
+    }
   }
 
   /// Ottiene una scarpa specifica per ID come Stream
