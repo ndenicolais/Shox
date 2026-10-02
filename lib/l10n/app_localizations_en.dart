@@ -1330,6 +1330,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Red is now recognized correctly in statistics and shoe details (it used to show up as white).';
 
   @override
+  String get changelog_v5_0_0_bullet_15 =>
+      'In dark mode the background behind shoe photos is now a softer, less intrusive tone.';
+
+  @override
   String get dashboard_other => 'Other';
 
   @override

@@ -434,6 +434,7 @@
   "changelog_v5_0_0_bullet_12": "Suppression de l’arrière-plan plus précise : plus de liseré ni de halo autour de la chaussure.",
   "changelog_v5_0_0_bullet_13": "Application plus légère : elle occupe environ la moitié de l’espace de la version précédente.",
   "changelog_v5_0_0_bullet_14": "La couleur rouge est désormais correctement reconnue dans les statistiques et les détails (elle apparaissait auparavant comme blanche).",
+  "changelog_v5_0_0_bullet_15": "En mode sombre, l'arrière-plan des photos de chaussures est désormais plus doux et moins envahissant.",
   "dashboard_other": "Autre",
   "user_screen_account_settings": "Paramètres du compte",
   "user_screen_total_shoes": "Total de chaussures",

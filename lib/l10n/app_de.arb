@@ -436,6 +436,7 @@
   "changelog_v5_0_0_bullet_12": "Genauere Hintergrundentfernung: kein Rand oder Schein mehr um den Schuh.",
   "changelog_v5_0_0_bullet_13": "Schlankere App: Sie belegt etwa halb so viel Speicher wie die vorherige Version.",
   "changelog_v5_0_0_bullet_14": "Die Farbe Rot wird in Statistiken und Details jetzt korrekt erkannt (zuvor wurde sie als Weiß angezeigt).",
+  "changelog_v5_0_0_bullet_15": "Im dunklen Modus hat der Hintergrund der Schuhfotos jetzt einen sanfteren, dezenteren Farbton.",
   "dashboard_other": "Andere",
   "user_screen_account_settings": "Kontoeinstellungen",
   "user_screen_total_shoes": "Schuhe gesamt",

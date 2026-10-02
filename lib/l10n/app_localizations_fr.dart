@@ -1357,6 +1357,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'La couleur rouge est désormais correctement reconnue dans les statistiques et les détails (elle apparaissait auparavant comme blanche).';
 
   @override
+  String get changelog_v5_0_0_bullet_15 =>
+      'En mode sombre, l\'arrière-plan des photos de chaussures est désormais plus doux et moins envahissant.';
+
+  @override
   String get dashboard_other => 'Autre';
 
   @override

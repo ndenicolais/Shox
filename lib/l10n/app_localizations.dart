@@ -2516,6 +2516,12 @@ abstract class AppLocalizations {
   /// **'Red is now recognized correctly in statistics and shoe details (it used to show up as white).'**
   String get changelog_v5_0_0_bullet_14;
 
+  /// No description provided for @changelog_v5_0_0_bullet_15.
+  ///
+  /// In en, this message translates to:
+  /// **'In dark mode the background behind shoe photos is now a softer, less intrusive tone.'**
+  String get changelog_v5_0_0_bullet_15;
+
   /// No description provided for @dashboard_other.
   ///
   /// In en, this message translates to:

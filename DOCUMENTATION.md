@@ -565,6 +565,7 @@ The active theme is managed by `ThemeController` (GetX), selectable between Syst
 | `darkSalamon` | `#E09F7A` | Details, text in dark theme |
 | `valspar` | `#E7D8C4` | Light surfaces |
 | `valsparDark` | `#463E30` | Surfaces (cards) in dark theme |
+| `clayDark` | `#5C4A40` | Photo backdrops (`tertiaryFixed`: shoe cards, details, form picker, avatars) in dark theme |
 | `confirmColor` | `#449777` | Success, confirmation |
 | `errorColor` | `#D80032` | Errors, deletion |
 | `mutedText` / `mutedTextDark` | `#6B6158` / `#CDBFAF` | Secondary text (`onSurfaceVariant`) |

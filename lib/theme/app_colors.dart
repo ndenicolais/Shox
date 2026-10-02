@@ -9,6 +9,7 @@ class AppColors {
   static const Color darkSalamon = Color(0xFFE09F7A);
   static const Color valspar = Color(0xFFE7D8C4);
   static const Color valsparDark = Color(0xFF463E30);
+  static const Color clayDark = Color(0xFF5C4A40);
   static const Color confirmColor = Color(0xFF449777);
   static const Color errorColor = Color(0xFFD80032);
   static const Color toastLightGreen = Color(0xFFEAF8EA);

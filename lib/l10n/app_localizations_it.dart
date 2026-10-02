@@ -1348,6 +1348,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Il colore rosso ora viene riconosciuto correttamente nelle statistiche e nei dettagli (prima appariva come bianco).';
 
   @override
+  String get changelog_v5_0_0_bullet_15 =>
+      'In tema scuro lo sfondo delle foto delle scarpe ora è un tono più tenue e meno invadente.';
+
+  @override
   String get dashboard_other => 'Altro';
 
   @override

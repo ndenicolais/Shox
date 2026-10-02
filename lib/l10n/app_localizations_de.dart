@@ -1345,6 +1345,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Die Farbe Rot wird in Statistiken und Details jetzt korrekt erkannt (zuvor wurde sie als Weiß angezeigt).';
 
   @override
+  String get changelog_v5_0_0_bullet_15 =>
+      'Im dunklen Modus hat der Hintergrund der Schuhfotos jetzt einen sanfteren, dezenteren Farbton.';
+
+  @override
   String get dashboard_other => 'Andere';
 
   @override

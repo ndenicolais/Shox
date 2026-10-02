@@ -438,6 +438,7 @@
   "changelog_v5_0_0_bullet_12": "More precise background removal: no more rim or halo around the shoe.",
   "changelog_v5_0_0_bullet_13": "A lighter app: it takes about half the space of the previous version.",
   "changelog_v5_0_0_bullet_14": "Red is now recognized correctly in statistics and shoe details (it used to show up as white).",
+  "changelog_v5_0_0_bullet_15": "In dark mode the background behind shoe photos is now a softer, less intrusive tone.",
   "dashboard_other": "Other",
   "user_screen_account_settings": "Account Settings",
   "user_screen_total_shoes": "Total Shoes",

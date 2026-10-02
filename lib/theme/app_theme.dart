@@ -66,7 +66,7 @@ class AppTheme {
         outlineVariant: AppColors.outlineDark,
         error: AppColors.errorColor,
         onError: AppColors.whiteSmoke,
-        tertiaryFixed: AppColors.darkPeach,
+        tertiaryFixed: AppColors.clayDark,
       ),
       cardColor: AppColors.valsparDark,
       selectionColor: AppColors.darkSalamon,
