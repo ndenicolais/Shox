@@ -116,6 +116,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das eingegebene Passwort entspricht keinem Konto';
 
   @override
+  String get login_toast_error_invalid_credentials =>
+      'E-Mail oder Passwort ist falsch';
+
+  @override
   String get session_expired_message =>
       'Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.';
 
@@ -1170,6 +1174,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get changelog_dialog_close => 'Schließen';
 
   @override
+  String get changelog_section_added => 'Neu';
+
+  @override
+  String get changelog_section_improved => 'Verbesserungen';
+
+  @override
+  String get changelog_section_fixed => 'Fehlerbehebungen';
+
+  @override
+  String get changelog_section_security => 'Sicherheit';
+
+  @override
   String get changelog_v5_0_0_bullet_1 =>
       'Ein ganz neues Design für die gesamte App mit der ursprünglichen warmen Farbpalette: Startbildschirm mit Schnellfiltern nach Kategorie, überarbeitete Schuhdetails und Formular, neues Profil, neue Statistiken, Einstellungen und Anmeldebildschirme.';
 
@@ -1244,6 +1260,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_19 =>
       'Neues Sammlungs-PDF: Titelseite, Übersicht mit Statistiken und eine neu gestaltete Seite pro Schuh, in einer bis zu 8-mal kleineren Datei, die schneller erstellt wird.';
+
+  @override
+  String get changelog_v5_0_0_bullet_20 =>
+      'Besserer Datenschutz: Jeder Nutzer kann nur sein eigenes Profil, seine Schuhe und Fotos lesen und ändern. Anmeldung, Registrierung und Passwortwiederherstellung durchsuchen die Nutzerliste nicht mehr.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

@@ -31,14 +31,8 @@ class LoginRepository {
     bool rememberMe,
   ) async {
     try {
-      final userDoc = await _authService.findUserByEmail(email);
-      if (userDoc == null) {
-        throw const AuthException('email_not_found');
-      }
-
-      String primaryEmail = userDoc['userEmail'];
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: primaryEmail.trim(),
+        email: email.trim(),
         password: password.trim(),
       );
 
@@ -49,9 +43,16 @@ class LoginRepository {
       }
 
       return userCredential.user;
-    } catch (e) {
-      if (e.toString().contains("wrong-password")) {
-        throw const AuthException('invalid_password');
+    } on FirebaseAuthException catch (e) {
+      // With email enumeration protection enabled Firebase returns
+      // `invalid-credential` for both an unknown email and a wrong password.
+      switch (e.code) {
+        case 'user-not-found':
+          throw const AuthException('email_not_found');
+        case 'wrong-password':
+          throw const AuthException('invalid_password');
+        case 'invalid-credential':
+          throw const AuthException('invalid_credentials');
       }
       rethrow;
     }

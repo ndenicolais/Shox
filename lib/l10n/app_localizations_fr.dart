@@ -117,6 +117,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le mot de passe saisi ne correspond à aucun compte';
 
   @override
+  String get login_toast_error_invalid_credentials =>
+      'E-mail ou mot de passe incorrect';
+
+  @override
   String get session_expired_message =>
       'Votre session a expiré. Veuillez vous reconnecter.';
 
@@ -1181,6 +1185,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get changelog_dialog_close => 'Fermer';
 
   @override
+  String get changelog_section_added => 'Nouveautés';
+
+  @override
+  String get changelog_section_improved => 'Améliorations';
+
+  @override
+  String get changelog_section_fixed => 'Corrections';
+
+  @override
+  String get changelog_section_security => 'Sécurité';
+
+  @override
   String get changelog_v5_0_0_bullet_1 =>
       'Un tout nouveau look pour toute l’application, avec la palette chaleureuse d’origine : accueil avec filtres rapides par catégorie, fiche et formulaire de chaussure repensés, nouveaux profil, statistiques, réglages et écrans de connexion.';
 
@@ -1255,6 +1271,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_19 =>
       'Nouveau PDF de la collection : couverture, page de résumé avec statistiques et une fiche repensée pour chaque chaussure, dans un fichier jusqu\'à 8 fois plus léger et plus rapide à générer.';
+
+  @override
+  String get changelog_v5_0_0_bullet_20 =>
+      'Protection renforcée des données : chaque utilisateur ne peut lire et modifier que son propre profil, ses chaussures et ses photos. La connexion, l\'inscription et la récupération du mot de passe ne consultent plus la liste des utilisateurs.';
 
   @override
   String get user_screen_total_shoes => 'Total de chaussures';

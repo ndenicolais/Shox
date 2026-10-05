@@ -62,6 +62,11 @@ class LoginController extends GetxController {
             context,
           )!
               .login_toast_error_invalid_password;
+        } else if (e.code == 'invalid_credentials') {
+          errorMessage = AppLocalizations.of(
+            context,
+          )!
+              .login_toast_error_invalid_credentials;
         }
       }
       if (context.mounted) {

@@ -117,6 +117,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'La password inserita non corrisponde ad alcun account';
 
   @override
+  String get login_toast_error_invalid_credentials =>
+      'Email o password non corretti';
+
+  @override
   String get session_expired_message =>
       'La sessione è scaduta. Accedi di nuovo.';
 
@@ -1172,6 +1176,18 @@ class AppLocalizationsIt extends AppLocalizations {
   String get changelog_dialog_close => 'Chiudi';
 
   @override
+  String get changelog_section_added => 'Novità';
+
+  @override
+  String get changelog_section_improved => 'Miglioramenti';
+
+  @override
+  String get changelog_section_fixed => 'Correzioni';
+
+  @override
+  String get changelog_section_security => 'Sicurezza';
+
+  @override
   String get changelog_v5_0_0_bullet_1 =>
       'Nuova veste grafica per tutta l\'app, con la calda palette originale: home con filtri rapidi per categoria, schede scarpa e modulo di aggiunta ridisegnati, nuovi profilo, statistiche, impostazioni e schermate di accesso.';
 
@@ -1246,6 +1262,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_19 =>
       'Nuovo PDF della collezione: copertina, pagina di riepilogo con statistiche e una scheda ridisegnata per ogni scarpa, in un file fino a 8 volte più leggero e più veloce da generare.';
+
+  @override
+  String get changelog_v5_0_0_bullet_20 =>
+      'Maggiore protezione dei dati: ogni utente può leggere e modificare soltanto il proprio profilo, le proprie scarpe e le proprie foto. Login, registrazione e recupero password non consultano più l\'elenco degli utenti.';
 
   @override
   String get user_screen_total_shoes => 'Scarpe totali';

@@ -117,6 +117,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'La contraseña introducida no corresponde a ninguna cuenta';
 
   @override
+  String get login_toast_error_invalid_credentials =>
+      'Correo electrónico o contraseña incorrectos';
+
+  @override
   String get session_expired_message =>
       'Tu sesión ha caducado. Inicia sesión de nuevo.';
 
@@ -1169,6 +1173,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get changelog_dialog_close => 'Cerrar';
 
   @override
+  String get changelog_section_added => 'Novedades';
+
+  @override
+  String get changelog_section_improved => 'Mejoras';
+
+  @override
+  String get changelog_section_fixed => 'Correcciones';
+
+  @override
+  String get changelog_section_security => 'Seguridad';
+
+  @override
   String get changelog_v5_0_0_bullet_1 =>
       'Un aspecto totalmente nuevo en toda la app, con la cálida paleta original: pantalla principal con filtros rápidos por categoría, detalle y formulario de zapato rediseñados, nuevos perfil, estadísticas, ajustes y pantallas de acceso.';
 
@@ -1243,6 +1259,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_19 =>
       'Nuevo PDF de la colección: portada, página de resumen con estadísticas y una ficha rediseñada para cada zapato, en un archivo hasta 8 veces más ligero y más rápido de generar.';
+
+  @override
+  String get changelog_v5_0_0_bullet_20 =>
+      'Mayor protección de los datos: cada usuario solo puede leer y modificar su propio perfil, sus zapatos y sus fotos. El inicio de sesión, el registro y la recuperación de contraseña ya no consultan la lista de usuarios.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';

@@ -10,6 +10,7 @@
 2. [Architecture and tech stack](#2-architecture-and-tech-stack)
 3. [Project structure](#3-project-structure)
 4. [Data models](#4-data-models)
+   - [Security rules](#security-rules)
 5. [Screens and features](#5-screens-and-features)
    - [Intro, Onboarding and Welcome](#51-intro-onboarding-and-welcome)
    - [Auth — Authentication](#52-auth--authentication)
@@ -196,6 +197,26 @@ The profile of the signed-in user.
 | `gender` | `String?` | Gender: `male` / `female` / `other` |
 | `userDate` | `DateTime` | Registration date |
 
+### Security rules
+
+The rules are **published manually from the Firebase console** (Firestore → Rules, Storage → Rules) and are not versioned in the repo: the console is the only source of truth, so this table must be kept in sync with what is published. Least privilege: everything not listed below is denied.
+
+| Path | Allowed operations | Who |
+|---|---|---|
+| `users/{uid}` | `get`, `create`, `update`, `delete` (no `list`); new documents and updates may only write `userEmail`, `userName`, `userImage`, `gender`, `userDate` | owner (`request.auth.uid == uid`) |
+| `users/{uid}/shoes/{shoeId}` | `get`, `list`, `create`, `update`, `delete`; new documents and updates may only write the `ShoesModel.toFirestore()` keys (legacy extra fields are kept, not blocked) | owner |
+| `users/{uid}/history/{id}` | `get`, `list`, `delete` (legacy, cleaned up on account deletion) | owner |
+| Storage `{uid}/shoes/**`, `{uid}/users/**` | read, list, delete; upload under 10 MB | owner |
+| Storage `shoes_images/{uid}/*`, `profile_images/{uid}/*` | read, delete (legacy paths of pre-2025 versions) | owner |
+
+There is no shared or public data, no `collectionGroup`, transaction or batch. The `users` collection cannot be queried at all: login, signup and password reset therefore never look up users on Firestore and rely on the Firebase Auth error codes instead (see 5.2). App versions that still run the old email query fail with `PERMISSION_DENIED` once these rules are published.
+
+**Checking the published rules:** an unauthenticated REST call must return `403 PERMISSION_DENIED`:
+
+```bash
+curl -s "https://firestore.googleapis.com/v1/projects/shox-bebd7/databases/(default)/documents/users"
+```
+
 ---
 
 ## 5. Screens and features
@@ -221,15 +242,15 @@ The app's entry flow.
 Full authentication flow through Firebase Auth.
 
 **Features:**
-- **LoginScreen:** sign-in with a Google account (OAuth2) or email and password. Error handling (invalid email, wrong password, user not found)
-- **SignupScreen:** registration with email, password and name. Creates the user document on Firestore
-- **ResetPasswordScreen:** sends a password reset email through Firebase Auth
+- **LoginScreen:** sign-in with a Google account (OAuth2) or email and password. Errors come from the Firebase Auth codes: `user-not-found` → `email_not_found`, `wrong-password` → `invalid_password`, `invalid-credential` → `invalid_credentials` ("incorrect email or password"; with email enumeration protection enabled Firebase returns only this code for both cases)
+- **SignupScreen:** registration with email, password and name. Creates the user document on Firestore; an email already in use (`email-already-in-use`) is reported as `email_already_register`
+- **ResetPasswordScreen:** sends a password reset email through Firebase Auth. An unknown email is reported only if Firebase returns `user-not-found` (email enumeration protection disabled); otherwise the request always succeeds
 - **GenderSelectionScreen:** gender selection (`male` / `female` / `other`) on first sign-in; it determines the shoe categories shown in the app. Saved in the user document on Firestore
 - The Google button is a full-width `GoogleSignInSection`; `AuthSwitchPrompt` links login and signup
 
-**Shared service:** `lib/features/auth/services/auth_service.dart` (`AuthService`) centralizes the logic shared by the login, signup, reset password and user repositories:
-- `findUserByEmail(email)` — looks up the user document on Firestore by `userEmail`
+**Shared service:** `lib/features/auth/services/auth_service.dart` (`AuthService`) centralizes the session logic shared by the login, signup and user repositories:
 - `saveSession(userId)` / `clearSession()` — saves and removes the local session (`remember_me`, `user_id` in `SharedPreferences`)
+- No Firestore lookup by email: the security rules forbid querying the `users` collection (see [Security rules](#security-rules))
 
 **Session protection:**
 - `AuthGuardService` (`lib/features/auth/services/auth_guard_service.dart`, a permanent `GetxService` registered in `main.dart`) listens to `authStateChanges()`: if the session drops unexpectedly on a protected route, it clears the local session and redirects to `/welcome` with a toast. Logout and account deletion call `expectSignOut()` first so they are not mistaken for an expired session
@@ -339,7 +360,7 @@ Settings screen and entry point to the account features. Sections are cards of `
 | **App** | Share | Shares the GitHub project link |
 | **App** | Version | Current app version |
 
-**Changelog dialog:** entries are defined in `lib/core/constants/changelog.dart` (`ChangelogEntry`, one per version, with localized bullets) and shown by `lib/common/widgets/changelog_dialog.dart`. Besides being opened manually from the Dashboard, the dialog appears automatically once after an update: `HomeScreen` compares the current version (`package_info_plus`) with the last one seen, stored in `SharedPreferences` (`AppConstants.prefsLastSeenChangelogVersion`), and shows only the unseen entries. On a fresh install the current version is just recorded, without showing the dialog.
+**Changelog dialog:** entries are defined in `lib/core/constants/changelog.dart` (`ChangelogEntry`, one per version, with a list of `ChangelogItem`s: a `ChangeType` and a localized bullet) and shown by `lib/common/widgets/changelog_dialog_widget.dart`. Within each version the bullets are grouped into sections by type, in the `ChangeType` order: New (`added`), Improvements (`improved`), Fixes (`fixed`), Security (`security`), each with its icon and a localized title (`changelog_section_*`); empty sections are hidden. `test/core/constants/changelog_test.dart` checks that every `changelog_v*` key in the ARB files is listed exactly once. Besides being opened manually from the Dashboard, the dialog appears automatically once after an update: `HomeScreen` compares the current version (`package_info_plus`) with the last one seen, stored in `SharedPreferences` (`AppConstants.prefsLastSeenChangelogVersion`), and shows only the unseen entries. On a fresh install the current version is just recorded, without showing the dialog.
 
 **Info and privacy:** `InfoScreen` shows logo, name, subtitle and version (`PackageInfo`), "What is Shox", four main features in cards, useful links (source code, website, email, privacy, `showLicensePage` for open source licenses) and credits (`AppConstants.developerName`). `PrivacyPolicyScreen` is native: 10 `policy_section_*` sections localized in the 5 languages, update date `AppConstants.privacyPolicyUpdatedAt`, and a link to the public `PRIVACY.md` on GitHub (`AppConstants.uriPrivacyPolicy`, also to be set in the Play Store). The text of `PRIVACY.md` (Italian and English) must be kept in line with the ARB keys. The privacy policy is reachable only from Info.
 
@@ -714,7 +735,7 @@ dev_dependencies:
 - With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, JSON import/export with a fake HTTP client), `DatabaseController` (counts and statistics, empty collection, errors) and `UserController` (profile and name loading)
 - Layout: shared widgets at 1.3 text scale (`test/common/widgets/text_scaling_test.dart`)
 
-`ShoesController` (repository, Firebase Auth, `http.Client`), `UserController` (repository), `LoginRepository`, `AuthGuardService` and `AuthService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
+`ShoesController` (repository, Firebase Auth, `http.Client`), `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
 
 **Lint (`analysis_options.yaml`):** on top of `flutter_lints`, `avoid_print`, `prefer_const_constructors`, `prefer_const_declarations`, `use_super_parameters` and `require_trailing_commas` are enabled; the files generated by `flutter gen-l10n` (`lib/l10n/app_localizations*.dart`) are excluded from analysis. Fixable issues can be applied with `dart fix --apply`.
 
@@ -759,6 +780,7 @@ flutter build appbundle --release
 **Firebase configuration:**
 - Make sure `android/app/google-services.json` is present and up to date
 - `google-services.json` must not be committed with production credentials to public repositories
+- Firestore and Storage security rules are published by hand from the console (see [Security rules](#security-rules))
 
 **APK signing:** `android/app/build.gradle` signs release builds with the keystore described in `android/key.properties` (git-ignored, like `*.jks`/`*.keystore`):
 

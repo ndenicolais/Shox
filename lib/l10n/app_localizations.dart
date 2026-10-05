@@ -302,6 +302,12 @@ abstract class AppLocalizations {
   /// **'The password entered does not match any account'**
   String get login_toast_error_invalid_password;
 
+  /// No description provided for @login_toast_error_invalid_credentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect email or password'**
+  String get login_toast_error_invalid_credentials;
+
   /// No description provided for @session_expired_message.
   ///
   /// In en, this message translates to:
@@ -2204,6 +2210,30 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get changelog_dialog_close;
 
+  /// No description provided for @changelog_section_added.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get changelog_section_added;
+
+  /// No description provided for @changelog_section_improved.
+  ///
+  /// In en, this message translates to:
+  /// **'Improvements'**
+  String get changelog_section_improved;
+
+  /// No description provided for @changelog_section_fixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixes'**
+  String get changelog_section_fixed;
+
+  /// No description provided for @changelog_section_security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get changelog_section_security;
+
   /// No description provided for @changelog_v5_0_0_bullet_1.
   ///
   /// In en, this message translates to:
@@ -2317,6 +2347,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New collection PDF: cover, summary page with statistics and a redesigned page for each shoe, in a file up to 8 times smaller and faster to generate.'**
   String get changelog_v5_0_0_bullet_19;
+
+  /// No description provided for @changelog_v5_0_0_bullet_20.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger data protection: each user can only read and change their own profile, shoes and photos. Sign-in, sign-up and password recovery no longer look up the list of users.'**
+  String get changelog_v5_0_0_bullet_20;
 
   /// No description provided for @user_screen_total_shoes.
   ///

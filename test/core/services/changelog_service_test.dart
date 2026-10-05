@@ -5,7 +5,7 @@ import 'package:shox/core/services/changelog_service.dart';
 import 'package:shox/core/utils/constants.dart';
 
 ChangelogEntry entry(String version) =>
-    ChangelogEntry(version: version, bulletsBuilder: (_) => const []);
+    ChangelogEntry(version: version, items: const []);
 
 void main() {
   // Newest first, as in changelog.dart.

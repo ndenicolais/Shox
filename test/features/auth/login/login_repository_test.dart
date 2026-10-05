@@ -1,7 +1,3 @@
-// Firestore query/snapshot classes are @sealed to discourage custom
-// implementations; mocking them in tests is the intended exception.
-// ignore_for_file: subtype_of_sealed_class
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -20,9 +16,6 @@ class MockAuthService extends Mock implements AuthService {}
 
 class MockGoogleSignIn extends Mock implements GoogleSignIn {}
 
-class MockUserDocument extends Mock
-    implements QueryDocumentSnapshot<Map<String, dynamic>> {}
-
 class MockCredential extends Mock implements UserCredential {}
 
 class MockUser extends Mock implements User {}
@@ -32,33 +25,46 @@ Matcher throwsAuthException(String code) =>
 
 void main() {
   late MockAuth auth;
+  late MockFirestore firestore;
   late MockAuthService authService;
   late MockGoogleSignIn googleSignIn;
   late LoginRepository repository;
 
   setUp(() {
     auth = MockAuth();
+    firestore = MockFirestore();
     authService = MockAuthService();
     googleSignIn = MockGoogleSignIn();
     repository = LoginRepository(
       auth: auth,
-      firestore: MockFirestore(),
+      firestore: firestore,
       authService: authService,
       googleSignIn: googleSignIn,
     );
   });
 
   group('loginWithEmailPassword', () {
-    void givenRegisteredEmail(String email) {
-      final doc = MockUserDocument();
-      when(() => doc['userEmail']).thenReturn(email);
-      when(() => authService.findUserByEmail(email))
-          .thenAnswer((_) async => doc);
+    void givenSignInError(String code) {
+      when(
+        () => auth.signInWithEmailAndPassword(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenThrow(FirebaseAuthException(code: code));
     }
 
-    test('fails with email_not_found for unknown emails', () async {
-      when(() => authService.findUserByEmail(any()))
-          .thenAnswer((_) async => null);
+    test('never queries Firestore before signing in', () async {
+      givenSignInError('wrong-password');
+
+      await expectLater(
+        repository.loginWithEmailPassword('a@b.it', 'bad', false),
+        throwsA(isA<AuthException>()),
+      );
+      verifyZeroInteractions(firestore);
+    });
+
+    test('maps user-not-found to email_not_found', () async {
+      givenSignInError('user-not-found');
 
       expect(
         repository.loginWithEmailPassword('x@y.it', 'pwd', false),
@@ -67,13 +73,7 @@ void main() {
     });
 
     test('maps a wrong password to invalid_password', () async {
-      givenRegisteredEmail('a@b.it');
-      when(
-        () => auth.signInWithEmailAndPassword(
-          email: any(named: 'email'),
-          password: any(named: 'password'),
-        ),
-      ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
+      givenSignInError('wrong-password');
 
       expect(
         repository.loginWithEmailPassword('a@b.it', 'bad', false),
@@ -81,8 +81,16 @@ void main() {
       );
     });
 
+    test('maps invalid-credential to invalid_credentials', () async {
+      givenSignInError('invalid-credential');
+
+      expect(
+        repository.loginWithEmailPassword('a@b.it', 'bad', false),
+        throwsAuthException('invalid_credentials'),
+      );
+    });
+
     test('saves the session only when remember me is on', () async {
-      givenRegisteredEmail('a@b.it');
       final user = MockUser();
       final credential = MockCredential();
       when(() => user.uid).thenReturn('uid-1');

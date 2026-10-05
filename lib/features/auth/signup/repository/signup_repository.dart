@@ -22,14 +22,18 @@ class SignupRepository {
       userName: name,
     );
 
-    if (await _authService.findUserByEmail(newUser.userEmail) != null) {
-      throw const AuthException('email_already_register');
+    final UserCredential userCredential;
+    try {
+      userCredential = await _auth.createUserWithEmailAndPassword(
+        email: newUser.userEmail,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw const AuthException('email_already_register');
+      }
+      rethrow;
     }
-
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      email: newUser.userEmail,
-      password: password,
-    );
 
     _logger.i("User successfully registered: ${newUser.userEmail}");
 
