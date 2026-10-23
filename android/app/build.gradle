@@ -15,7 +15,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.ndn21.shox"
-    compileSdk = 36
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -23,14 +23,9 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
-    }
-
     defaultConfig {
         applicationId = "com.ndn21.shox"
-        minSdkVersion 24
-        compileSdkVersion 36
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -68,10 +63,16 @@ android {
     // defaultConfig.ndk.abiFilters, bloating the APK with unused
     // armeabi-v7a/x86_64 native libraries. Force-exclude them since the app
     // only targets arm64-v8a.
-    packagingOptions {
+    packaging {
         jniLibs {
             excludes += ["lib/armeabi-v7a/**", "lib/x86_64/**", "lib/x86/**"]
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
