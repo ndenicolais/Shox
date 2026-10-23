@@ -1,0 +1,31 @@
+rules_version = '2';
+
+// Shox — Cloud Storage security rules (least privilege).
+// Every file lives under {uid}/ and belongs to that uid only.
+// Anything not matched below is denied. See DOCUMENTATION.md > Security rules.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // {uid}/shoes/{shoeId}/{file} and {uid}/users/{file}.
+    // The recursive wildcard also matches the folders themselves, which
+    // listAll() needs when the account is deleted.
+    match /{uid}/{folder}/{allPaths=**} {
+      allow read, delete: if isOwner(uid) && folder in ['shoes', 'users'];
+      allow create, update: if isOwner(uid) && folder in ['shoes', 'users']
+        && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // Legacy paths of app versions before 2025: still referenced by old
+    // documents, so their owner can read and delete them but not upload.
+    match /shoes_images/{uid}/{fileName} {
+      allow read, delete: if isOwner(uid);
+    }
+    match /profile_images/{uid}/{fileName} {
+      allow read, delete: if isOwner(uid);
+    }
+  }
+}

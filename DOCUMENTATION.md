@@ -203,7 +203,7 @@ The profile of the signed-in user.
 
 ### Security rules
 
-The rules are **published manually from the Firebase console** (Firestore → Rules, Storage → Rules) and are not versioned in the repo: the console is the only source of truth, so this table must be kept in sync with what is published. Least privilege: everything not listed below is denied.
+The rules are versioned in the repo as `firestore.rules` and `storage.rules` (referenced by `firebase.json`) and match what is published in the Firebase console (Firestore → Rules, Storage → Rules). They are still published by hand: after changing a file, paste it in the console, or run `firebase deploy --only firestore:rules,storage` with the Firebase CLI. Keep the files, the console and this table in sync. Least privilege: everything not listed below is denied.
 
 | Path | Allowed operations | Who |
 |---|---|---|
@@ -837,7 +837,7 @@ flutter build appbundle --release
 **Firebase configuration:**
 - Make sure `android/app/google-services.json` is present and up to date
 - `google-services.json` must not be committed with production credentials to public repositories
-- Firestore and Storage security rules are published by hand from the console (see [Security rules](#security-rules))
+- Firestore and Storage security rules live in `firestore.rules` and `storage.rules` and are published by hand from the console or with `firebase deploy --only firestore:rules,storage` (see [Security rules](#security-rules))
 
 **APK signing:** `android/app/build.gradle` signs release builds with the keystore described in `android/key.properties` (git-ignored, like `*.jks`/`*.keystore`):
 

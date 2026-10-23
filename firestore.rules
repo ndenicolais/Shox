@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// Shox — Cloud Firestore security rules (least privilege).
+// Every document lives under users/{uid} and belongs to that uid only.
+// Anything not matched below is denied. See DOCUMENTATION.md > Security rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // New documents may only contain [fields]; updates may only touch them,
+    // so documents written by older app versions with extra fields stay
+    // editable.
+    function writesOnly(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+    function changesOnly(fields) {
+      return request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(fields);
+    }
+
+    function userFields() {
+      return ['userEmail', 'userName', 'userImage', 'gender', 'userDate'];
+    }
+    function shoeFields() {
+      return ['imageUrl', 'colorPrimary', 'colorExtra', 'brand', 'size',
+              'category', 'type', 'season', 'notes', 'isFavorite',
+              'dateAdded', 'dateUpdated'];
+    }
+
+    // Profile: UserModel.toFirestore() and the Google sign-in document.
+    // No `list`: the collection can never be queried, not even by its owner.
+    match /users/{uid} {
+      allow get, delete: if isOwner(uid);
+      allow create: if isOwner(uid) && writesOnly(userFields());
+      allow update: if isOwner(uid) && changesOnly(userFields());
+
+      // Shoes: ShoesModel.toFirestore(). `list` covers the stream of the
+      // whole collection, export, statistics and account deletion.
+      match /shoes/{shoeId} {
+        allow read, delete: if isOwner(uid);
+        allow create: if isOwner(uid) && writesOnly(shoeFields());
+        allow update: if isOwner(uid) && changesOnly(shoeFields());
+      }
+
+      // Legacy subcollection: only read and removed on account deletion.
+      match /history/{docId} {
+        allow read, delete: if isOwner(uid);
+      }
+    }
+  }
+}
