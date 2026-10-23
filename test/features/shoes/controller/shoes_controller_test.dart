@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:shox/features/shoes/controller/shoes_controller.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
@@ -15,8 +13,6 @@ class MockRepository extends Mock implements ShoesRepository {}
 class MockAuth extends Mock implements FirebaseAuth {}
 
 class MockUser extends Mock implements User {}
-
-class MockHttpClient extends Mock implements http.Client {}
 
 ShoesModel shoe({
   String? id = 'shoe-1',
@@ -39,20 +35,17 @@ ShoesModel shoe({
 void main() {
   late MockRepository repository;
   late MockAuth auth;
-  late MockHttpClient httpClient;
   late ShoesController controller;
   final photo = File('photo.png');
 
   setUpAll(() {
     registerFallbackValue(shoe());
     registerFallbackValue(File('fallback'));
-    registerFallbackValue(Uri.parse('https://example.com'));
   });
 
   setUp(() {
     repository = MockRepository();
     auth = MockAuth();
-    httpClient = MockHttpClient();
     final user = MockUser();
     when(() => user.uid).thenReturn('uid-1');
     when(() => auth.currentUser).thenReturn(user);
@@ -60,14 +53,11 @@ void main() {
     controller = ShoesController(
       repository: repository,
       auth: auth,
-      httpClient: httpClient,
     );
   });
 
   group('addShoes', () {
-    test('creates the document, uploads the photo and stores its URL',
-        () async {
-      when(() => repository.addShoes(any())).thenAnswer((_) async => 'new-id');
+    void stubUpload() {
       when(
         () => repository.uploadImage(
           userId: any(named: 'userId'),
@@ -75,6 +65,16 @@ void main() {
           imageFile: any(named: 'imageFile'),
         ),
       ).thenAnswer((_) async => 'https://example.com/new.png');
+    }
+
+    setUp(() {
+      when(() => repository.newShoesId()).thenReturn('new-id');
+      when(() => repository.deleteImage(any())).thenAnswer((_) async {});
+    });
+
+    test('uploads the photo first, then writes the document once', () async {
+      stubUpload();
+      when(() => repository.addShoes(any())).thenAnswer((_) async => 'new-id');
 
       await controller.addShoes(shoe(id: '', isFavorite: true), photo);
 
@@ -85,12 +85,36 @@ void main() {
           imageFile: photo,
         ),
       ).called(1);
-      final saved = verify(() => repository.updateShoes(captureAny()))
+      final saved = verify(() => repository.addShoes(captureAny()))
           .captured
           .single as ShoesModel;
       expect(saved.id, 'new-id');
       expect(saved.imageUrl, 'https://example.com/new.png');
       expect(saved.isFavorite, isTrue);
+      verifyNever(() => repository.updateShoes(any()));
+    });
+
+    test('creates no document when the upload fails', () async {
+      when(
+        () => repository.uploadImage(
+          userId: any(named: 'userId'),
+          shoesId: any(named: 'shoesId'),
+          imageFile: any(named: 'imageFile'),
+        ),
+      ).thenThrow(Exception('upload failed'));
+
+      await expectLater(controller.addShoes(shoe(), photo), throwsException);
+      verifyNever(() => repository.addShoes(any()));
+    });
+
+    test('removes the uploaded photo when the document write fails', () async {
+      stubUpload();
+      when(() => repository.addShoes(any()))
+          .thenThrow(Exception('write failed'));
+
+      await expectLater(controller.addShoes(shoe(), photo), throwsException);
+      verify(() => repository.deleteImage('https://example.com/new.png'))
+          .called(1);
     });
 
     test('refuses to run without a signed-in user', () async {
@@ -133,6 +157,52 @@ void main() {
       expect(saved.dateAdded, DateTime(2024, 5, 1));
     });
 
+    test('keeps the old photo when the new upload fails', () async {
+      when(
+        () => repository.uploadImage(
+          userId: any(named: 'userId'),
+          shoesId: any(named: 'shoesId'),
+          imageFile: any(named: 'imageFile'),
+        ),
+      ).thenThrow(Exception('upload failed'));
+
+      await expectLater(
+        controller.updateShoes(
+          shoe(),
+          newImage: photo,
+          removedImages: ['https://example.com/old.png'],
+        ),
+        throwsException,
+      );
+      verifyNever(() => repository.deleteImage(any()));
+      verifyNever(() => repository.updateShoes(any()));
+    });
+
+    test('deletes the old photo only after the document is updated', () async {
+      when(() => repository.deleteImage(any())).thenAnswer((_) async {});
+      when(
+        () => repository.uploadImage(
+          userId: any(named: 'userId'),
+          shoesId: any(named: 'shoesId'),
+          imageFile: any(named: 'imageFile'),
+        ),
+      ).thenAnswer((_) async => 'https://example.com/new.png');
+      when(() => repository.updateShoes(any()))
+          .thenThrow(Exception('write failed'));
+
+      await expectLater(
+        controller.updateShoes(
+          shoe(),
+          newImage: photo,
+          removedImages: ['https://example.com/old.png'],
+        ),
+        throwsException,
+      );
+      verifyNever(() => repository.deleteImage('https://example.com/old.png'));
+      verify(() => repository.deleteImage('https://example.com/new.png'))
+          .called(1);
+    });
+
     test('keeps the stored photo when nothing changed', () async {
       await controller.updateShoes(shoe());
 
@@ -145,16 +215,26 @@ void main() {
   });
 
   group('deleteShoes', () {
-    test('removes the photo and then the document', () async {
+    test('removes the document and then the photo', () async {
       when(() => repository.deleteImage(any())).thenAnswer((_) async {});
       when(() => repository.deleteShoes(any())).thenAnswer((_) async {});
 
       await controller.deleteShoes(shoe());
 
       verifyInOrder([
-        () => repository.deleteImage('https://example.com/old.png'),
         () => repository.deleteShoes('shoe-1'),
+        () => repository.deleteImage('https://example.com/old.png'),
       ]);
+    });
+
+    test('still succeeds when the photo cannot be deleted', () async {
+      when(() => repository.deleteImage(any()))
+          .thenThrow(Exception('storage error'));
+      when(() => repository.deleteShoes(any())).thenAnswer((_) async {});
+
+      await controller.deleteShoes(shoe());
+
+      verify(() => repository.deleteShoes('shoe-1')).called(1);
     });
 
     test('skips the storage call when the shoe has no photo', () async {
@@ -164,72 +244,6 @@ void main() {
 
       verifyNever(() => repository.deleteImage(any()));
       verify(() => repository.deleteShoes('shoe-1')).called(1);
-    });
-  });
-
-  group('JSON import/export', () {
-    test('exports every shoe as a JSON list', () async {
-      when(() => repository.getAllShoes())
-          .thenAnswer((_) async => [shoe(), shoe(id: 'shoe-2')]);
-      when(() => repository.convertTimestampsToStrings(any()))
-          .thenAnswer((inv) => {'brand': 'Nike'});
-
-      final json = await controller.exportShoesToJson();
-
-      expect(jsonDecode(json), hasLength(2));
-    });
-
-    test('imports shoes, re-uploads photos and reports progress', () async {
-      when(() => repository.addShoes(any())).thenAnswer((_) async => 'id');
-      when(() => httpClient.get(any()))
-          .thenAnswer((_) async => http.Response('bytes', 200));
-      when(
-        () => repository.uploadImage(
-          userId: any(named: 'userId'),
-          shoesId: any(named: 'shoesId'),
-          imageFile: any(named: 'imageFile'),
-        ),
-      ).thenAnswer((_) async => 'https://example.com/copy.png');
-      final data = jsonEncode([
-        {
-          'imageUrl': 'https://example.com/a.png',
-          'colorPrimary': 0xFF000000,
-          'brand': 'Nike',
-          'size': '42',
-          'category': 'Sneakers',
-          'type': 'Running',
-          'season': 'All',
-          'isFavorite': false,
-          'dateAdded': '2024-05-01T00:00:00.000',
-          'dateUpdated': '2024-05-01T00:00:00.000',
-        },
-        {
-          'imageUrl': '',
-          'colorPrimary': 0xFFFFFFFF,
-          'brand': 'Adidas',
-          'size': '41',
-          'category': 'Sneakers',
-          'type': 'Casual',
-          'season': 'All',
-          'isFavorite': true,
-          'dateAdded': '2024-05-02T00:00:00.000',
-          'dateUpdated': '2024-05-02T00:00:00.000',
-        },
-      ]);
-      final progress = <double>[];
-
-      await controller.importShoesFromJson(data, onProgress: progress.add);
-
-      expect(progress, [0.5, 1.0]);
-      verify(() => httpClient.get(Uri.parse('https://example.com/a.png')))
-          .called(1);
-      final saved = verify(() => repository.updateShoes(captureAny()))
-          .captured
-          .cast<ShoesModel>();
-      expect(saved.map((s) => s.imageUrl), [
-        'https://example.com/copy.png',
-        '',
-      ]);
     });
   });
 }

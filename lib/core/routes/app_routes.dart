@@ -12,6 +12,7 @@ abstract class AppRoutes {
   static const shoesUpdater = '/shoes/update';
   static const dashboard = '/dashboard';
   static const database = '/database';
+  static const dataManagement = '/data-management';
   static const info = '/info';
   static const privacyPolicy = '/privacy-policy';
   static const support = '/support';

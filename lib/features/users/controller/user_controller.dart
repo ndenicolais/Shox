@@ -81,7 +81,13 @@ class UserController extends GetxController {
     await _userRepository.googleSignOut();
   }
 
-  Future<void> deleteAccount() async {
+  /// Email/password accounts must type their password to delete the account.
+  bool get needsPasswordToDelete => _userRepository.isEmailPasswordUser();
+
+  /// Signs the user in again before deleting anything, so a stale session
+  /// fails up front instead of after the data is already gone.
+  Future<void> deleteAccount({String? password}) async {
+    await _userRepository.reauthenticate(password: password);
     AuthGuardService.to.expectSignOut();
     await _userRepository.deleteAccount();
   }

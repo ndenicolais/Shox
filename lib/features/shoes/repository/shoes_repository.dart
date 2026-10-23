@@ -30,14 +30,23 @@ class ShoesRepository {
         .collection('shoes');
   }
 
-  /// Aggiunge una nuova scarpa a Firestore
+  /// Genera un ID per un nuovo documento senza scrivere nulla, così
+  /// l'immagine può essere caricata prima di creare il documento
+  String newShoesId() => _getShoesCollection().doc().id;
+
+  /// Aggiunge una nuova scarpa a Firestore, usando [ShoesModel.id] se presente
   /// Restituisce l'ID del documento creato
   Future<String> addShoes(ShoesModel shoes) async {
     try {
       CollectionReference shoesCollection = _getShoesCollection();
-      DocumentReference docRef = await shoesCollection.add(shoes.toFirestore());
-      _logger.i("Shoes added successfully with ID: ${docRef.id}");
-      return docRef.id;
+      String? id = shoes.id;
+      if (id == null || id.isEmpty) {
+        id = (await shoesCollection.add(shoes.toFirestore())).id;
+      } else {
+        await shoesCollection.doc(id).set(shoes.toFirestore());
+      }
+      _logger.i("Shoes added successfully with ID: $id");
+      return id;
     } catch (e) {
       _logger.e("Error adding shoes: $e");
       rethrow;
@@ -169,28 +178,6 @@ class ShoesRepository {
       _logger.e("Error deleting image from Firebase Storage: $e");
       rethrow;
     }
-  }
-
-  // ========== UTILITY METHODS ==========
-
-  /// Converte i Timestamp in stringhe ISO 8601 per l'export
-  Map<String, dynamic> convertTimestampsToStrings(Map<String, dynamic> data) {
-    data.forEach((key, value) {
-      if (value is Timestamp) {
-        data[key] = value.toDate().toIso8601String();
-      }
-    });
-    return data;
-  }
-
-  /// Converte le stringhe ISO 8601 in Timestamp per l'import
-  Map<String, dynamic> convertStringsToTimestamps(Map<String, dynamic> data) {
-    data.forEach((key, value) {
-      if ((key == 'createdAt' || key == 'updatedAt') && value is String) {
-        data[key] = Timestamp.fromDate(DateTime.parse(value));
-      }
-    });
-    return data;
   }
 
   /// Ottiene tutte le scarpe dell'utente (snapshot singolo, non stream)

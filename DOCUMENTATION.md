@@ -23,6 +23,7 @@
    - [User profile](#59-user-profile)
    - [Edit profile](#510-edit-profile)
    - [Account deletion](#511-account-deletion)
+   - [Data management](#512-data-management)
 6. [Controllers (State Management)](#6-controllers-state-management)
 7. [Services](#7-services)
    - [ImageService](#71-imageservice)
@@ -30,7 +31,7 @@
    - [ShoesCategoriesMixin](#73-shoescategoriesmixin)
    - [ShoesFormData and ShoesFormService](#74-shoesformdata-and-shoesformservice)
    - [PdfService](#75-pdfservice)
-   - [JSON export and import](#76-json-export-and-import)
+   - [Backup and restore](#76-backup-and-restore)
 8. [Theme and style](#8-theme-and-style)
 9. [Navigation](#9-navigation)
 10. [Localization](#10-localization)
@@ -47,7 +48,7 @@
 - Catalogue the whole shoe collection with photo, brand, size, category, type, season and colors
 - Filter and search shoes by any attribute (category, type, season, color, favorites)
 - View collection statistics through interactive pie charts
-- Export the full collection to PDF or back it up / restore it as JSON
+- Export the full collection to PDF, or back it up with its photos in a single ZIP file and restore it
 - Share shoe cards as screenshots
 - Save shoe photos to the device gallery
 - Remove image backgrounds on the device (Google ML Kit Subject Segmentation)
@@ -119,7 +120,8 @@ shox/
 │   ├── features/
 │   │   ├── auth/                   # Authentication (login, signup, reset password, gender selection)
 │   │   ├── dashboard/              # Dashboard (settings, info, privacy, support)
-│   │   ├── database/               # Statistics, PDF export, JSON export/import
+│   │   ├── data_management/        # Backup (ZIP), restore and PDF export
+│   │   ├── database/               # Statistics and PDF generation (PdfService)
 │   │   ├── home/                   # Main screen with shoe list and filters
 │   │   ├── shoes/                  # Shoe CRUD (models, controller, repository, screens)
 │   │   └── users/                  # User profile management
@@ -147,7 +149,7 @@ feature/
 
 **Widget naming convention:** every file is named after its class in snake_case. Generic widgets in `lib/common/widgets/` use the `Widget` suffix (`ButtonWidget`, `ToastWidget`, `ChangelogDialogWidget`…), which avoids clashes with Flutter classes (`AppBar`, `Dialog`…). Feature widgets have descriptive names without a suffix (`LoginForm`, `FilterBar`, `FilterSheet`, `TopBar`, `DashboardMenuItem`, `ShoesPieChart`, `ColorChip`…), avoiding names already used by Flutter.
 
-**Widgets extracted from the largest screens:** `ShoePhotoArea`, `BackgroundRemovalDialog` and `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (the filter sheet owns its temporary selection and returns the result), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); database charts in `database/widgets/database_charts.dart` and the shared progress overlay `ProgressOverlayWidget`; account deletion confirmation and backup dialogs in `users/widgets/delete_account_dialogs.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; "what's new" dialog logic in `core/services/changelog_service.dart`; saving to the public Download/Shox folder in `core/services/downloads_service.dart`.
+**Widgets extracted from the largest screens:** `ShoePhotoArea`, `BackgroundRemovalDialog` and `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (the filter sheet owns its temporary selection and returns the result), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); database charts in `database/widgets/database_charts.dart` and the shared progress overlay `ProgressOverlayWidget`; account deletion confirmation and backup dialogs in `users/widgets/delete_account_dialogs.dart`; restore confirmation dialog in `data_management/widgets/restore_backup_dialog.dart`; "what's new" dialog logic in `core/services/changelog_service.dart`; saving to the public Download/Shox folder in `core/services/downloads_service.dart`.
 
 **`GetView<T>`:** screens without state of their own extend `GetView` and read the binding's controller through `controller`: login, signup and reset password (the `GlobalKey<FormState>` lives in the controller) and gender selection (`GenderSelectionController.selectedGender` is an `RxnString`). The others stay `StatefulWidget` because they have real local state (streams, animations, shoe form data, loaded statistics, app version). Since the form keys live in the controllers, login and signup link to each other with `Get.offNamed`: the two screens never stack (two forms with the same `GlobalKey` would throw).
 
@@ -180,6 +182,8 @@ A pair of shoes in the digital wardrobe.
 **Categories for male users:** Sneakers, Elegant, Sandals, Loafers, Other  
 **Categories for female users:** Sneakers, Elegant, Heeled, Sandals, Boots, Mules, Flats, Other  
 **Default categories (everyone):** Sneakers, Elegant, Heeled, Sandals, Boots, Mules, Other
+
+**Reading documents:** `fromFirestore` and `fromJson` share one lenient parser: a missing or wrongly typed field falls back to a default (`''` for brand and size, `Other` for category, `fallbackColor` grey for the primary color, `false` for favorite, now for dates) instead of throwing, so a single malformed document cannot break the whole list stream and the user can still open and fix it. Dates are read from a Firestore `Timestamp`, a `DateTime`, an ISO 8601 string or milliseconds. `toJson()` is `toFirestore()` with ISO 8601 dates (backup files); `copyWith(id, imageUrl, dateUpdated)` is used by the controllers.
 
 **Colors:** the palette is `colorList` in `lib/core/utils/utils.dart`; `DbLocalizedValues.getColorName` maps each hex value to its localized name. Red is `#CF2B19`; the legacy value `#FF2810`, which older shoes may still store, is also recognized as red.
 
@@ -352,7 +356,8 @@ Settings screen and entry point to the account features. Sections are cards of `
 | **Preferences** | Theme | 3-way System / Light / Dark selector (`SegmentedButton`) |
 | **Preferences** | Language | Flag selector for the app language (5 languages) |
 | **Account** | Profile | View and edit the user profile |
-| **Account** | Database | Statistics and data management |
+| **Account** | Database | Collection statistics |
+| **Account** | Data management | Backup, restore and PDF export |
 | **Account** | Logout | Sign out of the app |
 | **App** | Info | App information, links and privacy policy |
 | **App** | Help Desk | Support: contact email, documentation link and FAQ |
@@ -370,7 +375,7 @@ Settings screen and entry point to the account features. Sections are cards of `
 
 **Path:** `lib/features/database/`
 
-Statistical analysis of the collection and data management.
+Statistical analysis of the collection.
 
 **Features:**
 - Summary tiles: total shoes, brands and categories
@@ -379,9 +384,7 @@ Statistical analysis of the collection and data management.
   - Distribution by **brand**
   - Distribution by **category**
   - Distribution by **type**
-- **PDF export:** generates a full PDF document with cover, summary page (stats and rankings) and a page per shoe with photo and details; saved in the public `Download/Shox` folder (visible in the Files app) and then offered through the share sheet
-- **JSON export:** exports the whole collection as a JSON file
-- **JSON import:** imports a collection from a previous JSON backup with a progress bar
+- App bar shortcut to [Data management](#512-data-management), where the PDF export, backup and restore now live (they used to be in this screen's ⋮ menu)
 
 ---
 
@@ -428,12 +431,36 @@ Permanent account deletion flow, started from the profile screen (no dedicated p
 
 **Features:**
 - Short confirmation dialog (`showDeleteAccountDialog`, based on `DeleteDialogWidget`): profile, shoes and photos are deleted for good
-- Backup choice dialog (`showBackupChoiceDialog`): skip, or export the collection to JSON first; a failed backup is reported but does not stop the confirmed deletion
+- Backup choice dialog (`showBackupChoiceDialog`): skip, or save a ZIP backup first (`BackupController.createBackup`, same file as Data management); a failed backup is reported but does not stop the confirmed deletion
+- **Re-authentication before anything is deleted:** Firebase refuses `user.delete()` without a recent sign-in (`requires-recent-login`), which used to surface only after the data was already gone. `UserController.deleteAccount(password:)` first calls `UserRepository.reauthenticate`: email/password users type their password in `showDeletePasswordDialog` (`EmailAuthProvider.credential`), Google users go through the Google account picker (`GoogleAuthProvider.credential`). Errors are typed `AuthException`s: `invalid_credentials` (wrong password, toast `delete_account_screen_toast_wrong_password`), `reauth_cancelled` (picker closed, silently stops) and `reauth_failed`. `AuthGuardService.expectSignOut()` is called only after a successful re-authentication
 - Loader overlay on the profile screen while exporting and deleting
-- Deletion of all the user's Firestore documents (shoes + profile)
+- Deletion of all the user's Firestore documents (`shoes` and `history` subcollections in `WriteBatch`es of up to 500 deletes, then the profile document)
 - Deletion of all images from Firebase Storage
 - Deletion of the Firebase Auth account
 - Redirect to the welcome screen
+
+---
+
+### 5.12 Data management
+
+**Path:** `lib/features/data_management/` (route `/data-management`, `DataManagementBinding`)
+
+One screen (`DataManagementScreen`) with three cards, reachable from Dashboard > Account > Data management and from the Database app bar.
+
+**Backup:**
+- "Create backup" builds a self-contained ZIP (see [Backup and restore](#76-backup-and-restore)), saves it to `Download/Shox` through `DownloadsService` and opens the share sheet (e.g. to save it to cloud storage)
+- Shows the date of the last backup made from this device by the signed-in user (`SharedPreferences`, key `AppConstants.prefsLastBackupPrefix` + uid, exposed as `BackupController.lastBackupAt`)
+- Photos that could not be downloaded are reported (`data_management_backup_missing_photos`)
+
+**Restore:**
+- "Restore backup" opens `FilePicker.pickFile` (`.zip`, or `.json` exported by versions before 5.0.0) and reads the bytes with `PlatformFile.readAsBytes()` (works with `content://` URIs)
+- The whole file is validated first: an invalid file shows `data_management_restore_invalid`, a backup from a newer format version shows `data_management_restore_unsupported`; nothing is written in either case
+- `showRestoreBackupDialog` (based on `DeleteDialogWidget`) shows the backup date (or "export from an older version") and its shoe count, and warns that the current N shoes and photos will be replaced; legacy JSON adds a note that photos come back only if still online
+- Progress overlay during the restore; result toast with the number of restored shoes, plus the photos that could not be restored
+
+**Export:** PDF catalog through `PdfService` (moved here from the Database ⋮ menu), saved to `Download/Shox` and then shared.
+
+While an operation runs the buttons are disabled and back navigation is blocked (`PopScope`).
 
 ---
 
@@ -444,13 +471,20 @@ The app uses **GetX** for state management and dependency injection. Every contr
 | Controller | Path | Responsibility |
 |---|---|---|
 | `ShoesController` | `features/shoes/controller/` | Shoe CRUD, streams for the list and a single shoe, favorite toggle |
-| `UserController` | `features/users/controller/` | User profile (name, email, image), Google sign-in, logout, account deletion |
-| `DatabaseController` | `features/database/controller/` | Aggregate statistics (counts by color/brand/category/type), user data, export/import |
+| `UserController` | `features/users/controller/` | User profile (name, email, image), Google sign-in, logout, re-authentication and account deletion |
+| `DatabaseController` | `features/database/controller/` | Aggregate statistics (counts by color/brand/category/type), user data |
+| `BackupController` | `features/data_management/controller/` | Backup creation, restore, last backup date |
 | `ThemeController` | `theme/` | Light/dark/system theme, persisted in `SharedPreferences` |
 | `LoginController` | `features/auth/login/controller/` | Login logic (Google + email/password), validation, form key |
 | `SignupController` | `features/auth/signup/controller/` | Signup logic, profile creation, form key |
 | `ResetPasswordController` | `features/auth/reset_password/controller/` | Sends the password reset email, form key |
 | `GenderSelectionController` | `features/auth/gender_selection/controller/` | Selected gender (`RxnString`) and saving it |
+
+**Write order in `ShoesController`:** every operation that touches both Firestore and Storage is ordered so that a failure never leaves a shoe pointing to a missing photo.
+- `addShoes`: the document ID is generated client-side (`ShoesRepository.newShoesId()`), the photo is uploaded first and the document is written once with its URL (`addShoes` uses `set` when the model has an ID). If the write fails, the uploaded photo is deleted
+- `updateShoes`: the new photo is uploaded, then the document is updated, and only then are the removed photos deleted. If the update fails, the newly uploaded photo is deleted and the old one is still in place
+- `deleteShoes`: the document is deleted first, then the photo. A leftover photo in Storage is invisible to the user, a document pointing to a deleted photo is not
+- Photo clean-up (`_deleteImageQuietly`) is best-effort: it logs a warning instead of failing an operation that already succeeded on Firestore
 
 ---
 
@@ -543,27 +577,40 @@ Copies a local file into the public `Download/Shox` folder, so it shows up in th
 - **Kotlin (`MainActivity.configureFlutterEngine`):** the copy runs on a background thread
   - API 29+ (Android 10+): `MediaStore.Downloads` insert with `RELATIVE_PATH = Download/Shox` and `IS_PENDING` during the write; the row is deleted if the copy fails
   - API 24–28: copy into `Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)/Shox`, then `MediaScannerConnection.scanFile`
-- Currently used only by the PDF export; the JSON backup still uses the app-private downloads folder
+- Used by the PDF export and by the ZIP backup (`application/zip`)
 
 ---
 
-### 7.6 JSON export and import
+### 7.6 Backup and restore
 
-**Path:** `lib/features/database/controller/database_controller.dart` + `lib/features/database/repository/`
+**Paths:** `lib/features/data_management/models/shoes_backup.dart` (format), `repository/backup_repository.dart` (Firebase access), `controller/backup_controller.dart` (logic)
 
-Collection backup and restore.
+**Format (`ShoesBackup`, `currentFormatVersion = 1`):**
 
-**JSON export:**
-- Fetches all the user's shoes from Firestore
-- Serializes each `ShoesModel` with `toFirestore()` as JSON
-- Saves the file through `file_picker` at the path chosen by the user
-- Progress callback for the progress bar
+```text
+shox_backup_<yyyyMMdd_HHmmss>.zip
+├── manifest.json   formatVersion, createdAt, shoesCount, appVersion
+├── shoes.json      list of ShoesModel.toJson() without imageUrl, each with "image": "images/<index><ext>" or null
+└── images/         one photo per shoe, stored without compression (already compressed images)
+```
 
-**JSON import:**
-- Opens `file_picker` to select a previously exported JSON file
-- Parses the JSON and rebuilds the `ShoesModel` objects with `fromJson()`
-- Inserts the imported shoes into Firestore (duplicates are handled)
-- Progress callback for the progress bar
+The backup no longer contains download URLs with tokens: it is self-contained and keeps working after the original photos are deleted (account deletion, photo replaced, restore with replacement).
+
+**Decoding (`ShoesBackup.decode`):** the ZIP signature (`PK\x03\x04`) selects the ZIP or the legacy JSON path. The whole file is validated before anything is written and errors are typed `BackupFormatException`s:
+- `not_a_backup`: no manifest, no format version, entries that are not shoes (each needs a string `brand` and `category`), or a file that is neither a ZIP nor a JSON list
+- `unsupported_version`: `formatVersion` newer than the app supports
+- `corrupted`: unreadable archive or CRC error, missing `shoes.json`, a referenced photo missing, `shoesCount` different from the number of entries
+- Legacy JSON (the list written by the old export) is accepted: `isLegacy = true`, no date, photos kept as `legacyImageUrl`
+
+**Creating a backup (`BackupController.createBackup`):** reads the collection, downloads every photo through the Storage SDK (`BackupRepository.downloadImage`: only `firebasestorage.googleapis.com` URLs, max 20 MB, `null` on failure), encodes the ZIP in the app cache and copies it to `Download/Shox` (`DownloadsService`, `application/zip`). `buildBackup` is separated from the file and platform side so it can be tested.
+
+**Restore (`BackupController.restoreBackup`)**, replacing the whole collection:
+1. Reads the current collection
+2. For each backup shoe: new ID (`newShoesId`), photo uploaded with `putData` (from the ZIP, or downloaded from the legacy URL)
+3. All the new documents are written with `WriteBatch`es (max 500 writes each)
+4. Only then are the old documents deleted (batched) and their photos removed (best-effort)
+
+If anything fails in steps 2–3, what was already uploaded or written is rolled back and the current collection is left untouched. Progress: 80% photos, 10% writing, 10% removing the old collection. Legacy photos that are no longer online are counted in `RestoreResult.missingImages` and the shoe is restored without a photo.
 
 ---
 
@@ -659,7 +706,8 @@ The app uses **GetX** routing with named routes.
 | `/shoes/details` | ShoesDetailsScreen | Shoe details |
 | `/shoes/update` | ShoesUpdaterScreen | Edit a shoe |
 | `/dashboard` | DashboardScreen | Settings and account |
-| `/database` | DatabaseScreen | Statistics and data management |
+| `/database` | DatabaseScreen | Collection statistics |
+| `/data-management` | DataManagementScreen | Backup, restore and PDF export |
 | `/info` | InfoScreen | Logo, version, description, main features, links (GitHub, website, contacts, privacy, open source licenses) and credits |
 | `/privacy-policy` | PrivacyPolicyScreen | Native privacy policy (10 localized sections) |
 | `/support` | SupportScreen | Help Desk: contacts, documentation and FAQ |
@@ -712,6 +760,7 @@ dependencies:
   flutter_image_compress: ^2.4.0           # Image compression
   cached_network_image: ^4.0.3             # Network image cache
   image_gallery_saver_plus: ^5.1.1         # Save to gallery
+  archive: ^4.0.0                          # ZIP backup (already a transitive dependency of image)
   pdf: ^3.11.0                             # PDF generation
   file_picker: ^13.1.0                     # File picker
   share_plus: ^13.3.1                      # File sharing
@@ -733,12 +782,12 @@ dev_dependencies:
   mocktail: ^1.0.5                         # Test mocks (Firebase, Google Sign-In, controllers)
 ```
 
-**Tests (`flutter test`):** 100 tests in `test/`.
-- Pure logic: `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (grid columns and sizes), `ChangelogService` (which changes to show after an update), `MaskRefinement` (background removal alpha, erosion and edge decontamination)
-- With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, JSON import/export with a fake HTTP client), `DatabaseController` (counts and statistics, empty collection, errors) and `UserController` (profile and name loading)
+**Tests (`flutter test`):** 136 tests in `test/`.
+- Pure logic: `ShoesModel` (lenient parsing of malformed documents), `ShoesBackup` (ZIP round trip, validation errors, legacy JSON), `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (grid columns and sizes), `ChangelogService` (which changes to show after an update), `MaskRefinement` (background removal alpha, erosion and edge decontamination)
+- With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, write order and clean-up when an upload or write fails), `BackupController` (backup with photos, restore order, rollback on failure, legacy photos), `DatabaseController` (counts and statistics, empty collection, errors) and `UserController` (profile and name loading, no deletion when re-authentication fails)
 - Layout: shared widgets at 1.3 text scale (`test/common/widgets/text_scaling_test.dart`)
 
-`ShoesController` (repository, Firebase Auth, `http.Client`), `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
+`ShoesController` (repository, Firebase Auth), `BackupController` and `BackupRepository` (Firebase Auth, Firestore, Storage), `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
 
 **Google Sign-In (`google_sign_in` 7):** the plugin exposes the `GoogleSignIn.instance` singleton, which must be initialized exactly once before any other call. `GoogleSignInService.instance()` (`lib/features/auth/services/google_sign_in_service.dart`) memoizes that initialization (and clears it on failure so a later call can retry); `LoginRepository` and `UserRepository` go through it. On Android sign-in runs through Credential Manager and needs a server client ID, read from the `default_web_client_id` resource that the google-services plugin generates from the web OAuth client in `google-services.json`. `authenticate()` throws `GoogleSignInException` instead of returning `null`: `canceled` maps to `null` (user closed the picker), any other code to `google_sign_in_failed`; a `network-request-failed` from `signInWithCredential` maps to `network_error`. Only the ID token is passed to Firebase.
 
@@ -755,7 +804,7 @@ dev_dependencies:
 | Minimum Android | API 24 (Android 7.0), required by ML Kit |
 | Recommended Android | API 26+ (Android 8.0) |
 | Architecture | 64-bit only (`arm64-v8a`) |
-| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES`; saving the PDF to Download/Shox needs no permission on API 29+, `WRITE_EXTERNAL_STORAGE` on API 24–28 |
+| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES`; saving the PDF and the backup to Download/Shox needs no permission on API 29+, `WRITE_EXTERNAL_STORAGE` on API 24–28; `MANAGE_EXTERNAL_STORAGE` (used only by the old JSON export) is no longer declared |
 | Google Play services | Required (Google sign-in and background removal model) |
 | Main platform | Android |
 | Internet connection | Required for authentication and Firestore sync |

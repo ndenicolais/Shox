@@ -1,30 +1,19 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
-import 'package:shox/features/shoes/controller/shoes_controller.dart';
 
 /// Repository that handles all database operations with Firestore
 class DatabaseRepository {
   final Logger _logger = Logger();
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
-  final ShoesController _shoesController;
 
   DatabaseRepository({
     FirebaseAuth? auth,
     FirebaseFirestore? firestore,
-    ShoesController? shoesController,
   })  : _auth = auth ?? FirebaseAuth.instance,
-        _firestore = firestore ?? FirebaseFirestore.instance,
-        _shoesController = shoesController ?? Get.find<ShoesController>();
+        _firestore = firestore ?? FirebaseFirestore.instance;
 
   /// Get current authenticated user
   User? get currentUser => _auth.currentUser;
@@ -124,98 +113,5 @@ class DatabaseRepository {
       _logger.e('Error fetching user creation date: $e');
       throw Exception('Failed to fetch user creation date: $e');
     }
-  }
-
-  // ==================== EXPORT/IMPORT OPERATIONS ====================
-
-  /// Export shoes database to JSON file
-  /// Returns the file path of the exported file
-  Future<String> exportToJson() async {
-    try {
-      _logger.i('Starting JSON export...');
-
-      final jsonCodes = await _shoesController.exportShoesToJson();
-      final Directory? downloadsDir = await getDownloadsDirectory();
-      final directory =
-          downloadsDir ?? await getApplicationDocumentsDirectory();
-      final now = DateTime.now();
-      final dateFormat = DateFormat('yyyyMMdd_HHmmss');
-      final formattedDate = dateFormat.format(now);
-      final filePath = '${directory.path}/shox_db_$formattedDate.json';
-      final file = File(filePath);
-
-      await file.writeAsString(jsonCodes);
-      _logger.i('JSON exported successfully to: $filePath');
-
-      return filePath;
-    } catch (e) {
-      _logger.e('Error exporting to JSON: $e');
-      throw Exception('Failed to export database: $e');
-    }
-  }
-
-  /// Import shoes database from JSON file
-  Future<void> importFromJson(
-    String userId, {
-    Function(double)? onProgress,
-  }) async {
-    try {
-      _logger.i('Starting JSON import...');
-
-      final PlatformFile? result = await FilePicker.pickFile(
-        type: FileType.custom,
-        allowedExtensions: ['json'],
-      );
-
-      if (result == null) {
-        _logger.w('Import cancelled by user');
-        throw Exception('Import cancelled');
-      }
-
-      // Read through the picker: on Android the file may be a content URI
-      // with no local path.
-      String jsonCodes = utf8.decode(await result.readAsBytes());
-
-      await _shoesController.importShoesFromJson(
-        jsonCodes,
-        onProgress: onProgress,
-      );
-      _logger.i('JSON imported successfully');
-    } catch (e) {
-      _logger.e('Error importing from JSON: $e');
-      throw Exception('Failed to import database: $e');
-    }
-  }
-
-  /// Share a file using the system share dialog
-  Future<void> shareFile(String filePath) async {
-    try {
-      _logger.i('Sharing file: $filePath');
-      final xFile = XFile(filePath);
-      await SharePlus.instance.share(ShareParams(files: [xFile]));
-      _logger.i('File shared successfully');
-    } catch (e) {
-      _logger.e('Error sharing file: $e');
-      throw Exception('Failed to share file: $e');
-    }
-  }
-
-  /// Check if export directory is accessible
-  Future<bool> isExportDirectoryAccessible() async {
-    try {
-      final Directory? downloadsDir = await getDownloadsDirectory();
-      final directory =
-          downloadsDir ?? await getApplicationDocumentsDirectory();
-      return await directory.exists();
-    } catch (e) {
-      _logger.e('Error checking export directory: $e');
-      return false;
-    }
-  }
-
-  Future<String> getExportDirectoryPath() async {
-    final Directory? downloadsDir = await getDownloadsDirectory();
-    final directory = downloadsDir ?? await getApplicationDocumentsDirectory();
-    return directory.path;
   }
 }

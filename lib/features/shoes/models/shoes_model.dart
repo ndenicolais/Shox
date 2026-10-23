@@ -39,6 +39,28 @@ class ShoesModel {
     return categoryToTypes[category]?.first ?? 'Other';
   }
 
+  ShoesModel copyWith({
+    String? id,
+    String? imageUrl,
+    DateTime? dateUpdated,
+  }) {
+    return ShoesModel(
+      id: id ?? this.id,
+      imageUrl: imageUrl ?? this.imageUrl,
+      colorPrimary: colorPrimary,
+      colorExtra: colorExtra,
+      brand: brand,
+      size: size,
+      category: category,
+      type: type,
+      season: season,
+      notes: notes,
+      isFavorite: isFavorite,
+      dateAdded: dateAdded,
+      dateUpdated: dateUpdated ?? this.dateUpdated,
+    );
+  }
+
   Map<String, dynamic> toFirestore() {
     return {
       'imageUrl': imageUrl,
@@ -56,59 +78,62 @@ class ShoesModel {
     };
   }
 
-  factory ShoesModel.fromFirestore(String id, Map<String, dynamic> data) {
+  /// Same fields as [toFirestore] with ISO 8601 dates, for backup files.
+  Map<String, dynamic> toJson() => {
+        ...toFirestore(),
+        'dateAdded': dateAdded.toIso8601String(),
+        'dateUpdated': dateUpdated.toIso8601String(),
+      };
+
+  /// Used for the primary color when the stored value is missing or invalid.
+  static const int fallbackColor = 0xFF9E9E9E;
+
+  /// Both factories are lenient: a missing or wrongly typed field falls back
+  /// to a default instead of throwing, so one malformed document cannot break
+  /// the whole shoes list and the user can still open and fix it.
+  factory ShoesModel.fromFirestore(String id, Map<String, dynamic> data) =>
+      ShoesModel.fromJson(id, data);
+
+  /// Dates may be a Firestore [Timestamp], a [DateTime], an ISO 8601 string
+  /// (JSON backup) or milliseconds since epoch.
+  factory ShoesModel.fromJson(String id, Map<String, dynamic> data) {
+    final category = _readString(data['category']);
     return ShoesModel(
       id: id,
-      imageUrl: data['imageUrl'],
-      colorPrimary: Color(data['colorPrimary']),
-      colorExtra: List<int>.from(data['colorExtra'] ?? []),
-      brand: data['brand'],
-      size: data['size'],
-      category: data['category'],
-      type: data['type'],
-      season: data['season'],
-      notes: data['notes'],
-      isFavorite: data['isFavorite'],
-      dateAdded: (data['dateAdded'] as Timestamp).toDate(),
-      dateUpdated: (data['dateUpdated'] as Timestamp).toDate(),
+      imageUrl: _readString(data['imageUrl']) ?? '',
+      colorPrimary: Color(_readInt(data['colorPrimary']) ?? fallbackColor),
+      colorExtra: _readIntList(data['colorExtra']),
+      brand: _readString(data['brand']) ?? '',
+      size: _readString(data['size']) ?? '',
+      category: (category == null || category.isEmpty) ? 'Other' : category,
+      type: _readString(data['type']),
+      season: _readString(data['season']),
+      notes: _readString(data['notes']),
+      isFavorite: data['isFavorite'] is bool ? data['isFavorite'] : false,
+      dateAdded: _readDate(data['dateAdded']),
+      dateUpdated: _readDate(data['dateUpdated']),
     );
   }
 
-  factory ShoesModel.fromJson(String id, Map<String, dynamic> data) {
-    // Handle dates that can be either String (from JSON import) or Timestamp (from Firestore)
-    DateTime parseDateAddedFromJson(dynamic value) {
-      if (value is Timestamp) {
-        return value.toDate();
-      } else if (value is String) {
-        return DateTime.parse(value);
-      }
-      return DateTime.now();
-    }
+  static String? _readString(dynamic value) {
+    if (value is String) return value;
+    if (value is num) return value.toString();
+    return null;
+  }
 
-    DateTime parseDateUpdatedFromJson(dynamic value) {
-      if (value is Timestamp) {
-        return value.toDate();
-      } else if (value is String) {
-        return DateTime.parse(value);
-      }
-      return DateTime.now();
-    }
+  static int? _readInt(dynamic value) => value is num ? value.toInt() : null;
 
-    return ShoesModel(
-      id: id,
-      imageUrl: data['imageUrl'],
-      colorPrimary: Color(data['colorPrimary']),
-      colorExtra: List<int>.from(data['colorExtra'] ?? []),
-      brand: data['brand'],
-      size: data['size'],
-      category: data['category'],
-      type: data['type'],
-      season: data['season'],
-      notes: data['notes'],
-      isFavorite: data['isFavorite'] ?? false,
-      dateAdded: parseDateAddedFromJson(data['dateAdded']),
-      dateUpdated: parseDateUpdatedFromJson(data['dateUpdated']),
-    );
+  static List<int> _readIntList(dynamic value) {
+    if (value is! List) return [];
+    return value.whereType<num>().map((n) => n.toInt()).toList();
+  }
+
+  static DateTime? _readDate(dynamic value) {
+    if (value is Timestamp) return value.toDate();
+    if (value is DateTime) return value;
+    if (value is String) return DateTime.tryParse(value);
+    if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+    return null;
   }
 
   static Map<String, List<String>> categoryToTypes = {

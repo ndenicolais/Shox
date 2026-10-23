@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shox/core/utils/app_exceptions.dart';
 import 'package:shox/features/auth/services/auth_service.dart';
 import 'package:shox/features/auth/services/google_sign_in_service.dart';
 import 'package:shox/features/users/models/user_model.dart';
@@ -95,42 +97,86 @@ class UserRepository {
     await firebase_auth.FirebaseAuth.instance.signOut();
   }
 
-  Future<void> deleteAccount() async {
-    firebase_auth.User? user = _auth.currentUser;
-    if (user != null) {
-      if (user.providerData
-          .any((userInfo) => userInfo.providerId == 'google.com')) {
-        await (await GoogleSignInService.instance()).signOut();
+  /// Firebase refuses `user.delete()` without a recent sign-in, so the user
+  /// signs in again before anything is deleted: otherwise the data could be
+  /// gone while the account survives. [password] is required for
+  /// email/password accounts; Google accounts go through the Google picker.
+  ///
+  /// Throws [AuthException] `invalid_credentials` or `reauth_cancelled`.
+  Future<void> reauthenticate({String? password}) async {
+    final firebase_auth.User? user = currentUser;
+    if (user == null) throw Exception("No user logged in.");
+
+    try {
+      final firebase_auth.AuthCredential credential;
+      if (user.providerData.any((info) => info.providerId == 'google.com')) {
+        final googleUser =
+            await (await GoogleSignInService.instance()).authenticate();
+        credential = firebase_auth.GoogleAuthProvider.credential(
+          idToken: googleUser.authentication.idToken,
+        );
+      } else {
+        if (password == null || password.isEmpty || user.email == null) {
+          throw const AuthException('invalid_credentials');
+        }
+        credential = firebase_auth.EmailAuthProvider.credential(
+          email: user.email!,
+          password: password,
+        );
       }
-      try {
-        await deleteEntireUserCollection(user.uid);
-        await deleteUserFolder(user.uid);
-        await user.delete();
-        await _auth.signOut();
-        await (await GoogleSignInService.instance()).signOut();
-        await _authService.clearSession();
-      } catch (e) {
-        throw Exception("Error while deleting: $e");
+      await user.reauthenticateWithCredential(credential);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        throw const AuthException('reauth_cancelled');
       }
-    } else {
-      throw Exception("No user logged in.");
+      throw AuthException('reauth_failed', e.code.name);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'wrong-password':
+        case 'invalid-credential':
+        case 'user-mismatch':
+          throw const AuthException('invalid_credentials');
+        default:
+          throw AuthException('reauth_failed', e.code);
+      }
     }
   }
 
+  /// Call [reauthenticate] first.
+  Future<void> deleteAccount() async {
+    firebase_auth.User? user = _auth.currentUser;
+    if (user == null) throw Exception("No user logged in.");
+
+    try {
+      await deleteEntireUserCollection(user.uid);
+      await deleteUserFolder(user.uid);
+      await user.delete();
+      await _auth.signOut();
+      await (await GoogleSignInService.instance()).signOut();
+      await _authService.clearSession();
+    } catch (e) {
+      throw Exception("Error while deleting: $e");
+    }
+  }
+
+  /// Firestore batches are limited to 500 writes.
+  static const int _batchLimit = 500;
+
   Future<void> deleteEntireUserCollection(String userId) async {
     try {
-      List<String> subCollections = ['shoes', 'history'];
-      for (String collection in subCollections) {
-        QuerySnapshot subCollectionSnapshot = await _firestore
-            .collection('users')
-            .doc(userId)
-            .collection(collection)
-            .get();
-        for (DocumentSnapshot doc in subCollectionSnapshot.docs) {
-          await doc.reference.delete();
+      final userDoc = _firestore.collection('users').doc(userId);
+      for (final String collection in ['shoes', 'history']) {
+        final snapshot = await userDoc.collection(collection).get();
+        final docs = snapshot.docs;
+        for (int i = 0; i < docs.length; i += _batchLimit) {
+          final batch = _firestore.batch();
+          for (final doc in docs.skip(i).take(_batchLimit)) {
+            batch.delete(doc.reference);
+          }
+          await batch.commit();
         }
-        await _firestore.collection('users').doc(userId).delete();
       }
+      await userDoc.delete();
     } catch (e) {
       throw Exception("Error during user document deletion: $e");
     }

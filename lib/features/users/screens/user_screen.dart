@@ -10,8 +10,9 @@ import 'package:shox/common/widgets/info_tile_widget.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/core/utils/app_exceptions.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
-import 'package:shox/core/utils/permission_helper.dart';
+import 'package:shox/features/data_management/controller/backup_controller.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
 import 'package:shox/features/users/widgets/delete_account_dialogs.dart';
@@ -29,6 +30,7 @@ class UserScreenState extends State<UserScreen> {
   final Logger _logger = Logger();
   final UserController userController = Get.find<UserController>();
   final DatabaseController _databaseController = Get.find<DatabaseController>();
+  final BackupController _backupController = Get.find<BackupController>();
   final User? currentUser = FirebaseAuth.instance.currentUser;
   bool _hasUpdated = false;
   int _totalShoes = 0;
@@ -296,14 +298,29 @@ class UserScreenState extends State<UserScreen> {
     if (!await showDeleteAccountDialog(context) || !mounted) return;
     final backup = await showBackupChoiceDialog(context);
     if (backup == null || !mounted) return;
+    String? password;
+    if (userController.needsPasswordToDelete) {
+      password = await showDeletePasswordDialog(context);
+      if (password == null || !mounted) return;
+    }
 
     setState(() => _isDeleting = true);
     try {
       if (backup) await _exportBackup(l10n);
-      await userController.deleteAccount();
+      await userController.deleteAccount(password: password);
       if (!mounted) return;
       showSuccessToast(context, l10n.delete_account_screen_toast_success);
       Get.offAllNamed(AppRoutes.welcome);
+    } on AuthException catch (e) {
+      if (!mounted) return;
+      setState(() => _isDeleting = false);
+      if (e.code == 'reauth_cancelled') return;
+      showErrorToast(
+        context,
+        e.code == 'invalid_credentials'
+            ? l10n.delete_account_screen_toast_wrong_password
+            : '${l10n.delete_account_screen_toast_error} ${e.message ?? e.code}',
+      );
     } catch (e) {
       if (!mounted) return;
       setState(() => _isDeleting = false);
@@ -311,25 +328,16 @@ class UserScreenState extends State<UserScreen> {
     }
   }
 
-  /// Exports the collection before deletion; a failed backup is reported
-  /// but does not stop the deletion the user already confirmed.
+  /// Saves a backup before deletion; a failed backup is reported but does
+  /// not stop the deletion the user already confirmed.
   Future<void> _exportBackup(AppLocalizations l10n) async {
     try {
-      final permissionStatus =
-          await requestManageExternalStoragePermission(context);
-      if (permissionStatus != 'Permission granted') {
-        throw Exception('Permission not granted');
-      }
-      final result = await _databaseController.exportDatabase();
+      final saved = await _backupController.createBackup(onProgress: (_) {});
       if (!mounted) return;
-      if (result.success) {
-        showSuccessToast(context, l10n.delete_account_screen_backup_success);
-      } else {
-        showErrorToast(
-          context,
-          '${l10n.delete_account_screen_backup_error} ${result.message}',
-        );
-      }
+      showSuccessToast(
+        context,
+        l10n.data_management_backup_success(saved.location),
+      );
     } catch (e) {
       if (mounted) {
         showErrorToast(

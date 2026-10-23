@@ -4,7 +4,7 @@ class AppConstants {
 
   /// Date shown as "last updated" in the privacy policy (in-app and
   /// PRIVACY.md must stay in sync).
-  static final DateTime privacyPolicyUpdatedAt = DateTime(2026, 9, 29);
+  static final DateTime privacyPolicyUpdatedAt = DateTime(2026, 10, 23);
 
   static final Uri uriMail = Uri(
     scheme: 'mailto',
@@ -24,4 +24,7 @@ class AppConstants {
   static const String prefsUserId = 'user_id';
   static const String prefsLastSeenChangelogVersion =
       'last_seen_changelog_version';
+
+  /// Followed by the user ID: each account has its own last backup date.
+  static const String prefsLastBackupPrefix = 'last_backup_at_';
 }

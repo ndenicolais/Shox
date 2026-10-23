@@ -17,6 +17,8 @@ import 'package:shox/features/dashboard/screens/dashboard_screen.dart';
 import 'package:shox/features/dashboard/screens/info_screen.dart';
 import 'package:shox/features/dashboard/screens/privacy_policy_screen.dart';
 import 'package:shox/features/dashboard/screens/support_screen.dart';
+import 'package:shox/features/data_management/bindings/data_management_binding.dart';
+import 'package:shox/features/data_management/screens/data_management_screen.dart';
 import 'package:shox/features/database/bindings/database_binding.dart';
 import 'package:shox/features/database/screens/database_screen.dart';
 import 'package:shox/features/home/bindings/home_binding.dart';
@@ -98,6 +100,12 @@ class AppPages {
       name: AppRoutes.database,
       page: () => const DatabaseScreen(),
       binding: DatabaseBinding(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: AppRoutes.dataManagement,
+      page: () => const DataManagementScreen(),
+      binding: DataManagementBinding(),
       middlewares: [AuthMiddleware()],
     ),
     GetPage(

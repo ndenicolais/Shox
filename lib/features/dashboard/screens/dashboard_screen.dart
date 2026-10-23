@@ -96,6 +96,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onTap: () => Get.toNamed(AppRoutes.database),
                 ),
                 DashboardMenuItem(
+                  icon: MingCuteIcons.mgc_safe_box_line,
+                  text: l10n.data_management_title,
+                  onTap: () => Get.toNamed(AppRoutes.dataManagement),
+                ),
+                DashboardMenuItem(
                   icon: MingCuteIcons.mgc_exit_line,
                   text: l10n.dashboard_logout,
                   onTap: () => userController.logout(context),

@@ -1034,41 +1034,161 @@ abstract class AppLocalizations {
   /// **'Failed to generate PDF'**
   String get database_screen_pdf_error;
 
-  /// No description provided for @database_screen_export_menu.
+  /// No description provided for @data_management_title.
   ///
   /// In en, this message translates to:
-  /// **'Export JSON'**
-  String get database_screen_export_menu;
+  /// **'Data management'**
+  String get data_management_title;
 
-  /// No description provided for @database_screen_import_menu.
+  /// No description provided for @data_management_backup_title.
   ///
   /// In en, this message translates to:
-  /// **'Import JSON'**
-  String get database_screen_import_menu;
+  /// **'Backup'**
+  String get data_management_backup_title;
 
-  /// No description provided for @database_screen_export_success.
+  /// No description provided for @data_management_backup_text.
   ///
   /// In en, this message translates to:
-  /// **'JSON exported to Download folder'**
-  String get database_screen_export_success;
+  /// **'Save all your shoes and their photos in a single file. It is saved to Download/Shox and you can share it, for example to your cloud storage.'**
+  String get data_management_backup_text;
 
-  /// No description provided for @database_screen_export_error.
+  /// No description provided for @data_management_backup_button.
   ///
   /// In en, this message translates to:
-  /// **'Error during export'**
-  String get database_screen_export_error;
+  /// **'Create backup'**
+  String get data_management_backup_button;
 
-  /// No description provided for @database_screen_import_success.
+  /// No description provided for @data_management_last_backup.
   ///
   /// In en, this message translates to:
-  /// **'JSON imported successfully!'**
-  String get database_screen_import_success;
+  /// **'Last backup: {date}'**
+  String data_management_last_backup(String date);
 
-  /// No description provided for @database_screen_import_error.
+  /// No description provided for @data_management_never_backed_up.
   ///
   /// In en, this message translates to:
-  /// **'Error during import'**
-  String get database_screen_import_error;
+  /// **'No backup created on this device yet'**
+  String get data_management_never_backed_up;
+
+  /// No description provided for @data_management_backup_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup saved to {location}'**
+  String data_management_backup_success(String location);
+
+  /// No description provided for @data_management_backup_missing_photos.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 photo could not be included} other{{count} photos could not be included}}'**
+  String data_management_backup_missing_photos(int count);
+
+  /// No description provided for @data_management_backup_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error while creating the backup'**
+  String get data_management_backup_error;
+
+  /// No description provided for @data_management_restore_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get data_management_restore_title;
+
+  /// No description provided for @data_management_restore_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace your collection with the content of a backup file (.zip, or .json exported by older versions).'**
+  String get data_management_restore_text;
+
+  /// No description provided for @data_management_restore_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore backup'**
+  String get data_management_restore_button;
+
+  /// No description provided for @data_management_restore_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace your collection?'**
+  String get data_management_restore_dialog_title;
+
+  /// No description provided for @data_management_restore_dialog_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup of {date}'**
+  String data_management_restore_dialog_date(String date);
+
+  /// No description provided for @data_management_restore_dialog_legacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Export from an older version'**
+  String get data_management_restore_dialog_legacy;
+
+  /// No description provided for @data_management_shoes_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{no shoes} =1{1 shoe} other{{count} shoes}}'**
+  String data_management_shoes_count(int count);
+
+  /// No description provided for @data_management_restore_dialog_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Your collection is empty, nothing will be lost.} =1{Your current shoe and its photo will be replaced. This cannot be undone.} other{Your current {count} shoes and their photos will be replaced. This cannot be undone.}}'**
+  String data_management_restore_dialog_warning(int count);
+
+  /// No description provided for @data_management_restore_dialog_legacy_note.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos are restored only if they are still online.'**
+  String get data_management_restore_dialog_legacy_note;
+
+  /// No description provided for @data_management_restore_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get data_management_restore_confirm;
+
+  /// No description provided for @data_management_restore_success.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Collection restored} =1{1 shoe restored} other{{count} shoes restored}}'**
+  String data_management_restore_success(int count);
+
+  /// No description provided for @data_management_restore_missing_photos.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 photo could not be restored} other{{count} photos could not be restored}}'**
+  String data_management_restore_missing_photos(int count);
+
+  /// No description provided for @data_management_restore_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error while restoring the backup. Your collection has not been changed.'**
+  String get data_management_restore_error;
+
+  /// No description provided for @data_management_restore_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is not a valid Shox backup'**
+  String get data_management_restore_invalid;
+
+  /// No description provided for @data_management_restore_unsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This backup was created by a newer version of Shox. Update the app to restore it.'**
+  String get data_management_restore_unsupported;
+
+  /// No description provided for @data_management_export_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get data_management_export_title;
+
+  /// No description provided for @data_management_export_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a PDF catalog of your collection to print or share.'**
+  String get data_management_export_text;
 
   /// No description provided for @delete_account_screen_toast_success.
   ///
@@ -1103,7 +1223,7 @@ abstract class AppLocalizations {
   /// No description provided for @delete_account_screen_backup_text.
   ///
   /// In en, this message translates to:
-  /// **'Before deleting your account, would you like to download a backup of your shoe database in JSON format? This will help you preserve your data.'**
+  /// **'Before deleting your account, would you like to save a backup file with all your shoes and photos? You can restore it later from Data management.'**
   String get delete_account_screen_backup_text;
 
   /// No description provided for @delete_account_screen_backup_button.
@@ -1118,17 +1238,35 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get delete_account_screen_skip_backup;
 
-  /// No description provided for @delete_account_screen_backup_success.
-  ///
-  /// In en, this message translates to:
-  /// **'Database backed up successfully!'**
-  String get delete_account_screen_backup_success;
-
   /// No description provided for @delete_account_screen_backup_error.
   ///
   /// In en, this message translates to:
   /// **'Error during backup:'**
   String get delete_account_screen_backup_error;
+
+  /// No description provided for @delete_account_screen_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your password'**
+  String get delete_account_screen_password_title;
+
+  /// No description provided for @delete_account_screen_password_text.
+  ///
+  /// In en, this message translates to:
+  /// **'For your security, enter your password to permanently delete the account.'**
+  String get delete_account_screen_password_text;
+
+  /// No description provided for @delete_account_screen_password_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete_account_screen_password_confirm;
+
+  /// No description provided for @delete_account_screen_toast_wrong_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password'**
+  String get delete_account_screen_toast_wrong_password;
 
   /// No description provided for @settings_screen_language.
   ///
@@ -1235,7 +1373,7 @@ abstract class AppLocalizations {
   /// No description provided for @info_screen_feature_backup_text.
   ///
   /// In en, this message translates to:
-  /// **'Back up and restore your collection as JSON.'**
+  /// **'Back up your collection and its photos in a single file and restore it.'**
   String get info_screen_feature_backup_text;
 
   /// No description provided for @info_screen_links_title.
@@ -1343,7 +1481,7 @@ abstract class AppLocalizations {
   /// No description provided for @policy_section_device_text.
   ///
   /// In en, this message translates to:
-  /// **'Photo background removal runs entirely on your phone: the photo is not sent to external services. The PDF and JSON files you export are saved on your device and shared only if you choose to.'**
+  /// **'Photo background removal runs entirely on your phone: the photo is not sent to external services. The PDF and backup files you export are saved on your device and shared only if you choose to.'**
   String get policy_section_device_text;
 
   /// No description provided for @policy_section_permissions_title.
@@ -1379,7 +1517,7 @@ abstract class AppLocalizations {
   /// No description provided for @policy_section_rights_text.
   ///
   /// In en, this message translates to:
-  /// **'You can access and export your data (PDF and JSON), correct it by editing your profile and shoes, erase it by deleting your account, and ask for information by writing to the controller. You can also lodge a complaint with the data protection authority of your country.'**
+  /// **'You can access and export your data (PDF and backup file), correct it by editing your profile and shoes, erase it by deleting your account, and ask for information by writing to the controller. You can also lodge a complaint with the data protection authority of your country.'**
   String get policy_section_rights_text;
 
   /// No description provided for @policy_section_children_title.
@@ -1523,25 +1661,25 @@ abstract class AppLocalizations {
   /// No description provided for @support_screen_faq_q10.
   ///
   /// In en, this message translates to:
-  /// **'How does JSON database import work?'**
+  /// **'How do I back up my collection?'**
   String get support_screen_faq_q10;
 
   /// No description provided for @support_screen_faq_a10.
   ///
   /// In en, this message translates to:
-  /// **'You can import the database in JSON format (if previously exported from the app).'**
+  /// **'Open Dashboard > Data management and tap Create backup: a ZIP file with all your shoes and photos is saved to Download/Shox and you can share it, for example to your cloud storage.'**
   String get support_screen_faq_a10;
 
   /// No description provided for @support_screen_faq_q11.
   ///
   /// In en, this message translates to:
-  /// **'How does JSON database export work?'**
+  /// **'How do I restore a backup?'**
   String get support_screen_faq_q11;
 
   /// No description provided for @support_screen_faq_a11.
   ///
   /// In en, this message translates to:
-  /// **'You can export the database in JSON format to preserve the current data in the database and then import it on another device via the app.'**
+  /// **'In Data management tap Restore backup and pick the ZIP file (JSON files exported by older versions work too). After you confirm, your current collection is replaced by the one in the backup.'**
   String get support_screen_faq_a11;
 
   /// No description provided for @support_screen_documentation_text.
@@ -2329,6 +2467,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Deleting your account now takes a single confirmation dialog instead of a separate page.'**
   String get changelog_v5_0_0_bullet_25;
+
+  /// No description provided for @changelog_v5_0_0_bullet_26.
+  ///
+  /// In en, this message translates to:
+  /// **'New Data management section in the Dashboard: back up your whole collection with its photos in a single ZIP file, restore it (the current collection is replaced after a confirmation) and export the PDF catalog. JSON files exported by older versions can still be restored.'**
+  String get changelog_v5_0_0_bullet_26;
+
+  /// No description provided for @changelog_v5_0_0_bullet_27.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding, editing or deleting a shoe no longer leaves it without its photo when the upload fails, and a damaged shoe no longer prevents the whole collection from loading.'**
+  String get changelog_v5_0_0_bullet_27;
+
+  /// No description provided for @changelog_v5_0_0_bullet_28.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your account now asks you to sign in again before any data is removed, and the app no longer asks for access to all the files on your device.'**
+  String get changelog_v5_0_0_bullet_28;
 
   /// No description provided for @user_screen_total_shoes.
   ///

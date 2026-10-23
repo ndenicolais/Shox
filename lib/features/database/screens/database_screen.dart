@@ -6,20 +6,16 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
+import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/common/widgets/info_tile_widget.dart';
-import 'package:shox/common/widgets/progress_overlay_widget.dart';
 import 'package:shox/features/database/widgets/database_charts.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/empty_state_widget.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
-import 'package:shox/features/database/services/pdf_service.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
-import 'package:shox/core/utils/permission_helper.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/features/database/widgets/shoes_pie_chart.dart';
-import 'package:shox/common/widgets/toast_widget.dart';
-import 'package:shox/theme/app_radius.dart';
 
 class DatabaseScreen extends StatefulWidget {
   const DatabaseScreen({super.key});
@@ -32,12 +28,7 @@ class DatabaseScreenState extends State<DatabaseScreen> {
   var logger = Logger();
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final DatabaseController _databaseController = Get.find<DatabaseController>();
-  late final PdfService _pdfService;
   bool _isLoading = true;
-  bool _isPdfLoading = false;
-  bool _isJSONLoading = false;
-  double _downloadProgress = 0.0;
-  double _importProgress = 0.0;
   int _totalShoesCount = 0;
   Map<String, int> _brandCounts = {};
   Map<String, int> _colorCounts = {};
@@ -50,7 +41,11 @@ class DatabaseScreenState extends State<DatabaseScreen> {
       appBar: AppBarWidget(
         title: AppLocalizations.of(context)!.database_screen_title,
         actions: [
-          _buildPopupMenu(context),
+          IconButton(
+            tooltip: AppLocalizations.of(context)!.data_management_title,
+            icon: const Icon(MingCuteIcons.mgc_safe_box_line),
+            onPressed: () => Get.toNamed(AppRoutes.dataManagement),
+          ),
         ],
       ),
       body: Stack(
@@ -82,14 +77,6 @@ class DatabaseScreenState extends State<DatabaseScreen> {
                         ),
             ),
           ),
-          if (_isPdfLoading)
-            Positioned.fill(
-              child: ProgressOverlayWidget(progress: _downloadProgress),
-            ),
-          if (_isJSONLoading)
-            Positioned.fill(
-              child: ProgressOverlayWidget(progress: _importProgress),
-            ),
         ],
       ),
     );
@@ -98,7 +85,6 @@ class DatabaseScreenState extends State<DatabaseScreen> {
   @override
   void initState() {
     super.initState();
-    _pdfService = PdfService(context, _databaseController);
     _fetchData();
   }
 
@@ -124,137 +110,6 @@ class DatabaseScreenState extends State<DatabaseScreen> {
         _typeCounts = typeCounts;
       },
     );
-  }
-
-  Future<void> _generatePdf(BuildContext context) async {
-    setState(() {
-      _isPdfLoading = true;
-      _downloadProgress = 0.0;
-    });
-
-    try {
-      final filePath = await _pdfService.generateShoesPdf(context, (progress) {
-        setState(() {
-          _downloadProgress = progress;
-        });
-      });
-      if (context.mounted) {
-        showSuccessToast(
-          context,
-          AppLocalizations.of(context)!.database_screen_pdf_confirm,
-        );
-      }
-
-      await Future.delayed(const Duration(milliseconds: 1400));
-      await _sharePdf(filePath);
-    } catch (e) {
-      if (context.mounted) {
-        showErrorToast(
-          context,
-          AppLocalizations.of(context)!.database_screen_pdf_error,
-        );
-      }
-    } finally {
-      setState(() {
-        _isPdfLoading = false;
-      });
-    }
-  }
-
-  Future<void> _sharePdf(String filePath) async {
-    final success = await _databaseController.shareFile(filePath);
-    if (!success && mounted) {
-      showErrorToast(
-        context,
-        AppLocalizations.of(context)!.database_screen_pdf_error,
-      );
-    }
-  }
-
-  Future<void> _exportShoes(BuildContext context) async {
-    setState(() {
-      _isJSONLoading = true;
-    });
-
-    try {
-      String permissionStatus =
-          await requestManageExternalStoragePermission(context);
-      if (permissionStatus != 'Permission granted') {
-        throw Exception('Permission not granted');
-      }
-
-      final result = await _databaseController.exportDatabase();
-
-      if (context.mounted) {
-        if (result.success) {
-          showSuccessToast(
-            context,
-            AppLocalizations.of(context)!.database_screen_export_success,
-          );
-        } else {
-          showErrorToast(
-            context,
-            '${AppLocalizations.of(context)!.database_screen_export_error} ${result.message}',
-          );
-        }
-      }
-    } catch (e) {
-      if (context.mounted) {
-        showErrorToast(
-          context,
-          '${AppLocalizations.of(context)!.database_screen_export_error} $e',
-        );
-      }
-    } finally {
-      setState(() {
-        _isJSONLoading = false;
-      });
-    }
-  }
-
-  Future<void> _importShoes(BuildContext context) async {
-    setState(() {
-      _isJSONLoading = true;
-      _importProgress = 0.0;
-    });
-
-    try {
-      final result = await _databaseController.importDatabase(
-        currentUser!.uid,
-        onProgress: (progress) {
-          setState(() {
-            _importProgress = progress;
-          });
-        },
-      );
-
-      if (context.mounted) {
-        if (result.success) {
-          showSuccessToast(
-            context,
-            AppLocalizations.of(context)!.database_screen_import_success,
-          );
-          // Refresh data after import
-          await _fetchData();
-        } else if (!result.wasCancelled) {
-          showErrorToast(
-            context,
-            '${AppLocalizations.of(context)!.database_screen_import_error} ${result.message}',
-          );
-        }
-      }
-    } catch (e) {
-      if (context.mounted) {
-        showErrorToast(
-          context,
-          '${AppLocalizations.of(context)!.database_screen_import_error} $e',
-        );
-      }
-    } finally {
-      setState(() {
-        _isJSONLoading = false;
-      });
-    }
   }
 
   /// Totals shown above the charts.
@@ -283,67 +138,6 @@ class DatabaseScreenState extends State<DatabaseScreen> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildPopupMenu(BuildContext context) {
-    return PopupMenuButton<String>(
-      color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.large),
-      ),
-      icon: const Icon(MingCuteIcons.mgc_more_2_line),
-      onSelected: (String result) {
-        switch (result) {
-          case 'pdf':
-            _generatePdf(context);
-            break;
-          case 'export':
-            _exportShoes(context);
-            break;
-          case 'import':
-            _importShoes(context);
-            break;
-        }
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        _buildPopupMenuItem(
-          context,
-          'pdf',
-          MingCuteIcons.mgc_pdf_line,
-          AppLocalizations.of(context)!.database_screen_pdf_download,
-        ),
-        _buildPopupMenuItem(
-          context,
-          'export',
-          MingCuteIcons.mgc_file_export_line,
-          AppLocalizations.of(context)!.database_screen_export_menu,
-        ),
-        _buildPopupMenuItem(
-          context,
-          'import',
-          MingCuteIcons.mgc_file_import_line,
-          AppLocalizations.of(context)!.database_screen_import_menu,
-        ),
-      ],
-    );
-  }
-
-  PopupMenuItem<String> _buildPopupMenuItem(
-    BuildContext context,
-    String value,
-    IconData icon,
-    String text,
-  ) {
-    return PopupMenuItem<String>(
-      value: value,
-      child: Row(
-        children: [
-          Icon(icon, color: Theme.of(context).colorScheme.onSurface),
-          const SizedBox(width: AppSpacing.s),
-          Text(text, style: Theme.of(context).textTheme.bodyMedium),
-        ],
-      ),
     );
   }
 

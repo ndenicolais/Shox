@@ -529,23 +529,143 @@ class AppLocalizationsDe extends AppLocalizations {
   String get database_screen_pdf_error => 'PDF konnte nicht erstellt werden';
 
   @override
-  String get database_screen_export_menu => 'JSON exportieren';
+  String get data_management_title => 'Datenverwaltung';
 
   @override
-  String get database_screen_import_menu => 'JSON importieren';
+  String get data_management_backup_title => 'Sicherung';
 
   @override
-  String get database_screen_export_success =>
-      'JSON im Download-Ordner exportiert';
+  String get data_management_backup_text =>
+      'Speichere alle deine Schuhe und ihre Fotos in einer einzigen Datei. Sie wird unter Download/Shox gespeichert und du kannst sie teilen, zum Beispiel in deinen Cloud-Speicher.';
 
   @override
-  String get database_screen_export_error => 'Fehler beim Exportieren';
+  String get data_management_backup_button => 'Sicherung erstellen';
 
   @override
-  String get database_screen_import_success => 'JSON erfolgreich importiert!';
+  String data_management_last_backup(String date) {
+    return 'Letzte Sicherung: $date';
+  }
 
   @override
-  String get database_screen_import_error => 'Fehler beim Importieren';
+  String get data_management_never_backed_up =>
+      'Auf diesem Gerät wurde noch keine Sicherung erstellt';
+
+  @override
+  String data_management_backup_success(String location) {
+    return 'Sicherung gespeichert unter $location';
+  }
+
+  @override
+  String data_management_backup_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Fotos konnten nicht aufgenommen werden',
+      one: '1 Foto konnte nicht aufgenommen werden',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_backup_error =>
+      'Fehler beim Erstellen der Sicherung';
+
+  @override
+  String get data_management_restore_title => 'Wiederherstellen';
+
+  @override
+  String get data_management_restore_text =>
+      'Ersetze deine Sammlung durch den Inhalt einer Sicherungsdatei (.zip oder .json aus älteren Versionen).';
+
+  @override
+  String get data_management_restore_button => 'Sicherung wiederherstellen';
+
+  @override
+  String get data_management_restore_dialog_title => 'Sammlung ersetzen?';
+
+  @override
+  String data_management_restore_dialog_date(String date) {
+    return 'Sicherung vom $date';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy =>
+      'Export einer älteren Version';
+
+  @override
+  String data_management_shoes_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Schuhe',
+      one: '1 Schuh',
+      zero: 'keine Schuhe',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_dialog_warning(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Deine aktuellen $count Schuhe und ihre Fotos werden ersetzt. Dies kann nicht rückgängig gemacht werden.',
+      one:
+          'Dein aktueller Schuh und sein Foto werden ersetzt. Dies kann nicht rückgängig gemacht werden.',
+      zero: 'Deine Sammlung ist leer, es geht nichts verloren.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy_note =>
+      'Fotos werden nur wiederhergestellt, wenn sie noch online sind.';
+
+  @override
+  String get data_management_restore_confirm => 'Ersetzen';
+
+  @override
+  String data_management_restore_success(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Schuhe wiederhergestellt',
+      one: '1 Schuh wiederhergestellt',
+      zero: 'Sammlung wiederhergestellt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Fotos konnten nicht wiederhergestellt werden',
+      one: '1 Foto konnte nicht wiederhergestellt werden',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_error =>
+      'Fehler beim Wiederherstellen der Sicherung. Deine Sammlung wurde nicht verändert.';
+
+  @override
+  String get data_management_restore_invalid =>
+      'Diese Datei ist keine gültige Shox-Sicherung';
+
+  @override
+  String get data_management_restore_unsupported =>
+      'Diese Sicherung wurde mit einer neueren Shox-Version erstellt. Aktualisiere die App, um sie wiederherzustellen.';
+
+  @override
+  String get data_management_export_title => 'Export';
+
+  @override
+  String get data_management_export_text =>
+      'Erstelle einen PDF-Katalog deiner Sammlung zum Drucken oder Teilen.';
 
   @override
   String get delete_account_screen_toast_success => 'Konto gelöscht!';
@@ -566,7 +686,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get delete_account_screen_backup_text =>
-      'Bevor Sie Ihr Konto löschen, möchten Sie eine Sicherung Ihrer Schuhdatenbank im JSON-Format herunterladen? Dies hilft Ihnen, Ihre Daten zu bewahren.';
+      'Möchtest du vor dem Löschen deines Kontos eine Sicherungsdatei mit all deinen Schuhen und Fotos speichern? Du kannst sie später unter Datenverwaltung wiederherstellen.';
 
   @override
   String get delete_account_screen_backup_button => 'Sicherung Herunterladen';
@@ -575,11 +695,20 @@ class AppLocalizationsDe extends AppLocalizations {
   String get delete_account_screen_skip_backup => 'Überspringen';
 
   @override
-  String get delete_account_screen_backup_success =>
-      'Datenbank erfolgreich gesichert!';
+  String get delete_account_screen_backup_error => 'Fehler bei der Sicherung:';
 
   @override
-  String get delete_account_screen_backup_error => 'Fehler bei der Sicherung:';
+  String get delete_account_screen_password_title => 'Passwort bestätigen';
+
+  @override
+  String get delete_account_screen_password_text =>
+      'Gib zur Sicherheit dein Passwort ein, um das Konto endgültig zu löschen.';
+
+  @override
+  String get delete_account_screen_password_confirm => 'Löschen';
+
+  @override
+  String get delete_account_screen_toast_wrong_password => 'Falsches Passwort';
 
   @override
   String get settings_screen_language => 'Sprache';
@@ -640,7 +769,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get info_screen_feature_backup_text =>
-      'Sicherung und Wiederherstellung der Sammlung als JSON.';
+      'Sicherung der Sammlung samt Fotos in einer einzigen Datei und Wiederherstellung.';
 
   @override
   String get info_screen_links_title => 'Nützliche Links';
@@ -705,7 +834,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get policy_section_device_text =>
-      'Das Entfernen des Bildhintergrunds erfolgt vollständig auf deinem Telefon: Das Foto wird nicht an externe Dienste gesendet. Exportierte PDF- und JSON-Dateien werden auf dem Gerät gespeichert und nur geteilt, wenn du es willst.';
+      'Das Entfernen des Bildhintergrunds erfolgt vollständig auf deinem Telefon: Das Foto wird nicht an externe Dienste gesendet. Exportierte PDF- und Sicherungsdateien werden auf dem Gerät gespeichert und nur geteilt, wenn du es willst.';
 
   @override
   String get policy_section_permissions_title => 'Berechtigungen';
@@ -726,7 +855,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get policy_section_rights_text =>
-      'Du kannst deine Daten einsehen und exportieren (PDF und JSON), sie durch Bearbeiten von Profil und Schuhen berichtigen, sie durch Löschen des Kontos entfernen und beim Verantwortlichen Auskunft verlangen. Du kannst dich außerdem bei der Datenschutzbehörde deines Landes beschweren.';
+      'Du kannst deine Daten einsehen und exportieren (PDF und Sicherungsdatei), sie durch Bearbeiten von Profil und Schuhen berichtigen, sie durch Löschen des Kontos entfernen und beim Verantwortlichen Auskunft verlangen. Du kannst dich außerdem bei der Datenschutzbehörde deines Landes beschweren.';
 
   @override
   String get policy_section_children_title => 'Minderjährige';
@@ -810,20 +939,19 @@ class AppLocalizationsDe extends AppLocalizations {
       'Um Ihre Datenbank im PDF-Format herunterzuladen, gehen Sie zum Profilbereich > Datenbank > Klicken Sie auf das Symbol oben rechts > PDF herunterladen.';
 
   @override
-  String get support_screen_faq_q10 =>
-      'Wie funktioniert der JSON-Datenbank-Import?';
+  String get support_screen_faq_q10 => 'Wie sichere ich meine Sammlung?';
 
   @override
   String get support_screen_faq_a10 =>
-      'Sie können die Datenbank im JSON-Format importieren (falls zuvor aus der App exportiert).';
+      'Öffne Dashboard > Datenverwaltung und tippe auf Sicherung erstellen: Eine ZIP-Datei mit all deinen Schuhen und Fotos wird unter Download/Shox gespeichert und du kannst sie teilen, zum Beispiel in deinen Cloud-Speicher.';
 
   @override
   String get support_screen_faq_q11 =>
-      'Wie funktioniert der JSON-Datenbank-Export?';
+      'Wie stelle ich eine Sicherung wieder her?';
 
   @override
   String get support_screen_faq_a11 =>
-      'Sie können die Datenbank im JSON-Format exportieren, um die aktuellen Daten in der Datenbank zu erhalten und sie dann über die App auf ein anderes Gerät zu importieren.';
+      'Tippe in der Datenverwaltung auf Sicherung wiederherstellen und wähle die ZIP-Datei (JSON-Dateien aus älteren Versionen funktionieren ebenfalls). Nach der Bestätigung wird deine aktuelle Sammlung durch die der Sicherung ersetzt.';
 
   @override
   String get support_screen_documentation_text => 'Dokumentation';
@@ -1251,6 +1379,18 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_25 =>
       'Zum Löschen des Kontos genügt jetzt ein Bestätigungsdialog statt einer eigenen Seite.';
+
+  @override
+  String get changelog_v5_0_0_bullet_26 =>
+      'Neuer Bereich Datenverwaltung im Dashboard: Sichere deine ganze Sammlung samt Fotos in einer einzigen ZIP-Datei, stelle sie wieder her (die aktuelle Sammlung wird nach einer Bestätigung ersetzt) und exportiere den PDF-Katalog. JSON-Dateien aus älteren Versionen können weiterhin wiederhergestellt werden.';
+
+  @override
+  String get changelog_v5_0_0_bullet_27 =>
+      'Beim Hinzufügen, Bearbeiten oder Löschen eines Schuhs geht sein Foto nicht mehr verloren, wenn der Upload fehlschlägt, und ein beschädigter Schuh verhindert nicht mehr das Laden der ganzen Sammlung.';
+
+  @override
+  String get changelog_v5_0_0_bullet_28 =>
+      'Vor dem Löschen des Kontos musst du dich jetzt erneut anmelden, bevor Daten entfernt werden, und die App fordert keinen Zugriff mehr auf alle Dateien des Geräts an.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

@@ -520,23 +520,142 @@ class AppLocalizationsEn extends AppLocalizations {
   String get database_screen_pdf_error => 'Failed to generate PDF';
 
   @override
-  String get database_screen_export_menu => 'Export JSON';
+  String get data_management_title => 'Data management';
 
   @override
-  String get database_screen_import_menu => 'Import JSON';
+  String get data_management_backup_title => 'Backup';
 
   @override
-  String get database_screen_export_success =>
-      'JSON exported to Download folder';
+  String get data_management_backup_text =>
+      'Save all your shoes and their photos in a single file. It is saved to Download/Shox and you can share it, for example to your cloud storage.';
 
   @override
-  String get database_screen_export_error => 'Error during export';
+  String get data_management_backup_button => 'Create backup';
 
   @override
-  String get database_screen_import_success => 'JSON imported successfully!';
+  String data_management_last_backup(String date) {
+    return 'Last backup: $date';
+  }
 
   @override
-  String get database_screen_import_error => 'Error during import';
+  String get data_management_never_backed_up =>
+      'No backup created on this device yet';
+
+  @override
+  String data_management_backup_success(String location) {
+    return 'Backup saved to $location';
+  }
+
+  @override
+  String data_management_backup_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos could not be included',
+      one: '1 photo could not be included',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_backup_error => 'Error while creating the backup';
+
+  @override
+  String get data_management_restore_title => 'Restore';
+
+  @override
+  String get data_management_restore_text =>
+      'Replace your collection with the content of a backup file (.zip, or .json exported by older versions).';
+
+  @override
+  String get data_management_restore_button => 'Restore backup';
+
+  @override
+  String get data_management_restore_dialog_title => 'Replace your collection?';
+
+  @override
+  String data_management_restore_dialog_date(String date) {
+    return 'Backup of $date';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy =>
+      'Export from an older version';
+
+  @override
+  String data_management_shoes_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count shoes',
+      one: '1 shoe',
+      zero: 'no shoes',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_dialog_warning(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Your current $count shoes and their photos will be replaced. This cannot be undone.',
+      one:
+          'Your current shoe and its photo will be replaced. This cannot be undone.',
+      zero: 'Your collection is empty, nothing will be lost.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy_note =>
+      'Photos are restored only if they are still online.';
+
+  @override
+  String get data_management_restore_confirm => 'Replace';
+
+  @override
+  String data_management_restore_success(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count shoes restored',
+      one: '1 shoe restored',
+      zero: 'Collection restored',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos could not be restored',
+      one: '1 photo could not be restored',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_error =>
+      'Error while restoring the backup. Your collection has not been changed.';
+
+  @override
+  String get data_management_restore_invalid =>
+      'This file is not a valid Shox backup';
+
+  @override
+  String get data_management_restore_unsupported =>
+      'This backup was created by a newer version of Shox. Update the app to restore it.';
+
+  @override
+  String get data_management_export_title => 'Export';
+
+  @override
+  String get data_management_export_text =>
+      'Create a PDF catalog of your collection to print or share.';
 
   @override
   String get delete_account_screen_toast_success => 'Account deleted!';
@@ -557,7 +676,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete_account_screen_backup_text =>
-      'Before deleting your account, would you like to download a backup of your shoe database in JSON format? This will help you preserve your data.';
+      'Before deleting your account, would you like to save a backup file with all your shoes and photos? You can restore it later from Data management.';
 
   @override
   String get delete_account_screen_backup_button => 'Download Backup';
@@ -566,11 +685,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get delete_account_screen_skip_backup => 'Skip';
 
   @override
-  String get delete_account_screen_backup_success =>
-      'Database backed up successfully!';
+  String get delete_account_screen_backup_error => 'Error during backup:';
 
   @override
-  String get delete_account_screen_backup_error => 'Error during backup:';
+  String get delete_account_screen_password_title => 'Confirm your password';
+
+  @override
+  String get delete_account_screen_password_text =>
+      'For your security, enter your password to permanently delete the account.';
+
+  @override
+  String get delete_account_screen_password_confirm => 'Delete';
+
+  @override
+  String get delete_account_screen_toast_wrong_password => 'Incorrect password';
 
   @override
   String get settings_screen_language => 'Language';
@@ -631,7 +759,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get info_screen_feature_backup_text =>
-      'Back up and restore your collection as JSON.';
+      'Back up your collection and its photos in a single file and restore it.';
 
   @override
   String get info_screen_links_title => 'Useful links';
@@ -696,7 +824,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get policy_section_device_text =>
-      'Photo background removal runs entirely on your phone: the photo is not sent to external services. The PDF and JSON files you export are saved on your device and shared only if you choose to.';
+      'Photo background removal runs entirely on your phone: the photo is not sent to external services. The PDF and backup files you export are saved on your device and shared only if you choose to.';
 
   @override
   String get policy_section_permissions_title => 'Permissions';
@@ -717,7 +845,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get policy_section_rights_text =>
-      'You can access and export your data (PDF and JSON), correct it by editing your profile and shoes, erase it by deleting your account, and ask for information by writing to the controller. You can also lodge a complaint with the data protection authority of your country.';
+      'You can access and export your data (PDF and backup file), correct it by editing your profile and shoes, erase it by deleting your account, and ask for information by writing to the controller. You can also lodge a complaint with the data protection authority of your country.';
 
   @override
   String get policy_section_children_title => 'Children';
@@ -800,18 +928,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'To download your database in PDF format go to Profile section > Database > Click on the icon at the top right > Download PDF.';
 
   @override
-  String get support_screen_faq_q10 => 'How does JSON database import work?';
+  String get support_screen_faq_q10 => 'How do I back up my collection?';
 
   @override
   String get support_screen_faq_a10 =>
-      'You can import the database in JSON format (if previously exported from the app).';
+      'Open Dashboard > Data management and tap Create backup: a ZIP file with all your shoes and photos is saved to Download/Shox and you can share it, for example to your cloud storage.';
 
   @override
-  String get support_screen_faq_q11 => 'How does JSON database export work?';
+  String get support_screen_faq_q11 => 'How do I restore a backup?';
 
   @override
   String get support_screen_faq_a11 =>
-      'You can export the database in JSON format to preserve the current data in the database and then import it on another device via the app.';
+      'In Data management tap Restore backup and pick the ZIP file (JSON files exported by older versions work too). After you confirm, your current collection is replaced by the one in the backup.';
 
   @override
   String get support_screen_documentation_text => 'Documentation';
@@ -1238,6 +1366,18 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_25 =>
       'Deleting your account now takes a single confirmation dialog instead of a separate page.';
+
+  @override
+  String get changelog_v5_0_0_bullet_26 =>
+      'New Data management section in the Dashboard: back up your whole collection with its photos in a single ZIP file, restore it (the current collection is replaced after a confirmation) and export the PDF catalog. JSON files exported by older versions can still be restored.';
+
+  @override
+  String get changelog_v5_0_0_bullet_27 =>
+      'Adding, editing or deleting a shoe no longer leaves it without its photo when the upload fails, and a damaged shoe no longer prevents the whole collection from loading.';
+
+  @override
+  String get changelog_v5_0_0_bullet_28 =>
+      'Deleting your account now asks you to sign in again before any data is removed, and the app no longer asks for access to all the files on your device.';
 
   @override
   String get user_screen_total_shoes => 'Total Shoes';

@@ -7,7 +7,7 @@
 **A digital shoe wardrobe for Android, built with Flutter.**
 
 Catalogue your whole shoe collection with real-time cloud sync, advanced filters,<br>
-visual statistics, PDF export and JSON backup — in 5 languages, with light and dark themes.
+visual statistics, PDF export and full backups — in 5 languages, with light and dark themes.
 
 [![Release](https://img.shields.io/github/v/release/ndenicolais/Shox?style=flat-square&color=DA7C72&label=release)](https://github.com/ndenicolais/Shox/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Android%207.0%2B-342E25?style=flat-square&logo=android&logoColor=white)](#requirements)
@@ -42,7 +42,7 @@ visual statistics, PDF export and JSON backup — in 5 languages, with light and
 | 📸 **Images** | Camera or gallery, with cropping, automatic compression and on-device background removal (Google ML Kit) |
 | 📊 **Statistics** | Interactive pie charts by color, brand, category and type |
 | 📄 **PDF export** | A full PDF catalogue with cover, statistics summary and a page for each shoe, saved to Download/Shox |
-| 💾 **JSON backup** | Export and import the whole collection as JSON |
+| 💾 **Backup** | Save the whole collection with its photos in a single ZIP file and restore it from Data management |
 | 📤 **Sharing** | Share a shoe card as a screenshot or save its photo to the gallery |
 | 🔐 **Authentication** | Sign in with a Google account or email and password |
 | ☁️ **Sync** | Real-time data on Cloud Firestore and images on Firebase Storage |
@@ -85,7 +85,7 @@ Shox is distributed as an APK on [GitHub Releases](https://github.com/ndenicolai
 | Icons | MingCute Icons |
 | Charts | fl_chart |
 | Images | image_picker, image_cropper, flutter_image_compress, google_mlkit_subject_segmentation |
-| Export | pdf, share_plus, image_gallery_saver_plus |
+| Export | pdf, archive, share_plus, image_gallery_saver_plus |
 
 <details>
 <summary><b>Project structure</b></summary>
@@ -98,7 +98,8 @@ lib/
 ├── features/                  # Feature modules
 │   ├── auth/                  # Authentication (login, signup, reset password, gender selection)
 │   ├── dashboard/             # Dashboard (settings, account, info, privacy, support)
-│   ├── database/              # Statistics, PDF export, JSON export/import
+│   ├── data_management/       # Backup, restore and PDF export
+│   ├── database/              # Statistics and PDF generation
 │   ├── home/                  # Shoe list with filters and search
 │   ├── shoes/                 # Shoe CRUD
 │   └── users/                 # User profile

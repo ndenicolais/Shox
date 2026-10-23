@@ -526,23 +526,143 @@ class AppLocalizationsEs extends AppLocalizations {
   String get database_screen_pdf_error => 'No se pudo generar el PDF';
 
   @override
-  String get database_screen_export_menu => 'Exportar JSON';
+  String get data_management_title => 'Gestión de datos';
 
   @override
-  String get database_screen_import_menu => 'Importar JSON';
+  String get data_management_backup_title => 'Copia de seguridad';
 
   @override
-  String get database_screen_export_success =>
-      'JSON exportado a la carpeta de descargas';
+  String get data_management_backup_text =>
+      'Guarda todos tus zapatos y sus fotos en un único archivo. Se guarda en Download/Shox y puedes compartirlo, por ejemplo en tu nube.';
 
   @override
-  String get database_screen_export_error => 'Error durante la exportación';
+  String get data_management_backup_button => 'Crear copia de seguridad';
 
   @override
-  String get database_screen_import_success => 'JSON importado correctamente!';
+  String data_management_last_backup(String date) {
+    return 'Última copia: $date';
+  }
 
   @override
-  String get database_screen_import_error => 'Error durante la importación';
+  String get data_management_never_backed_up =>
+      'Aún no se ha creado ninguna copia en este dispositivo';
+
+  @override
+  String data_management_backup_success(String location) {
+    return 'Copia guardada en $location';
+  }
+
+  @override
+  String data_management_backup_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'No se pudieron incluir $count fotos',
+      one: 'No se pudo incluir 1 foto',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_backup_error =>
+      'Error al crear la copia de seguridad';
+
+  @override
+  String get data_management_restore_title => 'Restaurar';
+
+  @override
+  String get data_management_restore_text =>
+      'Sustituye tu colección por el contenido de un archivo de copia (.zip, o .json exportado por versiones anteriores).';
+
+  @override
+  String get data_management_restore_button => 'Restaurar copia';
+
+  @override
+  String get data_management_restore_dialog_title => '¿Sustituir tu colección?';
+
+  @override
+  String data_management_restore_dialog_date(String date) {
+    return 'Copia del $date';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy =>
+      'Exportación de una versión anterior';
+
+  @override
+  String data_management_shoes_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count zapatos',
+      one: '1 zapato',
+      zero: 'ningún zapato',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_dialog_warning(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Tus $count zapatos actuales y sus fotos serán sustituidos. Esta acción no se puede deshacer.',
+      one:
+          'Tu zapato actual y su foto serán sustituidos. Esta acción no se puede deshacer.',
+      zero: 'Tu colección está vacía, no se perderá nada.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy_note =>
+      'Las fotos solo se restauran si siguen en línea.';
+
+  @override
+  String get data_management_restore_confirm => 'Sustituir';
+
+  @override
+  String data_management_restore_success(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count zapatos restaurados',
+      one: '1 zapato restaurado',
+      zero: 'Colección restaurada',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'No se pudieron restaurar $count fotos',
+      one: 'No se pudo restaurar 1 foto',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_error =>
+      'Error al restaurar la copia. Tu colección no se ha modificado.';
+
+  @override
+  String get data_management_restore_invalid =>
+      'Este archivo no es una copia de Shox válida';
+
+  @override
+  String get data_management_restore_unsupported =>
+      'Esta copia se creó con una versión más reciente de Shox. Actualiza la app para restaurarla.';
+
+  @override
+  String get data_management_export_title => 'Exportar';
+
+  @override
+  String get data_management_export_text =>
+      'Crea un catálogo PDF de tu colección para imprimir o compartir.';
 
   @override
   String get delete_account_screen_toast_success => '¡Cuenta eliminada!';
@@ -564,7 +684,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get delete_account_screen_backup_text =>
-      'Antes de eliminar tu cuenta, ¿deseas descargar una copia de seguridad de tu base de datos de zapatos en formato JSON? Esto te ayudará a preservar tus datos.';
+      'Antes de eliminar tu cuenta, ¿quieres guardar un archivo de copia con todos tus zapatos y fotos? Podrás restaurarlo más tarde desde Gestión de datos.';
 
   @override
   String get delete_account_screen_backup_button =>
@@ -574,12 +694,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get delete_account_screen_skip_backup => 'Omitir';
 
   @override
-  String get delete_account_screen_backup_success =>
-      '¡Base de datos respaldada exitosamente!';
-
-  @override
   String get delete_account_screen_backup_error =>
       'Error durante la copia de seguridad:';
+
+  @override
+  String get delete_account_screen_password_title => 'Confirma tu contraseña';
+
+  @override
+  String get delete_account_screen_password_text =>
+      'Por seguridad, introduce tu contraseña para eliminar la cuenta de forma permanente.';
+
+  @override
+  String get delete_account_screen_password_confirm => 'Eliminar';
+
+  @override
+  String get delete_account_screen_toast_wrong_password =>
+      'Contraseña incorrecta';
 
   @override
   String get settings_screen_language => 'Idioma';
@@ -640,7 +770,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get info_screen_feature_backup_text =>
-      'Copia de seguridad y restauración de la colección en JSON.';
+      'Copia de seguridad de la colección y sus fotos en un único archivo, y restauración.';
 
   @override
   String get info_screen_links_title => 'Enlaces útiles';
@@ -705,7 +835,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get policy_section_device_text =>
-      'La eliminación del fondo de las fotos se hace por completo en tu teléfono: la foto no se envía a servicios externos. Los archivos PDF y JSON que exportas se guardan en el dispositivo y solo se comparten si tú lo decides.';
+      'La eliminación del fondo de las fotos se hace por completo en tu teléfono: la foto no se envía a servicios externos. Los archivos PDF y de copia de seguridad que exportas se guardan en el dispositivo y solo se comparten si tú lo decides.';
 
   @override
   String get policy_section_permissions_title => 'Permisos';
@@ -726,7 +856,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get policy_section_rights_text =>
-      'Puedes acceder a tus datos y exportarlos (PDF y JSON), corregirlos editando el perfil y los zapatos, suprimirlos eliminando la cuenta y pedir información escribiendo al responsable. También puedes reclamar ante la autoridad de protección de datos de tu país.';
+      'Puedes acceder a tus datos y exportarlos (PDF y archivo de copia de seguridad), corregirlos editando el perfil y los zapatos, suprimirlos eliminando la cuenta y pedir información escribiendo al responsable. También puedes reclamar ante la autoridad de protección de datos de tu país.';
 
   @override
   String get policy_section_children_title => 'Menores';
@@ -810,19 +940,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get support_screen_faq_q10 =>
-      '¿Cómo funciona la importación de base de datos JSON?';
+      '¿Cómo hago una copia de seguridad de mi colección?';
 
   @override
   String get support_screen_faq_a10 =>
-      'Puedes importar la base de datos en formato JSON (si se exportó previamente desde la aplicación).';
+      'Abre Dashboard > Gestión de datos y toca Crear copia de seguridad: se guarda en Download/Shox un archivo ZIP con todos tus zapatos y fotos que puedes compartir, por ejemplo en tu nube.';
 
   @override
-  String get support_screen_faq_q11 =>
-      '¿Cómo funciona la exportación de base de datos JSON?';
+  String get support_screen_faq_q11 => '¿Cómo restauro una copia de seguridad?';
 
   @override
   String get support_screen_faq_a11 =>
-      'Puedes exportar la base de datos en formato JSON para preservar los datos actuales presentes en la base de datos y luego poder importarlos en otro dispositivo a través de la aplicación.';
+      'En Gestión de datos toca Restaurar copia y elige el archivo ZIP (también sirven los archivos JSON exportados por versiones anteriores). Tras confirmar, tu colección actual se sustituye por la de la copia.';
 
   @override
   String get support_screen_documentation_text => 'Documentación';
@@ -1250,6 +1379,18 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_25 =>
       'Eliminar la cuenta ahora solo requiere un diálogo de confirmación en lugar de una página aparte.';
+
+  @override
+  String get changelog_v5_0_0_bullet_26 =>
+      'Nueva sección Gestión de datos en el Dashboard: guarda toda tu colección con sus fotos en un único archivo ZIP, restáurala (la colección actual se sustituye tras una confirmación) y exporta el catálogo PDF. Los archivos JSON exportados por versiones anteriores se pueden seguir restaurando.';
+
+  @override
+  String get changelog_v5_0_0_bullet_27 =>
+      'Añadir, editar o eliminar un zapato ya no lo deja sin foto si la subida falla, y un zapato dañado ya no impide cargar toda la colección.';
+
+  @override
+  String get changelog_v5_0_0_bullet_28 =>
+      'Eliminar la cuenta ahora pide volver a iniciar sesión antes de borrar ningún dato, y la app ya no solicita acceso a todos los archivos del dispositivo.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';

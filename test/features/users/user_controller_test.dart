@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shox/core/utils/app_exceptions.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:shox/features/users/repository/user_repository.dart';
@@ -62,6 +63,19 @@ void main() {
       await controller.loadUserName();
 
       expect(controller.userName.value, 'User');
+    });
+  });
+
+  group('deleteAccount', () {
+    test('deletes nothing when the user cannot sign in again', () async {
+      when(() => repository.reauthenticate(password: any(named: 'password')))
+          .thenThrow(const AuthException('invalid_credentials'));
+
+      await expectLater(
+        controller.deleteAccount(password: 'wrong'),
+        throwsA(isA<AuthException>()),
+      );
+      verifyNever(() => repository.deleteAccount());
     });
   });
 }

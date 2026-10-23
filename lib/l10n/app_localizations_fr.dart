@@ -533,23 +533,144 @@ class AppLocalizationsFr extends AppLocalizations {
   String get database_screen_pdf_error => 'Échec de la génération du PDF';
 
   @override
-  String get database_screen_export_menu => 'Exporter JSON';
+  String get data_management_title => 'Gestion des données';
 
   @override
-  String get database_screen_import_menu => 'Importer JSON';
+  String get data_management_backup_title => 'Sauvegarde';
 
   @override
-  String get database_screen_export_success =>
-      'JSON exporté dans le dossier de téléchargement';
+  String get data_management_backup_text =>
+      'Enregistrez toutes vos chaussures et leurs photos dans un seul fichier. Il est enregistré dans Download/Shox et vous pouvez le partager, par exemple vers votre cloud.';
 
   @override
-  String get database_screen_export_error => 'Erreur lors de l\'exportation';
+  String get data_management_backup_button => 'Créer une sauvegarde';
 
   @override
-  String get database_screen_import_success => 'JSON importé avec succès!';
+  String data_management_last_backup(String date) {
+    return 'Dernière sauvegarde : $date';
+  }
 
   @override
-  String get database_screen_import_error => 'Erreur lors de l\'importation';
+  String get data_management_never_backed_up =>
+      'Aucune sauvegarde créée sur cet appareil';
+
+  @override
+  String data_management_backup_success(String location) {
+    return 'Sauvegarde enregistrée dans $location';
+  }
+
+  @override
+  String data_management_backup_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos n’ont pas pu être incluses',
+      one: '1 photo n’a pas pu être incluse',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_backup_error =>
+      'Erreur lors de la création de la sauvegarde';
+
+  @override
+  String get data_management_restore_title => 'Restauration';
+
+  @override
+  String get data_management_restore_text =>
+      'Remplacez votre collection par le contenu d’un fichier de sauvegarde (.zip, ou .json exporté par les versions précédentes).';
+
+  @override
+  String get data_management_restore_button => 'Restaurer une sauvegarde';
+
+  @override
+  String get data_management_restore_dialog_title =>
+      'Remplacer votre collection ?';
+
+  @override
+  String data_management_restore_dialog_date(String date) {
+    return 'Sauvegarde du $date';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy =>
+      'Export d’une version précédente';
+
+  @override
+  String data_management_shoes_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count chaussures',
+      one: '1 chaussure',
+      zero: 'aucune chaussure',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_dialog_warning(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Vos $count chaussures actuelles et leurs photos seront remplacées. Cette action est irréversible.',
+      one:
+          'Votre chaussure actuelle et sa photo seront remplacées. Cette action est irréversible.',
+      zero: 'Votre collection est vide, rien ne sera perdu.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_dialog_legacy_note =>
+      'Les photos ne sont restaurées que si elles sont encore en ligne.';
+
+  @override
+  String get data_management_restore_confirm => 'Remplacer';
+
+  @override
+  String data_management_restore_success(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count chaussures restaurées',
+      one: '1 chaussure restaurée',
+      zero: 'Collection restaurée',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String data_management_restore_missing_photos(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos n’ont pas pu être restaurées',
+      one: '1 photo n’a pas pu être restaurée',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get data_management_restore_error =>
+      'Erreur lors de la restauration de la sauvegarde. Votre collection n’a pas été modifiée.';
+
+  @override
+  String get data_management_restore_invalid =>
+      'Ce fichier n’est pas une sauvegarde Shox valide';
+
+  @override
+  String get data_management_restore_unsupported =>
+      'Cette sauvegarde a été créée par une version plus récente de Shox. Mettez l’app à jour pour la restaurer.';
+
+  @override
+  String get data_management_export_title => 'Export';
+
+  @override
+  String get data_management_export_text =>
+      'Créez un catalogue PDF de votre collection à imprimer ou partager.';
 
   @override
   String get delete_account_screen_toast_success => 'Compte supprimé !';
@@ -571,7 +692,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get delete_account_screen_backup_text =>
-      'Avant de supprimer votre compte, souhaitez-vous télécharger une sauvegarde de votre base de données de chaussures au format JSON ? Cela vous aidera à préserver vos données.';
+      'Avant de supprimer votre compte, voulez-vous enregistrer un fichier de sauvegarde avec toutes vos chaussures et photos ? Vous pourrez le restaurer plus tard depuis Gestion des données.';
 
   @override
   String get delete_account_screen_backup_button => 'Télécharger la Sauvegarde';
@@ -580,12 +701,23 @@ class AppLocalizationsFr extends AppLocalizations {
   String get delete_account_screen_skip_backup => 'Ignorer';
 
   @override
-  String get delete_account_screen_backup_success =>
-      'Base de données sauvegardée avec succès !';
-
-  @override
   String get delete_account_screen_backup_error =>
       'Erreur lors de la sauvegarde :';
+
+  @override
+  String get delete_account_screen_password_title =>
+      'Confirmez votre mot de passe';
+
+  @override
+  String get delete_account_screen_password_text =>
+      'Par sécurité, saisissez votre mot de passe pour supprimer définitivement le compte.';
+
+  @override
+  String get delete_account_screen_password_confirm => 'Supprimer';
+
+  @override
+  String get delete_account_screen_toast_wrong_password =>
+      'Mot de passe incorrect';
 
   @override
   String get settings_screen_language => 'Langue';
@@ -646,7 +778,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get info_screen_feature_backup_text =>
-      'Sauvegarde et restauration de la collection au format JSON.';
+      'Sauvegarde de la collection et de ses photos dans un seul fichier, et restauration.';
 
   @override
   String get info_screen_links_title => 'Liens utiles';
@@ -711,7 +843,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get policy_section_device_text =>
-      'La suppression de l’arrière-plan des photos se fait entièrement sur votre téléphone : la photo n’est envoyée à aucun service externe. Les fichiers PDF et JSON que vous exportez sont enregistrés sur l’appareil et partagés uniquement si vous le décidez.';
+      'La suppression de l’arrière-plan des photos se fait entièrement sur votre téléphone : la photo n’est envoyée à aucun service externe. Les fichiers PDF et de sauvegarde que vous exportez sont enregistrés sur l’appareil et partagés uniquement si vous le décidez.';
 
   @override
   String get policy_section_permissions_title => 'Autorisations';
@@ -732,7 +864,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get policy_section_rights_text =>
-      'Vous pouvez accéder à vos données et les exporter (PDF et JSON), les rectifier en modifiant votre profil et vos chaussures, les effacer en supprimant votre compte et demander des informations en écrivant au responsable. Vous pouvez aussi introduire une réclamation auprès de l’autorité de protection des données de votre pays.';
+      'Vous pouvez accéder à vos données et les exporter (PDF et fichier de sauvegarde), les rectifier en modifiant votre profil et vos chaussures, les effacer en supprimant votre compte et demander des informations en écrivant au responsable. Vous pouvez aussi introduire une réclamation auprès de l’autorité de protection des données de votre pays.';
 
   @override
   String get policy_section_children_title => 'Mineurs';
@@ -820,20 +952,18 @@ class AppLocalizationsFr extends AppLocalizations {
       'Pour télécharger votre base de données au format PDF, allez dans la section Profil > Base de données > Cliquez sur l\'icône en haut à droite > Télécharger PDF.';
 
   @override
-  String get support_screen_faq_q10 =>
-      'Comment fonctionne l\'importation de la base de données JSON ?';
+  String get support_screen_faq_q10 => 'Comment sauvegarder ma collection ?';
 
   @override
   String get support_screen_faq_a10 =>
-      'Vous pouvez importer la base de données au format JSON (si précédemment exportée depuis l\'application).';
+      'Ouvrez Dashboard > Gestion des données et touchez Créer une sauvegarde : un fichier ZIP avec toutes vos chaussures et photos est enregistré dans Download/Shox et vous pouvez le partager, par exemple vers votre cloud.';
 
   @override
-  String get support_screen_faq_q11 =>
-      'Comment fonctionne l\'exportation de la base de données JSON ?';
+  String get support_screen_faq_q11 => 'Comment restaurer une sauvegarde ?';
 
   @override
   String get support_screen_faq_a11 =>
-      'Vous pouvez exporter la base de données au format JSON afin de préserver les données actuelles présentes dans la base de données et pouvoir ensuite les importer sur un autre appareil via l\'application.';
+      'Dans Gestion des données, touchez Restaurer une sauvegarde et choisissez le fichier ZIP (les fichiers JSON exportés par les versions précédentes fonctionnent aussi). Après confirmation, votre collection actuelle est remplacée par celle de la sauvegarde.';
 
   @override
   String get support_screen_documentation_text => 'Documentation';
@@ -1262,6 +1392,18 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_25 =>
       'La suppression du compte se fait désormais via une simple boîte de confirmation au lieu d\'une page dédiée.';
+
+  @override
+  String get changelog_v5_0_0_bullet_26 =>
+      'Nouvelle section Gestion des données dans le Dashboard : sauvegardez toute votre collection avec ses photos dans un seul fichier ZIP, restaurez-la (la collection actuelle est remplacée après confirmation) et exportez le catalogue PDF. Les fichiers JSON exportés par les versions précédentes peuvent toujours être restaurés.';
+
+  @override
+  String get changelog_v5_0_0_bullet_27 =>
+      'Ajouter, modifier ou supprimer une chaussure ne la laisse plus sans photo si l\'envoi échoue, et une chaussure endommagée n\'empêche plus le chargement de toute la collection.';
+
+  @override
+  String get changelog_v5_0_0_bullet_28 =>
+      'La suppression du compte demande désormais de se reconnecter avant d\'effacer la moindre donnée, et l\'app ne demande plus l\'accès à tous les fichiers de l\'appareil.';
 
   @override
   String get user_screen_total_shoes => 'Total de chaussures';
