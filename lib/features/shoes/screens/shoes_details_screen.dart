@@ -341,9 +341,11 @@ class ShoesDetailsScreenState extends State<ShoesDetailsScreen> {
         final imagePath = '${tempDir.path}/shox_shoes_$timestamp.png';
         final imageFile = File(imagePath)..writeAsBytesSync(image);
 
-        final shareResult = await Share.shareXFiles(
-          [XFile(imageFile.path)],
-          text: 'My shoes from Shox',
+        final shareResult = await SharePlus.instance.share(
+          ShareParams(
+            files: [XFile(imageFile.path)],
+            text: 'My shoes from Shox',
+          ),
         );
 
         if (context.mounted) {

@@ -124,8 +124,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 DashboardMenuItem(
                   icon: MingCuteIcons.mgc_share_2_line,
                   text: l10n.dashboard_share_app,
-                  onTap: () =>
-                      Share.share(AppConstants.uriGithubLink.toString()),
+                  onTap: () => SharePlus.instance.share(
+                    ShareParams(text: AppConstants.uriGithubLink.toString()),
+                  ),
                   trailing: const SizedBox.shrink(),
                 ),
                 DashboardMenuItem(

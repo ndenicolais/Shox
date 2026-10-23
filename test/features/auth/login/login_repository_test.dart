@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,6 +14,8 @@ class MockFirestore extends Mock implements FirebaseFirestore {}
 class MockAuthService extends Mock implements AuthService {}
 
 class MockGoogleSignIn extends Mock implements GoogleSignIn {}
+
+class MockGoogleAccount extends Mock implements GoogleSignInAccount {}
 
 class MockCredential extends Mock implements UserCredential {}
 
@@ -114,31 +115,43 @@ void main() {
   });
 
   group('loginWithGoogle', () {
+    setUpAll(() {
+      registerFallbackValue(GoogleAuthProvider.credential(idToken: 'id'));
+    });
+
+    void givenAuthenticateError(GoogleSignInExceptionCode code) {
+      when(() => googleSignIn.authenticate()).thenThrow(
+        GoogleSignInException(code: code),
+      );
+    }
+
     test('returns null when the user cancels the picker', () async {
-      when(() => googleSignIn.signIn()).thenAnswer((_) async => null);
+      givenAuthenticateError(GoogleSignInExceptionCode.canceled);
 
       expect(await repository.loginWithGoogle(true), isNull);
     });
 
-    test('maps Play Services network errors to network_error', () async {
-      when(() => googleSignIn.signIn()).thenThrow(
-        PlatformException(code: GoogleSignIn.kNetworkError),
+    test('maps other sign-in errors to google_sign_in_failed', () async {
+      givenAuthenticateError(GoogleSignInExceptionCode.unknownError);
+
+      expect(
+        repository.loginWithGoogle(true),
+        throwsAuthException('google_sign_in_failed'),
+      );
+    });
+
+    test('maps Firebase network errors to network_error', () async {
+      final account = MockGoogleAccount();
+      when(() => account.authentication)
+          .thenReturn(const GoogleSignInAuthentication(idToken: 'id'));
+      when(() => googleSignIn.authenticate()).thenAnswer((_) async => account);
+      when(() => auth.signInWithCredential(any())).thenThrow(
+        FirebaseAuthException(code: 'network-request-failed'),
       );
 
       expect(
         repository.loginWithGoogle(true),
         throwsAuthException('network_error'),
-      );
-    });
-
-    test('maps other platform errors to google_sign_in_failed', () async {
-      when(() => googleSignIn.signIn()).thenThrow(
-        PlatformException(code: GoogleSignIn.kSignInFailedError),
-      );
-
-      expect(
-        repository.loginWithGoogle(true),
-        throwsAuthException('google_sign_in_failed'),
       );
     });
   });

@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shox/core/utils/app_exceptions.dart';
 import 'package:shox/features/auth/services/auth_service.dart';
+import 'package:shox/features/auth/services/google_sign_in_service.dart';
 
 class LoginRepository {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
   final AuthService _authService;
-  final GoogleSignIn _googleSignIn;
+  final GoogleSignIn? _googleSignIn;
   final Logger _logger = Logger();
 
   /// Dependencies default to the real Firebase/Google instances; tests can
@@ -23,7 +23,7 @@ class LoginRepository {
   })  : _auth = auth ?? FirebaseAuth.instance,
         _firestore = firestore ?? FirebaseFirestore.instance,
         _authService = authService ?? AuthService(),
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+        _googleSignIn = googleSignIn;
 
   Future<User?> loginWithEmailPassword(
     String email,
@@ -60,14 +60,13 @@ class LoginRepository {
 
   Future<Map<String, dynamic>?> loginWithGoogle(bool rememberMe) async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return null;
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
+      final GoogleSignIn googleSignIn =
+          _googleSignIn ?? await GoogleSignInService.instance();
+      final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
+      // Firebase only needs the ID token; the access token now belongs to the
+      // separate authorization flow, which this app does not use.
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+        idToken: googleUser.authentication.idToken,
       );
 
       final UserCredential userCredential = await _auth.signInWithCredential(
@@ -100,9 +99,13 @@ class LoginRepository {
       }
 
       return {'user': user, 'isNewUser': isNewUser};
-    } on PlatformException catch (e) {
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) return null;
+      _logger.e("Google sign-in failed: ${e.code.name} ${e.description}");
+      throw AuthException('google_sign_in_failed', e.code.name);
+    } on FirebaseAuthException catch (e) {
       _logger.e("Google sign-in failed: ${e.code} ${e.message}");
-      if (e.code == GoogleSignIn.kNetworkError) {
+      if (e.code == 'network-request-failed') {
         throw const AuthException('network_error');
       }
       throw AuthException('google_sign_in_failed', e.code);

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -161,7 +162,7 @@ class DatabaseRepository {
     try {
       _logger.i('Starting JSON import...');
 
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      final PlatformFile? result = await FilePicker.pickFile(
         type: FileType.custom,
         allowedExtensions: ['json'],
       );
@@ -171,8 +172,9 @@ class DatabaseRepository {
         throw Exception('Import cancelled');
       }
 
-      File file = File(result.files.single.path!);
-      String jsonCodes = await file.readAsString();
+      // Read through the picker: on Android the file may be a content URI
+      // with no local path.
+      String jsonCodes = utf8.decode(await result.readAsBytes());
 
       await _shoesController.importShoesFromJson(
         jsonCodes,
@@ -190,7 +192,7 @@ class DatabaseRepository {
     try {
       _logger.i('Sharing file: $filePath');
       final xFile = XFile(filePath);
-      await Share.shareXFiles([xFile]);
+      await SharePlus.instance.share(ShareParams(files: [xFile]));
       _logger.i('File shared successfully');
     } catch (e) {
       _logger.e('Error sharing file: $e');

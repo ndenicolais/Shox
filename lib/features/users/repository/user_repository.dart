@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/features/auth/services/auth_service.dart';
+import 'package:shox/features/auth/services/google_sign_in_service.dart';
 import 'package:shox/features/users/models/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
@@ -15,7 +15,6 @@ class UserRepository {
   firebase_auth.User? get currentUser => _auth.currentUser;
   final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final AuthService _authService = AuthService();
 
@@ -92,7 +91,7 @@ class UserRepository {
   }
 
   Future<void> googleSignOut() async {
-    await _googleSignIn.signOut();
+    await (await GoogleSignInService.instance()).signOut();
     await firebase_auth.FirebaseAuth.instance.signOut();
   }
 
@@ -101,14 +100,14 @@ class UserRepository {
     if (user != null) {
       if (user.providerData
           .any((userInfo) => userInfo.providerId == 'google.com')) {
-        await _googleSignIn.signOut();
+        await (await GoogleSignInService.instance()).signOut();
       }
       try {
         await deleteEntireUserCollection(user.uid);
         await deleteUserFolder(user.uid);
         await user.delete();
         await _auth.signOut();
-        await _googleSignIn.signOut();
+        await (await GoogleSignInService.instance()).signOut();
         await _authService.clearSession();
       } catch (e) {
         throw Exception("Error while deleting: $e");

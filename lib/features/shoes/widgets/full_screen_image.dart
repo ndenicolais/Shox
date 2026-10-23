@@ -148,9 +148,11 @@ class FullScreenImageState extends State<FullScreenImage> {
         file.writeAsBytesSync(response.bodyBytes);
 
         if (!mounted) return;
-        final shareResult = await Share.shareXFiles(
-          [XFile(file.path)],
-          text: AppLocalizations.of(context)!.full_screen_image_share_text,
+        final shareResult = await SharePlus.instance.share(
+          ShareParams(
+            files: [XFile(file.path)],
+            text: AppLocalizations.of(context)!.full_screen_image_share_text,
+          ),
         );
 
         if (mounted) {
