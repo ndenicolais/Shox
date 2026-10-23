@@ -548,9 +548,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get database_screen_import_error => 'Fehler beim Importieren';
 
   @override
-  String get delete_account_screen_title => 'Konto löschen';
-
-  @override
   String get delete_account_screen_toast_success => 'Konto gelöscht!';
 
   @override
@@ -558,26 +555,11 @@ class AppLocalizationsDe extends AppLocalizations {
       'Fehler beim Löschen des Kontos:';
 
   @override
-  String get delete_account_screen_delete_dialog_title => 'Löschung bestätigen';
+  String get delete_account_screen_delete_dialog_title => 'Konto löschen?';
 
   @override
   String get delete_account_screen_delete_dialog_text =>
-      'Sind Sie sicher, dass Sie Ihr Konto dauerhaft löschen möchten?';
-
-  @override
-  String get delete_account_screen_text_a =>
-      'Sind Sie wirklich sicher, dass Sie Ihr Konto löschen möchten?';
-
-  @override
-  String get delete_account_screen_text_b =>
-      'Dies ist eine unumkehrbare Aktion und alle mit diesem Konto verbundenen Daten werden dauerhaft gelöscht und können nicht wiederhergestellt werden.';
-
-  @override
-  String get delete_account_screen_text_c =>
-      'Um fortzufahren, klicken Sie auf die Schaltfläche unten';
-
-  @override
-  String get delete_account_screen_delete_button => 'Löschen';
+      'Ihr Profil, Ihre Schuhe und Fotos werden dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.';
 
   @override
   String get delete_account_screen_backup_title => 'Sichern Sie Ihre Daten';
@@ -598,21 +580,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get delete_account_screen_backup_error => 'Fehler bei der Sicherung:';
-
-  @override
-  String get delete_account_screen_what_happens => 'Was wird passieren?';
-
-  @override
-  String get delete_account_screen_item_a =>
-      'Ihr Profil und Ihre Anmeldedaten werden dauerhaft entfernt';
-
-  @override
-  String get delete_account_screen_item_b =>
-      'Alle in Ihrer Datenbank gespeicherten Schuhe werden gelöscht';
-
-  @override
-  String get delete_account_screen_item_c =>
-      'Die mit Ihren Schuhen verknüpften Bilder werden gelöscht';
 
   @override
   String get settings_screen_language => 'Sprache';
@@ -1280,6 +1247,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_24 =>
       'Die Google-Anmeldung nutzt jetzt die Kontoauswahl von Android (Credential Manager), und die Bibliotheken der App wurden für die neuesten Android-Versionen aktualisiert.';
+
+  @override
+  String get changelog_v5_0_0_bullet_25 =>
+      'Zum Löschen des Kontos genügt jetzt ein Bestätigungsdialog statt einer eigenen Seite.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

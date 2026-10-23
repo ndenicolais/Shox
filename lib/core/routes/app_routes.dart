@@ -17,5 +17,4 @@ abstract class AppRoutes {
   static const support = '/support';
   static const user = '/user';
   static const userUpdate = '/user/update';
-  static const userDelete = '/user/delete';
 }

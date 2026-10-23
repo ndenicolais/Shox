@@ -147,7 +147,7 @@ feature/
 
 **Widget naming convention:** every file is named after its class in snake_case. Generic widgets in `lib/common/widgets/` use the `Widget` suffix (`ButtonWidget`, `ToastWidget`, `ChangelogDialogWidget`…), which avoids clashes with Flutter classes (`AppBar`, `Dialog`…). Feature widgets have descriptive names without a suffix (`LoginForm`, `FilterBar`, `FilterSheet`, `TopBar`, `DashboardMenuItem`, `ShoesPieChart`, `ColorChip`…), avoiding names already used by Flutter.
 
-**Widgets extracted from the largest screens:** `ShoePhotoArea`, `BackgroundRemovalDialog` and `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (the filter sheet owns its temporary selection and returns the result), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); database charts in `database/widgets/database_charts.dart` and the shared progress overlay `ProgressOverlayWidget`; account deletion sections and backup dialogs in `users/widgets/delete_account_info.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; "what's new" dialog logic in `core/services/changelog_service.dart`; saving to the public Download/Shox folder in `core/services/downloads_service.dart`.
+**Widgets extracted from the largest screens:** `ShoePhotoArea`, `BackgroundRemovalDialog` and `showImageSourceSheet` (`shoes/widgets/form/shoe_photo_picker.dart`); `showFilterSheet`/`FilterSelection` (the filter sheet owns its temporary selection and returns the result), `ShoesGridLayout`, `ShoesGridSkeleton`, `ShoesCountRow` (`home/widgets/shoes_grid.dart`); database charts in `database/widgets/database_charts.dart` and the shared progress overlay `ProgressOverlayWidget`; account deletion confirmation and backup dialogs in `users/widgets/delete_account_dialogs.dart`; `ExportResult`/`ImportResult` in `database/models/database_results.dart`; "what's new" dialog logic in `core/services/changelog_service.dart`; saving to the public Download/Shox folder in `core/services/downloads_service.dart`.
 
 **`GetView<T>`:** screens without state of their own extend `GetView` and read the binding's controller through `controller`: login, signup and reset password (the `GlobalKey<FormState>` lives in the controller) and gender selection (`GenderSelectionController.selectedGender` is an `RxnString`). The others stay `StatefulWidget` because they have real local state (streams, animations, shoe form data, loaded statistics, app version). Since the form keys live in the controllers, login and signup link to each other with `Get.offNamed`: the two screens never stack (two forms with the same `GlobalKey` would throw).
 
@@ -402,7 +402,7 @@ The personal profile with collection statistics.
   - Most common color
   - Date of the last shoe added
 - Quick navigation buttons: edit profile, database
-- "Delete account" button (highlighted in red) leading to the deletion flow
+- "Delete account" button (highlighted in red) that starts the deletion flow
 
 ---
 
@@ -422,12 +422,14 @@ Form to update the user profile.
 
 ### 5.11 Account deletion
 
-**Path:** `lib/features/users/screens/user_delete_screen.dart`
+**Path:** `lib/features/users/screens/user_screen.dart` (`_deleteAccount`), dialogs in `lib/features/users/widgets/delete_account_dialogs.dart`
 
-Permanent account deletion flow.
+Permanent account deletion flow, started from the profile screen (no dedicated page).
 
 **Features:**
-- Confirmation dialog, with the option to back up the collection first
+- Short confirmation dialog (`showDeleteAccountDialog`, based on `DeleteDialogWidget`): profile, shoes and photos are deleted for good
+- Backup choice dialog (`showBackupChoiceDialog`): skip, or export the collection to JSON first; a failed backup is reported but does not stop the confirmed deletion
+- Loader overlay on the profile screen while exporting and deleting
 - Deletion of all the user's Firestore documents (shoes + profile)
 - Deletion of all images from Firebase Storage
 - Deletion of the Firebase Auth account
@@ -663,7 +665,6 @@ The app uses **GetX** routing with named routes.
 | `/support` | SupportScreen | Help Desk: contacts, documentation and FAQ |
 | `/user` | UserScreen | User profile with statistics |
 | `/user/update` | UserUpdateScreen | Edit profile |
-| `/user/delete` | UserDeleteScreen | Account deletion |
 
 ---
 

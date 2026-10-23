@@ -552,9 +552,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get database_screen_import_error => 'Erreur lors de l\'importation';
 
   @override
-  String get delete_account_screen_title => 'Supprimer le compte';
-
-  @override
   String get delete_account_screen_toast_success => 'Compte supprimé !';
 
   @override
@@ -563,26 +560,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get delete_account_screen_delete_dialog_title =>
-      'Confirmer la suppression';
+      'Supprimer le compte ?';
 
   @override
   String get delete_account_screen_delete_dialog_text =>
-      'Êtes-vous sûr de vouloir supprimer définitivement votre compte ?';
-
-  @override
-  String get delete_account_screen_text_a =>
-      'Êtes-vous vraiment sûr de vouloir supprimer votre compte ?';
-
-  @override
-  String get delete_account_screen_text_b =>
-      'C\'est une action irréversible et toutes les données associées à ce compte seront définitivement supprimées sans possibilité de récupération.';
-
-  @override
-  String get delete_account_screen_text_c =>
-      'Pour continuer, cliquez sur le bouton ci-dessous';
-
-  @override
-  String get delete_account_screen_delete_button => 'Supprimer';
+      'Votre profil, vos chaussures et vos photos seront définitivement supprimés. Cette action est irréversible.';
 
   @override
   String get delete_account_screen_backup_title => 'Sauvegardez Vos Données';
@@ -604,21 +586,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get delete_account_screen_backup_error =>
       'Erreur lors de la sauvegarde :';
-
-  @override
-  String get delete_account_screen_what_happens => 'Que va-t-il se passer ?';
-
-  @override
-  String get delete_account_screen_item_a =>
-      'Votre profil et vos identifiants de connexion seront supprimés définitivement';
-
-  @override
-  String get delete_account_screen_item_b =>
-      'Toutes les chaussures enregistrées dans votre base de données seront supprimées';
-
-  @override
-  String get delete_account_screen_item_c =>
-      'Les images associées à vos chaussures seront effacées';
 
   @override
   String get settings_screen_language => 'Langue';
@@ -1291,6 +1258,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_24 =>
       'La connexion avec Google utilise désormais le sélecteur de comptes d\'Android (Credential Manager), et les bibliothèques de l\'application ont été mises à jour pour les dernières versions d\'Android.';
+
+  @override
+  String get changelog_v5_0_0_bullet_25 =>
+      'La suppression du compte se fait désormais via une simple boîte de confirmation au lieu d\'une page dédiée.';
 
   @override
   String get user_screen_total_shoes => 'Total de chaussures';

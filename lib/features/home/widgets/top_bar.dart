@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/core/routes/app_routes.dart';
@@ -32,10 +31,7 @@ class TopBar extends StatelessWidget {
               label: l10n.a11y_profile,
               child: InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () {
-                  HapticFeedback.lightImpact();
-                  Get.toNamed(AppRoutes.user);
-                },
+                onTap: () => Get.toNamed(AppRoutes.user),
                 child: _buildAvatar(
                   context,
                   userController.userProfileImage.value,
@@ -70,10 +66,7 @@ class TopBar extends StatelessWidget {
               backgroundColor: theme.colorScheme.surfaceContainerLowest,
               foregroundColor: theme.colorScheme.onSurface,
             ),
-            onPressed: () {
-              HapticFeedback.lightImpact();
-              Get.toNamed(AppRoutes.dashboard);
-            },
+            onPressed: () => Get.toNamed(AppRoutes.dashboard),
             icon: const Icon(MingCuteIcons.mgc_settings_3_line),
           ),
         ],

@@ -26,7 +26,6 @@ import 'package:shox/features/shoes/screens/shoes_adder_screen.dart';
 import 'package:shox/features/shoes/screens/shoes_details_screen.dart';
 import 'package:shox/features/shoes/screens/shoes_updater_screen.dart';
 import 'package:shox/features/users/bindings/user_binding.dart';
-import 'package:shox/features/users/screens/user_delete_screen.dart';
 import 'package:shox/features/users/screens/user_screen.dart';
 import 'package:shox/features/users/screens/user_update_screen.dart';
 
@@ -122,12 +121,6 @@ class AppPages {
     GetPage(
       name: AppRoutes.userUpdate,
       page: () => const UserUpdateScreen(),
-      binding: UserBinding(),
-      middlewares: [AuthMiddleware()],
-    ),
-    GetPage(
-      name: AppRoutes.userDelete,
-      page: () => const UserDeleteScreen(),
       binding: UserBinding(),
       middlewares: [AuthMiddleware()],
     ),

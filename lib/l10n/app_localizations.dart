@@ -1070,12 +1070,6 @@ abstract class AppLocalizations {
   /// **'Error during import'**
   String get database_screen_import_error;
 
-  /// No description provided for @delete_account_screen_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete Account'**
-  String get delete_account_screen_title;
-
   /// No description provided for @delete_account_screen_toast_success.
   ///
   /// In en, this message translates to:
@@ -1091,38 +1085,14 @@ abstract class AppLocalizations {
   /// No description provided for @delete_account_screen_delete_dialog_title.
   ///
   /// In en, this message translates to:
-  /// **'Confirm Deletion'**
+  /// **'Delete account?'**
   String get delete_account_screen_delete_dialog_title;
 
   /// No description provided for @delete_account_screen_delete_dialog_text.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to permanently delete your account?'**
+  /// **'Your profile, shoes and photos will be permanently deleted. This cannot be undone.'**
   String get delete_account_screen_delete_dialog_text;
-
-  /// No description provided for @delete_account_screen_text_a.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you really sure you want to delete your account?'**
-  String get delete_account_screen_text_a;
-
-  /// No description provided for @delete_account_screen_text_b.
-  ///
-  /// In en, this message translates to:
-  /// **'This is an irreversible action and all data associated with this account will be permanently deleted without any possibility of recovery.'**
-  String get delete_account_screen_text_b;
-
-  /// No description provided for @delete_account_screen_text_c.
-  ///
-  /// In en, this message translates to:
-  /// **'To proceed, click the button below'**
-  String get delete_account_screen_text_c;
-
-  /// No description provided for @delete_account_screen_delete_button.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete_account_screen_delete_button;
 
   /// No description provided for @delete_account_screen_backup_title.
   ///
@@ -1159,30 +1129,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error during backup:'**
   String get delete_account_screen_backup_error;
-
-  /// No description provided for @delete_account_screen_what_happens.
-  ///
-  /// In en, this message translates to:
-  /// **'What will happen?'**
-  String get delete_account_screen_what_happens;
-
-  /// No description provided for @delete_account_screen_item_a.
-  ///
-  /// In en, this message translates to:
-  /// **'Your profile and login credentials will be permanently removed'**
-  String get delete_account_screen_item_a;
-
-  /// No description provided for @delete_account_screen_item_b.
-  ///
-  /// In en, this message translates to:
-  /// **'All shoes saved in your database will be deleted'**
-  String get delete_account_screen_item_b;
-
-  /// No description provided for @delete_account_screen_item_c.
-  ///
-  /// In en, this message translates to:
-  /// **'Images associated with your shoes will be erased'**
-  String get delete_account_screen_item_c;
 
   /// No description provided for @settings_screen_language.
   ///
@@ -2377,6 +2323,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google sign-in now uses the Android account picker (Credential Manager), and the app\'s libraries have been updated for the latest Android versions.'**
   String get changelog_v5_0_0_bullet_24;
+
+  /// No description provided for @changelog_v5_0_0_bullet_25.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your account now takes a single confirmation dialog instead of a separate page.'**
+  String get changelog_v5_0_0_bullet_25;
 
   /// No description provided for @user_screen_total_shoes.
   ///

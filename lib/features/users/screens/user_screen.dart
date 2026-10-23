@@ -7,10 +7,14 @@ import 'package:logger/logger.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/info_tile_widget.dart';
+import 'package:shox/common/widgets/loader_widget.dart';
+import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
+import 'package:shox/core/utils/permission_helper.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
 import 'package:shox/features/users/controller/user_controller.dart';
+import 'package:shox/features/users/widgets/delete_account_dialogs.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/theme/app_radius.dart';
 
@@ -35,6 +39,7 @@ class UserScreenState extends State<UserScreen> {
   String? _mostUsedColor;
   String? _lastAddedDate;
   bool _isLoadingStats = true;
+  bool _isDeleting = false;
 
   @override
   void initState() {
@@ -111,18 +116,36 @@ class UserScreenState extends State<UserScreen> {
                 ]
               : null,
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-          child: ResponsiveCenterWidget(
-            child: Column(
-              spacing: AppSpacing.l,
-              children: [
-                _buildUserHeader(context),
-                _buildStatsCard(context),
-                _buildDeleteAccountButton(context),
-              ],
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+              child: ResponsiveCenterWidget(
+                child: Column(
+                  spacing: AppSpacing.l,
+                  children: [
+                    _buildUserHeader(context),
+                    _buildStatsCard(context),
+                    _buildDeleteAccountButton(context),
+                  ],
+                ),
+              ),
             ),
-          ),
+            if (_isDeleting)
+              Positioned.fill(
+                child: ColoredBox(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
+                  child: const LoaderWidget(
+                    width: 50,
+                    height: 50,
+                    icon: MingCuteIcons.mgc_eraser_line,
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -259,10 +282,62 @@ class UserScreenState extends State<UserScreen> {
             style: TextStyle(color: colors.error),
           ),
           trailing: Icon(MingCuteIcons.mgc_right_line, color: colors.error),
-          onTap: () => Get.toNamed(AppRoutes.userDelete),
+          onTap: _isDeleting ? null : _deleteAccount,
         ),
       ),
     );
+  }
+
+  /// Confirmation, optional backup, then deletion and redirect to welcome.
+  Future<void> _deleteAccount() async {
+    if (currentUser == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
+    if (!await showDeleteAccountDialog(context) || !mounted) return;
+    final backup = await showBackupChoiceDialog(context);
+    if (backup == null || !mounted) return;
+
+    setState(() => _isDeleting = true);
+    try {
+      if (backup) await _exportBackup(l10n);
+      await userController.deleteAccount();
+      if (!mounted) return;
+      showSuccessToast(context, l10n.delete_account_screen_toast_success);
+      Get.offAllNamed(AppRoutes.welcome);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isDeleting = false);
+      showErrorToast(context, '${l10n.delete_account_screen_toast_error} $e');
+    }
+  }
+
+  /// Exports the collection before deletion; a failed backup is reported
+  /// but does not stop the deletion the user already confirmed.
+  Future<void> _exportBackup(AppLocalizations l10n) async {
+    try {
+      final permissionStatus =
+          await requestManageExternalStoragePermission(context);
+      if (permissionStatus != 'Permission granted') {
+        throw Exception('Permission not granted');
+      }
+      final result = await _databaseController.exportDatabase();
+      if (!mounted) return;
+      if (result.success) {
+        showSuccessToast(context, l10n.delete_account_screen_backup_success);
+      } else {
+        showErrorToast(
+          context,
+          '${l10n.delete_account_screen_backup_error} ${result.message}',
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        showErrorToast(
+          context,
+          '${l10n.delete_account_screen_backup_error} $e',
+        );
+      }
+    }
   }
 
   String _getMemberSince() {

@@ -539,9 +539,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get database_screen_import_error => 'Error during import';
 
   @override
-  String get delete_account_screen_title => 'Delete Account';
-
-  @override
   String get delete_account_screen_toast_success => 'Account deleted!';
 
   @override
@@ -549,26 +546,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Error during the deletion process:';
 
   @override
-  String get delete_account_screen_delete_dialog_title => 'Confirm Deletion';
+  String get delete_account_screen_delete_dialog_title => 'Delete account?';
 
   @override
   String get delete_account_screen_delete_dialog_text =>
-      'Are you sure you want to permanently delete your account?';
-
-  @override
-  String get delete_account_screen_text_a =>
-      'Are you really sure you want to delete your account?';
-
-  @override
-  String get delete_account_screen_text_b =>
-      'This is an irreversible action and all data associated with this account will be permanently deleted without any possibility of recovery.';
-
-  @override
-  String get delete_account_screen_text_c =>
-      'To proceed, click the button below';
-
-  @override
-  String get delete_account_screen_delete_button => 'Delete';
+      'Your profile, shoes and photos will be permanently deleted. This cannot be undone.';
 
   @override
   String get delete_account_screen_backup_title => 'Backup Your Data';
@@ -589,21 +571,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete_account_screen_backup_error => 'Error during backup:';
-
-  @override
-  String get delete_account_screen_what_happens => 'What will happen?';
-
-  @override
-  String get delete_account_screen_item_a =>
-      'Your profile and login credentials will be permanently removed';
-
-  @override
-  String get delete_account_screen_item_b =>
-      'All shoes saved in your database will be deleted';
-
-  @override
-  String get delete_account_screen_item_c =>
-      'Images associated with your shoes will be erased';
 
   @override
   String get settings_screen_language => 'Language';
@@ -1267,6 +1234,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_24 =>
       'Google sign-in now uses the Android account picker (Credential Manager), and the app\'s libraries have been updated for the latest Android versions.';
+
+  @override
+  String get changelog_v5_0_0_bullet_25 =>
+      'Deleting your account now takes a single confirmation dialog instead of a separate page.';
 
   @override
   String get user_screen_total_shoes => 'Total Shoes';
