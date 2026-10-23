@@ -1,6 +1,6 @@
 # Shox — Full documentation
 
-> Copyright © 2025–2026 Nicola De Nicolais — MIT License.
+> Copyright © 2024–2026 Nicola De Nicolais — MIT License.
 
 ---
 
@@ -517,7 +517,7 @@ Generates a PDF document of the whole shoe collection.
 - **Cover:** full cream page with logo, "Shox", "My collection", accent rule, user name and email, total pairs; generation date at the bottom
 - **Summary:** three stat tiles (total pairs, favorites, brands) and three rankings with bars relative to the top row: top 5 brands, categories, primary colors (with color dot). Figures come from `PdfCollectionSummary.fromShoes` (`features/database/models/pdf_collection_summary.dart`, pure and covered by `test/features/database/models/pdf_collection_summary_test.dart`)
 - **One page per shoe** (newest first): large cream photo panel, brand + "category · type", a peach heart (inline SVG, `pw.SvgImage`) when favorited, then cream tiles on a 3-column grid: size, season, date added; primary color and extra colors (dot + localized name; the extra colors tile is omitted when there are none); notes (only when present)
-- **Credits (last page):** full cream page with logo, "Shox", app version (`PackageInfo`), "Designed and developed by" `AppConstants.developerName`, clickable links (`pw.UrlLink`) to the developer website and the GitHub repository, copyright (`pdf_copyright`, © 2025–2026)
+- **Credits (last page):** full cream page with logo, "Shox", app version (`PackageInfo`), "Designed and developed by" `AppConstants.developerName`, clickable links (`pw.UrlLink`) to the developer website and the GitHub repository, copyright (`pdf_copyright`, © 2024–2026)
 - Summary and shoe pages have a header (logo + "Shox") and a footer with `page / total`
 
 **Details:**
@@ -571,9 +571,10 @@ Collection backup and restore.
 
 **Font:** Montserrat (regular 400 + bold 700), bundled as a local asset and registered in `pubspec.yaml` as a single `Montserrat` family with both weights, used by the theme (`ThemeData.fontFamily` and `TextTheme`); bold text uses `FontWeight.w700`. No `google_fonts` dependency or runtime download. The PDF export loads the font files by path. Montserrat is under the SIL Open Font License 1.1, which must ship with the font: `assets/fonts/OFL.txt` is bundled and `main()` registers it in `LicenseRegistry` (`_registerFontLicenses`), so it appears in the open source licenses page.
 
-**App icon:** generated with [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) from the `assets/images/app_logo.png` logo (a shoe on a box). There are two derived variants:
-- `assets/images/app_icon_legacy.png` — flat icon (Android < 8.0), logo at 86% of the canvas
+**App icon:** generated with [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) from the `assets/images/app_logo.png` logo (a shoe on a box). There are three derived variants, produced by the local script `tool/icons/generate_icons.ps1` (see `ICON_GENERATION_GUIDE.md`):
+- `assets/images/app_icon_legacy.png` — icon for Android < 8.0, logo at 64% on a rounded square filled with the app background color (old launchers apply no mask or background)
 - `assets/images/app_icon_foreground.png` — foreground for the adaptive icon (Android 8.0+), logo at 62% of the canvas to respect the system mask's safe zone
+- `assets/images/app_icon_monochrome.png` — monochrome layer for themed icons (Android 13+), same geometry as the foreground; only its alpha is used, the system tints it
 
 Configuration in `pubspec.yaml`:
 ```yaml
@@ -583,8 +584,9 @@ flutter_launcher_icons:
   image_path: "assets/images/app_icon_legacy.png"
   adaptive_icon_background: "#F6EFE5"
   adaptive_icon_foreground: "assets/images/app_icon_foreground.png"
+  adaptive_icon_monochrome: "assets/images/app_icon_monochrome.png"
 ```
-Regenerate after changing the logo: `dart run flutter_launcher_icons`.
+Regenerate after changing the logo: run the script, then `dart run flutter_launcher_icons`. The manifest uses `@mipmap/launcher_icon`; the Flutter template's `mipmap-*/ic_launcher.png` were removed.
 
 **Supported themes:**
 - **Light** (`AppTheme.lightTheme()`)
@@ -804,7 +806,7 @@ keyPassword=<key password>
 
 ## License
 
-Copyright © 2025–2026 **Nicola De Nicolais**.
+Copyright © 2024–2026 **Nicola De Nicolais**.
 
 License: **MIT**
 

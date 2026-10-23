@@ -146,7 +146,7 @@ For detailed documentation of every feature, data model, screen and technical ch
 
 ## License
 
-Copyright © 2025–2026 Nicola De Nicolais.
+Copyright © 2024–2026 Nicola De Nicolais.
 Released under the **MIT** license — see [LICENSE.md](LICENSE.md) for details.
 
 <div align="center">

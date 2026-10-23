@@ -1012,7 +1012,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pdf_field_notes => 'Remarques';
 
   @override
-  String get pdf_copyright => '© 2025–2026 Nicola De Nicolais';
+  String get pdf_copyright => '© 2024–2026 Nicola De Nicolais';
 
   @override
   String get pdf_cover_title => 'Ma collection';
@@ -1283,6 +1283,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_22 =>
       'La page des licences open source inclut désormais aussi la licence de la police Montserrat utilisée par l\'application.';
+
+  @override
+  String get changelog_v5_0_0_bullet_23 =>
+      'L\'icône de l\'application suit désormais les couleurs du système lorsque les icônes à thème sont activées (Android 13+) et a un fond plein sur les versions plus anciennes d\'Android.';
 
   @override
   String get user_screen_total_shoes => 'Total de chaussures';

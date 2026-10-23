@@ -1883,7 +1883,7 @@ abstract class AppLocalizations {
   /// No description provided for @pdf_copyright.
   ///
   /// In en, this message translates to:
-  /// **'© 2025–2026 Nicola De Nicolais'**
+  /// **'© 2024–2026 Nicola De Nicolais'**
   String get pdf_copyright;
 
   /// No description provided for @pdf_cover_title.
@@ -2365,6 +2365,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The open source licenses page now also lists the license of the Montserrat font used by the app.'**
   String get changelog_v5_0_0_bullet_22;
+
+  /// No description provided for @changelog_v5_0_0_bullet_23.
+  ///
+  /// In en, this message translates to:
+  /// **'The app icon now follows the system colors when themed icons are enabled (Android 13+) and has a solid background on older Android versions.'**
+  String get changelog_v5_0_0_bullet_23;
 
   /// No description provided for @user_screen_total_shoes.
   ///
