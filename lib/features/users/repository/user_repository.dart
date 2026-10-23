@@ -14,11 +14,23 @@ import 'package:uuid/uuid.dart';
 
 class UserRepository {
   final Logger _logger = Logger();
+  final firebase_auth.FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
+  final AuthService _authService;
+
+  /// Dependencies default to the real instances; tests can pass fakes.
+  UserRepository({
+    firebase_auth.FirebaseAuth? auth,
+    FirebaseFirestore? firestore,
+    FirebaseStorage? storage,
+    AuthService? authService,
+  })  : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance,
+        _storage = storage ?? FirebaseStorage.instance,
+        _authService = authService ?? AuthService();
+
   firebase_auth.User? get currentUser => _auth.currentUser;
-  final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  final AuthService _authService = AuthService();
 
   Future<String> loadUserName() async {
     final user = _auth.currentUser;
@@ -94,7 +106,7 @@ class UserRepository {
 
   Future<void> googleSignOut() async {
     await (await GoogleSignInService.instance()).signOut();
-    await firebase_auth.FirebaseAuth.instance.signOut();
+    await _auth.signOut();
   }
 
   /// Firebase refuses `user.delete()` without a recent sign-in, so the user

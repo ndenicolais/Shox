@@ -92,26 +92,4 @@ class DatabaseRepository {
       throw Exception('Failed to fetch user data: $e');
     }
   }
-
-  /// Get user account creation date
-  Future<DateTime> fetchUserCreationDate(String userId) async {
-    try {
-      final user = currentUser;
-
-      if (user == null) {
-        throw Exception('User is not logged in');
-      }
-
-      if (user.uid != userId) {
-        throw Exception('User ID mismatch');
-      }
-
-      DateTime creationDate = user.metadata.creationTime!;
-      _logger.i('User creation date: $creationDate');
-      return creationDate;
-    } catch (e) {
-      _logger.e('Error fetching user creation date: $e');
-      throw Exception('Failed to fetch user creation date: $e');
-    }
-  }
 }

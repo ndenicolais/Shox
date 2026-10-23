@@ -112,7 +112,7 @@ class HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    _shoesListStream = _shoesController.getShoesList(currentUser!.uid);
+    _shoesListStream = _shoesController.getShoesList();
     userController.loadUserName();
     userController.loadUserProfile(currentUser!.uid);
     loadUserGender(currentUser?.uid);
@@ -150,7 +150,7 @@ class HomeScreenState extends State<HomeScreen>
 
   /// Re-subscribes to the shoes stream and completes once fresh data arrives.
   Future<void> _refreshShoes() async {
-    final stream = _shoesController.getShoesList(currentUser!.uid);
+    final stream = _shoesController.getShoesList();
     setState(() => _shoesListStream = stream);
     // Let the StreamBuilder subscribe first, so it cannot miss the first
     // snapshot of the (broadcast) Firestore stream.
@@ -240,8 +240,7 @@ class HomeScreenState extends State<HomeScreen>
               key: const ValueKey('error'),
               message: AppLocalizations.of(context)!.home_screen_error_state,
               onRetry: () => setState(() {
-                _shoesListStream =
-                    _shoesController.getShoesList(currentUser!.uid);
+                _shoesListStream = _shoesController.getShoesList();
               }),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

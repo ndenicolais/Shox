@@ -213,7 +213,7 @@ The rules are **published manually from the Firebase console** (Firestore → Ru
 | Storage `{uid}/shoes/**`, `{uid}/users/**` | read, list, delete; upload under 10 MB | owner |
 | Storage `shoes_images/{uid}/*`, `profile_images/{uid}/*` | read, delete (legacy paths of pre-2025 versions) | owner |
 
-There is no shared or public data, no `collectionGroup`, transaction or batch. The `users` collection cannot be queried at all: login, signup and password reset therefore never look up users on Firestore and rely on the Firebase Auth error codes instead (see 5.2). App versions that still run the old email query fail with `PERMISSION_DENIED` once these rules are published.
+There is no shared or public data, no `collectionGroup` and no transaction. `WriteBatch`es (backup restore, account deletion) are checked document by document like single writes, so they need no extra rule. The `users` collection cannot be queried at all: login, signup and password reset therefore never look up users on Firestore and rely on the Firebase Auth error codes instead (see 5.2). App versions that still run the old email query fail with `PERMISSION_DENIED` once these rules are published.
 
 **Checking the published rules:** an unauthenticated REST call must return `403 PERMISSION_DENIED`:
 
@@ -375,7 +375,7 @@ Settings screen and entry point to the account features. Sections are cards of `
 
 **Path:** `lib/features/database/`
 
-Statistical analysis of the collection.
+Statistical analysis of the collection. The tiles and the four charts come from `DatabaseController.getStatistics()`: one read of the collection instead of one per chart.
 
 **Features:**
 - Summary tiles: total shoes, brands and categories
@@ -404,6 +404,7 @@ The personal profile with collection statistics.
   - Most used type
   - Most common color
   - Date of the last shoe added
+- All the statistics come from `DatabaseController.getStatistics()`, a single read of the collection (it used to read it once per value)
 - Quick navigation buttons: edit profile, database
 - "Delete account" button (highlighted in red) that starts the deletion flow
 
@@ -472,7 +473,7 @@ The app uses **GetX** for state management and dependency injection. Every contr
 |---|---|---|
 | `ShoesController` | `features/shoes/controller/` | Shoe CRUD, streams for the list and a single shoe, favorite toggle |
 | `UserController` | `features/users/controller/` | User profile (name, email, image), Google sign-in, logout, re-authentication and account deletion |
-| `DatabaseController` | `features/database/controller/` | Aggregate statistics (counts by color/brand/category/type), user data |
+| `DatabaseController` | `features/database/controller/` | `getStatistics()`: every aggregate shown by Database and Profile (`ShoesStatistics`: total, favorites, counts by color/brand/category/type, most used values, last shoe added) from **one** read of the collection; shoes list and user data for the PDF |
 | `BackupController` | `features/data_management/controller/` | Backup creation, restore, last backup date |
 | `ThemeController` | `theme/` | Light/dark/system theme, persisted in `SharedPreferences` |
 | `LoginController` | `features/auth/login/controller/` | Login logic (Google + email/password), validation, form key |
@@ -782,12 +783,12 @@ dev_dependencies:
   mocktail: ^1.0.5                         # Test mocks (Firebase, Google Sign-In, controllers)
 ```
 
-**Tests (`flutter test`):** 136 tests in `test/`.
+**Tests (`flutter test`):** 134 tests in `test/`.
 - Pure logic: `ShoesModel` (lenient parsing of malformed documents), `ShoesBackup` (ZIP round trip, validation errors, legacy JSON), `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (grid columns and sizes), `ChangelogService` (which changes to show after an update), `MaskRefinement` (background removal alpha, erosion and edge decontamination)
-- With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, write order and clean-up when an upload or write fails), `BackupController` (backup with photos, restore order, rollback on failure, legacy photos), `DatabaseController` (counts and statistics, empty collection, errors) and `UserController` (profile and name loading, no deletion when re-authentication fails)
+- With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, write order and clean-up when an upload or write fails), `BackupController` (backup with photos, restore order, rollback on failure, legacy photos), `DatabaseController` (statistics from a single read, empty collection, errors), `UserController` (profile and name loading, no deletion when re-authentication fails) and `UserRepository` (re-authentication credential and error mapping)
 - Layout: shared widgets at 1.3 text scale (`test/common/widgets/text_scaling_test.dart`)
 
-`ShoesController` (repository, Firebase Auth), `BackupController` and `BackupRepository` (Firebase Auth, Firestore, Storage), `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
+`ShoesController` (repository, Firebase Auth), `ShoesRepository`, `UserRepository`, `DatabaseRepository`, `BackupRepository` (Firebase Auth, Firestore, Storage; `UserRepository` also `AuthService`), `BackupController`, `DatabaseController` and `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
 
 **Google Sign-In (`google_sign_in` 7):** the plugin exposes the `GoogleSignIn.instance` singleton, which must be initialized exactly once before any other call. `GoogleSignInService.instance()` (`lib/features/auth/services/google_sign_in_service.dart`) memoizes that initialization (and clears it on failure so a later call can retry); `LoginRepository` and `UserRepository` go through it. On Android sign-in runs through Credential Manager and needs a server client ID, read from the `default_web_client_id` resource that the google-services plugin generates from the web OAuth client in `google-services.json`. `authenticate()` throws `GoogleSignInException` instead of returning `null`: `canceled` maps to `null` (user closed the picker), any other code to `google_sign_in_failed`; a `network-request-failed` from `signInWithCredential` maps to `network_error`. Only the ID token is passed to Firebase.
 

@@ -152,8 +152,8 @@ class ShoesController extends GetxController {
   }
 
   /// Ottiene la lista di tutte le scarpe dell'utente come Stream
-  Stream<List<ShoesModel>> getShoesList(String userId) {
-    return _repository.getShoesList(userId);
+  Stream<List<ShoesModel>> getShoesList() {
+    return _repository.getShoesList();
   }
 
   /// Brands already used by the user, for the brand field autocomplete.

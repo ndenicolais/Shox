@@ -51,26 +51,20 @@ class UserScreenState extends State<UserScreen> {
 
   Future<void> _loadStatistics() async {
     try {
-      final totalShoes = await _databaseController.getTotalShoesCount();
-      final favoritesCount = await _databaseController.getFavoriteShoesCount();
-      final favoriteBrand = await _databaseController.getFavoriteBrand();
-      final mostUsedCategory = await _databaseController.getMostUsedCategory();
-      final mostUsedType = await _databaseController.getMostUsedType();
-      final mostUsedColorObj =
-          await _databaseController.getMostUsedColorAsColor();
+      final stats = await _databaseController.getStatistics();
       if (!mounted) return;
-      final mostUsedColor = mostUsedColorObj != null
-          ? DbLocalizedValues.getColorName(context, mostUsedColorObj)
-          : null;
-      final lastShoe = await _databaseController.getLastShoeAdded();
+      final mostUsedColor = stats.mostUsedColor;
+      final lastShoe = stats.lastAdded;
 
       setState(() {
-        _totalShoes = totalShoes;
-        _favoritesCount = favoritesCount;
-        _favoriteBrand = favoriteBrand;
-        _mostUsedCategory = mostUsedCategory;
-        _mostUsedType = mostUsedType;
-        _mostUsedColor = mostUsedColor;
+        _totalShoes = stats.total;
+        _favoritesCount = stats.favorites;
+        _favoriteBrand = stats.favoriteBrand;
+        _mostUsedCategory = stats.mostUsedCategory;
+        _mostUsedType = stats.mostUsedType;
+        _mostUsedColor = mostUsedColor != null
+            ? DbLocalizedValues.getColorName(context, mostUsedColor)
+            : null;
         _lastAddedDate = lastShoe != null
             ? '${lastShoe.dateAdded.day}/${lastShoe.dateAdded.month}/${lastShoe.dateAdded.year}'
             : null;
@@ -78,6 +72,7 @@ class UserScreenState extends State<UserScreen> {
       });
     } catch (e) {
       _logger.e('Error loading statistics: $e');
+      if (!mounted) return;
       setState(() {
         _isLoadingStats = false;
       });

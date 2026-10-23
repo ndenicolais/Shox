@@ -12,7 +12,6 @@ import 'package:shox/features/database/widgets/database_charts.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
 import 'package:shox/common/widgets/empty_state_widget.dart';
 import 'package:shox/features/database/controller/database_controller.dart';
-import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/core/utils/db_localized_values.dart';
 import 'package:shox/common/widgets/loader_widget.dart';
 import 'package:shox/features/database/widgets/shoes_pie_chart.dart';
@@ -31,7 +30,7 @@ class DatabaseScreenState extends State<DatabaseScreen> {
   bool _isLoading = true;
   int _totalShoesCount = 0;
   Map<String, int> _brandCounts = {};
-  Map<String, int> _colorCounts = {};
+  Map<Color, int> _colorCounts = {};
   Map<String, int> _categoryCounts = {};
   Map<String, int> _typeCounts = {};
 
@@ -89,27 +88,21 @@ class DatabaseScreenState extends State<DatabaseScreen> {
   }
 
   Future<void> _fetchData() async {
-    List<ShoesModel> shoesList = await _databaseController.getShoes();
-    int totalShoesCount = shoesList.length;
-    Map<String, int> colorCounts =
-        await _databaseController.getShoesCountByColor();
-    Map<String, int> brandCounts =
-        await _databaseController.getShoesCountByBrand();
-    Map<String, int> categoryCounts =
-        await _databaseController.getShoesCountByCategory();
-    Map<String, int> typeCounts =
-        await _databaseController.getShoesCountByType();
-
-    setState(
-      () {
+    try {
+      final stats = await _databaseController.getStatistics();
+      if (!mounted) return;
+      setState(() {
         _isLoading = false;
-        _totalShoesCount = totalShoesCount;
-        _colorCounts = colorCounts;
-        _brandCounts = brandCounts;
-        _categoryCounts = categoryCounts;
-        _typeCounts = typeCounts;
-      },
-    );
+        _totalShoesCount = stats.total;
+        _colorCounts = stats.byColor;
+        _brandCounts = stats.byBrand;
+        _categoryCounts = stats.byCategory;
+        _typeCounts = stats.byType;
+      });
+    } catch (e) {
+      logger.e('Error loading statistics: $e');
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   /// Totals shown above the charts.
@@ -144,9 +137,8 @@ class DatabaseScreenState extends State<DatabaseScreen> {
   Widget _buildColorPieChart() {
     List<ColorChartData> chartData = _colorCounts.entries.map(
       (entry) {
-        Color color = Color(int.parse(entry.key, radix: 16) + 0xFF000000);
-        String colorName = DbLocalizedValues.getColorName(context, color);
-        return ColorChartData(colorName, entry.value.toDouble(), color);
+        String colorName = DbLocalizedValues.getColorName(context, entry.key);
+        return ColorChartData(colorName, entry.value.toDouble(), entry.key);
       },
     ).toList();
 

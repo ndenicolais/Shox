@@ -11,16 +11,25 @@ import 'package:uuid/uuid.dart';
 /// Gestisce tutte le operazioni CRUD su Firestore e Firebase Storage
 class ShoesRepository {
   final Logger _logger = Logger();
-  final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final firebase_auth.FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
+
+  /// Dependencies default to the real instances; tests can pass fakes.
+  ShoesRepository({
+    firebase_auth.FirebaseAuth? auth,
+    FirebaseFirestore? firestore,
+    FirebaseStorage? storage,
+  })  : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance,
+        _storage = storage ?? FirebaseStorage.instance;
 
   firebase_auth.User? get currentUser => _auth.currentUser;
 
   // ========== FIRESTORE OPERATIONS ==========
 
   /// Ottiene il riferimento alla collection "shoes" dell'utente corrente
-  CollectionReference _getShoesCollection() {
+  CollectionReference<Map<String, dynamic>> _getShoesCollection() {
     if (currentUser == null) {
       throw Exception('User not authenticated');
     }
@@ -38,7 +47,7 @@ class ShoesRepository {
   /// Restituisce l'ID del documento creato
   Future<String> addShoes(ShoesModel shoes) async {
     try {
-      CollectionReference shoesCollection = _getShoesCollection();
+      final shoesCollection = _getShoesCollection();
       String? id = shoes.id;
       if (id == null || id.isEmpty) {
         id = (await shoesCollection.add(shoes.toFirestore())).id;
@@ -56,8 +65,7 @@ class ShoesRepository {
   /// Aggiorna una scarpa esistente su Firestore
   Future<void> updateShoes(ShoesModel shoes) async {
     try {
-      CollectionReference shoesCollection = _getShoesCollection();
-      await shoesCollection.doc(shoes.id).update(shoes.toFirestore());
+      await _getShoesCollection().doc(shoes.id).update(shoes.toFirestore());
       _logger.i("Shoes with ID ${shoes.id} successfully updated");
     } catch (e) {
       _logger.e("Error updating shoes: $e");
@@ -68,8 +76,7 @@ class ShoesRepository {
   /// Elimina una scarpa da Firestore
   Future<void> deleteShoes(String shoesId) async {
     try {
-      CollectionReference shoesCollection = _getShoesCollection();
-      await shoesCollection.doc(shoesId).delete();
+      await _getShoesCollection().doc(shoesId).delete();
       _logger.i("Shoes with ID $shoesId successfully deleted");
     } catch (e) {
       _logger.e("Error deleting shoes: $e");
@@ -77,41 +84,27 @@ class ShoesRepository {
     }
   }
 
-  /// Ottiene la lista di tutte le scarpe dell'utente come Stream
-  Stream<List<ShoesModel>> getShoesList(String userId) {
-    return _firestore
-        .collection('users')
-        .doc(userId)
-        .collection('shoes')
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => ShoesModel.fromFirestore(doc.id, doc.data()))
-          .toList();
-    });
+  /// Ottiene la lista di tutte le scarpe dell'utente corrente come Stream
+  Stream<List<ShoesModel>> getShoesList() {
+    return _getShoesCollection().snapshots().map(
+          (snapshot) => snapshot.docs
+              .map((doc) => ShoesModel.fromFirestore(doc.id, doc.data()))
+              .toList(),
+        );
   }
 
   /// Ottiene una scarpa specifica per ID come Stream
   Stream<ShoesModel> getShoesById(String shoesId) {
     try {
-      if (currentUser == null) {
-        throw Exception('User not authenticated');
-      }
-
-      return _firestore
-          .collection('users')
-          .doc(currentUser!.uid)
-          .collection('shoes')
+      return _getShoesCollection()
           .doc(shoesId)
           .snapshots(includeMetadataChanges: false)
           .map((docSnapshot) {
-        if (!docSnapshot.exists) {
+        final data = docSnapshot.data();
+        if (data == null) {
           throw Exception("Shoes not found");
         }
-        return ShoesModel.fromFirestore(
-          docSnapshot.id,
-          docSnapshot.data() as Map<String, dynamic>,
-        );
+        return ShoesModel.fromFirestore(docSnapshot.id, data);
       });
     } catch (e) {
       _logger.e("Error getting shoes by ID: $e");
@@ -122,14 +115,7 @@ class ShoesRepository {
   /// Aggiorna lo stato preferito di una scarpa
   Future<void> toggleFavoriteStatus(String shoesId, bool isFavorite) async {
     try {
-      if (currentUser == null) {
-        throw Exception('User not authenticated');
-      }
-
-      await _firestore
-          .collection('users')
-          .doc(currentUser!.uid)
-          .collection('shoes')
+      await _getShoesCollection()
           .doc(shoesId)
           .update({'isFavorite': isFavorite});
 
@@ -183,16 +169,9 @@ class ShoesRepository {
   /// Ottiene tutte le scarpe dell'utente (snapshot singolo, non stream)
   Future<List<ShoesModel>> getAllShoes() async {
     try {
-      CollectionReference shoesCollection = _getShoesCollection();
-      QuerySnapshot querySnapshot = await shoesCollection.get();
-
-      return querySnapshot.docs
-          .map(
-            (doc) => ShoesModel.fromFirestore(
-              doc.id,
-              doc.data() as Map<String, dynamic>,
-            ),
-          )
+      final snapshot = await _getShoesCollection().get();
+      return snapshot.docs
+          .map((doc) => ShoesModel.fromFirestore(doc.id, doc.data()))
           .toList();
     } catch (e) {
       _logger.e("Error getting all shoes: $e");
