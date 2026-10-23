@@ -62,37 +62,37 @@ The app is fully localized in 5 languages (Italian, English, French, Spanish, Ge
 
 | Component | Technology / Library |
 |---|---|
-| Framework | Flutter 3 / Dart `^3.5.2` |
-| State management | [get](https://pub.dev/packages/get) `^4.6.6` (GetX) |
-| Backend — Database | [cloud_firestore](https://pub.dev/packages/cloud_firestore) `^7.0.0` |
-| Backend — Auth | [firebase_auth](https://pub.dev/packages/firebase_auth) `^7.0.0` |
-| Backend — Storage | [firebase_storage](https://pub.dev/packages/firebase_storage) `^14.0.0` |
-| Google authentication | [google_sign_in](https://pub.dev/packages/google_sign_in) `^7.2.0` |
-| Local persistence | [shared_preferences](https://pub.dev/packages/shared_preferences) `^2.3.4` |
-| Responsive UI | [flutter_screenutil](https://pub.dev/packages/flutter_screenutil) `^5.9.3` |
-| UI icons | [ming_cute_icons](https://pub.dev/packages/ming_cute_icons) `^0.0.7` |
-| Charts | [fl_chart](https://pub.dev/packages/fl_chart) `^1.3.0` |
-| Internationalization | [intl](https://pub.dev/packages/intl) `^0.20.2` |
-| Unique IDs | [uuid](https://pub.dev/packages/uuid) `^4.5.1` |
-| Images — picking | [image_picker](https://pub.dev/packages/image_picker) `^1.1.2` |
-| Images — cropping | [image_cropper](https://pub.dev/packages/image_cropper) `^12.2.1` |
-| Images — compression | [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) `^2.4.0` |
-| Images — processing | [image](https://pub.dev/packages/image) `^4.2.0` |
-| Images — background removal | [google_mlkit_subject_segmentation](https://pub.dev/packages/google_mlkit_subject_segmentation) `^0.2.1` (on-device, model downloaded by Google Play services) |
-| Images — cache | [cached_network_image](https://pub.dev/packages/cached_network_image) `^4.0.3` |
-| Images — viewer | [photo_view](https://pub.dev/packages/photo_view) `^0.15.0` |
-| Images — save to gallery | [image_gallery_saver_plus](https://pub.dev/packages/image_gallery_saver_plus) `^5.1.1` |
-| Widget screenshots | [screenshot](https://pub.dev/packages/screenshot) `^3.0.0` |
-| PDF export | [pdf](https://pub.dev/packages/pdf) `^3.11.0` |
-| File picker | [file_picker](https://pub.dev/packages/file_picker) `^13.1.0` |
-| Sharing | [share_plus](https://pub.dev/packages/share_plus) `^13.3.1` |
-| Permissions | [permission_handler](https://pub.dev/packages/permission_handler) `^13.0.2` |
-| Device info | [device_info_plus](https://pub.dev/packages/device_info_plus) `^13.3.0` |
-| App info | [package_info_plus](https://pub.dev/packages/package_info_plus) `^10.2.2` |
-| Filesystem paths | [path_provider](https://pub.dev/packages/path_provider) `^2.1.4` |
-| Links | [url_launcher](https://pub.dev/packages/url_launcher) `^6.3.0` |
-| HTTP | [http](https://pub.dev/packages/http) `^1.3.0` |
-| Logging | [logger](https://pub.dev/packages/logger) `^2.5.0` |
+| Framework | Flutter 3 / Dart (versions in [System requirements](#12-system-requirements)) |
+| State management | [get](https://pub.dev/packages/get) (GetX) |
+| Backend — Database | [cloud_firestore](https://pub.dev/packages/cloud_firestore) |
+| Backend — Auth | [firebase_auth](https://pub.dev/packages/firebase_auth) |
+| Backend — Storage | [firebase_storage](https://pub.dev/packages/firebase_storage) |
+| Google authentication | [google_sign_in](https://pub.dev/packages/google_sign_in) |
+| Local persistence | [shared_preferences](https://pub.dev/packages/shared_preferences) |
+| Responsive UI | [flutter_screenutil](https://pub.dev/packages/flutter_screenutil) |
+| UI icons | [ming_cute_icons](https://pub.dev/packages/ming_cute_icons) |
+| Charts | [fl_chart](https://pub.dev/packages/fl_chart) |
+| Internationalization | [intl](https://pub.dev/packages/intl) |
+| Unique IDs | [uuid](https://pub.dev/packages/uuid) |
+| Images — picking | [image_picker](https://pub.dev/packages/image_picker) |
+| Images — cropping | [image_cropper](https://pub.dev/packages/image_cropper) |
+| Images — compression | [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) |
+| Images — processing | [image](https://pub.dev/packages/image) |
+| Images — background removal | [google_mlkit_subject_segmentation](https://pub.dev/packages/google_mlkit_subject_segmentation) (on-device, model downloaded by Google Play services) |
+| Images — cache | [cached_network_image](https://pub.dev/packages/cached_network_image) |
+| Images — viewer | [photo_view](https://pub.dev/packages/photo_view) |
+| Images — save to gallery | [image_gallery_saver_plus](https://pub.dev/packages/image_gallery_saver_plus) |
+| Widget screenshots | [screenshot](https://pub.dev/packages/screenshot) |
+| PDF export | [pdf](https://pub.dev/packages/pdf) |
+| File picker | [file_picker](https://pub.dev/packages/file_picker) |
+| Sharing | [share_plus](https://pub.dev/packages/share_plus) |
+| Permissions | [permission_handler](https://pub.dev/packages/permission_handler) |
+| Device info | [device_info_plus](https://pub.dev/packages/device_info_plus) |
+| App info | [package_info_plus](https://pub.dev/packages/package_info_plus) |
+| Filesystem paths | [path_provider](https://pub.dev/packages/path_provider) |
+| Links | [url_launcher](https://pub.dev/packages/url_launcher) |
+| HTTP | [http](https://pub.dev/packages/http) |
+| Logging | [logger](https://pub.dev/packages/logger) |
 
 **Architectural pattern:** MVC with GetX. Controllers act as ViewModels; models are plain Dart objects; repositories handle data access; screens are `GetView`, `StatefulWidget` or `StatelessWidget` classes that talk to the controllers through GetX.
 
@@ -281,7 +281,7 @@ The main screen, showing the user's whole shoe collection.
   - Season
   - Primary color
   - Extra color
-- **Header and quick filters (redesign A):** `TopBar` with avatar, greeting and the "Your collection" title; `FilterBar` with a pill search field and a filled filter button (a `Badge` dot when a filter is active); `CategoryChips` with All / Favorites / one chip per category (translated) that set `selectedCategory` and `showOnlyFavorites` directly; an "N pairs · M favorites" row (ICU plurals) with the grid toggle. Cards (`ShoeCard`) show a square photo with a heart on a translucent background, brand and "Size 42 · type"; the cell height is photo + caption scaled with the system text size (`ShoeCard.captionHeight`)
+- **Header and quick filters:** `TopBar` with avatar, greeting and the "Your collection" title; `FilterBar` with a pill search field and a filled filter button (a `Badge` dot when a filter is active); `CategoryChips` with All / Favorites / one chip per category (translated) that set `selectedCategory` and `showOnlyFavorites` directly; an "N pairs · M favorites" row (ICU plurals) with the grid toggle. Cards (`ShoeCard`) show a square photo with a heart on a translucent background, brand and "Size 42 · type"; the cell height is photo + caption scaled with the system text size (`ShoeCard.captionHeight`)
 - **Filter indicator:** the dot on the filter button is driven by `ShoesFilter.isActive`, derived from the filters' actual content (color, extra color, category, type, season, favorites); text search is excluded because it has its own clear button
 - **Filter reset:** `_resetFilters()` clears all filters, the search and the favorites toggle; it is shared by the search bar's clear button and the "no results" action
 - **Empty state:** an informative message when the collection is empty
@@ -384,7 +384,7 @@ Statistical analysis of the collection. The tiles and the four charts come from 
   - Distribution by **brand**
   - Distribution by **category**
   - Distribution by **type**
-- App bar shortcut to [Data management](#512-data-management), where the PDF export, backup and restore now live (they used to be in this screen's ⋮ menu)
+- App bar shortcut to [Data management](#512-data-management), where the PDF export, backup and restore live
 
 ---
 
@@ -404,7 +404,7 @@ The personal profile with collection statistics.
   - Most used type
   - Most common color
   - Date of the last shoe added
-- All the statistics come from `DatabaseController.getStatistics()`, a single read of the collection (it used to read it once per value)
+- All the statistics come from `DatabaseController.getStatistics()`, a single read of the collection
 - Quick navigation buttons: edit profile, database
 - "Delete account" button (highlighted in red) that starts the deletion flow
 
@@ -433,7 +433,7 @@ Permanent account deletion flow, started from the profile screen (no dedicated p
 **Features:**
 - Short confirmation dialog (`showDeleteAccountDialog`, based on `DeleteDialogWidget`): profile, shoes and photos are deleted for good
 - Backup choice dialog (`showBackupChoiceDialog`): skip, or save a ZIP backup first (`BackupController.createBackup`, same file as Data management); a failed backup is reported but does not stop the confirmed deletion
-- **Re-authentication before anything is deleted:** Firebase refuses `user.delete()` without a recent sign-in (`requires-recent-login`), which used to surface only after the data was already gone. `UserController.deleteAccount(password:)` first calls `UserRepository.reauthenticate`: email/password users type their password in `showDeletePasswordDialog` (`EmailAuthProvider.credential`), Google users go through the Google account picker (`GoogleAuthProvider.credential`). Errors are typed `AuthException`s: `invalid_credentials` (wrong password, toast `delete_account_screen_toast_wrong_password`), `reauth_cancelled` (picker closed, silently stops) and `reauth_failed`. `AuthGuardService.expectSignOut()` is called only after a successful re-authentication
+- **Re-authentication before anything is deleted:** Firebase refuses `user.delete()` without a recent sign-in (`requires-recent-login`), which would otherwise surface only after the data is already gone. `UserController.deleteAccount(password:)` first calls `UserRepository.reauthenticate`: email/password users type their password in `showDeletePasswordDialog` (`EmailAuthProvider.credential`), Google users go through the Google account picker (`GoogleAuthProvider.credential`). Errors are typed `AuthException`s: `invalid_credentials` (wrong password, toast `delete_account_screen_toast_wrong_password`), `reauth_cancelled` (picker closed, silently stops) and `reauth_failed`. `AuthGuardService.expectSignOut()` is called only after a successful re-authentication
 - Loader overlay on the profile screen while exporting and deleting
 - Deletion of all the user's Firestore documents (`shoes` and `history` subcollections in `WriteBatch`es of up to 500 deletes, then the profile document)
 - Deletion of all images from Firebase Storage
@@ -521,7 +521,7 @@ Covered by unit tests in `test/features/shoes/models/shoes_filter_test.dart`.
 
 **Path:** `lib/features/shoes/widgets/shoes_categories_mixin.dart`
 
-A mixin on `State` holding the state shared by the screens that show categories/types/seasons, whose options depend both on the user's gender and on the active language. Used by `HomeScreen` and `ShoesFormScreen`, where the same logic used to be duplicated.
+A mixin on `State` holding the state shared by the screens that show categories/types/seasons, whose options depend both on the user's gender and on the active language. Used by `HomeScreen` and `ShoesFormScreen`, so the logic is not duplicated.
 
 - **`loadUserGender(uid)`:** call it in `initState`; loads the gender and narrows the available categories
 - **`refreshTranslations()`:** call it in `didChangeDependencies`; rereads the language and rebuilds the translated option lists
@@ -559,8 +559,8 @@ Generates a PDF document of the whole shoe collection.
 
 **Details:**
 - The Montserrat font is loaded from the bundled asset files; the `pdf` package embeds only the used glyphs (a few KB)
-- **Speed:** shoes, user data, fonts, logo and `PackageInfo` are loaded in parallel (record `.wait`); photos are loaded by 4 parallel workers (`_imageConcurrency`) sharing one `http.Client` (kept-alive connections), and pages are built once all photos are ready. With 250 ms simulated latency per photo, 47 pairs take ~6 s instead of ~18 s sequentially. The registration date is no longer fetched
-- Shoe images are downloaded from their Firebase Storage URL during generation and processed in a background isolate (`Isolate.run`): transparent margins of background-free photos are trimmed (`img.trim`, `TrimMode.transparent`) so the shoe fills the panel, the longest side is capped at 640px, the photo is flattened on the panel color and encoded as JPEG (quality 80). This keeps a 47-pair export around 1.5 MB (it was ~12 MB with lossless PNG + alpha mask). A photo that cannot be downloaded or decoded shows the app logo in the panel instead of aborting the export
+- **Speed:** shoes, user data, fonts, logo and `PackageInfo` are loaded in parallel (record `.wait`); photos are loaded by 4 parallel workers (`_imageConcurrency`) sharing one `http.Client` (kept-alive connections), and pages are built once all photos are ready. With 250 ms simulated latency per photo, 47 pairs take ~6 s (~18 s sequentially)
+- Shoe images are downloaded from their Firebase Storage URL during generation and processed in a background isolate (`Isolate.run`): transparent margins of background-free photos are trimmed (`img.trim`, `TrimMode.transparent`) so the shoe fills the panel, the longest side is capped at 640px, the photo is flattened on the panel color and encoded as JPEG (quality 80). This keeps a 47-pair export around 1.5 MB (lossless PNG with an alpha mask would be ~12 MB). A photo that cannot be downloaded or decoded shows the app logo in the panel instead of aborting the export
 - Extra colors: `colorExtra` stores one ARGB int per color, so each one is converted with `Color(argb)`
 - Generation errors are logged with the stack trace (`Logger`) before being rethrown to the screen, which shows the error toast
 - Progress callback (`onProgress`) for the progress bar in the UI
@@ -595,7 +595,7 @@ shox_backup_<yyyyMMdd_HHmmss>.zip
 └── images/         one photo per shoe, stored without compression (already compressed images)
 ```
 
-The backup no longer contains download URLs with tokens: it is self-contained and keeps working after the original photos are deleted (account deletion, photo replaced, restore with replacement).
+The backup contains no download URLs with tokens: it is self-contained and keeps working after the original photos are deleted (account deletion, photo replaced, restore with replacement).
 
 **Decoding (`ShoesBackup.decode`):** the ZIP signature (`PK\x03\x04`) selects the ZIP or the legacy JSON path. The whole file is validated before anything is written and errors are typed `BackupFormatException`s:
 - `not_a_backup`: no manifest, no format version, entries that are not shoes (each needs a string `brand` and `category`), or a file that is neither a ZIP nor a JSON list
@@ -664,9 +664,9 @@ The active theme is managed by `ThemeController` (GetX), selectable between Syst
 
 **`ColorScheme` roles (semantic):** `surface` = page background, `onSurface` = main text, `onSurfaceVariant` = secondary text, `secondary` = warm accent (peach / champagne), `primary` = main actions (filled buttons, selected chips: darkGray in light, champagne in dark), `surfaceContainerLowest` = raised cards, `outline` = thin borders, `error` = `errorColor`. Screens reference only these roles; `progressIndicatorTheme` and `switchTheme` use the accent.
 
-**Typography and components (redesign A):** `AppTheme._textTheme` defines a single scale (headlineMedium 28 detail title, headlineSmall 22 screen titles, titleMedium 16 app bar, titleSmall 15 card title, body 14/16, bodySmall 12 secondary text, labelLarge 15 buttons, labelMedium 13 chips, labelSmall 11 uppercase labels). Component themes align buttons (filled `primary`, pill-shaped, height 52), fields (filled with `surfaceContainerLowest`, no border, `primary` border on focus), cards, chips, FAB, dialogs and bottom sheets (with drag handle). `ButtonWidget` inherits colors, shape and text style from the theme.
+**Typography and components:** `AppTheme._textTheme` defines a single scale (headlineMedium 28 detail title, headlineSmall 22 screen titles, titleMedium 16 app bar, titleSmall 15 card title, body 14/16, bodySmall 12 secondary text, labelLarge 15 buttons, labelMedium 13 chips, labelSmall 11 uppercase labels). Component themes align buttons (filled `primary`, pill-shaped, height 52), fields (filled with `surfaceContainerLowest`, no border, `primary` border on focus), cards, chips, FAB, dialogs and bottom sheets (with drag handle). `ButtonWidget` inherits colors, shape and text style from the theme.
 
-**Redesigned screens (redesign A):** splash, onboarding, welcome, home, shoe details, shoe form, profile, edit and delete account, database (totals summary + charts in cards), dashboard (card sections with `DashboardMenuItem` and a themed `SegmentedButton`), login/signup/reset, gender selection, info and support (FAQ in cards). `AppBarWidget` and `TextFieldWidget` inherit from the theme. The `DeleteDialogWidget` confirmation dialog no longer has a colored band.
+**Shared components:** `AppBarWidget` and `TextFieldWidget` inherit from the theme; the dashboard uses card sections with `DashboardMenuItem` and a themed `SegmentedButton`; database and support show their content in cards.
 
 **Spacing (`AppSpacing`, `lib/theme/app_spacing.dart`):** a single scale for padding, margins and gaps — `grid` 2, `xxs` 4, `xs` 8, `s` 12, `m` 16, `l` 20, `xl` 24, `xxl` 32, plus `screen` 30 for the outer page padding. Like `AppRadius` these are raw values: each call picks the ScreenUtil scaling that fits the axis (`AppSpacing.m.r`, `AppSpacing.xs.h`). The few remaining off-scale values (e.g. 88 of space for the FAB, 72 at the bottom of the form) are intentional special cases.
 
@@ -679,7 +679,7 @@ The active theme is managed by `ThemeController` (GetX), selectable between Syst
 - `ResponsiveCenterWidget` (`lib/common/widgets/responsive_center_widget.dart`) — constrains content to a maximum width and centers it, so forms/lists don't stretch edge-to-edge on large tablets (used in the Profile screen and, with the `maxGridWidth` limit, in Home)
 - The shoe grid (Home) computes the column count from the actual screen width, keeping the user's manual choice (1/2/3 columns) as the minimum
 - The pie charts (Database) size canvas and section radius in proportion to the card's actual width (square box), avoiding overlaps between pie, title and legend
-- The app orientation is no longer locked to portrait (`android:screenOrientation="unspecified"` in `AndroidManifest.xml`), allowing rotation on tablets
+- The app orientation is not locked (`android:screenOrientation="unspecified"` in `AndroidManifest.xml`), allowing rotation on tablets
 
 **Shared button (`ButtonWidget`, `lib/common/widgets/button_widget.dart`):**
 - Optional colors: by default colors come from the theme (filled `primary`, or outlined with `isOutline: true`); shape and elevation come from the theme's `elevatedButtonTheme`/`outlinedButtonTheme`
@@ -783,7 +783,7 @@ dev_dependencies:
   mocktail: ^1.0.5                         # Test mocks (Firebase, Google Sign-In, controllers)
 ```
 
-**Tests (`flutter test`):** 134 tests in `test/`.
+**Tests (`flutter test`):** in `test/`, grouped by what they cover:
 - Pure logic: `ShoesModel` (lenient parsing of malformed documents), `ShoesBackup` (ZIP round trip, validation errors, legacy JSON), `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (grid columns and sizes), `ChangelogService` (which changes to show after an update), `MaskRefinement` (background removal alpha, erosion and edge decontamination)
 - With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, write order and clean-up when an upload or write fails), `BackupController` (backup with photos, restore order, rollback on failure, legacy photos), `DatabaseController` (statistics from a single read, empty collection, errors), `UserController` (profile and name loading, no deletion when re-authentication fails) and `UserRepository` (re-authentication credential and error mapping)
 - Layout: shared widgets at 1.3 text scale (`test/common/widgets/text_scaling_test.dart`)
@@ -805,7 +805,7 @@ dev_dependencies:
 | Minimum Android | API 24 (Android 7.0), required by ML Kit |
 | Recommended Android | API 26+ (Android 8.0) |
 | Architecture | 64-bit only (`arm64-v8a`) |
-| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES`; saving the PDF and the backup to Download/Shox needs no permission on API 29+, `WRITE_EXTERNAL_STORAGE` on API 24–28; `MANAGE_EXTERNAL_STORAGE` (used only by the old JSON export) is no longer declared |
+| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES`; saving the PDF and the backup to Download/Shox needs no permission on API 29+, `WRITE_EXTERNAL_STORAGE` on API 24–28; `MANAGE_EXTERNAL_STORAGE` is not declared |
 | Google Play services | Required (Google sign-in and background removal model) |
 | Main platform | Android |
 | Internet connection | Required for authentication and Firestore sync |
@@ -854,7 +854,7 @@ keyPassword=<key password>
 - `android/local.properties` must not be committed (it contains local SDK paths)
 - The `build/` folder must not be committed (build output)
 - The version in `pubspec.yaml` is the single source of truth: the app reads it at runtime through `PackageInfo`
-- Background removal uses ML Kit Subject Segmentation: the model is not in the APK but is downloaded by Google Play services (at install time from the Play Store thanks to the `com.google.mlkit.vision.DEPENDENCIES` meta-data, otherwise on first use; meanwhile the app shows a dedicated message). Obfuscated arm64 release APK: ~23 MB (previously ~46 MB with ONNX). Builds with `--obfuscate --split-debug-info=symbols/v<version>` (see `deploy_android.ps1`) require keeping the symbols folder to decode stack traces
+- Background removal uses ML Kit Subject Segmentation: the model is not in the APK but is downloaded by Google Play services (at install time from the Play Store thanks to the `com.google.mlkit.vision.DEPENDENCIES` meta-data, otherwise on first use; meanwhile the app shows a dedicated message). Obfuscated arm64 release APK: ~23 MB. Builds with `--obfuscate --split-debug-info=symbols/v<version>` (see `deploy_android.ps1`) require keeping the symbols folder to decode stack traces
 - README previews (local only, `tool/` is git-ignored): `flutter test tool/preview/generate_preview_test.dart` regenerates `images/shox_preview.png` (tilted phones) and the screens without system bars (540 px wide) in `images/screenshots/<name>.png` from `images/screenshots/<name>_raw.png` (1080x2392, git-ignored and kept locally). The script lives outside `test/`, so it does not run with `flutter test`
 
 ---
