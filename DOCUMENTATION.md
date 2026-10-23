@@ -1,6 +1,6 @@
 # Shox — Full documentation
 
-> Copyright © 2026 Nicola De Nicolais — All rights reserved.
+> Copyright © 2025–2026 Nicola De Nicolais — MIT License.
 
 ---
 
@@ -103,7 +103,7 @@ The app is fully localized in 5 languages (Italian, English, French, Spanish, Ge
 shox/
 ├── android/                        # Native Android configuration
 ├── assets/
-│   ├── fonts/                      # Montserrat (regular + bold)
+│   ├── fonts/                      # Montserrat (regular + bold) + OFL.txt (its license)
 │   └── images/                     # App logo, launcher icon sources and other static images
 ├── images/                         # README preview images
 ├── lib/
@@ -517,7 +517,7 @@ Generates a PDF document of the whole shoe collection.
 - **Cover:** full cream page with logo, "Shox", "My collection", accent rule, user name and email, total pairs; generation date at the bottom
 - **Summary:** three stat tiles (total pairs, favorites, brands) and three rankings with bars relative to the top row: top 5 brands, categories, primary colors (with color dot). Figures come from `PdfCollectionSummary.fromShoes` (`features/database/models/pdf_collection_summary.dart`, pure and covered by `test/features/database/models/pdf_collection_summary_test.dart`)
 - **One page per shoe** (newest first): large cream photo panel, brand + "category · type", a peach heart (inline SVG, `pw.SvgImage`) when favorited, then cream tiles on a 3-column grid: size, season, date added; primary color and extra colors (dot + localized name; the extra colors tile is omitted when there are none); notes (only when present)
-- **Credits (last page):** full cream page with logo, "Shox", app version (`PackageInfo`), "Designed and developed by" `AppConstants.developerName`, clickable links (`pw.UrlLink`) to the developer website and the GitHub repository, copyright
+- **Credits (last page):** full cream page with logo, "Shox", app version (`PackageInfo`), "Designed and developed by" `AppConstants.developerName`, clickable links (`pw.UrlLink`) to the developer website and the GitHub repository, copyright (`pdf_copyright`, © 2025–2026)
 - Summary and shoe pages have a header (logo + "Shox") and a footer with `page / total`
 
 **Details:**
@@ -569,7 +569,7 @@ Collection backup and restore.
 
 **Path:** `lib/theme/`
 
-**Font:** Montserrat (regular 400 + bold 700), bundled as a local asset and registered in `pubspec.yaml` as a single `Montserrat` family with both weights, used by the theme (`ThemeData.fontFamily` and `TextTheme`); bold text uses `FontWeight.w700`. No `google_fonts` dependency or runtime download. The PDF export loads the font files by path.
+**Font:** Montserrat (regular 400 + bold 700), bundled as a local asset and registered in `pubspec.yaml` as a single `Montserrat` family with both weights, used by the theme (`ThemeData.fontFamily` and `TextTheme`); bold text uses `FontWeight.w700`. No `google_fonts` dependency or runtime download. The PDF export loads the font files by path. Montserrat is under the SIL Open Font License 1.1, which must ship with the font: `assets/fonts/OFL.txt` is bundled and `main()` registers it in `LicenseRegistry` (`_registerFontLicenses`), so it appears in the open source licenses page.
 
 **App icon:** generated with [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) from the `assets/images/app_logo.png` logo (a shoe on a box). There are two derived variants:
 - `assets/images/app_icon_legacy.png` — flat icon (Android < 8.0), logo at 86% of the canvas
@@ -807,6 +807,8 @@ keyPassword=<key password>
 Copyright © 2025–2026 **Nicola De Nicolais**.
 
 License: **MIT**
+
+The bundled Montserrat font is under the SIL Open Font License 1.1 (`assets/fonts/OFL.txt`).
 
 - **Author:** Nicola De Nicolais
 - **Email:** [ndn21dev@gmail.com](mailto:ndn21dev@gmail.com)

@@ -1883,7 +1883,7 @@ abstract class AppLocalizations {
   /// No description provided for @pdf_copyright.
   ///
   /// In en, this message translates to:
-  /// **'© 2024 Nicola De Nicolais'**
+  /// **'© 2025–2026 Nicola De Nicolais'**
   String get pdf_copyright;
 
   /// No description provided for @pdf_cover_title.
@@ -2353,6 +2353,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stronger data protection: each user can only read and change their own profile, shoes and photos. Sign-in, sign-up and password recovery no longer look up the list of users.'**
   String get changelog_v5_0_0_bullet_20;
+
+  /// No description provided for @changelog_v5_0_0_bullet_21.
+  ///
+  /// In en, this message translates to:
+  /// **'The copyright on the last page of the PDF export now shows the right years.'**
+  String get changelog_v5_0_0_bullet_21;
+
+  /// No description provided for @changelog_v5_0_0_bullet_22.
+  ///
+  /// In en, this message translates to:
+  /// **'The open source licenses page now also lists the license of the Montserrat font used by the app.'**
+  String get changelog_v5_0_0_bullet_22;
 
   /// No description provided for @user_screen_total_shoes.
   ///

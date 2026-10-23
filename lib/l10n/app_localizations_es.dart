@@ -1001,7 +1001,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pdf_field_notes => 'Notas';
 
   @override
-  String get pdf_copyright => '© 2024 Nicola De Nicolais';
+  String get pdf_copyright => '© 2025–2026 Nicola De Nicolais';
 
   @override
   String get pdf_cover_title => 'Mi colección';
@@ -1263,6 +1263,14 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_20 =>
       'Mayor protección de los datos: cada usuario solo puede leer y modificar su propio perfil, sus zapatos y sus fotos. El inicio de sesión, el registro y la recuperación de contraseña ya no consultan la lista de usuarios.';
+
+  @override
+  String get changelog_v5_0_0_bullet_21 =>
+      'El copyright de la última página del PDF exportado ahora muestra los años correctos.';
+
+  @override
+  String get changelog_v5_0_0_bullet_22 =>
+      'La página de licencias de código abierto ahora incluye también la licencia de la fuente Montserrat que usa la app.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';

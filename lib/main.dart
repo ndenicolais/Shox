@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shox/l10n/app_localizations.dart';
@@ -21,8 +22,18 @@ final Logger _logger = Logger();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  _registerFontLicenses();
   Get.put(ThemeController());
   await _bootstrap();
+}
+
+/// Bundled fonts are not packages, so their license (SIL OFL 1.1, which must
+/// ship with the font) is added by hand to the open source licenses page.
+void _registerFontLicenses() {
+  LicenseRegistry.addLicense(() async* {
+    final String license = await rootBundle.loadString('assets/fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(const ['Montserrat'], license);
+  });
 }
 
 bool _isBootstrapping = false;
