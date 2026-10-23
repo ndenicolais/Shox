@@ -1278,6 +1278,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das App-Symbol übernimmt jetzt die Systemfarben, wenn Designsymbole aktiviert sind (Android 13+), und hat auf älteren Android-Versionen einen festen Hintergrund.';
 
   @override
+  String get changelog_v5_0_0_bullet_24 =>
+      'Die Google-Anmeldung nutzt jetzt die Kontoauswahl von Android (Credential Manager), und die Bibliotheken der App wurden für die neuesten Android-Versionen aktualisiert.';
+
+  @override
   String get user_screen_total_shoes => 'Schuhe gesamt';
 
   @override

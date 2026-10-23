@@ -410,6 +410,7 @@
   "changelog_v5_0_0_bullet_21": "Il copyright nell'ultima pagina del PDF esportato ora riporta gli anni corretti.",
   "changelog_v5_0_0_bullet_22": "La pagina delle licenze open source ora include anche la licenza del font Montserrat usato dall'app.",
   "changelog_v5_0_0_bullet_23": "L'icona dell'app ora segue i colori del sistema quando le icone a tema sono attive (Android 13+) e ha uno sfondo pieno sulle versioni di Android meno recenti.",
+  "changelog_v5_0_0_bullet_24": "L'accesso con Google ora usa il selettore di account di Android (Credential Manager) e le librerie dell'app sono state aggiornate per le ultime versioni di Android.",
   "user_screen_total_shoes": "Scarpe totali",
   "user_screen_member_since": "Iscritto dal",
   "user_screen_favorite_brand": "Marca preferita",

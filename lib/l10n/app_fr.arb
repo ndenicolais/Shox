@@ -410,6 +410,7 @@
   "changelog_v5_0_0_bullet_21": "Le copyright de la dernière page du PDF exporté affiche désormais les bonnes années.",
   "changelog_v5_0_0_bullet_22": "La page des licences open source inclut désormais aussi la licence de la police Montserrat utilisée par l'application.",
   "changelog_v5_0_0_bullet_23": "L'icône de l'application suit désormais les couleurs du système lorsque les icônes à thème sont activées (Android 13+) et a un fond plein sur les versions plus anciennes d'Android.",
+  "changelog_v5_0_0_bullet_24": "La connexion avec Google utilise désormais le sélecteur de comptes d'Android (Credential Manager), et les bibliothèques de l'application ont été mises à jour pour les dernières versions d'Android.",
   "user_screen_total_shoes": "Total de chaussures",
   "user_screen_member_since": "Membre depuis",
   "user_screen_favorite_brand": "Marque pr\u00e9f\u00e9r\u00e9e",

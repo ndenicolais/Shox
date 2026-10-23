@@ -63,31 +63,31 @@ The app is fully localized in 5 languages (Italian, English, French, Spanish, Ge
 |---|---|
 | Framework | Flutter 3 / Dart `^3.5.2` |
 | State management | [get](https://pub.dev/packages/get) `^4.6.6` (GetX) |
-| Backend — Database | [cloud_firestore](https://pub.dev/packages/cloud_firestore) `^5.5.0` |
-| Backend — Auth | [firebase_auth](https://pub.dev/packages/firebase_auth) `^5.3.4` |
-| Backend — Storage | [firebase_storage](https://pub.dev/packages/firebase_storage) `^12.3.7` |
-| Google authentication | [google_sign_in](https://pub.dev/packages/google_sign_in) `^6.1.5` |
+| Backend — Database | [cloud_firestore](https://pub.dev/packages/cloud_firestore) `^7.0.0` |
+| Backend — Auth | [firebase_auth](https://pub.dev/packages/firebase_auth) `^7.0.0` |
+| Backend — Storage | [firebase_storage](https://pub.dev/packages/firebase_storage) `^14.0.0` |
+| Google authentication | [google_sign_in](https://pub.dev/packages/google_sign_in) `^7.2.0` |
 | Local persistence | [shared_preferences](https://pub.dev/packages/shared_preferences) `^2.3.4` |
 | Responsive UI | [flutter_screenutil](https://pub.dev/packages/flutter_screenutil) `^5.9.3` |
 | UI icons | [ming_cute_icons](https://pub.dev/packages/ming_cute_icons) `^0.0.7` |
-| Charts | [fl_chart](https://pub.dev/packages/fl_chart) `^0.69.0` |
+| Charts | [fl_chart](https://pub.dev/packages/fl_chart) `^1.3.0` |
 | Internationalization | [intl](https://pub.dev/packages/intl) `^0.20.2` |
 | Unique IDs | [uuid](https://pub.dev/packages/uuid) `^4.5.1` |
 | Images — picking | [image_picker](https://pub.dev/packages/image_picker) `^1.1.2` |
-| Images — cropping | [image_cropper](https://pub.dev/packages/image_cropper) `^11.0.0` |
+| Images — cropping | [image_cropper](https://pub.dev/packages/image_cropper) `^12.2.1` |
 | Images — compression | [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) `^2.4.0` |
 | Images — processing | [image](https://pub.dev/packages/image) `^4.2.0` |
 | Images — background removal | [google_mlkit_subject_segmentation](https://pub.dev/packages/google_mlkit_subject_segmentation) `^0.2.1` (on-device, model downloaded by Google Play services) |
-| Images — cache | [cached_network_image](https://pub.dev/packages/cached_network_image) `^3.4.1` |
+| Images — cache | [cached_network_image](https://pub.dev/packages/cached_network_image) `^4.0.3` |
 | Images — viewer | [photo_view](https://pub.dev/packages/photo_view) `^0.15.0` |
-| Images — save to gallery | [image_gallery_saver_plus](https://pub.dev/packages/image_gallery_saver_plus) `^4.0.1` |
+| Images — save to gallery | [image_gallery_saver_plus](https://pub.dev/packages/image_gallery_saver_plus) `^5.1.1` |
 | Widget screenshots | [screenshot](https://pub.dev/packages/screenshot) `^3.0.0` |
 | PDF export | [pdf](https://pub.dev/packages/pdf) `^3.11.0` |
-| File picker | [file_picker](https://pub.dev/packages/file_picker) `^9.0.2` |
-| Sharing | [share_plus](https://pub.dev/packages/share_plus) `^10.1.3` |
-| Permissions | [permission_handler](https://pub.dev/packages/permission_handler) `^11.3.1` |
-| Device info | [device_info_plus](https://pub.dev/packages/device_info_plus) `^11.2.0` |
-| App info | [package_info_plus](https://pub.dev/packages/package_info_plus) `^9.0.0` |
+| File picker | [file_picker](https://pub.dev/packages/file_picker) `^13.1.0` |
+| Sharing | [share_plus](https://pub.dev/packages/share_plus) `^13.3.1` |
+| Permissions | [permission_handler](https://pub.dev/packages/permission_handler) `^13.0.2` |
+| Device info | [device_info_plus](https://pub.dev/packages/device_info_plus) `^13.3.0` |
+| App info | [package_info_plus](https://pub.dev/packages/package_info_plus) `^10.2.2` |
 | Filesystem paths | [path_provider](https://pub.dev/packages/path_provider) `^2.1.4` |
 | Links | [url_launcher](https://pub.dev/packages/url_launcher) `^6.3.0` |
 | HTTP | [http](https://pub.dev/packages/http) `^1.3.0` |
@@ -692,14 +692,14 @@ dependencies:
   get: ^4.6.6                              # State management and routing
   flutter_screenutil: ^5.9.3               # Responsive UI
   ming_cute_icons: ^0.0.7                  # UI icons
-  fl_chart: ^0.69.0                        # Charts
+  fl_chart: ^1.3.0                         # Charts
   photo_view: ^0.15.0                      # Zoomable image viewer
   screenshot: ^3.0.0                       # Widget screenshots
-  google_sign_in: ^6.1.5                   # Google authentication
-  cloud_firestore: ^5.5.0                  # Cloud database
-  firebase_auth: ^5.3.4                    # Firebase authentication
-  firebase_core: ^3.9.0                    # Firebase core
-  firebase_storage: ^12.3.7                # Image storage
+  google_sign_in: ^7.2.0                   # Google authentication
+  cloud_firestore: ^7.0.0                  # Cloud database
+  firebase_auth: ^7.0.0                    # Firebase authentication
+  firebase_core: ^5.0.0                    # Firebase core
+  firebase_storage: ^14.0.0                # Image storage
   http: ^1.3.0                             # HTTP requests
   url_launcher: ^6.3.0                     # Opening URLs
   shared_preferences: ^2.3.4               # Local persistence
@@ -707,16 +707,16 @@ dependencies:
   path: ^1.9.0                             # Path handling
   image: ^4.2.0                            # Image processing
   image_picker: ^1.1.2                     # Image picking
-  image_cropper: ^11.0.0                   # Image cropping
+  image_cropper: ^12.2.1                   # Image cropping
   flutter_image_compress: ^2.4.0           # Image compression
-  cached_network_image: ^3.4.1             # Network image cache
-  image_gallery_saver_plus: ^4.0.1         # Save to gallery
+  cached_network_image: ^4.0.3             # Network image cache
+  image_gallery_saver_plus: ^5.1.1         # Save to gallery
   pdf: ^3.11.0                             # PDF generation
-  file_picker: ^9.0.2                      # File picker
-  share_plus: ^10.1.3                      # File sharing
-  permission_handler: ^11.3.1              # Permissions
-  device_info_plus: ^11.2.0                # Device info
-  package_info_plus: ^9.0.0                # App info (version)
+  file_picker: ^13.1.0                     # File picker
+  share_plus: ^13.3.1                      # File sharing
+  permission_handler: ^13.0.2              # Permissions
+  device_info_plus: ^13.3.0                # Device info
+  package_info_plus: ^10.2.2               # App info (version)
   logger: ^2.5.0                           # Logging
   uuid: ^4.5.1                             # UUID generation
   intl: ^0.20.2                            # Date formatting / localization
@@ -727,7 +727,7 @@ dependencies:
 
 ```yaml
 dev_dependencies:
-  flutter_lints: ^5.0.0                    # Lint rules
+  flutter_lints: ^6.0.0                    # Lint rules
   flutter_launcher_icons: ^0.14.2          # Launcher icon generation
   mocktail: ^1.0.5                         # Test mocks (Firebase, Google Sign-In, controllers)
 ```
@@ -738,6 +738,8 @@ dev_dependencies:
 - Layout: shared widgets at 1.3 text scale (`test/common/widgets/text_scaling_test.dart`)
 
 `ShoesController` (repository, Firebase Auth, `http.Client`), `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.
+
+**Google Sign-In (`google_sign_in` 7):** the plugin exposes the `GoogleSignIn.instance` singleton, which must be initialized exactly once before any other call. `GoogleSignInService.instance()` (`lib/features/auth/services/google_sign_in_service.dart`) memoizes that initialization (and clears it on failure so a later call can retry); `LoginRepository` and `UserRepository` go through it. On Android sign-in runs through Credential Manager and needs a server client ID, read from the `default_web_client_id` resource that the google-services plugin generates from the web OAuth client in `google-services.json`. `authenticate()` throws `GoogleSignInException` instead of returning `null`: `canceled` maps to `null` (user closed the picker), any other code to `google_sign_in_failed`; a `network-request-failed` from `signInWithCredential` maps to `network_error`. Only the ID token is passed to Firebase.
 
 **Lint (`analysis_options.yaml`):** on top of `flutter_lints`, `avoid_print`, `prefer_const_constructors`, `prefer_const_declarations`, `use_super_parameters` and `require_trailing_commas` are enabled; the files generated by `flutter gen-l10n` (`lib/l10n/app_localizations*.dart`) are excluded from analysis. Fixable issues can be applied with `dart fix --apply`.
 
@@ -778,6 +780,8 @@ flutter build apk --release --target-platform android-arm64 --obfuscate --split-
 # App Bundle (recommended for Google Play)
 flutter build appbundle --release
 ```
+
+**Android toolchain:** AGP `9.1.1`, Gradle `9.3.1`, Kotlin `2.3.20` (`android/settings.gradle`, `android/gradle/wrapper/gradle-wrapper.properties`, `kotlin.version` in `android/gradle.properties`), JDK 17, `compileSdk 37` (required by `permission_handler_android`; it does not change runtime behavior, which follows `targetSdk = flutter.targetSdkVersion`). AGP 9.1 is the highest version Flutter 3.44 supports, and the first that resolves the `android-37.0` SDK platform. `android.builtInKotlin=false` and `android.newDsl=false` in `gradle.properties` keep the AGP 8 behavior: some plugins (`firebase_*`, `flutter_image_compress`, `image_gallery_saver_plus`) still apply the Kotlin Gradle Plugin, which Flutter flags as a warning at build time.
 
 **Firebase configuration:**
 - Make sure `android/app/google-services.json` is present and up to date

@@ -1289,6 +1289,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'L\'icône de l\'application suit désormais les couleurs du système lorsque les icônes à thème sont activées (Android 13+) et a un fond plein sur les versions plus anciennes d\'Android.';
 
   @override
+  String get changelog_v5_0_0_bullet_24 =>
+      'La connexion avec Google utilise désormais le sélecteur de comptes d\'Android (Credential Manager), et les bibliothèques de l\'application ont été mises à jour pour les dernières versions d\'Android.';
+
+  @override
   String get user_screen_total_shoes => 'Total de chaussures';
 
   @override

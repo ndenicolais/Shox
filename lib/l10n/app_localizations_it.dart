@@ -1280,6 +1280,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'L\'icona dell\'app ora segue i colori del sistema quando le icone a tema sono attive (Android 13+) e ha uno sfondo pieno sulle versioni di Android meno recenti.';
 
   @override
+  String get changelog_v5_0_0_bullet_24 =>
+      'L\'accesso con Google ora usa il selettore di account di Android (Credential Manager) e le librerie dell\'app sono state aggiornate per le ultime versioni di Android.';
+
+  @override
   String get user_screen_total_shoes => 'Scarpe totali';
 
   @override

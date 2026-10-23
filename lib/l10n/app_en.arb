@@ -416,6 +416,7 @@
   "changelog_v5_0_0_bullet_21": "The copyright on the last page of the PDF export now shows the right years.",
   "changelog_v5_0_0_bullet_22": "The open source licenses page now also lists the license of the Montserrat font used by the app.",
   "changelog_v5_0_0_bullet_23": "The app icon now follows the system colors when themed icons are enabled (Android 13+) and has a solid background on older Android versions.",
+  "changelog_v5_0_0_bullet_24": "Google sign-in now uses the Android account picker (Credential Manager), and the app's libraries have been updated for the latest Android versions.",
   "user_screen_total_shoes": "Total Shoes",
   "user_screen_member_since": "Member Since",
   "user_screen_favorite_brand": "Favorite Brand",

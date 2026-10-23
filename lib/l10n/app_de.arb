@@ -412,6 +412,7 @@
   "changelog_v5_0_0_bullet_21": "Das Copyright auf der letzten Seite des PDF-Exports zeigt jetzt die richtigen Jahre.",
   "changelog_v5_0_0_bullet_22": "Die Seite der Open-Source-Lizenzen enthält jetzt auch die Lizenz der in der App verwendeten Schriftart Montserrat.",
   "changelog_v5_0_0_bullet_23": "Das App-Symbol übernimmt jetzt die Systemfarben, wenn Designsymbole aktiviert sind (Android 13+), und hat auf älteren Android-Versionen einen festen Hintergrund.",
+  "changelog_v5_0_0_bullet_24": "Die Google-Anmeldung nutzt jetzt die Kontoauswahl von Android (Credential Manager), und die Bibliotheken der App wurden für die neuesten Android-Versionen aktualisiert.",
   "user_screen_total_shoes": "Schuhe gesamt",
   "user_screen_member_since": "Mitglied seit",
   "user_screen_favorite_brand": "Lieblingsmarke",

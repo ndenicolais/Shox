@@ -1277,6 +1277,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'El icono de la app ahora sigue los colores del sistema cuando los iconos temáticos están activados (Android 13+) y tiene un fondo sólido en versiones anteriores de Android.';
 
   @override
+  String get changelog_v5_0_0_bullet_24 =>
+      'El inicio de sesión con Google ahora usa el selector de cuentas de Android (Credential Manager) y las bibliotecas de la app se han actualizado para las últimas versiones de Android.';
+
+  @override
   String get user_screen_total_shoes => 'Total de zapatos';
 
   @override

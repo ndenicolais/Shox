@@ -1265,6 +1265,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The app icon now follows the system colors when themed icons are enabled (Android 13+) and has a solid background on older Android versions.';
 
   @override
+  String get changelog_v5_0_0_bullet_24 =>
+      'Google sign-in now uses the Android account picker (Credential Manager), and the app\'s libraries have been updated for the latest Android versions.';
+
+  @override
   String get user_screen_total_shoes => 'Total Shoes';
 
   @override

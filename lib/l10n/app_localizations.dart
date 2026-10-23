@@ -2372,6 +2372,12 @@ abstract class AppLocalizations {
   /// **'The app icon now follows the system colors when themed icons are enabled (Android 13+) and has a solid background on older Android versions.'**
   String get changelog_v5_0_0_bullet_23;
 
+  /// No description provided for @changelog_v5_0_0_bullet_24.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in now uses the Android account picker (Credential Manager), and the app\'s libraries have been updated for the latest Android versions.'**
+  String get changelog_v5_0_0_bullet_24;
+
   /// No description provided for @user_screen_total_shoes.
   ///
   /// In en, this message translates to:
