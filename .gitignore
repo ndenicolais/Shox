@@ -66,3 +66,5 @@ images/screenshots/*_raw.png
 
 # Local helper scripts and tooling
 /tool/
+# Generic guides shared across my apps (kept locally)
+/guides/
