@@ -22,6 +22,9 @@ class AppConstants {
   // SharedPreferences keys
   static const String prefsRememberMe = 'remember_me';
   static const String prefsUserId = 'user_id';
+
+  /// Kept as `onboarding_completed` so users of older versions keep the flag.
+  static const String prefsOnboardingSeen = 'onboarding_completed';
   static const String prefsLastSeenChangelogVersion =
       'last_seen_changelog_version';
 

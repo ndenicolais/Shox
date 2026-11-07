@@ -774,6 +774,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get info_screen_link_contact => 'Contact the developer';
 
   @override
+  String get info_screen_link_introduction => 'Introduction';
+
+  @override
   String get info_screen_link_licenses => 'Open source licenses';
 
   @override
@@ -1385,6 +1388,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_29 =>
       'The message shown when a photo cannot be saved is now complete in every language, and the introduction no longer closes unexpectedly if the theme or language changes while it is open.';
+
+  @override
+  String get changelog_v5_0_0_bullet_30 =>
+      'You can watch the introduction again from Info, external links are marked with an arrow, and a message tells you when a link cannot be opened.';
 
   @override
   String get user_screen_total_shoes => 'Total Shoes';

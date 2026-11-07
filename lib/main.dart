@@ -12,6 +12,7 @@ import 'package:shox/l10n/l10n.dart';
 import 'package:shox/common/screens/startup_error_screen.dart';
 import 'package:shox/core/routes/app_pages.dart';
 import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/core/services/onboarding_store.dart';
 import 'package:shox/core/utils/firebase_options.dart';
 import 'package:shox/features/auth/services/auth_guard_service.dart';
 import 'package:shox/theme/app_font_sizes.dart';
@@ -44,7 +45,11 @@ Future<void> _bootstrap() async {
   if (_isBootstrapping) return;
   _isBootstrapping = true;
 
-  final String? savedLocale = await _loadSavedLocale();
+  final SharedPreferences? prefs = await _loadPrefs();
+  final String? savedLocale = prefs?.getString('language_code');
+  if (prefs != null && !Get.isRegistered<OnboardingStore>()) {
+    Get.put(OnboardingStore(prefs), permanent: true);
+  }
   final bool firebaseReady = await _initFirebase();
   if (firebaseReady && !Get.isRegistered<AuthGuardService>()) {
     Get.put(AuthGuardService(), permanent: true);
@@ -63,13 +68,13 @@ Future<void> _bootstrap() async {
   );
 }
 
-/// The saved language is optional: on failure the device locale is used.
-Future<String?> _loadSavedLocale() async {
+/// Loaded once before `runApp`, so the saved language and the onboarding flag
+/// are read synchronously. On failure the device locale is used.
+Future<SharedPreferences?> _loadPrefs() async {
   try {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('language_code');
+    return await SharedPreferences.getInstance();
   } catch (e, stackTrace) {
-    _logger.e('Unable to read saved locale', error: e, stackTrace: stackTrace);
+    _logger.e('Unable to read preferences', error: e, stackTrace: stackTrace);
     return null;
   }
 }

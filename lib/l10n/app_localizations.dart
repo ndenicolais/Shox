@@ -1400,6 +1400,12 @@ abstract class AppLocalizations {
   /// **'Contact the developer'**
   String get info_screen_link_contact;
 
+  /// No description provided for @info_screen_link_introduction.
+  ///
+  /// In en, this message translates to:
+  /// **'Introduction'**
+  String get info_screen_link_introduction;
+
   /// No description provided for @info_screen_link_licenses.
   ///
   /// In en, this message translates to:
@@ -2497,6 +2503,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The message shown when a photo cannot be saved is now complete in every language, and the introduction no longer closes unexpectedly if the theme or language changes while it is open.'**
   String get changelog_v5_0_0_bullet_29;
+
+  /// No description provided for @changelog_v5_0_0_bullet_30.
+  ///
+  /// In en, this message translates to:
+  /// **'You can watch the introduction again from Info, external links are marked with an arrow, and a message tells you when a link cannot be opened.'**
+  String get changelog_v5_0_0_bullet_30;
 
   /// No description provided for @user_screen_total_shoes.
   ///

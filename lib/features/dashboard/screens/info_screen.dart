@@ -188,6 +188,11 @@ class _InfoScreenState extends State<InfoScreen> {
         onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
       ),
       DashboardMenuItem(
+        icon: MingCuteIcons.mgc_book_6_line,
+        text: l10n.info_screen_link_introduction,
+        onTap: () => Get.toNamed(AppRoutes.introduction),
+      ),
+      DashboardMenuItem(
         icon: MingCuteIcons.mgc_document_2_line,
         text: l10n.info_screen_link_licenses,
         onTap: () => showLicensePage(

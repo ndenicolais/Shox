@@ -115,7 +115,7 @@ shox/
 │   ├── core/
 │   │   ├── constants/              # App constants and changelog entries
 │   │   ├── routes/                 # GetX routes (AppRoutes, AppPages, AuthMiddleware); default `rightToLeftWithFade` transition (300ms) set on GetMaterialApp
-│   │   ├── services/               # App-wide services (changelog)
+│   │   ├── services/               # App-wide services (changelog, downloads, onboarding flag)
 │   │   └── utils/                  # Utilities, helpers, bg_remover, mask_refinement
 │   ├── features/
 │   │   ├── auth/                   # Authentication (login, signup, reset password, gender selection)
@@ -232,8 +232,9 @@ curl -s "https://firestore.googleapis.com/v1/projects/shox-bebd7/databases/(defa
 The app's entry flow.
 
 **Features:**
-- **IntroScreen:** splash/loading screen (logo, name, tagline); checks whether the user is already signed in and redirects to the right screen (`home` if signed in, otherwise `onboarding` or `welcome`)
-- **OnboardingScreen:** introductory pages presenting the main features (shown only on first launch); illustrations in cards, pill indicators and a Skip button that marks onboarding as completed
+- **IntroScreen:** splash/loading screen (logo, name, tagline). Startup rule: a signed-in user ("remember me" with a live Firebase session) goes to `home`; otherwise `onboarding` on the first launch and `welcome` afterwards. The session is checked first, so users who update the app never see the introduction
+- **OnboardingScreen:** introductory pages presenting the main features; illustrations in cards, pill indicators, Skip / Next / Get started. The screen knows nothing about storage or routes: it only calls `onFinish`. On `/onboarding` (first launch) `onFinish` marks the introduction as seen (`OnboardingStore`) and opens `welcome`; on `/introduction` (replay from Info) there is no `onFinish`, so finishing pops the route, back navigation is allowed and the flag is untouched. With the system "Remove animations" setting, Next jumps to the page (`jumpToPage`) instead of animating
+- **OnboardingStore** (`lib/core/services/onboarding_store.dart`): reads and writes the "introduction seen" flag (`AppConstants.prefsOnboardingSeen`, stored under the key `onboarding_completed` of older versions). It is built in `main()` from the `SharedPreferences` loaded before `runApp` and registered with `Get.put`, so the flag is read synchronously at startup
 - **WelcomeScreen:** welcome screen with full-width Sign in / Sign up buttons
 - **StartupErrorScreen:** shown instead of the app if `Firebase.initializeApp` fails at startup; the "Retry" button runs the initialization again (`_bootstrap()` in `main.dart`). A failure reading `SharedPreferences` does not block startup: the device language is used
 
@@ -367,7 +368,7 @@ Settings screen and entry point to the account features. Sections are cards of `
 
 **Changelog dialog:** entries are defined in `lib/core/constants/changelog.dart` (`ChangelogEntry`, one per version, with a list of `ChangelogItem`s: a `ChangeType` and a localized bullet) and shown by `lib/common/widgets/changelog_dialog_widget.dart`. Within each version the bullets are grouped into sections by type, in the `ChangeType` order: New (`added`), Improvements (`improved`), Fixes (`fixed`), Security (`security`), each with its icon and a localized title (`changelog_section_*`); empty sections are hidden. `test/core/constants/changelog_test.dart` checks that every `changelog_v*` key in the ARB files is listed exactly once. Besides being opened manually from the Dashboard, the dialog appears automatically once after an update: `HomeScreen` compares the current version (`package_info_plus`) with the last one seen, stored in `SharedPreferences` (`AppConstants.prefsLastSeenChangelogVersion`), and shows only the unseen entries. On a fresh install the current version is just recorded, without showing the dialog.
 
-**Info and privacy:** `InfoScreen` shows logo, name, subtitle and version (`PackageInfo`), "What is Shox", four main features in cards, useful links (source code, website, email, privacy, `showLicensePage` for open source licenses) and credits (`AppConstants.developerName`). External links open in another app (`LaunchMode.externalApplication`) and show an ↗ arrow; internal pages show a › chevron. When no app can open a link, an error toast (`info_screen_link_error`) appears; the overlay and the string are read before the `await`. `PrivacyPolicyScreen` is native: 10 `policy_section_*` sections localized in the 5 languages, update date `AppConstants.privacyPolicyUpdatedAt`, and a link to the public `PRIVACY.md` on GitHub (`AppConstants.uriPrivacyPolicy`, also to be set in the Play Store). The text of `PRIVACY.md` (Italian and English) must be kept in line with the ARB keys. The privacy policy is reachable only from Info.
+**Info and privacy:** `InfoScreen` shows logo, name, subtitle and version (`PackageInfo`), "What is Shox", four main features in cards, useful links (source code, website, email, privacy, introduction replay, `showLicensePage` for open source licenses) and credits (`AppConstants.developerName`). External links open in another app (`LaunchMode.externalApplication`) and show an ↗ arrow; internal pages show a › chevron. When no app can open a link, an error toast (`info_screen_link_error`) appears; the overlay and the string are read before the `await`. `PrivacyPolicyScreen` is native: 10 `policy_section_*` sections localized in the 5 languages, update date `AppConstants.privacyPolicyUpdatedAt`, and a link to the public `PRIVACY.md` on GitHub (`AppConstants.uriPrivacyPolicy`, also to be set in the Play Store). The text of `PRIVACY.md` (Italian and English) must be kept in line with the ARB keys. The privacy policy is reachable only from Info.
 
 ---
 
@@ -696,7 +697,8 @@ The app uses **GetX** routing with named routes.
 | Route | Screen | Description |
 |---|---|---|
 | `/` | IntroScreen | Splash / authentication check |
-| `/onboarding` | OnboardingScreen | App introduction (first launch) |
+| `/onboarding` | OnboardingScreen | App introduction (first launch, marks it as seen) |
+| `/introduction` | OnboardingScreen | Introduction replayed from Info (public route, flag untouched) |
 | `/welcome` | WelcomeScreen | Welcome with access to login/signup |
 | `/login` | LoginScreen | Google or email/password sign-in |
 | `/signup` | SignupScreen | New user registration |
@@ -784,9 +786,10 @@ dev_dependencies:
 ```
 
 **Tests (`flutter test`):** in `test/`, grouped by what they cover:
-- Pure logic: `ShoesModel` (lenient parsing of malformed documents), `ShoesBackup` (ZIP round trip, validation errors, legacy JSON), `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (grid columns and sizes), `ChangelogService` (which changes to show after an update), `MaskRefinement` (background removal alpha, erosion and edge decontamination)
+- Pure logic: `ShoesModel` (lenient parsing of malformed documents), `ShoesBackup` (ZIP round trip, validation errors, legacy JSON), `ShoesFilter`, `ShoesFormData`, `ShoesTextTranslations`, `L10n.parseLocale`, `ShoesGridLayout` (grid columns and sizes), `ChangelogService` (which changes to show after an update), `OnboardingStore` (flag default, persistence, key of older versions), `MaskRefinement` (background removal alpha, erosion and edge decontamination)
 - With mocks (`mocktail`): `AuthService` (user lookup on Firestore, session in `SharedPreferences` via `setMockInitialValues`), `LoginRepository` (email/password and Google Sign-In error mapping), `ShoesFormService` (add, edit, photo replacement and removal, favorite preserved), `AuthGuardService` (widget test with real GetX navigation: redirect on expired session, voluntary sign-out, public routes), controllers `ShoesController` (add, edit, delete, write order and clean-up when an upload or write fails), `BackupController` (backup with photos, restore order, rollback on failure, legacy photos), `DatabaseController` (statistics from a single read, empty collection, errors), `UserController` (profile and name loading, no deletion when re-authentication fails) and `UserRepository` (re-authentication credential and error mapping)
 - Layout: shared widgets at 1.3 text scale (`test/common/widgets/text_scaling_test.dart`)
+- Onboarding screen (`test/common/screens/onboarding_screen_test.dart`): Skip and Get started call `onFinish`, a replay without `onFinish` pops, Next jumps when animations are disabled
 - Info screen (`test/features/dashboard/info_screen_test.dart`): identity, version from a mocked `PackageInfo`, links and credits, no overflow at 320 px, open source licenses page
 
 `ShoesController` (repository, Firebase Auth), `ShoesRepository`, `UserRepository`, `DatabaseRepository`, `BackupRepository` (Firebase Auth, Firestore, Storage; `UserRepository` also `AuthService`), `BackupController`, `DatabaseController` and `UserController` (repository), `LoginRepository`, `ResetPasswordRepository` and `AuthGuardService` take their dependencies (Firebase, Google Sign-In, Firestore) as optional constructor parameters, defaulting to the real instances, so tests can replace them.

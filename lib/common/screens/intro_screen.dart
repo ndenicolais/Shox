@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
 import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
+import 'package:shox/core/services/onboarding_store.dart';
 import 'package:shox/core/utils/constants.dart';
 import 'package:shox/features/auth/services/auth_service.dart';
 import 'package:shox/theme/app_spacing.dart';
@@ -54,47 +55,38 @@ class IntroScreenState extends State<IntroScreen>
     }
   }
 
+  /// Startup rule: signed-in user → Home; otherwise the introduction on the
+  /// first launch, the welcome screen afterwards. Checking the session first
+  /// keeps users who update the app from seeing the introduction.
   Future<void> _checkRememberMe() async {
     final prefs = await SharedPreferences.getInstance();
-    final onboardingCompleted = prefs.getBool('onboarding_completed') ?? false;
     final rememberMe = prefs.getBool(AppConstants.prefsRememberMe) ?? false;
     final userId = prefs.getString(AppConstants.prefsUserId);
-    _logger.i('onboarding_completed: $onboardingCompleted');
-    _logger.i('remember_me: $rememberMe');
-    _logger.i('user_id: $userId');
+    _logger.i('remember_me: $rememberMe, user_id: $userId');
 
-    if (!onboardingCompleted) {
-      _logger.i('Navigo a OnboardingScreen');
-      Get.offNamed(AppRoutes.onboarding);
-      return;
-    }
     if (rememberMe) {
       // Firebase restores the signed-in user asynchronously: wait for the
       // first auth event instead of reading `currentUser` right away.
       final firebaseUser = await FirebaseAuth.instance.authStateChanges().first;
       if (firebaseUser == null) {
-        _logger.w('Sessione Firebase scaduta, navigo a WelcomeScreen');
+        _logger.w('Firebase session expired');
         await AuthService().clearSession();
-        Get.offNamed(AppRoutes.welcome);
-        return;
-      }
-      if (userId != null) {
+      } else if (userId != null) {
         try {
           await _loadUserData(userId);
-          _logger.i('Navigo a HomeScreen (rememberMe attivo)');
           Get.offNamed(AppRoutes.home);
         } catch (e) {
-          _logger.e('Errore nel caricamento utente, navigo a WelcomeScreen');
+          _logger.e('Unable to load the user, going to the welcome screen');
           Get.offNamed(AppRoutes.welcome);
         }
         return;
-      } else {
-        _logger.i('user_id non trovato, navigo a WelcomeScreen');
       }
-    } else {
-      _logger.i('rememberMe non attivo, navigo a WelcomeScreen');
     }
-    Get.offNamed(AppRoutes.welcome);
+    Get.offNamed(
+      Get.find<OnboardingStore>().seen
+          ? AppRoutes.welcome
+          : AppRoutes.onboarding,
+    );
   }
 
   @override

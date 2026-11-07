@@ -784,6 +784,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get info_screen_link_contact => 'Entwickler kontaktieren';
 
   @override
+  String get info_screen_link_introduction => 'Einführung';
+
+  @override
   String get info_screen_link_licenses => 'Open-Source-Lizenzen';
 
   @override
@@ -1399,6 +1402,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_29 =>
       'Die Meldung, wenn ein Foto nicht gespeichert werden kann, ist jetzt in jeder Sprache vollständig, und die Einführung schließt sich nicht mehr unerwartet, wenn sich Design oder Sprache ändern, während sie geöffnet ist.';
+
+  @override
+  String get changelog_v5_0_0_bullet_30 =>
+      'Du kannst die Einführung in Info erneut ansehen, externe Links sind mit einem Pfeil markiert, und eine Meldung weist darauf hin, wenn ein Link nicht geöffnet werden kann.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

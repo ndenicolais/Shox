@@ -4,6 +4,7 @@ import 'package:shox/common/screens/onboarding_screen.dart';
 import 'package:shox/common/screens/welcome_screen.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/routes/auth_middleware.dart';
+import 'package:shox/core/services/onboarding_store.dart';
 import 'package:shox/features/auth/gender_selection/bindings/gender_selection_binding.dart';
 import 'package:shox/features/auth/gender_selection/screens/gender_selection_screen.dart';
 import 'package:shox/features/auth/login/bindings/login_binding.dart';
@@ -37,8 +38,21 @@ class AppPages {
       name: AppRoutes.intro,
       page: () => const IntroScreen(),
     ),
+    // First launch: finishing marks the introduction as seen. Signed-in
+    // users never get here (IntroScreen sends them home), so it goes on to
+    // the welcome screen.
     GetPage(
       name: AppRoutes.onboarding,
+      page: () => OnboardingScreen(
+        onFinish: () async {
+          await Get.find<OnboardingStore>().markSeen();
+          Get.offAllNamed(AppRoutes.welcome);
+        },
+      ),
+    ),
+    // Replay from Info: no flag change, finishing just closes it.
+    GetPage(
+      name: AppRoutes.introduction,
       page: () => const OnboardingScreen(),
     ),
     GetPage(

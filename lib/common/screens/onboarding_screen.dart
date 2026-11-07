@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shox/theme/app_spacing.dart';
 import 'package:shox/l10n/app_localizations.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
-import 'package:shox/core/utils/constants.dart';
 import 'package:shox/theme/app_radius.dart';
 
+/// Swipeable introduction. On first launch [onFinish] marks it as seen and
+/// moves on; without it (replay from Info) finishing just pops the route.
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({super.key, this.onFinish});
+
+  final VoidCallback? onFinish;
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -35,32 +35,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _nextPage() {
-    if (_pageController.page!.toInt() < _pages.length - 1) {
+    if (_currentIndex >= _pages.length - 1) return _finish();
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _pageController.jumpToPage(_currentIndex + 1);
+    } else {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-    } else {
-      _finish();
     }
   }
 
-  Future<void> _checkRememberMe() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool rememberMe = prefs.getBool(AppConstants.prefsRememberMe) ?? false;
-
-    if (rememberMe) {
-      Get.offAllNamed(AppRoutes.home);
+  /// Finish or skip: hands over to the caller, or closes the replay.
+  void _finish() {
+    final onFinish = widget.onFinish;
+    if (onFinish != null) {
+      onFinish();
     } else {
-      Get.offAllNamed(AppRoutes.welcome);
+      Navigator.of(context).pop();
     }
-  }
-
-  /// Marks the onboarding as seen and leaves it (finish or skip).
-  Future<void> _finish() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboarding_completed', true);
-    await _checkRememberMe();
   }
 
   @override
@@ -70,7 +63,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final bool isLast = _currentIndex == _pages.length - 1;
 
     return PopScope(
-      canPop: false,
+      // On first launch there is nothing to go back to; a replay can close.
+      canPop: widget.onFinish == null,
       child: Scaffold(
         body: SafeArea(
           child: ResponsiveCenterWidget(

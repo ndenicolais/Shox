@@ -31,6 +31,7 @@ class AuthGuardService extends GetxService {
   static const Set<String> publicRoutes = {
     AppRoutes.intro,
     AppRoutes.onboarding,
+    AppRoutes.introduction,
     AppRoutes.welcome,
     AppRoutes.login,
     AppRoutes.signup,
