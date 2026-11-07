@@ -805,7 +805,8 @@ dev_dependencies:
 | Minimum Android | API 24 (Android 7.0), required by ML Kit |
 | Recommended Android | API 26+ (Android 8.0) |
 | Architecture | 64-bit only (`arm64-v8a`) |
-| Android for storage permissions | API 33+ (Android 13) — `READ_MEDIA_IMAGES`; saving the PDF and the backup to Download/Shox needs no permission on API 29+, `WRITE_EXTERNAL_STORAGE` on API 24–28; `MANAGE_EXTERNAL_STORAGE` is not declared |
+| Storage permissions | Photo picker: `READ_MEDIA_IMAGES` on API 33+, `READ_EXTERNAL_STORAGE` (`maxSdkVersion="32"`) below. Saving the PDF, the backup and images: no permission on API 29+, `WRITE_EXTERNAL_STORAGE` (`maxSdkVersion="28"`) on API 24–28. The caps keep legacy permissions out of the newer Android versions that ignore them. `MANAGE_EXTERNAL_STORAGE` is not declared |
+| Package visibility | `<queries>` for `https` (`VIEW`) and `mailto` (`SENDTO`), needed by `url_launcher` on API 30+ for the Info links |
 | Google Play services | Required (Google sign-in and background removal model) |
 | Main platform | Android |
 | Internet connection | Required for authentication and Firestore sync |
