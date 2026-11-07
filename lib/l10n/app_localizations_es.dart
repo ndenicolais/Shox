@@ -788,6 +788,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get info_screen_link_licenses => 'Licencias de código abierto';
 
   @override
+  String get info_screen_link_error => 'No se pudo abrir el enlace';
+
+  @override
   String info_screen_made_by(String name) {
     return 'Ideado y desarrollado por $name';
   }

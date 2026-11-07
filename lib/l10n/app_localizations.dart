@@ -1406,6 +1406,12 @@ abstract class AppLocalizations {
   /// **'Open source licenses'**
   String get info_screen_link_licenses;
 
+  /// No description provided for @info_screen_link_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the link'**
+  String get info_screen_link_error;
+
   /// No description provided for @info_screen_made_by.
   ///
   /// In en, this message translates to:

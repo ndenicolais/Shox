@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shox/common/widgets/app_bar_widget.dart';
 import 'package:shox/common/widgets/logo_widget.dart';
 import 'package:shox/common/widgets/responsive_center_widget.dart';
+import 'package:shox/common/widgets/toast_widget.dart';
 import 'package:shox/core/routes/app_routes.dart';
 import 'package:shox/core/utils/constants.dart';
 import 'package:shox/features/dashboard/widgets/dashboard_menu_item.dart';
@@ -167,16 +168,19 @@ class _InfoScreenState extends State<InfoScreen> {
         icon: MingCuteIcons.mgc_github_line,
         text: l10n.info_screen_link_source,
         onTap: () => _open(AppConstants.uriGithubLink),
+        trailing: const _ExternalLinkIcon(),
       ),
       DashboardMenuItem(
         icon: MingCuteIcons.mgc_world_2_line,
         text: l10n.info_screen_link_website,
         onTap: () => _open(AppConstants.uriGithubProfile),
+        trailing: const _ExternalLinkIcon(),
       ),
       DashboardMenuItem(
         icon: MingCuteIcons.mgc_mail_line,
         text: l10n.info_screen_link_contact,
         onTap: () => _open(AppConstants.uriMail),
+        trailing: const _ExternalLinkIcon(),
       ),
       DashboardMenuItem(
         icon: MingCuteIcons.mgc_safe_lock_line,
@@ -215,8 +219,30 @@ class _InfoScreenState extends State<InfoScreen> {
     );
   }
 
-  Future<void> _open(Uri uri) =>
-      launchUrl(uri, mode: LaunchMode.externalApplication);
+  /// Opens [uri] outside the app; a toast tells the user when no app can.
+  Future<void> _open(Uri uri) async {
+    // Read context-dependent objects before the async gap.
+    final overlay = Overlay.of(context);
+    final error = AppLocalizations.of(context)!.info_screen_link_error;
+    bool opened;
+    try {
+      opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      opened = false;
+    }
+    if (!opened && mounted) showErrorToast(context, error, overlay: overlay);
+  }
+}
+
+/// "Opens outside the app" arrow, instead of the chevron of internal pages.
+class _ExternalLinkIcon extends StatelessWidget {
+  const _ExternalLinkIcon();
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        MingCuteIcons.mgc_arrow_right_up_line,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      );
 }
 
 class _FeatureCard extends StatelessWidget {

@@ -250,6 +250,7 @@
   "info_screen_link_website": "Developer website",
   "info_screen_link_contact": "Contact the developer",
   "info_screen_link_licenses": "Open source licenses",
+  "info_screen_link_error": "Couldn't open the link",
   "info_screen_made_by": "Designed and developed by {name}",
   "@info_screen_made_by": {"placeholders": {"name": {"type": "String"}}},
   "policy_screen_updated": "Last updated: {date}",

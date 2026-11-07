@@ -239,6 +239,7 @@
   "info_screen_link_website": "Site du développeur",
   "info_screen_link_contact": "Contacter le développeur",
   "info_screen_link_licenses": "Licences open source",
+  "info_screen_link_error": "Impossible d'ouvrir le lien",
   "info_screen_made_by": "Conçu et développé par {name}",
   "policy_screen_updated": "Dernière mise à jour : {date}",
   "policy_screen_intro": "Cette politique explique quelles données Shox traite, pourquoi et comment vous pouvez les gérer. Shox n’affiche pas de publicité, n’utilise aucun outil d’analyse et ne vend ni ne partage vos données.",
