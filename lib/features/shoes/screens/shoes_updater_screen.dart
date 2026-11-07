@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shox/features/shoes/models/shoes_model.dart';
 import 'package:shox/features/shoes/screens/shoes_form_screen.dart';

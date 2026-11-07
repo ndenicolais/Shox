@@ -1132,7 +1132,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Failed to download image for sharing.';
 
   @override
-  String get full_screen_image_share_error_toast => 'Error';
+  String get full_screen_image_share_error_toast => 'Failed to share image.';
 
   @override
   String get shoes_form_screen_unsaved_title => 'Unsaved changes';
@@ -1400,6 +1400,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_31 =>
       'Before you sign up or continue with Google, the app shows the minimum age and a link to the privacy policy, which you can read without an account.';
+
+  @override
+  String get changelog_v5_0_0_bullet_32 =>
+      'Several translations have been corrected: complete error messages, a translated privacy policy title and a consistent tone in German, Spanish and French.';
 
   @override
   String get user_screen_total_shoes => 'Total Shoes';

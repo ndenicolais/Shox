@@ -30,7 +30,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboarding_first_description =>
-      'Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo. Organice fácilmente su colección y mantenga un registro de cada par que tiene a mano.';
+      'Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo. Organiza fácilmente tu colección y lleva un registro de cada par que tienes a mano.';
 
   @override
   String get onboarding_second_title => 'Filtra';
@@ -44,7 +44,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboarding_third_description =>
-      'Muestra fichas detalladas de sus zapatos con todas sus características. Desde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva.';
+      'Muestra fichas detalladas de tus zapatos con todas sus características. Desde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva.';
 
   @override
   String get onboarding_fourth_title => 'Explora';
@@ -247,7 +247,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_storage_toast =>
-      'Conceda el permiso de almacenamiento desde la configuración';
+      'Concede el permiso de almacenamiento desde la configuración';
 
   @override
   String get home_screen_welcome_text => 'Hola';
@@ -508,7 +508,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get database_screen_colors => 'Colores';
 
   @override
-  String get database_screen_brands => 'Brands';
+  String get database_screen_brands => 'Marcas';
 
   @override
   String get database_screen_categories => 'Categorías';
@@ -718,7 +718,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settings_screen_info => 'Info';
 
   @override
-  String get settings_screen_policy => 'Privacy Policy';
+  String get settings_screen_policy => 'Política de privacidad';
 
   @override
   String get settings_screen_support => 'Mesa de ayuda';
@@ -1146,7 +1146,8 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudo descargar la imagen para compartir.';
 
   @override
-  String get full_screen_image_share_error_toast => 'Error';
+  String get full_screen_image_share_error_toast =>
+      'No se pudo compartir la imagen.';
 
   @override
   String get shoes_form_screen_unsaved_title => 'Cambios sin guardar';
@@ -1414,6 +1415,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_31 =>
       'Antes de registrarte o continuar con Google, la app muestra la edad mínima y un enlace a la política de privacidad, que puedes leer sin cuenta.';
+
+  @override
+  String get changelog_v5_0_0_bullet_32 =>
+      'Se han corregido varias traducciones: mensajes de error completos, el título de la política de privacidad traducido y un tono coherente en alemán, español y francés.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';

@@ -2051,7 +2051,7 @@ abstract class AppLocalizations {
   /// No description provided for @full_screen_image_share_error_toast.
   ///
   /// In en, this message translates to:
-  /// **'Error'**
+  /// **'Failed to share image.'**
   String get full_screen_image_share_error_toast;
 
   /// No description provided for @shoes_form_screen_unsaved_title.
@@ -2521,6 +2521,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Before you sign up or continue with Google, the app shows the minimum age and a link to the privacy policy, which you can read without an account.'**
   String get changelog_v5_0_0_bullet_31;
+
+  /// No description provided for @changelog_v5_0_0_bullet_32.
+  ///
+  /// In en, this message translates to:
+  /// **'Several translations have been corrected: complete error messages, a translated privacy policy title and a consistent tone in German, Spanish and French.'**
+  String get changelog_v5_0_0_bullet_32;
 
   /// No description provided for @user_screen_total_shoes.
   ///

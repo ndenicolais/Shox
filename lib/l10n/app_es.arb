@@ -8,11 +8,11 @@
   "intro_screen_load_data_error": "No se pudieron cargar los datos del usuario",
 
   "onboarding_first_title": "Añade",
-  "onboarding_first_description": "Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo. Organice fácilmente su colección y mantenga un registro de cada par que tiene a mano.",
+  "onboarding_first_description": "Añade todos tus zapatos a esta caja digital para tenerlos siempre contigo. Organiza fácilmente tu colección y lleva un registro de cada par que tienes a mano.",
   "onboarding_second_title": "Filtra",
   "onboarding_second_description": "Filtra rápidamente tus zapatos favoritos usando filtros avanzados. Busca por marca, modelo, color y más, y descubre todas las características de tus zapatos en un instante.",
   "onboarding_third_title": "Muestra",
-  "onboarding_third_description": "Muestra fichas detalladas de sus zapatos con todas sus características. Desde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva.",
+  "onboarding_third_description": "Muestra fichas detalladas de tus zapatos con todas sus características. Desde las especificaciones técnicas hasta las fotos, explora todos los aspectos de tus zapatos con una interfaz intuitiva.",
   "onboarding_fourth_title": "Explora",
   "onboarding_fourth_description": "Explora varios gráficos coloridos que muestran estadísticas detalladas sobre el total y las especificaciones de tus zapatos en la base de datos.",
   "onboarding_next": "Siguiente",
@@ -80,7 +80,7 @@
   "validator_password_required": "Password es requerido",
 
   "permission_storage_denied": "Permiso de almacenamiento denegado",
-  "permission_storage_toast": "Conceda el permiso de almacenamiento desde la configuración",
+  "permission_storage_toast": "Concede el permiso de almacenamiento desde la configuración",
 
   "home_screen_welcome_text": "Hola",
   "home_screen_search_bar": "Busca marca, tipo, notas",
@@ -166,7 +166,7 @@
   "database_screen_title": "Database",
   "database_screen_empty": "No hay zapatos en el box",
   "database_screen_colors": "Colores",
-  "database_screen_brands": "Brands",
+  "database_screen_brands": "Marcas",
   "database_screen_categories": "Categorías",
   "database_screen_types": "Tipos",
   "database_screen_pdf_download": "Descargar PDF",
@@ -215,7 +215,7 @@
 
   "settings_screen_language": "Idioma",
   "settings_screen_info": "Info",
-  "settings_screen_policy": "Privacy Policy",
+  "settings_screen_policy": "Política de privacidad",
   "settings_screen_support": "Mesa de ayuda",
 
   "info_screen_title": "Información",
@@ -352,7 +352,7 @@
   "full_screen_image_download_error_toast": "No se pudo descargar la imagen.",
   "full_screen_image_share_success_toast": "¡Imagen compartida con éxito!",
   "full_screen_image_share_download_error_toast": "No se pudo descargar la imagen para compartir.",
-  "full_screen_image_share_error_toast": "Error",
+  "full_screen_image_share_error_toast": "No se pudo compartir la imagen.",
 
   "shoes_form_screen_unsaved_title": "Cambios sin guardar",
   "shoes_form_screen_unsaved_text": "Si sales ahora, perderás los cambios hechos en este zapato.",
@@ -434,6 +434,7 @@
   "changelog_v5_0_0_bullet_29": "El mensaje que aparece cuando una foto no se puede guardar ahora está completo en todos los idiomas, y la introducción ya no se cierra de repente si el tema o el idioma cambian mientras está abierta.",
   "changelog_v5_0_0_bullet_30": "Puedes volver a ver la introducción desde Info, los enlaces externos se indican con una flecha y un mensaje te avisa cuando un enlace no se puede abrir.",
   "changelog_v5_0_0_bullet_31": "Antes de registrarte o continuar con Google, la app muestra la edad mínima y un enlace a la política de privacidad, que puedes leer sin cuenta.",
+  "changelog_v5_0_0_bullet_32": "Se han corregido varias traducciones: mensajes de error completos, el título de la política de privacidad traducido y un tono coherente en alemán, español y francés.",
   "user_screen_total_shoes": "Total de zapatos",
   "user_screen_member_since": "Miembro desde",  "user_screen_favorite_brand": "Marca favorita",
   "user_screen_most_used_category": "Más usado",

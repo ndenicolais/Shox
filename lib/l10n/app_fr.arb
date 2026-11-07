@@ -216,12 +216,12 @@
 
   "settings_screen_language": "Langue",
   "settings_screen_info": "Info",
-  "settings_screen_policy": "Privacy Policy",
+  "settings_screen_policy": "Politique de confidentialité",
   "settings_screen_support": "Service d'assistance",
 
   "info_screen_title": "Info",
 
-  "policy_screen_title": "Privacy Policy",
+  "policy_screen_title": "Politique de confidentialité",
   "info_screen_version": "Version {version}",
   "info_screen_about_title": "Qu’est-ce que Shox",
   "info_screen_about_text": "Shox est votre dressing à chaussures numérique : photographiez chaque paire, notez marque, pointure, couleurs et saison, et retrouvez aussitôt ce que vous cherchez. Le nom associe « Shoes » et « Box », la boîte qui contient toute votre collection.",
@@ -352,7 +352,7 @@
   "full_screen_image_download_error_toast": "Échec du téléchargement de l'image.",
   "full_screen_image_share_success_toast": "Image partagée avec succès !",
   "full_screen_image_share_download_error_toast": "Échec du téléchargement de l'image pour le partage.",
-  "full_screen_image_share_error_toast": "Erreur",
+  "full_screen_image_share_error_toast": "Échec du partage de l'image.",
 
   "shoes_form_screen_unsaved_title": "Modifications non enregistrées",
   "shoes_form_screen_unsaved_text": "Si vous quittez maintenant, les modifications apportées à cette chaussure seront perdues.",
@@ -420,7 +420,7 @@
   "changelog_v5_0_0_bullet_15": "En mode sombre, l'arrière-plan des photos de chaussures est désormais plus doux et moins envahissant.",
   "changelog_v5_0_0_bullet_16": "Traduction de quelques textes qui s'affichaient encore en anglais.",
   "changelog_v5_0_0_bullet_17": "L'export PDF fonctionne désormais aussi avec les chaussures qui ont des couleurs supplémentaires, une photo indisponible ne bloque plus tout le document, et le fichier est enregistré dans Download/Shox, visible dans l'app Fichiers.",
-  "changelog_v5_0_0_bullet_18": "Pendant la saisie de la marque, l'app suggère celles déjà présentes dans ta collection pour les saisir plus vite.",
+  "changelog_v5_0_0_bullet_18": "Pendant la saisie de la marque, l'app suggère celles déjà présentes dans votre collection pour les saisir plus vite.",
   "changelog_v5_0_0_bullet_19": "Nouveau PDF de la collection : couverture, page de résumé avec statistiques et une fiche repensée pour chaque chaussure, dans un fichier jusqu'à 8 fois plus léger et plus rapide à générer.",
   "changelog_v5_0_0_bullet_20": "Protection renforcée des données : chaque utilisateur ne peut lire et modifier que son propre profil, ses chaussures et ses photos. La connexion, l'inscription et la récupération du mot de passe ne consultent plus la liste des utilisateurs.",
   "changelog_v5_0_0_bullet_21": "Le copyright de la dernière page du PDF exporté affiche désormais les bonnes années.",
@@ -434,6 +434,7 @@
   "changelog_v5_0_0_bullet_29": "Le message affiché lorsqu'une photo ne peut pas être enregistrée est désormais complet dans toutes les langues, et l'introduction ne se ferme plus de façon inattendue si le thème ou la langue change pendant qu'elle est ouverte.",
   "changelog_v5_0_0_bullet_30": "Vous pouvez revoir l'introduction depuis Info, les liens externes sont signalés par une flèche et un message vous avertit lorsqu'un lien ne peut pas être ouvert.",
   "changelog_v5_0_0_bullet_31": "Avant de vous inscrire ou de continuer avec Google, l'application affiche l'âge minimum et un lien vers la politique de confidentialité, consultable sans compte.",
+  "changelog_v5_0_0_bullet_32": "Plusieurs traductions ont été corrigées : messages d'erreur complets, titre de la politique de confidentialité traduit et un ton cohérent en allemand, espagnol et français.",
   "user_screen_total_shoes": "Total de chaussures",
   "user_screen_member_since": "Membre depuis",
   "user_screen_favorite_brand": "Marque pr\u00e9f\u00e9r\u00e9e",

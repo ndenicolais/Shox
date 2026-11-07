@@ -336,7 +336,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get shoes_adder_screen_field_color_primary => 'Primario';
 
   @override
-  String get shoes_adder_screen_field_brand => 'Brand';
+  String get shoes_adder_screen_field_brand => 'Marca';
 
   @override
   String get shoes_adder_screen_field_size => 'Taglia';
@@ -387,7 +387,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get shoes_adder_screen_toast_error_brand =>
-      'Non hai inserito il brand';
+      'Non hai inserito la marca';
 
   @override
   String get shoes_adder_screen_toast_error_category =>
@@ -512,7 +512,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get database_screen_colors => 'Colori';
 
   @override
-  String get database_screen_brands => 'Brands';
+  String get database_screen_brands => 'Marche';
 
   @override
   String get database_screen_categories => 'Categorie';
@@ -1120,7 +1120,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get pdf_summary_title => 'Riepilogo';
 
   @override
-  String get pdf_summary_top_brands => 'Brand più presenti';
+  String get pdf_summary_top_brands => 'Marche più presenti';
 
   @override
   String get pdf_summary_top_colors => 'Colori più presenti';
@@ -1149,7 +1149,8 @@ class AppLocalizationsIt extends AppLocalizations {
       'Download dell\'immagine per la condivisione non riuscito.';
 
   @override
-  String get full_screen_image_share_error_toast => 'Errore';
+  String get full_screen_image_share_error_toast =>
+      'Condivisione dell\'immagine non riuscita.';
 
   @override
   String get shoes_form_screen_unsaved_title => 'Modifiche non salvate';
@@ -1417,6 +1418,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_31 =>
       'Prima di registrarti o di continuare con Google, l\'app mostra l\'età minima e un link all\'informativa sulla privacy, leggibile anche senza account.';
+
+  @override
+  String get changelog_v5_0_0_bullet_32 =>
+      'Corrette diverse traduzioni: messaggi di errore completi, titolo dell\'informativa privacy tradotto e un tono coerente in tedesco, spagnolo e francese.';
 
   @override
   String get user_screen_total_shoes => 'Scarpe totali';

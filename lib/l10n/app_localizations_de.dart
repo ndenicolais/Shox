@@ -74,7 +74,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get signup_screen_text => 'Registrieren';
 
   @override
-  String get signup_screen_account => 'Haben Sie ein Konto? ';
+  String get signup_screen_account => 'Hast du ein Konto? ';
 
   @override
   String get signup_screen_login => 'Anmelden';
@@ -99,7 +99,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get login_screen_password => 'Passwort vergessen?';
 
   @override
-  String get login_screen_account => 'Haben Sie kein Konto? ';
+  String get login_screen_account => 'Hast du kein Konto? ';
 
   @override
   String get login_screen_signup => 'Registrieren';
@@ -142,7 +142,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get reset_password_screen_description =>
-      'Geben Sie Ihre E-Mail ein, um den Link zum Zurücksetzen des Passworts zu erhalten';
+      'Gib deine E-Mail ein, um den Link zum Zurücksetzen des Passworts zu erhalten';
 
   @override
   String get reset_password_screen_text => 'Passwort zurücksetzen';
@@ -151,7 +151,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reset_password_form_email => 'E-Mail';
 
   @override
-  String get reset_password_form_email_field => 'Geben Sie die E-Mail ein';
+  String get reset_password_form_email_field => 'Gib die E-Mail ein';
 
   @override
   String get reset_password_toast_success =>
@@ -170,7 +170,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gender_selection_screen_description =>
-      'Dies hilft uns, Ihre Schuhsammlung zu personalisieren';
+      'Das hilft uns, deine Schuhsammlung zu personalisieren';
 
   @override
   String get gender_selection_button => 'Fortsetzen';
@@ -246,7 +246,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get permission_storage_toast =>
-      'Erteilen Sie die Speicherberechtigung in den Einstellungen';
+      'Erteile die Speicherberechtigung in den Einstellungen';
 
   @override
   String get home_screen_welcome_text => 'Hallo';
@@ -346,10 +346,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get shoes_adder_screen_field_type => 'Typ';
 
   @override
-  String get shoes_adder_screen_select_category => 'Wählen Sie eine Kategorie';
+  String get shoes_adder_screen_select_category => 'Wähle eine Kategorie';
 
   @override
-  String get shoes_adder_screen_select_type => 'Wählen Sie einen Typ';
+  String get shoes_adder_screen_select_type => 'Wähle einen Typ';
 
   @override
   String get shoes_adder_screen_field_season => 'Saison';
@@ -679,10 +679,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get delete_account_screen_delete_dialog_text =>
-      'Ihr Profil, Ihre Schuhe und Fotos werden dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.';
+      'Dein Profil, deine Schuhe und Fotos werden dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.';
 
   @override
-  String get delete_account_screen_backup_title => 'Sichern Sie Ihre Daten';
+  String get delete_account_screen_backup_title => 'Sichere deine Daten';
 
   @override
   String get delete_account_screen_backup_text =>
@@ -717,7 +717,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_screen_info => 'Info';
 
   @override
-  String get settings_screen_policy => 'Privacy Policy';
+  String get settings_screen_policy => 'Datenschutzerklärung';
 
   @override
   String get settings_screen_support => 'Helpdesk';
@@ -726,7 +726,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get info_screen_title => 'Info';
 
   @override
-  String get policy_screen_title => 'Privacy Policy';
+  String get policy_screen_title => 'Datenschutzerklärung';
 
   @override
   String info_screen_version(String version) {
@@ -888,7 +888,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get support_screen_contacts_decription =>
-      'Bei Problemen oder Fragen schreiben Sie an:';
+      'Bei Problemen oder Fragen schreib an:';
 
   @override
   String get support_screen_contacts_info => 'ndn21dev@gmail.com';
@@ -898,7 +898,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get support_screen_faq_decription =>
-      'Finden Sie Antworten auf häufig gestellte Fragen.';
+      'Finde Antworten auf häufig gestellte Fragen.';
 
   @override
   String get support_screen_faq_q1 => 'Wie füge ich ein Paar Schuhe hinzu?';
@@ -935,14 +935,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get support_screen_faq_a8 =>
-      'App auch im Hintergrund schließen > App-Einstellungen > Daten löschen > Cache leeren > App neu starten. Wenn das Problem weiterhin besteht, wenden Sie sich an den technischen Support.';
+      'App auch im Hintergrund schließen > App-Einstellungen > Daten löschen > Cache leeren > App neu starten. Wenn das Problem weiterhin besteht, wende dich an den technischen Support.';
 
   @override
   String get support_screen_faq_q9 => 'Wie funktioniert der PDF-Download?';
 
   @override
   String get support_screen_faq_a9 =>
-      'Um Ihre Datenbank im PDF-Format herunterzuladen, gehen Sie zum Profilbereich > Datenbank > Klicken Sie auf das Symbol oben rechts > PDF herunterladen.';
+      'Um deine Datenbank im PDF-Format herunterzuladen, geh zum Profilbereich > Datenbank > Tippe auf das Symbol oben rechts > PDF herunterladen.';
 
   @override
   String get support_screen_faq_q10 => 'Wie sichere ich meine Sammlung?';
@@ -1146,7 +1146,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'Bild konnte nicht zum Teilen heruntergeladen werden.';
 
   @override
-  String get full_screen_image_share_error_toast => 'Fehler';
+  String get full_screen_image_share_error_toast =>
+      'Bild konnte nicht geteilt werden.';
 
   @override
   String get shoes_form_screen_unsaved_title => 'Nicht gespeicherte Änderungen';
@@ -1414,6 +1415,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_31 =>
       'Bevor du dich registrierst oder mit Google fortfährst, zeigt die App das Mindestalter und einen Link zur Datenschutzerklärung, die du auch ohne Konto lesen kannst.';
+
+  @override
+  String get changelog_v5_0_0_bullet_32 =>
+      'Mehrere Übersetzungen wurden korrigiert: vollständige Fehlermeldungen, ein übersetzter Titel der Datenschutzerklärung und eine einheitliche Anrede auf Deutsch, Spanisch und Französisch.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

@@ -726,7 +726,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settings_screen_info => 'Info';
 
   @override
-  String get settings_screen_policy => 'Privacy Policy';
+  String get settings_screen_policy => 'Politique de confidentialité';
 
   @override
   String get settings_screen_support => 'Service d\'assistance';
@@ -735,7 +735,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get info_screen_title => 'Info';
 
   @override
-  String get policy_screen_title => 'Privacy Policy';
+  String get policy_screen_title => 'Politique de confidentialité';
 
   @override
   String info_screen_version(String version) {
@@ -1158,7 +1158,8 @@ class AppLocalizationsFr extends AppLocalizations {
       'Échec du téléchargement de l\'image pour le partage.';
 
   @override
-  String get full_screen_image_share_error_toast => 'Erreur';
+  String get full_screen_image_share_error_toast =>
+      'Échec du partage de l\'image.';
 
   @override
   String get shoes_form_screen_unsaved_title =>
@@ -1374,7 +1375,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get changelog_v5_0_0_bullet_18 =>
-      'Pendant la saisie de la marque, l\'app suggère celles déjà présentes dans ta collection pour les saisir plus vite.';
+      'Pendant la saisie de la marque, l\'app suggère celles déjà présentes dans votre collection pour les saisir plus vite.';
 
   @override
   String get changelog_v5_0_0_bullet_19 =>
@@ -1427,6 +1428,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_31 =>
       'Avant de vous inscrire ou de continuer avec Google, l\'application affiche l\'âge minimum et un lien vers la politique de confidentialité, consultable sans compte.';
+
+  @override
+  String get changelog_v5_0_0_bullet_32 =>
+      'Plusieurs traductions ont été corrigées : messages d\'erreur complets, titre de la politique de confidentialité traduit et un ton cohérent en allemand, espagnol et français.';
 
   @override
   String get user_screen_total_shoes => 'Total de chaussures';

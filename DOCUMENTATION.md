@@ -732,7 +732,7 @@ The app supports **5 languages** through `flutter_localizations` + ARB files.
 | `es` | Spanish |
 | `de` | German |
 
-The ARB files live in `lib/l10n/`; the Dart code is generated with `flutter gen-l10n` into the same folder. The user picks the active language in the Dashboard with the flag selector; it is persisted in `SharedPreferences` under the `language_code` key.
+The ARB files live in `lib/l10n/`; the Dart code is generated with `flutter gen-l10n` into the same folder. Tone: informal in German (*du*), Spanish (*tú*) and Italian, formal in French (*vous*); keep new strings in the same register. Loanwords that are common in a language (Dashboard, Database, Email, Password, Sneakers) stay in English. The user picks the active language in the Dashboard with the flag selector; it is persisted in `SharedPreferences` under the `language_code` key.
 
 `L10n.parseLocale(String?)` (in `lib/l10n/l10n.dart`) converts the saved code into a supported `Locale`, returning `null` if the value is missing, empty or unsupported: in that case `MyApp` falls back to the system locale. The initial locale is resolved **only once** per `MyApp` instance, not on every rebuild. Pure function, covered by tests in `test/l10n/l10n_test.dart`.
 
