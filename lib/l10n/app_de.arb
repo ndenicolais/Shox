@@ -366,6 +366,7 @@
 
   "auth_or_continue_with": "Oder fortfahren mit",
   "auth_sign_in_with_google": "Mit Google anmelden",
+  "auth_privacy_notice": "Wenn du fortfährst, bestätigst du, dass du mindestens 14 Jahre alt bist und die Datenschutzerklärung gelesen hast.",
   "common_retry": "Wiederholen",
   "dashboard_screen_title": "Dashboard",
   "dashboard_preferences": "Einstellungen",
@@ -434,6 +435,7 @@
   "changelog_v5_0_0_bullet_28": "Vor dem Löschen des Kontos musst du dich jetzt erneut anmelden, bevor Daten entfernt werden, und die App fordert keinen Zugriff mehr auf alle Dateien des Geräts an.",
   "changelog_v5_0_0_bullet_29": "Die Meldung, wenn ein Foto nicht gespeichert werden kann, ist jetzt in jeder Sprache vollständig, und die Einführung schließt sich nicht mehr unerwartet, wenn sich Design oder Sprache ändern, während sie geöffnet ist.",
   "changelog_v5_0_0_bullet_30": "Du kannst die Einführung in Info erneut ansehen, externe Links sind mit einem Pfeil markiert, und eine Meldung weist darauf hin, wenn ein Link nicht geöffnet werden kann.",
+  "changelog_v5_0_0_bullet_31": "Bevor du dich registrierst oder mit Google fortfährst, zeigt die App das Mindestalter und einen Link zur Datenschutzerklärung, die du auch ohne Konto lesen kannst.",
   "user_screen_total_shoes": "Schuhe gesamt",
   "user_screen_member_since": "Mitglied seit",
   "user_screen_favorite_brand": "Lieblingsmarke",

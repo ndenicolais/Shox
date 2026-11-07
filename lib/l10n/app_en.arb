@@ -379,6 +379,7 @@
 
   "auth_or_continue_with": "Or continue with",
   "auth_sign_in_with_google": "Sign in with Google",
+  "auth_privacy_notice": "By continuing, you confirm that you are at least 14 years old and have read the privacy policy.",
   "common_retry": "Retry",
   "dashboard_screen_title": "Dashboard",
   "dashboard_preferences": "Preferences",
@@ -447,6 +448,7 @@
   "changelog_v5_0_0_bullet_28": "Deleting your account now asks you to sign in again before any data is removed, and the app no longer asks for access to all the files on your device.",
   "changelog_v5_0_0_bullet_29": "The message shown when a photo cannot be saved is now complete in every language, and the introduction no longer closes unexpectedly if the theme or language changes while it is open.",
   "changelog_v5_0_0_bullet_30": "You can watch the introduction again from Info, external links are marked with an arrow, and a message tells you when a link cannot be opened.",
+  "changelog_v5_0_0_bullet_31": "Before you sign up or continue with Google, the app shows the minimum age and a link to the privacy policy, which you can read without an account.",
   "user_screen_total_shoes": "Total Shoes",
   "user_screen_member_since": "Member Since",
   "user_screen_favorite_brand": "Favorite Brand",

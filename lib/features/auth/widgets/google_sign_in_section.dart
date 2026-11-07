@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shox/features/auth/widgets/privacy_notice.dart';
 import 'package:shox/l10n/app_localizations.dart';
 import 'package:shox/theme/app_spacing.dart';
 
-/// "Or continue with" divider followed by a full-width Google button.
+/// "Or continue with" divider, a full-width Google button and the privacy
+/// notice, shown on both login and signup since Google sign-in can create
+/// the account.
 class GoogleSignInSection extends StatelessWidget {
   /// Null while another request is running: the button is disabled.
   final VoidCallback? onPressed;
@@ -20,10 +23,17 @@ class GoogleSignInSection extends StatelessWidget {
         Row(
           children: [
             const Expanded(child: Divider(height: 1)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
-              child:
-                  Text(l10n.auth_or_continue_with, style: textTheme.bodySmall),
+            // Flexible: the label wraps instead of overflowing with long
+            // translations at large text sizes (German on a 320 dp phone).
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
+                child: Text(
+                  l10n.auth_or_continue_with,
+                  textAlign: TextAlign.center,
+                  style: textTheme.bodySmall,
+                ),
+              ),
             ),
             const Expanded(child: Divider(height: 1)),
           ],
@@ -38,6 +48,8 @@ class GoogleSignInSection extends StatelessWidget {
           ),
           label: Text(l10n.auth_sign_in_with_google),
         ),
+        const SizedBox(height: AppSpacing.s),
+        const PrivacyNotice(),
       ],
     );
   }

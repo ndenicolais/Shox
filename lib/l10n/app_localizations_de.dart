@@ -1174,6 +1174,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get auth_sign_in_with_google => 'Mit Google anmelden';
 
   @override
+  String get auth_privacy_notice =>
+      'Wenn du fortfährst, bestätigst du, dass du mindestens 14 Jahre alt bist und die Datenschutzerklärung gelesen hast.';
+
+  @override
   String get common_retry => 'Wiederholen';
 
   @override
@@ -1406,6 +1410,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_30 =>
       'Du kannst die Einführung in Info erneut ansehen, externe Links sind mit einem Pfeil markiert, und eine Meldung weist darauf hin, wenn ein Link nicht geöffnet werden kann.';
+
+  @override
+  String get changelog_v5_0_0_bullet_31 =>
+      'Bevor du dich registrierst oder mit Google fortfährst, zeigt die App das Mindestalter und einen Link zur Datenschutzerklärung, die du auch ohne Konto lesen kannst.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

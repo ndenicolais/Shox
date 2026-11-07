@@ -364,6 +364,7 @@
 
   "auth_or_continue_with": "Ou continuer avec",
   "auth_sign_in_with_google": "Se connecter avec Google",
+  "auth_privacy_notice": "En continuant, vous confirmez avoir au moins 14 ans et avoir lu la politique de confidentialité.",
   "common_retry": "Réessayer",
   "dashboard_screen_title": "Tableau de bord",
   "dashboard_preferences": "Préférences",
@@ -432,6 +433,7 @@
   "changelog_v5_0_0_bullet_28": "La suppression du compte demande désormais de se reconnecter avant d'effacer la moindre donnée, et l'app ne demande plus l'accès à tous les fichiers de l'appareil.",
   "changelog_v5_0_0_bullet_29": "Le message affiché lorsqu'une photo ne peut pas être enregistrée est désormais complet dans toutes les langues, et l'introduction ne se ferme plus de façon inattendue si le thème ou la langue change pendant qu'elle est ouverte.",
   "changelog_v5_0_0_bullet_30": "Vous pouvez revoir l'introduction depuis Info, les liens externes sont signalés par une flèche et un message vous avertit lorsqu'un lien ne peut pas être ouvert.",
+  "changelog_v5_0_0_bullet_31": "Avant de vous inscrire ou de continuer avec Google, l'application affiche l'âge minimum et un lien vers la politique de confidentialité, consultable sans compte.",
   "user_screen_total_shoes": "Total de chaussures",
   "user_screen_member_since": "Membre depuis",
   "user_screen_favorite_brand": "Marque pr\u00e9f\u00e9r\u00e9e",

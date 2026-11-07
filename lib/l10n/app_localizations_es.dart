@@ -1174,6 +1174,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get auth_sign_in_with_google => 'Iniciar sesión con Google';
 
   @override
+  String get auth_privacy_notice =>
+      'Al continuar, confirmas que tienes al menos 14 años y que has leído la política de privacidad.';
+
+  @override
   String get common_retry => 'Reintentar';
 
   @override
@@ -1406,6 +1410,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_30 =>
       'Puedes volver a ver la introducción desde Info, los enlaces externos se indican con una flecha y un mensaje te avisa cuando un enlace no se puede abrir.';
+
+  @override
+  String get changelog_v5_0_0_bullet_31 =>
+      'Antes de registrarte o continuar con Google, la app muestra la edad mínima y un enlace a la política de privacidad, que puedes leer sin cuenta.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';

@@ -364,6 +364,7 @@
 
   "auth_or_continue_with": "O continuar con",
   "auth_sign_in_with_google": "Iniciar sesión con Google",
+  "auth_privacy_notice": "Al continuar, confirmas que tienes al menos 14 años y que has leído la política de privacidad.",
   "common_retry": "Reintentar",
   "dashboard_screen_title": "Panel",
   "dashboard_preferences": "Preferencias",
@@ -432,6 +433,7 @@
   "changelog_v5_0_0_bullet_28": "Eliminar la cuenta ahora pide volver a iniciar sesión antes de borrar ningún dato, y la app ya no solicita acceso a todos los archivos del dispositivo.",
   "changelog_v5_0_0_bullet_29": "El mensaje que aparece cuando una foto no se puede guardar ahora está completo en todos los idiomas, y la introducción ya no se cierra de repente si el tema o el idioma cambian mientras está abierta.",
   "changelog_v5_0_0_bullet_30": "Puedes volver a ver la introducción desde Info, los enlaces externos se indican con una flecha y un mensaje te avisa cuando un enlace no se puede abrir.",
+  "changelog_v5_0_0_bullet_31": "Antes de registrarte o continuar con Google, la app muestra la edad mínima y un enlace a la política de privacidad, que puedes leer sin cuenta.",
   "user_screen_total_shoes": "Total de zapatos",
   "user_screen_member_since": "Miembro desde",  "user_screen_favorite_brand": "Marca favorita",
   "user_screen_most_used_category": "Más usado",

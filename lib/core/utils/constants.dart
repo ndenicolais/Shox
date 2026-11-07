@@ -16,8 +16,11 @@ class AppConstants {
       Uri.parse('https://github.com/ndenicolais/Shox/');
   static final Uri uriGithubDocumentation =
       Uri.parse('https://github.com/ndenicolais/Shox/blob/master/README.md');
+
+  /// Public copy of PRIVACY.md on the portfolio (also the OAuth consent
+  /// screen URL): update it whenever PRIVACY.md changes.
   static final Uri uriPrivacyPolicy =
-      Uri.parse('https://github.com/ndenicolais/Shox/blob/master/PRIVACY.md');
+      Uri.parse('https://ndenicolais.github.io/shox/privacy/');
 
   // SharedPreferences keys
   static const String prefsRememberMe = 'remember_me';

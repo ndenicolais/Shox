@@ -2102,6 +2102,12 @@ abstract class AppLocalizations {
   /// **'Sign in with Google'**
   String get auth_sign_in_with_google;
 
+  /// No description provided for @auth_privacy_notice.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you confirm that you are at least 14 years old and have read the privacy policy.'**
+  String get auth_privacy_notice;
+
   /// No description provided for @common_retry.
   ///
   /// In en, this message translates to:
@@ -2509,6 +2515,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can watch the introduction again from Info, external links are marked with an arrow, and a message tells you when a link cannot be opened.'**
   String get changelog_v5_0_0_bullet_30;
+
+  /// No description provided for @changelog_v5_0_0_bullet_31.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you sign up or continue with Google, the app shows the minimum age and a link to the privacy policy, which you can read without an account.'**
+  String get changelog_v5_0_0_bullet_31;
 
   /// No description provided for @user_screen_total_shoes.
   ///
