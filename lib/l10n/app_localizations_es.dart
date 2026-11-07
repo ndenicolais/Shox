@@ -1124,7 +1124,8 @@ class AppLocalizationsEs extends AppLocalizations {
       '¡Imagen guardada con éxito!';
 
   @override
-  String get full_screen_image_save_error_toast => 'Error';
+  String get full_screen_image_save_error_toast =>
+      'No se pudo guardar la imagen.';
 
   @override
   String get full_screen_image_download_error_toast =>
@@ -1391,6 +1392,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_28 =>
       'Eliminar la cuenta ahora pide volver a iniciar sesión antes de borrar ningún dato, y la app ya no solicita acceso a todos los archivos del dispositivo.';
+
+  @override
+  String get changelog_v5_0_0_bullet_29 =>
+      'El mensaje que aparece cuando una foto no se puede guardar ahora está completo en todos los idiomas, y la introducción ya no se cierra de repente si el tema o el idioma cambian mientras está abierta.';
 
   @override
   String get user_screen_total_shoes => 'Total de zapatos';

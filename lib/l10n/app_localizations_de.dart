@@ -1124,7 +1124,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'Bild erfolgreich gespeichert!';
 
   @override
-  String get full_screen_image_save_error_toast => 'Fehler';
+  String get full_screen_image_save_error_toast =>
+      'Bild konnte nicht gespeichert werden.';
 
   @override
   String get full_screen_image_download_error_toast =>
@@ -1391,6 +1392,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_28 =>
       'Vor dem Löschen des Kontos musst du dich jetzt erneut anmelden, bevor Daten entfernt werden, und die App fordert keinen Zugriff mehr auf alle Dateien des Geräts an.';
+
+  @override
+  String get changelog_v5_0_0_bullet_29 =>
+      'Die Meldung, wenn ein Foto nicht gespeichert werden kann, ist jetzt in jeder Sprache vollständig, und die Einführung schließt sich nicht mehr unerwartet, wenn sich Design oder Sprache ändern, während sie geöffnet ist.';
 
   @override
   String get user_screen_total_shoes => 'Schuhe gesamt';

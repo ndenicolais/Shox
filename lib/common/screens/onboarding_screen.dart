@@ -18,12 +18,9 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
-  late final List<OnboardingInfo> _pages;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  // Rebuilt in didChangeDependencies, which runs again on theme or locale
+  // changes: a `late final` field would throw on the second assignment.
+  List<OnboardingInfo> _pages = const [];
 
   @override
   void dispose() {

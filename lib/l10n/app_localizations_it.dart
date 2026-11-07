@@ -1127,7 +1127,8 @@ class AppLocalizationsIt extends AppLocalizations {
       'Immagine salvata con successo!';
 
   @override
-  String get full_screen_image_save_error_toast => 'Errore';
+  String get full_screen_image_save_error_toast =>
+      'Salvataggio dell\'immagine non riuscito.';
 
   @override
   String get full_screen_image_download_error_toast =>
@@ -1394,6 +1395,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_28 =>
       'L\'eliminazione dell\'account ora chiede di accedere di nuovo prima di cancellare qualsiasi dato, e l\'app non chiede più l\'accesso a tutti i file del dispositivo.';
+
+  @override
+  String get changelog_v5_0_0_bullet_29 =>
+      'Il messaggio mostrato quando una foto non può essere salvata ora è completo in ogni lingua, e l\'introduzione non si chiude più all\'improvviso se il tema o la lingua cambiano mentre è aperta.';
 
   @override
   String get user_screen_total_shoes => 'Scarpe totali';

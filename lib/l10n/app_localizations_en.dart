@@ -1380,6 +1380,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Deleting your account now asks you to sign in again before any data is removed, and the app no longer asks for access to all the files on your device.';
 
   @override
+  String get changelog_v5_0_0_bullet_29 =>
+      'The message shown when a photo cannot be saved is now complete in every language, and the introduction no longer closes unexpectedly if the theme or language changes while it is open.';
+
+  @override
   String get user_screen_total_shoes => 'Total Shoes';
 
   @override

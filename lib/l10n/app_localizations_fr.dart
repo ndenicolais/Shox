@@ -1136,7 +1136,8 @@ class AppLocalizationsFr extends AppLocalizations {
       'Image enregistrée avec succès!';
 
   @override
-  String get full_screen_image_save_error_toast => 'Erreur';
+  String get full_screen_image_save_error_toast =>
+      'Échec de l\'enregistrement de l\'image.';
 
   @override
   String get full_screen_image_download_error_toast =>
@@ -1404,6 +1405,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changelog_v5_0_0_bullet_28 =>
       'La suppression du compte demande désormais de se reconnecter avant d\'effacer la moindre donnée, et l\'app ne demande plus l\'accès à tous les fichiers de l\'appareil.';
+
+  @override
+  String get changelog_v5_0_0_bullet_29 =>
+      'Le message affiché lorsqu\'une photo ne peut pas être enregistrée est désormais complet dans toutes les langues, et l\'introduction ne se ferme plus de façon inattendue si le thème ou la langue change pendant qu\'elle est ouverte.';
 
   @override
   String get user_screen_total_shoes => 'Total de chaussures';
